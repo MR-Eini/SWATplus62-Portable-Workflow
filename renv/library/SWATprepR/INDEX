@@ -4,6 +4,9 @@ add_weather             Update SWAT+ SQLite database with weather data
 clean_outliers          Clean outliers outside specified standard
                         deviations
 clean_wq                Clean water quality data from common issues
+emep_2025_netcdf_source
+                        Resolve files in the official EMEP 2025
+                        Reporting dataset
 extract_rotation        Extract rotation information from raster file
 find_dif                Find Differences Between Files in Two Setups
 get_atmo_dep            Extract EMEP atmospheric deposition data for a

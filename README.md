@@ -42,7 +42,7 @@ Run `install_or_repair_packages.bat` if the package verification fails. It reins
 | SWATtunR | 0.3.15 |
 | SWATdoctR | 0.1.29 |
 | SWATfarmR | 4.0.5 |
-| SWATprepR | 1.0.15 |
+| SWATprepR | 1.0.16 |
 | SWATmeasR | 0.9.4 |
 
 `config/package-manifest.csv` records each source repository, commit, archive, and SHA-256 checksum. `config/library-manifest.csv` records every installed dependency in the private library. `config/binary-manifest.csv` records the executable sizes and checksums.
@@ -55,7 +55,7 @@ R-Portable\bin\x64\Rscript.exe --vanilla _tools\test_swat_run.R C:\path\to\swatp
 
 ## Atmospheric deposition input
 
-No catchment-specific `atmo_dep.csv` is embedded. Atmospheric deposition is disabled by default. To use it, choose the workflow's `file` mode and provide `SWAT_ATMO_DEP_FILE`, or choose `emep` mode and provide `SWAT_ATMO_DEP_NETCDF`. SWATprepR validates the supplied data before writing it into a setup.
+No catchment-specific `atmo_dep.csv` is embedded. Atmospheric deposition is disabled by default. To use a CSV, choose `file` mode and provide `SWAT_ATMO_DEP_FILE`. To download catchment-specific data, change the mode to `emep`; the bundle uses the verified official EMEP 2025 Reporting source for 1990-2024. `SWAT_ATMO_DEP_NETCDF` can override that source for another reporting cycle.
 
 The setup routes all three modes through `configure_atmo_dep()`. The function returns immediately for `none`; for `file` and `emep`, it obtains catchment data and calls `add_atmo_dep()` exactly once. `verify_bundle.bat` tests this control flow without downloading external data.
 

@@ -59,7 +59,8 @@ configure_atmo_dep <- function(mode, project_path, basin_path,
                                model_timestep = "annual",
                                read_csv_fn = readr::read_csv,
                                get_atmo_dep_fn = SWATprepR::get_atmo_dep,
-                               add_atmo_dep_fn = SWATprepR::add_atmo_dep) {
+                               add_atmo_dep_fn = SWATprepR::add_atmo_dep,
+                               default_emep_source_fn = SWATprepR::emep_2025_netcdf_source) {
   if (!is.character(mode) || length(mode) != 1L || is.na(mode)) {
     stop("atmo_dep_mode must be one of 'none', 'file', or 'emep'.")
   }
@@ -82,8 +83,8 @@ configure_atmo_dep <- function(mode, project_path, basin_path,
        (length(netcdf_source) == 0L || anyNA(netcdf_source) ||
         any(!nzchar(netcdf_source))))
     if (source_missing) {
-      stop("Set atmo_dep_netcdf_source or SWAT_ATMO_DEP_NETCDF to a current ",
-           "EMEP NetCDF template or source list.")
+      netcdf_source <- default_emep_source_fn
+      message("Using the official EMEP 2025 Reporting dataset (1990-2024).")
     }
     atmo_data <- get_atmo_dep_fn(
       basin_path,

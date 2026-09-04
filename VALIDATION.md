@@ -1,7 +1,7 @@
 # Validation record
 
 Validation date: 2026-09-04  
-Bundle version: 1.0.1-swat62
+Bundle version: 1.0.2-swat62
 Platform: Windows 64-bit
 
 ## Environment verification
@@ -36,6 +36,12 @@ CSV as a temporary external fixture. The workflow called the real SWATprepR
 `add_atmo_dep()` function, wrote `atmodep.cli` in a copied model, and the pinned
 Intel revision 62 executable completed that model successfully. The temporary
 fixture is not included in this reusable repository.
+
+An online EMEP integration check opened all 20 official 2025 Reporting OPeNDAP
+files for 2004-2023 and extracted finite catchment values. The workflow wrote
+`atmodep.cli`, and the Intel revision 62 executable completed the resulting
+model. This verifies both current filename forms (`_rep2025.nc` through 2022
+and the unsuffixed 2023 file).
 
 ## SWAT+ executable run
 

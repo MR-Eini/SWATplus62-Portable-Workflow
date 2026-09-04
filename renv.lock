@@ -854,11 +854,11 @@
     },
     "SWATprepR": {
       "Package": "SWATprepR",
-      "Version": "1.0.15",
+      "Version": "1.0.16",
       "Source": "unknown",
       "Type": "Package",
       "Title": "SWAT+ input data preparation tool",
-      "Date": "2025-11-13",
+      "Date": "2026-09-04",
       "Author": "c(person(\"Svajunas\", \"Plunge\", email = \"svajunas.plunge@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = '0000-0001-8897-3349')))",
       "Maintainer": "Svajunas Plunge <svajunas.plunge@gmail.com>",
       "Description": "Tool to help with SWAT+ model users with input data preparation.",

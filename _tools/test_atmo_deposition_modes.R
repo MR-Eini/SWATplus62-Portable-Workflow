@@ -70,12 +70,26 @@ expect_error(
                      add_atmo_dep_fn = fail_if_called),
   "catchment-specific CSV"
 )
-expect_error(
-  configure_atmo_dep("emep", "project", "basin", 2000, 2001,
-                     netcdf_source = "", read_csv_fn = fail_if_called,
-                     get_atmo_dep_fn = fail_if_called,
-                     add_atmo_dep_fn = fail_if_called),
-  "current EMEP NetCDF"
+default_source <- function(year, timestep) paste(timestep, year, sep = "-")
+configure_atmo_dep(
+  "emep", "project", "basin", 2000, 2001,
+  netcdf_source = "", read_csv_fn = fail_if_called,
+  get_atmo_dep_fn = mock_get, add_atmo_dep_fn = mock_add,
+  default_emep_source_fn = default_source
+)
+stopifnot(identical(calls$netcdf_source(2004, "year"), "year-2004"))
+
+stopifnot(
+  identical(
+    SWATprepR::emep_2025_netcdf_source(2004, "year"),
+    paste0("https://thredds.met.no/thredds/dodsC/data/EMEP/2025_Reporting/",
+           "EMEP01_rv5.6_year.2004met_2004emis_rep2025.nc")
+  ),
+  identical(
+    SWATprepR::emep_2025_netcdf_source(2023, "year"),
+    paste0("https://thredds.met.no/thredds/dodsC/data/EMEP/2025_Reporting/",
+           "EMEP01_rv5.6_year.2023met_2023emis.nc")
+  )
 )
 expect_error(
   configure_atmo_dep("invalid", "project", "basin", 2000, 2001,

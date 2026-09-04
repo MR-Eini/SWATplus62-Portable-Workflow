@@ -39,7 +39,9 @@ pnt_path <- paste0(data_path, '/for_prepr/pnt_data.xlsx')
 ##   "none" - do not add atmospheric deposition;
 ##   "file" - read a catchment-specific CSV from atmo_dep_file;
 ##   "emep" - extract the catchment from one NetCDF source per year.
-## A NetCDF template must contain {year} and may contain {timestep}.
+## With "emep", the tested official 2025 Reporting source is used by default.
+## SWAT_ATMO_DEP_NETCDF may override it with a template containing {year} and
+## optionally {timestep}.
 atmo_dep_mode <- Sys.getenv('SWAT_ATMO_DEP_MODE', unset = 'none')
 atmo_dep_file <- Sys.getenv('SWAT_ATMO_DEP_FILE', unset = '')
 atmo_dep_netcdf_source <- Sys.getenv('SWAT_ATMO_DEP_NETCDF', unset = '')
