@@ -1,0 +1,25 @@
+elements_to_vector      Convert the elements columns in SWAT input
+                        format into vectors of individual integer
+                        values
+pivot_con_long          Turn a .con input table into a long format
+                        table
+pivot_con_wide          Turn a .con input table in its long format back
+                        to its initial wide format.
+read_linewise           Read the n column of a tabular SWAT+ input file
+                        which are defined by the column positions
+                        'id_col_sel'. This is useful if e.g. last
+                        columns with description cause issues with
+                        reading due to blanks in the description text.
+read_swat               Read SWAT+ input and output files.
+read_swat_mgt           Read SWAT+ management output using its header
+read_swat_output        Read a standard SWAT+ text output without
+                        discarding records
+swat_cio_set            Update entries in a named file.cio section
+swat_control_get        Read or update named SWAT+ control fields
+swat_print_objects      Configure SWAT+ object output by name
+swat_print_options      Configure SWAT+ text output flags across legacy
+                        and revision 62 headers
+vector_to_elements      Convert the elements list column into the
+                        columns elem_tot and elements_* which are the
+                        default SWAT+ format. integer values
+write_swat              Write SWAT+ input files.

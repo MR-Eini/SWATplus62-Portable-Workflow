@@ -1,0 +1,109 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { stringify } from "./stringify.ts";
+
+/** Options for {@linkcode CsvStringifyStream}. */
+export interface CsvStringifyStreamOptions {
+  /**
+   * Delimiter used to separate values.
+   *
+   * @default {","}
+   */
+  readonly separator?: string;
+
+  /**
+   * A list of columns to be included in the output.
+   *
+   * If you want to stream objects, this option is required.
+   */
+  readonly columns?: Array<string>;
+}
+
+/**
+ * Convert each chunk to a CSV record.
+ *
+ * @example Usage
+ * ```ts no-assert
+ * import { CsvStringifyStream } from "@std/csv/csv-stringify-stream";
+ *
+ * const path = await Deno.makeTempFile();
+ *
+ * const file = await Deno.open(path, { create: true, write: true });
+ * const readable = ReadableStream.from([
+ *   { id: 1, name: "one" },
+ *   { id: 2, name: "two" },
+ *   { id: 3, name: "three" },
+ * ]);
+ *
+ * await readable
+ *   .pipeThrough(new CsvStringifyStream({ columns: ["id", "name"] }))
+ *   .pipeThrough(new TextEncoderStream())
+ *   .pipeTo(file.writable);
+ * ```
+ *
+ * @typeParam TOptions The type of options for the stream.
+ */
+export class CsvStringifyStream<TOptions extends CsvStringifyStreamOptions>
+  extends TransformStream<
+    TOptions["columns"] extends Array<string> ? Record<string, unknown>
+      : Array<unknown>,
+    string
+  > {
+  /**
+   * Construct a new instance.
+   *
+   * @example Usage
+   * ```ts no-assert
+   * import { CsvStringifyStream } from "@std/csv/csv-stringify-stream";
+   *
+   * const path = await Deno.makeTempFile();
+   *
+   * const file = await Deno.open(path, { create: true, write: true });
+   * const readable = ReadableStream.from([
+   *   { id: 1, name: "one" },
+   *   { id: 2, name: "two" },
+   *   { id: 3, name: "three" },
+   * ]);
+   *
+   * await readable
+   *   .pipeThrough(new CsvStringifyStream({ columns: ["id", "name"] }))
+   *   .pipeThrough(new TextEncoderStream())
+   *   .pipeTo(file.writable);
+   * ```
+   *
+   * @param options Options for the stream.
+   */
+  constructor(options?: TOptions) {
+    const {
+      separator,
+      columns = [],
+    } = options ?? {};
+
+    super(
+      {
+        start(controller) {
+          if (columns && columns.length > 0) {
+            try {
+              controller.enqueue(
+                stringify([columns], { separator, headers: false }),
+              );
+            } catch (error) {
+              controller.error(error);
+            }
+          }
+        },
+        transform(chunk, controller) {
+          try {
+            controller.enqueue(
+              stringify([chunk], { separator, headers: false, columns }),
+            );
+          } catch (error) {
+            controller.error(error);
+          }
+        },
+      },
+    );
+  }
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","vary":"Origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=86400","cf-ray":"9e98a5d10f063992-IAD","content-length":"2799","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=z420osLJo2KC7L6pwy4HhCYRPD%2F%2BTvPIv6EH%2BwS%2Bga9sg7gE51cnLhZ0ECOCPaWRjlUXFtf%2B65UlkbQKhKDON3KRp3U2AVwVWolYmydd7P6PO01KflYhGOs%3D\"}]}","content-type":"text/typescript","x-content-type-options":"nosniff","server":"cloudflare","access-control-allow-origin":"*","etag":"\"ca8500e5f9c9db7d40efd3fc498b1cb8\"","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:27 GMT"},"url":"https://jsr.io/@std/csv/0.224.3/csv_stringify_stream.ts","time":1775728648}

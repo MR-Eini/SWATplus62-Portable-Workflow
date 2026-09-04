@@ -1,0 +1,18 @@
+Postgres                Postgres driver
+RPostgres-package       RPostgres: C++ Interface to PostgreSQL
+Redshift                Redshift driver/connection
+postgres-query          Execute a SQL statement on a database
+                        connection
+postgres-tables         Convenience functions for reading/writing DBMS
+                        tables
+postgres-transactions   Transaction management.
+postgresExportLargeObject
+                        Exports a large object to file
+postgresHasDefault      Check if default database is available.
+postgresImportLargeObject
+                        Imports a large object from file
+postgresIsTransacting   Return whether a transaction is ongoing
+postgresWaitForNotify   Wait for and return any notifications that
+                        return within timeout
+quote                   Quote postgres strings, identifiers, and
+                        literals

@@ -1,0 +1,41 @@
+Package: cols4all
+License: GPL-3
+Title: Colors for all
+Type: Package
+LazyLoad: yes
+Authors@R: c(
+	person("Martijn", "Tennekes", email = "mtennekes@gmail.com", role = c("aut", "cre")),
+	person("Marco", "Puts", email = "mputs@acm.org", role = "ctb"),
+	person("Achim", "Zeileis", email = "Achim.Zeileis@R-project.org", role = "ctb"),
+	person("Jakub", "Nowosad", email = "nowosad.jakub@gmail.com", role = "ctb"),
+	person("Robin", "Lovelace", email = "rob00x@gmail.com", role = "ctb"),
+	person("Helgasoft", email = "contact@helgasoft.com", role = "ctb"),
+	person("Matthew", "Petroff", email = "matthew@mpetroff.net", role = "ctb"),
+    person("Olivier", "Roy", role = "ctb")
+	)
+Description: Color palettes for all people, including those with color vision deficiency. Popular color palette series have been organized by type and have been scored on several properties such as color-blind-friendliness and fairness (i.e. do colors stand out equally?). Own palettes can also be loaded and analysed. Besides the common palette types (categorical, sequential, and diverging) it also includes cyclic and bivariate color palettes. Furthermore, a color for missing values is assigned to each palette.
+Version: 0.10
+Encoding: UTF-8
+Depends: R (>= 4.1.0),
+Imports: methods, grDevices, stats, abind, png, stringdist, colorspace
+        (>= 2.1), spacesXYZ
+Suggests: colorblindcheck, kableExtra, knitr, shiny, shinyjs, ggplot2,
+        scales, rmarkdown, bookdown, bibtex, plotly
+URL: https://cols4all.github.io/cols4all-R/,
+        https://github.com/cols4all/cols4all-R
+BugReports: https://github.com/cols4all/cols4all-R/issues
+RoxygenNote: 7.3.3
+NeedsCompilation: no
+Packaged: 2025-10-26 20:42:24 UTC; mtes
+Author: Martijn Tennekes [aut, cre],
+  Marco Puts [ctb],
+  Achim Zeileis [ctb],
+  Jakub Nowosad [ctb],
+  Robin Lovelace [ctb],
+  Helgasoft [ctb],
+  Matthew Petroff [ctb],
+  Olivier Roy [ctb]
+Maintainer: Martijn Tennekes <mtennekes@gmail.com>
+Repository: CRAN
+Date/Publication: 2025-10-27 06:10:57 UTC
+Built: R 4.5.3; ; 2026-05-23 17:11:10 UTC; windows

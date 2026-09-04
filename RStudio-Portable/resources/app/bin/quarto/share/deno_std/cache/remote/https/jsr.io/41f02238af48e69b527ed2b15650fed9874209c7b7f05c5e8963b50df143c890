@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Converts a {@linkcode ReadableStream} of {@linkcode Uint8Array}s to a
+ * {@linkcode Blob}. Works the same as {@linkcode Response.blob}.
+ *
+ * @param stream A `ReadableStream` of `Uint8Array`s to convert into a `Blob`.
+ * @returns A `Promise` that resolves to the `Blob`.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { toBlob } from "@std/streams/to-blob";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream = ReadableStream.from([
+ *   new Uint8Array([1, 2]),
+ *   new Uint8Array([3, 4, 5]),
+ * ]);
+ * const blob = await toBlob(stream);
+ * assertEquals(blob.size, 5);
+ * ```
+ */
+export async function toBlob(
+  stream: ReadableStream<Uint8Array>,
+): Promise<Blob> {
+  return await new Response(stream).blob();
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","cf-ray":"9e98a5d2c91d3992-IAD","content-length":"863","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","access-control-allow-origin":"*","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","server":"cloudflare","etag":"\"046fa53419dac4323b6227787dd22833\"","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=amZIP%2FKadZpch34doRHiJtkjVey5F7BAnDfYrBu7slDChcmpnPUuZXsQ8Xuc%2FrefhZlpXVXHLN9cUIH8bpI1Rjvm01Mlvk3cs1xa0NjrxaJCgMhE40cED%2F4%3D\"}]}","cross-origin-resource-policy":"cross-origin","vary":"Origin"},"url":"https://jsr.io/@std/streams/0.224.5/to_blob.ts","time":1775728648}

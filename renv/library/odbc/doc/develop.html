@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Developing odbc</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Developing odbc</h1>
+
+
+
+<p>This vignette is intended to help developers of the R package install
+needed dependencies.</p>
+<p>While the odbc package contains some documentation on how to install
+and configure database drivers in <code>vignette(&quot;setup&quot;)</code>, the
+documentation assumes that users are connecting to databases that have
+already been set up. In order to test package functionality, though,
+odbc sets up small example database deployments.</p>
+<p>For the most part, this vignette assumes a MacOS system with aarch64
+(e.g. M1 or M2) architecture. For Linux example code, see <a href="https://github.com/r-dbi/odbc/blob/main/.github/workflows/db.yaml"><code>.github/workflows/db.yaml</code></a>,
+and for Windows, see <a href="https://github.com/r-dbi/odbc/blob/main/.github/workflows/db-windows.yml"><code>.github/workflows/db-windows.yml</code></a>.</p>
+<div id="posit-professional-drivers" class="section level2">
+<h2>Posit Professional Drivers</h2>
+<p>Posit employees have access to the <a href="https://docs.posit.co/pro-drivers/">Posit Professional drivers</a>
+and the infrastructure used to build and test them in the
+rstudio/pro-drivers GitHub repository. The Posit Professional drivers
+are a set of drivers vendored from Magnitude Simba that support many of
+the most popular DBMS, including SQL Server, Oracle, Redshift,
+Databricks, Snowflake, etc. The repository they’re developed in contains
+tooling to spin up a number of databases in docker containers to test
+against.</p>
+<p>Note that Athena, Hive, Impala, MongoDB, and Oracle drivers are <a href="https://github.com/oracle/python-cx_Oracle/issues/617">not
+available for macOS aarch64</a> (M1, M2, etc) at the time of
+writing.</p>
+<div id="drivers" class="section level3">
+<h3>Drivers</h3>
+<p>The only documented installation method for these drivers on MacOS is
+via RStudio Desktop Pro. The Posit confluence page titled “<span class="math display">\[INTERNAL\]</span> Posit License Files for
+Employee Use” contains instructions for installing RStudio Desktop Pro.
+Once RStudio Pro is installed, install individual drivers as documented
+<a href="https://docs.posit.co/ide/desktop-pro/database_drivers/install_database_drivers.html">here</a>.</p>
+</div>
+<div id="databases" class="section level3">
+<h3>Databases</h3>
+<p>Among other things, the rstudio/pro-drivers GitHub repository defines
+a <code>MAKE</code> tool for setting up and tearing down databases in
+docker containers. Ensure that you have a docker daemon running
+(i.e. Docker Desktop open) and, if you’re on macOS aarch64, have
+<code>Settings &gt; Use Rosetta for x86_64/amd64 emulation on Apple Silicon</code>
+enabled. To start a container for a given <code>dbms</code>, run
+<code>MAKE dist=none DB=dbms up</code>, and <strong>tear it
+down</strong> with <code>MAKE dist=none DB=db down</code>. To see
+available <code>dbms</code> options, see the names of <code>.yml</code>
+files in the <code>docker-compose</code> directory. Find connection
+details for each database in <code>docker/shared/odbc.ini</code>.</p>
+<p>DBMS-specific notes:</p>
+<ul>
+<li><code>sqlserver</code>: Be sure to pass <code>uid</code> and
+<code>pwd</code> as arguments to <code>dbConnect()</code> explicitly,
+even though they’re in the <code>odbc.ini</code> as well.</li>
+</ul>
+<p>On macOS aarch64, you will see a
+<code>requested image&#39;s platform (linux/amd64) does not match the detected host platform (linux/arm64/v8)</code>
+warning when you start any of these containers. Feel free to ignore.
+:)</p>
+</div>
+</div>
+<div id="postgresql" class="section level2">
+<h2>PostgreSQL</h2>
+<p>On MacOS, install PostgreSQL with:</p>
+<pre class="shell"><code>brew install postgresql@14</code></pre>
+<p>You’ll also need to install and configure the PostgreSQL driver
+<code>psqlodbc</code>; see <code>vignette(&quot;setup&quot;)</code> to learn
+more.</p>
+<p>To launch a PostgreSQL server locally, run:</p>
+<pre><code>brew services start postgresql@14</code></pre>
+<p>Next, create a database called “test” (or by whatever name is in the
+entry <code>Database</code> in your <code>odbc.ini</code> file):</p>
+<pre class="shell"><code>createdb test</code></pre>
+<p>At this point, you should be able to connect to PostgreSQL through
+the R interface. Connect with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>postgres <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">odbc</span>(), <span class="st">&quot;PostgreSQL&quot;</span>)</span></code></pre></div>
+<p>where <code>&quot;PostgreSQL&quot;</code> is replaced with whatever DSN you’ve
+configured.</p>
+</div>
+<div id="mysql" class="section level2">
+<h2>MySQL</h2>
+<p>First, installing MySQL with Homebrew:</p>
+<pre class="shell"><code>brew install mysql@8.2</code></pre>
+<p>MariaDB drivers are compatible with MySQL and are more easily
+installed than MySQL drivers themselves in most cases. To install the
+MariaDB driver:</p>
+<pre class="shell"><code>brew install mariadb-connector-odbc</code></pre>
+<p>Then, link the MariaDB driver with your MySQL data source name. That
+is, with the driver name <code>[MariaDB]</code> configuring your MariaDB
+install in <code>odbcinst.ini</code>, the first lines of your
+<code>odbc.ini</code> entry should look something like:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">[MySQL]</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="dt">Driver </span><span class="ot">=</span><span class="st"> MariaDB</span></span></code></pre></div>
+<p>After running <code>brew services start mysql</code> if needed, and
+confirming that the database is running with
+<code>brew services info mysql</code>, you should be able to:</p>
+<pre><code>library(odbc)
+dbConnect(odbc(), &quot;MySQL&quot;)</code></pre>
+<p>The second argument <code>&quot;MySQL&quot;</code> refers to the data source
+name configured above.</p>
+</div>
+<div id="sql-server-test-setup" class="section level2">
+<h2>SQL Server test setup</h2>
+<p>To run Microsoft SQL Server on <strong>aarch64 (e.g. M1 or M2)
+MacOS</strong>, you will need:</p>
+<ul>
+<li>Docker 4.16 or higher</li>
+<li>MacOS 13 Ventura (or higher)</li>
+</ul>
+<p>If needed, install Docker with:</p>
+<pre class="shell"><code>brew install --cask docker</code></pre>
+<p>The Docker Desktop app provides a GUI to monitor deployed Docker
+containers and lives in
+<code>Docker.app &gt; Show Package Contents &gt; Contents &gt; MacOS &gt; Docker Desktop.app</code>.</p>
+<p>To <a href="https://learn.microsoft.com/en-us/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver15">install
+the SQL Server ODBC driver and (optional) command line tool</a>,
+use:</p>
+<pre class="shell"><code>brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
+brew install microsoft/mssql-release/msodbcsql18 microsoft/mssql-release/mssql-tools18</code></pre>
+<p>The <code>odbc.ini</code> entry should look something like:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">[MicrosoftSQLServer]</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="dt">driver </span><span class="ot">=</span><span class="st"> ODBC Driver 18 for SQL Server</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="dt">Server </span><span class="ot">=</span><span class="st"> 127.0.0.1</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="dt">port </span><span class="ot">=</span><span class="st"> </span><span class="dv">1433</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="dt">Encrypt </span><span class="ot">=</span><span class="st"> </span><span class="kw">no</span></span></code></pre></div>
+<p>With the driver name in <code>odbcinst.ini</code> being
+<code>[ODBC Driver 18 for SQL Server]</code>.</p>
+<p>With docker and the needed driver installed, deploy the container
+with:</p>
+<pre class="shell"><code>sudo docker run \
+  --platform linux/amd64 \
+  -e &quot;ACCEPT_EULA=Y&quot; \
+  -e &#39;MSSQL_SA_PASSWORD=BoopBop123!&#39; \
+  -p 1433:1433 \
+   --name sql1 \
+   --hostname sql1 \
+   -d mcr.microsoft.com/mssql/server:2022-latest</code></pre>
+<p>The <code>--platform</code> tag is correct for M1; if you see
+<code>Status: Exited (1)</code> in Docker Desktop or a warning about
+incompatible architectures, navigate to
+<code>Settings &gt; General</code> and ensure that
+<code>Use Rosetta for x86/amd64 emulation on Apple Silicon</code> is
+checked.</p>
+<p>To connect via odbc, we need to pass the UID and PWD via the
+connection string; configuring those arguments via <code>odbc.ini</code>
+is <a href="https://stackoverflow.com/questions/42387084/sql-server-odbc-driver-linux-username">not
+permitted</a>. With the container deployed as above, the connection
+arguments would be:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  odbc<span class="sc">::</span><span class="fu">odbc</span>(), </span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">dsn =</span> <span class="st">&quot;MicrosoftSQLServer&quot;</span>, </span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="at">uid =</span> <span class="st">&quot;SA&quot;</span>, </span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="at">pwd =</span> <span class="st">&quot;BoopBop123!&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>Then do some configuration of the server to add a testuser and create
+the test database</p>
+<p>To configure a server to add a testing user and create a test
+database:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Add a test user, but currently unused</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;USE test&quot;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;EXEC sp_configure &#39;contained database authentication&#39;, 1&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;RECONFIGURE&quot;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;alter database test set containment = partial&quot;</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;CREATE USER testuser with password = &#39;BoopBop123!&#39;&quot;</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;GRANT CONTROL TO testuser&quot;</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;DROP USER testuser&quot;</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co"># Create a test database</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">&quot;CREATE DATABASE test&quot;</span>)</span></code></pre></div>
+<p>On <strong>Linux</strong>, create a docker container with:</p>
+<pre class="shell"><code>docker run -v &quot;$(pwd)&quot;:&quot;/opt/$(basename $(pwd))&quot;:delegated --security-opt=seccomp:unconfined --link sql1 -it rstudio/r-base:3.6.1-bionic /bin/bash</code></pre>
+<p>Then run:</p>
+<pre class="shell"><code>curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+#Ubuntu 18.04
+curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list &gt; /etc/apt/sources.list.d/mssql-release.list
+
+apt-get update
+ACCEPT_EULA=Y apt-get install -y msodbcsql17
+apt-get install -y unixodbc-dev</code></pre>
+<p>The resulting <code>odbc.ini</code> file will look something
+like:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="kw">[MicrosoftSQLServer]</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="dt">driver </span><span class="ot">=</span><span class="st"> ODBC Driver 17 for SQL Server</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="dt">Server </span><span class="ot">=</span><span class="st"> sql1</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="dt">port </span><span class="ot">=</span><span class="st"> </span><span class="dv">1433</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="dt">Database </span><span class="ot">=</span><span class="st"> test</span></span></code></pre></div>
+</div>
+<div id="sqlite" class="section level2">
+<h2>SQLite</h2>
+<p>MacOS provides SQLite natively. With the SQLite odbc driver installed
+(see <code>vignette(&quot;setup&quot;)</code> if needed), run:</p>
+<pre><code>library(odbc)
+dbConnect(odbc(), &quot;SQLite&quot;)</code></pre>
+<p>The above example assumes the configured SQLite DSN is called
+<code>&quot;SQLite&quot;</code>.</p>
+</div>
+<div id="oracle" class="section level2">
+<h2>Oracle</h2>
+<p>A huge pain.</p>
+<div id="on-macos" class="section level3">
+<h3>On MacOS</h3>
+<p>Getting an Oracle database booted up in a Docker container on MacOS
+is a bit challenging. First, you’ll build the container image yourself
+from the official Oracle source using the instructions <a href="https://simonpcouch.com/blog/2024-03-14-oracle/">here</a>. Once
+you’ve finished building the image, run it with:</p>
+<pre class="shell"><code>docker run -d --name oracle -p 1521:1521 -e ORACLE_PWD=odbcTest321 oracle/database:19.3.0-ee</code></pre>
+<p>Note that the <code>run</code> command here is a bit different than
+the one in the linked blog post.</p>
+<p>Next, you’ll install the Basic, ODBC, and SQLPlus Instant Client
+libraries from the Oracle website
+(<code>https://www.oracle.com/database/technologies/instant-client/macos-arm64-downloads.html</code>)
+by doing the following:</p>
+<ul>
+<li>Download the Basic, ODBC, and SQLPlus <code>.dmg</code>s.</li>
+<li>Create a folder for the instant client to live in. I made mine at
+<code>/Users/simoncouch/instantclient_23_3</code>. (This folder will
+show up many times in the rest of these instructions–always substitute
+it with your own from here on out.)</li>
+<li>For each of the <code>dmg</code>s, open up the image and copy and
+paste its contents into the folder you made in the previous step.</li>
+<li>Symlink your <code>libodbcinst.2.dylib</code> (unixODBC library)
+into the folder. I used
+<code>ln -s /opt/homebrew/Cellar/unixodbc/2.3.12/lib/libodbcinst.2.dylib /Users/simoncouch/instantclient_23_3/libodbcinst.2.dylib</code>
+to do so for myself; use <code>odbc_config --lib-prefix</code> to help
+locate yours.</li>
+</ul>
+<p>Make a text file at
+<code>/Users/simoncouch/instantclient_23_3/network/admin/tnsnames.ora</code>.
+Open that file (maybe with
+<code>file.edit(&quot;/Users/simoncouch/instantclient_23_3/network/admin/tnsnames.ora&quot;)</code>)
+and add the following:</p>
+<pre class="ora"><code>db=
+   (DESCRIPTION=
+    (ADDRESS=(PROTOCOL=tcp)(HOST=0.0.0.0)(PORT=1521))
+    (CONNECT_DATA=(SERVICE_NAME=orclpdb1)))</code></pre>
+<p>Now, set some paths to help R and the Instant Client communicate. In
+<code>usethis::edit_r_profile()</code>, add:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PATH =</span> <span class="fu">paste0</span>(<span class="st">&quot;/Users/simoncouch/instantclient_23_3:&quot;</span>, <span class="fu">Sys.getenv</span>(<span class="st">&quot;PATH&quot;</span>)))</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">LD_LIBRARY_PATH =</span> <span class="st">&quot;/Users/simoncouch/instantclient_23_3&quot;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">ORACLE_HOME =</span> <span class="st">&quot;/Users/simoncouch/instantclient_23_3&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co"># this one is the default, but just to prevent gotchas:</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TNS_ADMIN =</span> <span class="st">&quot;/Users/simoncouch/instantclient_23_3/network/admin&quot;</span>)</span></code></pre></div>
+<p>(These are indeed all environmental variables that could be set in
+<code>.Renviron</code>. Be sure to substitute <code>&lt;$PATH&gt;</code>
+carefully if you choose to do so there.)</p>
+<p>Note that there’s a <a href="https://github.com/rstudio/rstudio/issues/9815">MacOS-specific
+bug</a> where RStudio overwrites <code>PATH</code> when set in
+Rprofile/Renviron before the 2024.04.0 “Chocolate Cosmos” release, so be
+sure to update your RStudio if needed.</p>
+<p>In the terminal, test your Instant Client installation and database
+connection with:</p>
+<pre class="shell"><code>sqlplus sys/odbcTest321@//localhost:1521/ORCLPDB1 as sysdba</code></pre>
+<p>If you’re able to connect, make a test user with:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="kw">CREATE</span> <span class="fu">USER</span> test <span class="kw">IDENTIFIED</span> <span class="kw">BY</span> odbc;</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">DBA</span> <span class="kw">TO</span> test;</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>exit;</span></code></pre></div>
+<p>Test connecting with that new user with:</p>
+<pre><code>sqlplus test/odbc@//localhost:1521/ORCLPDB1</code></pre>
+<p>If that succeeds, configure a DSN in your <code>odbc.ini</code> file
+with:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="kw">[Oracle]</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="dt">Driver </span><span class="ot">=</span><span class="st"> /Users/simoncouch/instantclient_23_3/libsqora.dylib.23.1</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="dt">Port </span><span class="ot">=</span><span class="st"> </span><span class="dv">1521</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="dt">Host </span><span class="ot">=</span><span class="st"> 0.0.0.0</span></span></code></pre></div>
+<p>Then, connect in R with:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">library</span>(odbc)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>  <span class="fu">odbc</span>(), </span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>  <span class="at">dsn =</span> <span class="st">&quot;Oracle&quot;</span>, </span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>  <span class="at">DBQ =</span> <span class="st">&quot;db&quot;</span>, </span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>  <span class="at">UID =</span> <span class="st">&quot;test&quot;</span>, </span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>  <span class="at">PWD =</span> <span class="st">&quot;odbc&quot;</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>)</span></code></pre></div>
+<p>Potential gotchas:</p>
+<ul>
+<li>Setting those DBQ, UID, and PWD parameters in my <code>.ini</code>
+file instead of the call to <code>dbConnect()</code> introduces errors
+for me.</li>
+<li>Note that, as of July 2024, there are no Posit Pro Drivers for
+Oracle on ARM Macs.</li>
+<li>If you see a “file not found” error for a driver that does exist,
+it’s because some dependency for the driver doesn’t exist; use
+<code>otool -L /yada/yada/drivername.dylib</code> to find the
+dependencies and then symlink them from elsewhere on your computer into
+where the driver looks for them.</li>
+</ul>
+</div>
+<div id="on-linux" class="section level3">
+<h3>On Linux</h3>
+<p>The process looks a bit different on Linux. These instructions are
+for a machine running Ubuntu 22.04.</p>
+<p>Two steps here–1) booting up an Oracle database in a docker container
+and 2) installing and configuring the Oracle Instant Client and driver
+to connect to that database.</p>
+<p>If you haven’t already, you’ll need to install Docker Desktop,
+unixODBC, and <code>libaio1</code>. You can get the last with:</p>
+<pre class="shell"><code>sudo apt-get install libaio1</code></pre>
+<p>First, to boot up an Oracle database in a Docker container, run:</p>
+<pre class="shell"><code>docker run -d \
+  --name oracle2 \
+  -p 1521:1521 \
+  -e ORACLE_RANDOM_PASSWORD=true \
+  -e ORACLE_DATABASE=test \
+  -e APP_USER=RodbcR \
+  -e APP_USER_PASSWORD=Password12 \
+  gvenzl/oracle-xe:21.3.0</code></pre>
+<p>Some documentation on this Docker image <a href="https://hub.docker.com/r/gvenzl/oracle-xe">here</a>.</p>
+<p>Now, as for installing and configuring the Oracle Instant Client and
+driver, the PRs <a href="https://github.com/r-dbi/odbc/commit/257f041a3aec8348000a89208da5ed0eb059fe81">implementing
+support for unit testing Oracle</a> and <a href="https://github.com/r-dbi/odbc/commit/4090f0a7916db7ab22e4088040aa2492751140dd">adding
+support for the Oracle Pro Driver</a> for odbc are a great guide here.
+The “Installation Instructions” at the bottom of Oracle’s Instant Client
+docs
+(<code>https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html</code>)
+are thorough–you shouldn’t need them here, but a good backup.</p>
+<p>I ultimately wasn’t able to make a connection with the driver that
+Oracle ships, but was able to do so with the Posit Pro Drivers.</p>
+<p>Run the lines in <code>.github/odbc/install-oracle-driver.sh</code>
+from the first linked PR, which installs both the Instant Client and
+Oracle’s driver.</p>
+<p>Add the following lines to your .Rprofile (with
+<code>usethis::edit_r_profile()</code>):</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">LD_LIBRARY_PATH =</span> <span class="fu">paste0</span>(<span class="st">&quot;/opt/oracle/instantclient_21_12:&quot;</span>, <span class="fu">Sys.getenv</span>(<span class="st">&quot;LD_LIBRARY_PATH&quot;</span>)))</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PATH =</span> <span class="fu">paste0</span>(<span class="st">&quot;/opt/oracle/instantclient_21_12:&quot;</span>, <span class="fu">Sys.getenv</span>(<span class="st">&quot;PATH&quot;</span>)))</span></code></pre></div>
+<p>Create a text file called
+<code>/opt/oracle/instant_client_21_12/tnsnames.ora</code> and paste the
+following inside of it:</p>
+<pre><code>TEST=
+   (DESCRIPTION=
+    (ADDRESS=(PROTOCOL=tcp)(HOST=0.0.0.0)(PORT=1521))
+    (CONNECT_DATA=(SERVICE_NAME=test)))</code></pre>
+<p>Install the RStudio Pro Oracle driver, either using the <a href="https://github.com/r-dbi/odbc/commit/4090f0a7916db7ab22e4088040aa2492751140dd#diff-bc1733bfd46bbe6f651eee14b11879e4b7e0428af876e0322768bdbf138ef238R84-R87">installation
+code from the linked PR</a> (see the repository secret for the driver
+URL or contact Simon Couch or Hadley Wickham if you don’t have access)
+or through RStudio Pro (if you have credentials, you can generate
+yourself a license key here:
+<code>https://connect.posit.it/support/license_management/</code>).</p>
+<p>Add the following lines to your <code>.Renviron</code> (with
+<code>usethis::edit_r_environ()</code>). Adjust the value for
+<code>ODBCSYSINI</code> to the directory prefixing <code>.ini</code>
+files in <code>odbcinst -j</code>.</p>
+<pre><code>TNS_ADMIN=/opt/oracle/instantclient_21_12
+ODBCSYSINI=/etc
+ORACLE_HOME=/opt/oracle</code></pre>
+<p>Symlink your Instant Client install into the Pro Driver install
+directory with
+<code>sudo ln -s /opt/oracle/instantclient_21_12/* /etc/pro_drivers/oracle/bin/lib/</code>.</p>
+<p>Add the following to your <code>odbc.ini</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="kw">[ProOracle]</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="dt">Driver </span><span class="ot">=</span><span class="st"> /etc/pro_drivers/oracle/bin/lib/liboracleodbc_sb64.so</span></span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="dt">Port </span><span class="ot">=</span><span class="st"> </span><span class="dv">1521</span></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="dt">Host </span><span class="ot">=</span><span class="st"> </span><span class="kw">localhost</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="dt">SVC </span><span class="ot">=</span><span class="st"> FREEPDB1</span></span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="dt">UID </span><span class="ot">=</span><span class="st"> RodbcR</span></span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a><span class="dt">PWD </span><span class="ot">=</span><span class="st"> Password12</span></span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="dt">DBQ </span><span class="ot">=</span><span class="st"> test</span></span></code></pre></div>
+<p>Now, putting the pieces together, connect to the Oracle Database
+docker container from R with:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">library</span>(odbc)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="fu">dbConnect</span>(<span class="fu">odbc</span>(), <span class="at">dsn =</span> <span class="st">&quot;ProOracle&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="snowflake" class="section level2">
+<h2>Snowflake</h2>
+<p>To obtain a Snowflake account:</p>
+<ul>
+<li>If you’re a Posit employee, reach out to James Blair.</li>
+<li>If you’re not affiliated with Posit, sign up for a <a href="https://signup.snowflake.com/">free trial</a>.</li>
+</ul>
+<p>Install drivers using the <a href="https://docs.snowflake.com/en/developer-guide/odbc/odbc">instructions
+on the Snowflake documentation</a>. For MacOS, feel free to ignore
+sections noting that iODBC is required.</p>
+<p>On MacOS and Linux:</p>
+<ul>
+<li>Locate your <code>simba.snowflake.ini</code> file, likely in
+<code>opt/snowflake/</code>. You will need <code>sudo</code> access to
+edit it.
+<ul>
+<li>Change <code>DriverManagerEncoding</code> to
+<code>UTF-16</code>.</li>
+<li>Change the uncommented <code>ODBCInstLib</code> entry to the <a href="https://community.snowflake.com/s/article/R-Studio-to-Snowflake-fails-with-error-Unable-to-locate-SQLGetPrivateProfileString-function">path
+of your unixODBC install</a>.</li>
+</ul></li>
+<li>In the Snowflake UI, navigate to Worksheets, make a new worksheet
+using the blue “+” button in the top right-hand corner, and run the line
+<code>SELECT SYSTEM$ALLOWLIST()</code>. In the output, copy the URL
+corresponding to <code>&quot;type&quot;:&quot;SNOWFLAKE_DEPLOYMENT&quot;</code>. This
+Deployment URL should look like a random string, an AWS region, and the
+snowflake API URL,
+e.g. <code>wmc39401.us-east-1.snowflakecomputing.com</code>.</li>
+</ul>
+<p>The <code>odbc.ini</code> file should look like:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="kw">[Snowflake]</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="dt">Driver      </span><span class="ot">=</span><span class="st"> Snowflake</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="dt">Description </span><span class="ot">=</span></span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a><span class="dt">uid         </span><span class="ot">=</span><span class="st"> &lt;uid&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="dt">server      </span><span class="ot">=</span><span class="st"> &lt;deployment-url&gt;</span></span></code></pre></div>
+<p>The above assumes <code>Driver = Snowflake</code> is configured in
+<code>odbcinst.ini</code>. Then, connect by supplying the password as an
+argument:</p>
+<pre><code>con &lt;- dbConnect(odbc(), dsn = &quot;Snowflake&quot;, pwd = Sys.getenv(&quot;snowflakePass&quot;))</code></pre>
+<p>In the above, the password has been set as
+<code>Sys.setenv(snowflakePass = &quot;actualPass&quot;)</code>.</p>
+</div>
+<div id="amazon-redshift" class="section level2">
+<h2>Amazon Redshift</h2>
+<p>If you’re a Posit employee, you should have access to the
+rstudio/warehouse GitHub repository. Follow the instructions there to
+get access to the internal Redshift cluster. Access to the cluster is
+only enabled through Posit’s internal Workbench instance, where the
+professional drivers will already be installed.</p>
+<p>Note that Redshift is based on a modified version of PostgreSQL.</p>
+</div>
+<div id="rodbc" class="section level2">
+<h2>RODBC</h2>
+<p>We need to install the RODBC package for benchmarking in the vignette
+<code>vignette(&quot;benchmarks&quot;)</code>. The CRAN version of RODBC uses
+iODBC, so to use unixODBC we need to recompile it from source,
+specifying the odbc manager explicitly:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RODBC&quot;</span>, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>, <span class="at">INSTALL_opts=</span><span class="st">&quot;--configure-args=&#39;--with-odbc-manager=odbc&#39;&quot;</span>)</span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

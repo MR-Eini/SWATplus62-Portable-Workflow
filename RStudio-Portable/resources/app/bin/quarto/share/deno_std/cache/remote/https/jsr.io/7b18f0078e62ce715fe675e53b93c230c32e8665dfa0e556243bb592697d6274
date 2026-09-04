@@ -1,0 +1,51 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { minOf } from "./min_of.ts";
+
+/**
+ * Builds N-tuples of elements from the given N arrays with matching indices,
+ * stopping when the smallest array's end is reached.
+ *
+ * @template T the type of the tuples produced by this function.
+ *
+ * @param arrays The arrays to zip.
+ *
+ * @returns A new array containing N-tuples of elements from the given arrays.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { zip } from "@std/collections/zip";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const numbers = [1, 2, 3, 4];
+ * const letters = ["a", "b", "c", "d"];
+ * const pairs = zip(numbers, letters);
+ *
+ * assertEquals(
+ *   pairs,
+ *   [
+ *     [1, "a"],
+ *     [2, "b"],
+ *     [3, "c"],
+ *     [4, "d"],
+ *   ],
+ * );
+ * ```
+ */
+export function zip<T extends unknown[]>(
+  ...arrays: { [K in keyof T]: ReadonlyArray<T[K]> }
+): T[] {
+  const minLength = minOf(arrays, (element) => element.length) ?? 0;
+
+  const result: T[] = new Array(minLength);
+
+  for (let i = 0; i < minLength; i += 1) {
+    const arr = arrays.map((it) => it[i]);
+    result[i] = arr as T;
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d02e693992-IAD","etag":"\"306fd3fe68f287307d5a6982f7dd85df\"","server":"cloudflare","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-length":"1225","cross-origin-resource-policy":"cross-origin","vary":"Origin","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:27 GMT","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TxSa9LZUt9OwpHDmbMiUahapQkuSx0dMiDtZhK2bWr0vb4uIMBZGJ50j1356P5vrxLT5kxe2wbvFJu5Kljj9bIPBxSPuXm2cO2xq%2BO9n0aOTdrhIunR20u0%3D\"}]}"},"url":"https://jsr.io/@std/collections/0.224.2/zip.ts","time":1775728647}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: C++ Interface to PostgreSQL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container">
+<h1> C++ Interface to PostgreSQL
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]">
+</h1>
+<hr>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]"></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]"></a>
+</div><h2>Documentation for package &lsquo;RPostgres&rsquo; version 1.4.10</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="RPostgres-package.html">RPostgres-package</a></td>
+<td>RPostgres: C++ Interface to PostgreSQL</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbAppendTable-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbAppendTable_PqConnection</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">dbBegin-method</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">dbBegin_PqConnection</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbBind-method</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbBind_PqResult</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbClearResult-method</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbClearResult_PqResult</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">dbCommit-method</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">dbCommit_PqConnection</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="Postgres.html">dbConnect-method</a></td>
+<td>Postgres driver</td></tr>
+<tr><td style="width: 25%;"><a href="Redshift.html">dbConnect-method</a></td>
+<td>Redshift driver/connection</td></tr>
+<tr><td style="width: 25%;"><a href="Postgres.html">dbConnect_PqDriver</a></td>
+<td>Postgres driver</td></tr>
+<tr><td style="width: 25%;"><a href="Redshift.html">dbConnect_RedshiftDriver</a></td>
+<td>Redshift driver/connection</td></tr>
+<tr><td style="width: 25%;"><a href="Postgres.html">dbDisconnect-method</a></td>
+<td>Postgres driver</td></tr>
+<tr><td style="width: 25%;"><a href="Postgres.html">dbDisconnect_PqConnection</a></td>
+<td>Postgres driver</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbExistsTable-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbExistsTable_PqConnection_character</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbExistsTable_PqConnection_Id</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbFetch-method</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbFetch_PqResult</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbHasCompleted-method</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbHasCompleted_PqResult</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListFields-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListFields_PqConnection_character</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListFields_PqConnection_Id</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListObjects-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListObjects_PqConnection_ANY</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListTables-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbListTables_PqConnection</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteIdentifier-method</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteIdentifier_PqConnection_character</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteIdentifier_PqConnection_Id</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteIdentifier_PqConnection_SQL</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteLiteral-method</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteLiteral_PqConnection</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteString-method</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteString_PqConnection_character</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbQuoteString_PqConnection_SQL</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbReadTable-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbReadTable_PqConnection_character</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbRemoveTable-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbRemoveTable_PqConnection_character</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">dbRollback-method</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">dbRollback_PqConnection</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbSendQuery-method</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">dbSendQuery_PqConnection</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbUnquoteIdentifier-method</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">dbUnquoteIdentifier_PqConnection_SQL</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbWriteTable-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">dbWriteTable_PqConnection_character_data.frame</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="Postgres.html">Postgres</a></td>
+<td>Postgres driver</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-query.html">postgres-query</a></td>
+<td>Execute a SQL statement on a database connection</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">postgres-tables</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-transactions.html">postgres-transactions</a></td>
+<td>Transaction management.</td></tr>
+<tr><td style="width: 25%;"><a href="postgresHasDefault.html">postgresDefault</a></td>
+<td>Check if default database is available.</td></tr>
+<tr><td style="width: 25%;"><a href="postgresExportLargeObject.html">postgresExportLargeObject</a></td>
+<td>Exports a large object to file</td></tr>
+<tr><td style="width: 25%;"><a href="postgresHasDefault.html">postgresHasDefault</a></td>
+<td>Check if default database is available.</td></tr>
+<tr><td style="width: 25%;"><a href="postgresImportLargeObject.html">postgresImportLargeObject</a></td>
+<td>Imports a large object from file</td></tr>
+<tr><td style="width: 25%;"><a href="postgresIsTransacting.html">postgresIsTransacting</a></td>
+<td>Return whether a transaction is ongoing</td></tr>
+<tr><td style="width: 25%;"><a href="postgresWaitForNotify.html">postgresWaitForNotify</a></td>
+<td>Wait for and return any notifications that return within timeout</td></tr>
+<tr><td style="width: 25%;"><a href="quote.html">quote</a></td>
+<td>Quote postgres strings, identifiers, and literals</td></tr>
+<tr><td style="width: 25%;"><a href="Redshift.html">Redshift</a></td>
+<td>Redshift driver/connection</td></tr>
+<tr><td style="width: 25%;"><a href="Redshift.html">RedshiftConnection-class</a></td>
+<td>Redshift driver/connection</td></tr>
+<tr><td style="width: 25%;"><a href="Redshift.html">RedshiftDriver-class</a></td>
+<td>Redshift driver/connection</td></tr>
+<tr><td style="width: 25%;"><a href="RPostgres-package.html">RPostgres</a></td>
+<td>RPostgres: C++ Interface to PostgreSQL</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">sqlData-method</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+<tr><td style="width: 25%;"><a href="postgres-tables.html">sqlData_PqConnection</a></td>
+<td>Convenience functions for reading/writing DBMS tables</td></tr>
+</table>
+</div></body></html>

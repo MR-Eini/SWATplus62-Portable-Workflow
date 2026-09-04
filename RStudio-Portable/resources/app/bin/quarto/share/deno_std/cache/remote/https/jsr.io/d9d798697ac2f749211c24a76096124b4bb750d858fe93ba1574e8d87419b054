@@ -1,0 +1,55 @@
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * {@linkcode parse} and {@linkcode stringify} for handling
+ * {@link https://yaml.org/ | YAML} encoded data.
+ *
+ * Ported from
+ * {@link https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da | js-yaml v3.13.1}.
+ *
+ * If your YAML contains multiple documents in it, you can use {@linkcode parseAll} for
+ * handling it.
+ *
+ * To handle `regexp`, and `undefined` types, use {@linkcode EXTENDED_SCHEMA}.
+ * You can also use custom types by extending schemas.
+ *
+ * ## :warning: Limitations
+ * - `binary` type is currently not stable.
+ *
+ * For further examples see https://github.com/nodeca/js-yaml/tree/master/examples.
+ * @example
+ * ```ts
+ * import {
+ *   parse,
+ *   stringify,
+ * } from "@std/yaml";
+ *
+ * const data = parse(`
+ * foo: bar
+ * baz:
+ *   - qux
+ *   - quux
+ * `);
+ * console.log(data);
+ * // => { foo: "bar", baz: [ "qux", "quux" ] }
+ *
+ * const yaml = stringify({ foo: "bar", baz: ["qux", "quux"] });
+ * console.log(yaml);
+ * // =>
+ * // foo: bar
+ * // baz:
+ * //   - qux
+ * //   - quux
+ * ```
+ *
+ * @module
+ */
+
+export * from "./parse.ts";
+export * from "./stringify.ts";
+export * from "./type.ts";
+export * from "./schema/mod.ts";
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"b6dd89c7acc49fd260f15de2050d27b7\"","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","content-length":"1370","x-content-type-options":"nosniff","server":"cloudflare","access-control-expose-headers":"*","vary":"Origin","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=tECAuK9f%2F0CuNiExUR2TKbzXuxiONqTyursvaiepZniQGzgy4Kw5%2Fbh4%2F8AMZmkAnu9gNEfU6UyiT49GTeigBIoWJFeOEdU9GfaQMHV8TISpyv70dfroWY8%3D\"}]}","x-jsr-backend":"modules","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d02deb3992-IAD"},"url":"https://jsr.io/@std/yaml/0.224.3/mod.ts","time":1775728648}

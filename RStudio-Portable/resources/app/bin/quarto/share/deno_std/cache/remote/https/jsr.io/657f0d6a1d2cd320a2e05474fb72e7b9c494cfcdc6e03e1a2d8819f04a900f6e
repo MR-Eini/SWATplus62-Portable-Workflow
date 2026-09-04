@@ -1,0 +1,32 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import type { Type } from "../_type.ts";
+import { isPlainObject } from "../_utils.ts";
+
+function resolveYamlOmap(data: Record<string, unknown>[]): boolean {
+  const objectKeys = new Set();
+  for (const object of data) {
+    if (!isPlainObject(object)) return false;
+    const keys = Object.keys(object);
+    if (keys.length !== 1) return false;
+    for (const key of keys) {
+      if (objectKeys.has(key)) return false;
+      objectKeys.add(key);
+    }
+  }
+  return true;
+}
+
+export const omap: Type<"sequence", Record<PropertyKey, unknown>[]> = {
+  tag: "tag:yaml.org,2002:omap",
+  kind: "sequence",
+  resolve: resolveYamlOmap,
+  construct(data) {
+    return data;
+  },
+};
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","cf-ray":"9e98a5d54c093992-IAD","vary":"Origin","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","content-length":"941","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6%2BAtuy12%2BLGVPyCwVKtz6V9zc9NpnJr3P4VoCQfiqBDIq7dQAlDybly%2FFvvCh8dzw6PXjSrm78LW3y%2FABBk1sFamgiPesIy07wnXK8W02a8pqF81zpXOkRs%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","etag":"\"039f0a52c507e68ac60f0bc2287ba782\"","alt-svc":"h3=\":443\"; ma=86400","access-control-allow-origin":"*"},"url":"https://jsr.io/@std/yaml/1.0.5/_type/omap.ts","time":1775728648}

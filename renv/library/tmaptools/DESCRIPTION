@@ -1,0 +1,23 @@
+Package: tmaptools
+Type: Package
+Title: Thematic Map Tools
+Version: 3.3
+Authors@R: person("Martijn", "Tennekes", email = "mtennekes@gmail.com", role = c("aut", "cre"))
+Description: Set of tools for reading and processing spatial data. The aim is to supply the workflow to create thematic maps. This package also facilitates 'tmap', the package for visualizing thematic maps.
+License: GPL-3
+Encoding: UTF-8
+Depends: R (>= 3.5), methods
+Imports: sf (>= 0.9.2), lwgeom (>= 0.1-4), stars (>= 0.4-1), units (>=
+        0.6-1), stats, XML
+Suggests: tmap, cols4all, rmapshaper, osmdata, OpenStreetMap, raster
+URL: https://github.com/r-tmap/tmaptools,
+        https://r-tmap.github.io/tmaptools/
+BugReports: https://github.com/r-tmap/tmaptools/issues
+RoxygenNote: 7.3.2
+NeedsCompilation: no
+Packaged: 2025-07-24 14:40:50 UTC; mtes
+Author: Martijn Tennekes [aut, cre]
+Maintainer: Martijn Tennekes <mtennekes@gmail.com>
+Repository: CRAN
+Date/Publication: 2025-07-24 16:10:02 UTC
+Built: R 4.5.3; ; 2026-05-23 19:02:47 UTC; windows

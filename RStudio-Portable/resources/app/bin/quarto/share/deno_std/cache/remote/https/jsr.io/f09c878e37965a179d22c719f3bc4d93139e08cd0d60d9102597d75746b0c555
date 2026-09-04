@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+/**
+ * Helpers for working with the filesystem.
+ *
+ * ```ts
+ * import { ensureFile, copy, ensureDir, move } from "@std/fs";
+ *
+ * await ensureFile("example.txt");
+ * await copy("example.txt", "example_copy.txt");
+ * await ensureDir("subdir");
+ * await move("example_copy.txt", "subdir/example_copy.txt");
+ * ```
+ *
+ * @module
+ */
+
+export * from "./empty_dir.ts";
+export * from "./ensure_dir.ts";
+export * from "./ensure_file.ts";
+export * from "./ensure_link.ts";
+export * from "./ensure_symlink.ts";
+export * from "./exists.ts";
+export * from "./expand_glob.ts";
+export * from "./move.ts";
+export * from "./copy.ts";
+export * from "./walk.ts";
+export * from "./eol.ts";
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","cross-origin-resource-policy":"cross-origin","access-control-expose-headers":"*","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TbrzaDw9bdaYaqVZVkzAgIluPL3LxwcBda8IBpADCR%2FShhNyLbBNEqwKzxrot6gEnNQhzsGJ4X%2BfAcWdPx%2BRqqZKG3QFTor0gd8S6kZy2SrPzSkPsBU9IYY%3D\"}]}","etag":"\"3179d5fb11a44e8a09fcf1eda201b2a9\"","access-control-allow-origin":"*","content-type":"text/typescript","x-robots-tag":"noindex","cf-ray":"9e98a5d02df03992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"747","x-jsr-backend":"modules","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/fs/0.224.0/mod.ts","time":1775728648}

@@ -1,0 +1,7 @@
+addGlPolylines          Add Data to a leaflet map using Leaflet.glify
+checkDim                checkDim
+checkDimPop             checkDim
+leafglOutput            Use leafgl in shiny
+makeColorMatrix         makeColorMatrix
+makePopup               makePopup
+remove                  Remove Leaflet.Glify elements from a map

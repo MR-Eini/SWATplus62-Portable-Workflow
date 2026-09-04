@@ -1,0 +1,28 @@
+Package: leaflegend
+Type: Package
+Title: Add Custom Legends to 'leaflet' Maps
+Version: 1.2.8
+Authors@R: c(
+    person("Thomas", "Roh", email = "thomas.roh@delveds.com", role = c("aut", "cre")),
+    person("Ricardo Rodrigo", "Basa", email = "radbasa@gmail.com", role = c("ctb")))
+Description: Provides extensions to the 'leaflet' package to 
+    customize legends with images, text styling, orientation, sizing,
+    and symbology and functions to create symbols to plot on maps.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 3.3.0)
+Imports: leaflet, htmltools, stats, base64enc, htmlwidgets
+URL: https://leaflegend.delveds.com,
+        https://github.com/tomroh/leaflegend
+BugReports: https://github.com/tomroh/leaflegend/issues
+Suggests: covr, testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
+NeedsCompilation: no
+Packaged: 2026-05-15 18:09:35 UTC; thoma
+Author: Thomas Roh [aut, cre],
+  Ricardo Rodrigo Basa [ctb]
+Maintainer: Thomas Roh <thomas.roh@delveds.com>
+Repository: CRAN
+Date/Publication: 2026-05-16 08:30:02 UTC
+Built: R 4.5.3; ; 2026-05-23 19:02:45 UTC; windows

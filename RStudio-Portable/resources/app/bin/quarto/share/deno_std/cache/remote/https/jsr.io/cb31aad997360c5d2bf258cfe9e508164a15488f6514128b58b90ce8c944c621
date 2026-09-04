@@ -1,0 +1,36 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import {
+  createExtractor,
+  type Extractor,
+  type Parser,
+} from "./create_extractor.ts";
+import { parse } from "jsr:/@std/toml@^1.0.0-rc.3/parse";
+
+/**
+ * Extracts and parses {@link https://toml.io | TOML} from the metadata of
+ * front matter content.
+ *
+ * @example Extract TOML front matter
+ * ```ts
+ * import { extract } from "@std/front-matter/toml";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const output = `---toml
+ * title = "Three dashes marks the spot"
+ * ---
+ * Hello, world!`;
+ * const result = extract(output);
+ *
+ * assertEquals(result, {
+ *   frontMatter: 'title = "Three dashes marks the spot"',
+ *   body: "Hello, world!",
+ *   attrs: { title: "Three dashes marks the spot" },
+ * });
+ * ```
+ */
+export const extract: Extractor = createExtractor({
+  ["toml"]: parse as Parser,
+});
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:27 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","server":"cloudflare","cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d10f0a3992-IAD","content-length":"887","access-control-allow-origin":"*","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Y7eRQGxJ60Hetq6cELiFbbkPd%2BPcn7PZX3BwmO81bSIU4sNNuylr5paoCnfOJk6uI4us7VF7SmPbTU86mv50C2d%2B3vvIm%2BGeV7b3pX2D%2FCMPo3M%2B29O0c6U%3D\"}]}","etag":"\"e93dba66089b9fc3668b00ae3fe7a9c8\"","vary":"Origin","x-content-type-options":"nosniff","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/front-matter/0.224.3/toml.ts","time":1775728647}

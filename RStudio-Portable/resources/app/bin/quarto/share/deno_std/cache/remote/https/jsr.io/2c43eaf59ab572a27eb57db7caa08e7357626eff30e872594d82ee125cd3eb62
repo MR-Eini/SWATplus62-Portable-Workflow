@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { SemVer } from "./types.ts";
+import { compare } from "./compare.ts";
+
+/**
+ * Not equal comparison
+ *
+ * This is equal to `compare(s0, s1) !== 0`.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse, notEquals } from "@std/semver";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const s0 = parse("1.2.3");
+ * const s1 = parse("1.2.4");
+ * assert(notEquals(s0, s1));
+ * assertFalse(notEquals(s0, s0));
+ * ```
+ *
+ * @param s0 The first version to compare
+ * @param s1 The second version to compare
+ * @returns `true` if `s0` is not equal to `s1`, `false` otherwise
+ */
+export function notEquals(s0: SemVer, s1: SemVer): boolean {
+  return compare(s0, s1) !== 0;
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=eRxzSRK8Acu1rPJk%2FrR3mfTqlDeM1JH0hQAX17hWP1sv2fUUFUhSMtgAnogs%2BCL51EQhtEBnXPQwgon7IhGWKtDOEZXpDlsVdU%2FRYI005SYCe9zo87NNmKg%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","cf-ray":"9e98a5d288d83992-IAD","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:28 GMT","server":"cloudflare","content-length":"796","etag":"\"a35783ea0e985a46d6c6d25fdc5e3769\"","vary":"Origin","access-control-expose-headers":"*","x-jsr-backend":"modules","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/semver/0.224.3/not_equals.ts","time":1775728648}

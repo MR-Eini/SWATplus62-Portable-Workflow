@@ -1,0 +1,26 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { _common } from "./_common/common.ts";
+import { SEPARATOR } from "./constants.ts";
+
+/** Determines the common path from a set of paths, using an optional separator,
+ * which defaults to the OS default separator.
+ *
+ * ```ts
+ *       import { common } from "@std/path";
+ *       const p = common([
+ *         "./deno/std/path/mod.ts",
+ *         "./deno/std/fs/mod.ts",
+ *       ]);
+ *       console.log(p); // "./deno/std/"
+ * ```
+ */
+export function common(
+  paths: string[],
+  sep: string = SEPARATOR,
+): string {
+  return _common(paths, sep);
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d258823992-IAD","x-robots-tag":"noindex","x-jsr-backend":"modules","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Fk54ee3Aj5ZsEWEFh3ORDH8C5VvfX66cXkaZxto%2FzoiIy6DTL5RPsAbw0BB2htwF82ug18gH5Cy%2FrM4%2BuXXcFX%2BLqQxfuA2UA%2BXEM7amj4dJnJnUtEsTeNc%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","cross-origin-resource-policy":"cross-origin","content-length":"671","etag":"\"97f7a6caba4ef26198e4ef93bd8eb6d1\"","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","access-control-allow-origin":"*","x-content-type-options":"nosniff","vary":"Origin"},"url":"https://jsr.io/@std/path/0.224.0/common.ts","time":1775728648}

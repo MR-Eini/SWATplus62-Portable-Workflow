@@ -1,0 +1,22 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+export type PathType = "file" | "dir" | "symlink";
+
+/**
+ * Get a human readable file type string.
+ *
+ * @param fileInfo A FileInfo describes a file and is returned by `stat`,
+ *                 `lstat`
+ */
+export function getFileInfoType(fileInfo: Deno.FileInfo): PathType | undefined {
+  return fileInfo.isFile
+    ? "file"
+    : fileInfo.isDirectory
+    ? "dir"
+    : fileInfo.isSymlink
+    ? "symlink"
+    : undefined;
+}
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","vary":"Origin","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cAHomAoA8VLdwNlMPcQsbRoQ85%2FHy4zWT8eVrHIf%2BTZkE1N9wPxpUeV7HZGhe7S53B82rKHQfbAy3%2BPfweW8pMgVx3MvkMWGp2WHSx%2Bg3bN3MoiaGHjmyuc%3D\"}]}","server":"cloudflare","content-length":"550","cf-ray":"9e98a5d349ad3992-IAD","content-type":"text/typescript","x-jsr-backend":"modules","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=86400","etag":"\"e0b3e5a549ac431f296cda32b25aff5c\"","access-control-expose-headers":"*"},"url":"https://jsr.io/@std/fs/0.224.0/_get_file_info_type.ts","time":1775728648}

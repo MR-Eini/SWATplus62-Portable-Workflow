@@ -1,0 +1,73 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+/**
+ * Merge multiple streams into a single one, not taking order into account.
+ * If a stream ends before other ones, the other will continue adding data,
+ * and the finished one will not add any more data.
+ *
+ * @typeparam T The type of the chunks in the input/output streams.
+ * @param streams An iterable of `ReadableStream`s to merge.
+ * @returns A `ReadableStream` that will emit the merged chunks.
+ *
+ * @example Merge 2 streams
+ * ```ts
+ * import { mergeReadableStreams } from "@std/streams/merge-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from([1, 2]);
+ * const stream2 = ReadableStream.from([3, 4, 5]);
+ *
+ * const mergedStream = mergeReadableStreams(stream1, stream2);
+ * const merged = await Array.fromAsync(mergedStream);
+ * assertEquals(merged.toSorted(), [1, 2, 3, 4, 5]);
+ * ```
+ *
+ * @example Merge 3 streams
+ * ```ts
+ * import { mergeReadableStreams } from "@std/streams/merge-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from([1, 2]);
+ * const stream2 = ReadableStream.from([3, 4, 5]);
+ * const stream3 = ReadableStream.from([6]);
+ *
+ * const mergedStream = mergeReadableStreams(stream1, stream2, stream3);
+ * const merged = await Array.fromAsync(mergedStream);
+ * assertEquals(merged.toSorted(), [1, 2, 3, 4, 5, 6]);
+ * ```
+ */
+export function mergeReadableStreams<T>(
+  ...streams: ReadableStream<T>[]
+): ReadableStream<T> {
+  const resolvePromises = streams.map(() => Promise.withResolvers<void>());
+  return new ReadableStream<T>({
+    start(controller) {
+      let mustClose = false;
+      Promise.all(resolvePromises.map(({ promise }) => promise))
+        .then(() => {
+          controller.close();
+        })
+        .catch((error) => {
+          mustClose = true;
+          controller.error(error);
+        });
+      for (const [index, stream] of streams.entries()) {
+        (async () => {
+          try {
+            for await (const data of stream) {
+              if (mustClose) {
+                break;
+              }
+              controller.enqueue(data);
+            }
+            resolvePromises[index]!.resolve();
+          } catch (error) {
+            resolvePromises[index]!.reject(error);
+          }
+        })();
+      }
+    },
+  });
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","content-length":"2403","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FTBeEHVZO6l59B%2FNBgLzgPl%2FuZIgk78EFNtA36BhOhwGvS3Q27sCqchU3Db3YvWXTACwgpX1KETcF%2FDdyJk39hV8cYE0iPHPJJudJoJiQLioiQyaOk5fcCc%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","vary":"Origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"a43a12bf3870632581adaab830543001\"","access-control-allow-origin":"*","cf-ray":"9e98a5d2b90e3992-IAD"},"url":"https://jsr.io/@std/streams/0.224.5/merge_readable_streams.ts","time":1775728648}

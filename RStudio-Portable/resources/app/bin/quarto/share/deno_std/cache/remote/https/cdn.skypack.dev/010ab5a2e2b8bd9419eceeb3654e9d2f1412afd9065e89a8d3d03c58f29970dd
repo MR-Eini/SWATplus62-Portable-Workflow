@@ -1,0 +1,18 @@
+/*
+ * Skypack CDN - juice@10.0.0
+ *
+ * Learn more:
+ *   📙 Package Documentation: https://www.skypack.dev/view/juice
+ *   📘 Skypack Documentation: https://www.skypack.dev/docs
+ *
+ * Pinned URL: (Optimized for Production)
+ *   ▶️ Normal: https://cdn.skypack.dev/pin/juice@v10.0.0-FUuj4gsVBIZ9bgC3rRoH/mode=imports/optimized/juice.js
+ *   ⏩ Minified: https://cdn.skypack.dev/pin/juice@v10.0.0-FUuj4gsVBIZ9bgC3rRoH/mode=imports,min/optimized/juice.js
+ *
+ */
+
+// Browser-Optimized Imports (Don't directly import the URLs below in your application!)
+export * from '/-/juice@v10.0.0-FUuj4gsVBIZ9bgC3rRoH/dist=es2019,mode=imports/optimized/juice.js';
+export {default} from '/-/juice@v10.0.0-FUuj4gsVBIZ9bgC3rRoH/dist=es2019,mode=imports/optimized/juice.js';
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"X-Import-Status, X-Import-Url, X-Pinned-Url, Content-Length","alt-svc":"h3=\":443\"; ma=86400","x-import-url":"/-/juice@v10.0.0-FUuj4gsVBIZ9bgC3rRoH/dist=es2019,mode=imports/optimized/juice.js","content-type":"application/javascript; charset=utf-8","x-vercel-id":"sfo1::sfo1::6662s-1775160760368-8ddf79927c7b","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MGVfEPqU%2Bp5nngalB9SR2X6%2Fw%2FxIVsufp25Zi1kJaLatS2WWw%2F4TLqOQevYsnbKL0uXpXgaFxtxcCJrlN62Cz5QbEdxqbCvafwiyJo5BVpKqpk8GjYp5uWlyBW%2F%2Frw21ow%3D%3D\"}]}","etag":"W/\"2fa-ERTmJ/T/48VXU561Qd70W4cJNJs\"","cf-ray":"9e98a5ca2e5bc9b7-IAD","x-vercel-cache":"MISS","x-cache":"HIT","strict-transport-security":"max-age=63072000","age":"0","cache-control":"public, max-age=300","server":"cloudflare","x-pinned-url":"/pin/juice@v10.0.0-FUuj4gsVBIZ9bgC3rRoH/mode=imports/optimized/juice.js","access-control-allow-origin":"*","x-import-status":"SUCCESS","cf-cache-status":"MISS","date":"Thu, 09 Apr 2026 09:57:26 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://cdn.skypack.dev/juice@10.0.0","time":1775728646}

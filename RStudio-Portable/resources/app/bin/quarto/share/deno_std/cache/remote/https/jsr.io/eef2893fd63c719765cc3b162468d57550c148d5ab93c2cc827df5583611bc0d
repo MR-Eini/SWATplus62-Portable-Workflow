@@ -1,0 +1,36 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Creates a new object by excluding the specified keys from the provided object.
+ *
+ * @template T The type of the object.
+ * @template K The type of the keys to omit.
+ *
+ * @param obj The object to omit keys from.
+ * @param keys The keys to omit from the object.
+ *
+ * @returns A new object with the specified keys omitted.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { omit } from "@std/collections/omit";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const obj = { a: 5, b: 6, c: 7, d: 8 };
+ * const omitted = omit(obj, ["a", "c"]);
+ *
+ * assertEquals(omitted, { b: 6, d: 8 });
+ * ```
+ */
+export function omit<T extends object, K extends keyof T>(
+  obj: Readonly<T>,
+  keys: readonly K[],
+): Omit<T, K> {
+  const excludes = new Set(keys);
+  return Object.fromEntries(
+    Object.entries(obj).filter(([k, _]) => !excludes.has(k as K)),
+  ) as Omit<T, K>;
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","vary":"Origin","x-robots-tag":"noindex","etag":"\"b2a2cf580913a53f96bb3f1302efc34a\"","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=tVKLTORd8de3OxpYXK6VYaAMRj4UdQCzjH7OOVCh5UryEnSxW%2BFkf9XKGCRVCL7TlYgWr%2Bd4UX%2FA%2BbIFMjCqrqouO8R4LYIULqdwKFMzfiaj64e1YTQ9qWc%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:27 GMT","cache-control":"public, max-age=31536000, immutable","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","x-content-type-options":"nosniff","content-length":"1002","server":"cloudflare","access-control-expose-headers":"*","cf-ray":"9e98a5d02e503992-IAD"},"url":"https://jsr.io/@std/collections/0.224.2/omit.ts","time":1775728647}

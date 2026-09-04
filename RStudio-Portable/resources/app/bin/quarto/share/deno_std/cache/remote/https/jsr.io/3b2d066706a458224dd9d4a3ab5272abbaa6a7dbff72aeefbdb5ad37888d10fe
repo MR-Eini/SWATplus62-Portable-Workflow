@@ -1,0 +1,393 @@
+{
+  "manifest": {
+    "/toml_test.ts": {
+      "size": 841,
+      "checksum": "sha256-bd0dc95b9de2bf6a4de7781a8b756736eb9ff526f3415907404a459101080220"
+    },
+    "/test_test.ts": {
+      "size": 1354,
+      "checksum": "sha256-6a5a51f06d60d7cc392c2edce78e7398fb17fa95c93f977f3339af7e31414f59"
+    },
+    "/_test_utils.ts": {
+      "size": 5853,
+      "checksum": "sha256-8de701a62d94235e4f7cf36724b3931646f4081dec7fb3dfe0ba4afc890215fb"
+    },
+    "/testdata/json.md": {
+      "size": 260,
+      "checksum": "sha256-6e85d34a8b235d71254f21e3cb04aaf7d665ab86c1bdc4c8109ee6aa48d777c3"
+    },
+    "/json.ts": {
+      "size": 859,
+      "checksum": "sha256-57ef338f2a65a6843d634ee7f72f4720e1e9f1432de60973bea7d5fa9c89bc09"
+    },
+    "/_types.ts": {
+      "size": 244,
+      "checksum": "sha256-5cab099adee049c6e60eb395a09b3afcfc616b5e9f2d1ffe81b62f99d05e5c24"
+    },
+    "/testdata/toml2.md": {
+      "size": 230,
+      "checksum": "sha256-0f293e1f519806a871d7cfefcca89dc3120022f55a2d96e4b6d7d62fd8cb7b29"
+    },
+    "/yaml_test.ts": {
+      "size": 847,
+      "checksum": "sha256-58540ce667934ca8cf7fbdfb9d52f1e4c16d795551ae7235ed058bf0a7eac325"
+    },
+    "/deno.json": {
+      "size": 282,
+      "checksum": "sha256-22843023984d4fd890c2697fa19da9bf59f262169bb0a00342b41090185bb1ec"
+    },
+    "/any_test.ts": {
+      "size": 1805,
+      "checksum": "sha256-2ed185220bdbc8c7abf1f635343ae63e1962a9d38f1c66e77f0f366af1ba14f8"
+    },
+    "/testdata/yaml1.md": {
+      "size": 189,
+      "checksum": "sha256-71be561f44b362bca1f03b2e275046d7d5ffbd376b16f4df09afce1d474d7970"
+    },
+    "/_formats.ts": {
+      "size": 1544,
+      "checksum": "sha256-9a8ac1524f93b3ae093bd66864a49fc0088037920c6d60863da136d10f92e04d"
+    },
+    "/testdata/toml.md": {
+      "size": 234,
+      "checksum": "sha256-94d267b1e746304355932ba0fde1bb340f78c4ec3e53e812ef7c05880bd36180"
+    },
+    "/yaml.ts": {
+      "size": 882,
+      "checksum": "sha256-0bc190571cea763adee814b24b9959a97051cc352c55a9d69e9adb8d75662201"
+    },
+    "/testdata/horizontal_rules.md": {
+      "size": 142,
+      "checksum": "sha256-5301c7f79046ad14aab62f9605078945a7d5e8eaed0d27e4ea7bb244e0d9da7b"
+    },
+    "/toml.ts": {
+      "size": 887,
+      "checksum": "sha256-2dbfc5939a490bffca5dedfb94c375e6e01e2058a23b87907ae4a24eefa93638"
+    },
+    "/testdata/yaml2.md": {
+      "size": 193,
+      "checksum": "sha256-a572a476e2a68c4bcc94ba83f13f209d9bb0bc86592d838b2e37db3d8d8bdc00"
+    },
+    "/any.ts": {
+      "size": 1067,
+      "checksum": "sha256-56c8c6d0a063bf6d804e804a10b0a677be3686855adfa9f6193499be5874ee3d"
+    },
+    "/json_test.ts": {
+      "size": 703,
+      "checksum": "sha256-29d739b35414eb4ac1598e40d2cbf6c723484500af8cb3ae367c40e3b25000ff"
+    },
+    "/create_extractor.ts": {
+      "size": 5865,
+      "checksum": "sha256-feb0c55c40c5037d439adff7ce55cb45aba555268dc43409eb3d55d9603b610d"
+    },
+    "/create_extractor_test.ts": {
+      "size": 2773,
+      "checksum": "sha256-eaa1f7e8d37def8f66001a1585ea567d6a27321a0ed5bf4dfbcdcb77fab83317"
+    },
+    "/test.ts": {
+      "size": 2156,
+      "checksum": "sha256-1c2be0e51e339a07bba282746dccb66b07680c44d10bc2962547d3a5d6a07394"
+    },
+    "/mod.ts": {
+      "size": 2713,
+      "checksum": "sha256-656dc4efe90957ef200f0a3ec270fce26bd75c079c3f109a808bb99b3883b306"
+    }
+  },
+  "moduleGraph2": {
+    "/json.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./create_extractor.ts",
+          "specifierRange": [
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              30
+            ]
+          ]
+        }
+      ]
+    },
+    "/_types.ts": {},
+    "/create_extractor.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_formats.ts",
+          "specifierRange": [
+            [
+              2,
+              57
+            ],
+            [
+              2,
+              72
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./_types.ts",
+          "specifierRange": [
+            [
+              3,
+              28
+            ],
+            [
+              3,
+              41
+            ]
+          ]
+        }
+      ]
+    },
+    "/test.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_formats.ts",
+          "specifierRange": [
+            [
+              2,
+              35
+            ],
+            [
+              2,
+              50
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./_types.ts",
+          "specifierRange": [
+            [
+              3,
+              28
+            ],
+            [
+              3,
+              41
+            ]
+          ]
+        }
+      ]
+    },
+    "/_formats.ts": {},
+    "/yaml.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./create_extractor.ts",
+          "specifierRange": [
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/yaml@^1.0.0-rc.1/parse",
+          "specifierRange": [
+            [
+              7,
+              22
+            ],
+            [
+              7,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./json.ts",
+          "specifierRange": [
+            [
+              122,
+              39
+            ],
+            [
+              122,
+              50
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./toml.ts",
+          "specifierRange": [
+            [
+              123,
+              39
+            ],
+            [
+              123,
+              50
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./yaml.ts",
+          "specifierRange": [
+            [
+              124,
+              39
+            ],
+            [
+              124,
+              50
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./create_extractor.ts",
+          "specifierRange": [
+            [
+              126,
+              14
+            ],
+            [
+              126,
+              37
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./test.ts",
+          "specifierRange": [
+            [
+              127,
+              14
+            ],
+            [
+              127,
+              25
+            ]
+          ]
+        }
+      ]
+    },
+    "/any.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./create_extractor.ts",
+          "specifierRange": [
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/yaml@^1.0.0-rc.1/parse",
+          "specifierRange": [
+            [
+              7,
+              35
+            ],
+            [
+              7,
+              69
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/toml@^1.0.0-rc.3/parse",
+          "specifierRange": [
+            [
+              8,
+              35
+            ],
+            [
+              8,
+              69
+            ]
+          ]
+        }
+      ]
+    },
+    "/toml.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./create_extractor.ts",
+          "specifierRange": [
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/toml@^1.0.0-rc.3/parse",
+          "specifierRange": [
+            [
+              7,
+              22
+            ],
+            [
+              7,
+              56
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./any": "./any.ts",
+    "./create-extractor": "./create_extractor.ts",
+    "./json": "./json.ts",
+    "./test": "./test.ts",
+    "./toml": "./toml.ts",
+    "./yaml": "./yaml.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"etag":"W/\"f5cb9b8dcfc2ac6aac2febef2aaa0030\"","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin","cf-ray":"9e98a5ccaa493992-IAD","x-robots-tag":"noindex","content-type":"application/json","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:27 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kzRfjDjywdRKCJs9Qk0u9iY%2BhNp60pz49uCs3%2BJngQucB9T%2BDDWG2u3Sd42y2w1SuNHB6TqnXR%2BvHuySSBBBV58DpOcCiwMaWTqGBWuPvG02UpY17CPaTjw%3D\"}]}"},"url":"https://jsr.io/@std/front-matter/0.224.3_meta.json","time":1775728647}

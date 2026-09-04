@@ -1,0 +1,41 @@
+add_kill_op             Replace hvkl operations with harv + kill
+check_hru_waterbalance
+                        Check average annual water balance simulations
+                        at the HRU level
+filter_hru_at_harvkill
+                        Filter HRUs by their variable values at
+                        harvest/kill
+get_file_version        Get the Highest Version Number of a File
+get_hru_id_by_attribute
+                        Get HRU ids by filtering for HRU attributes
+plot_basin_var          Plot selected basin variable aggregated by
+                        defined time step
+plot_climate_annual     Plot annual overview of simulated climate
+                        variables of a SWAT+ simulation
+plot_hru_pw             Aggregate and plot simulated variables saved in
+                        hru_pw_day
+plot_hru_pw_day         Plot daily simulated variables which are saved
+                        in hru_pw_day
+plot_hru_var            Aggregate and plot simulated variables saved in
+                        hru_pw_day
+plot_hru_var_aa         Plot simulated variables of filtered HRUs saved
+                        in hru_wb_aa with boxplots
+plot_monthly_snow       Plot average monthly precipitation components
+                        rainfall and snofall and the snow melt
+plot_ps                 Plot yearly simulated point source values (as
+                        yearly loads or average concentrations)
+plot_qtile              Plot tile drain flow histogram and distribution
+                        curve
+plot_variable_at_harvkill
+                        Boxplot for relevant variables at harvest-kill
+plot_water_partition    Plot simulated variables of water partition of
+                        filtered HRUs saved in hru_wb_aa
+plot_waterbalance       Plot the average annual water balance
+print_avannual_qtile    Print the average annual qtile for HRUs
+print_triggered_mgt     Print the triggered management operations from
+                        the mgt outputs for a certain HRU
+report_mgt              Generate a report table that compares the
+                        scheduled and triggered managements
+run_swat_verification   Run simulations for model verification
+update_landuse_labels   Update the land use labels which were written
+                        by SWATfarmR

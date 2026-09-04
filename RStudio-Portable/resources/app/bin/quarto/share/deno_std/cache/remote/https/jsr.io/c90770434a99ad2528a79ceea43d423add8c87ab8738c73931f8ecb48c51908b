@@ -1,0 +1,56 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { Reader } from "./types.ts";
+import { BufReader } from "./buf_reader.ts";
+import { concat } from "jsr:@std/bytes@^1.0.2/concat";
+
+/**
+ * Read strings line-by-line from a {@linkcode Reader}.
+ *
+ * @example Usage
+ * ```ts
+ * import { readLines } from "@std/io/read-lines";
+ * import { assert } from "@std/assert/assert"
+ *
+ * let fileReader = await Deno.open("README.md");
+ *
+ * for await (let line of readLines(fileReader)) {
+ *   assert(typeof line === "string");
+ * }
+ * ```
+ *
+ * @param reader The reader to read from
+ * @param decoderOpts The options
+ * @returns The async iterator of strings
+ *
+ * @deprecated This will be removed in 1.0.0. Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Web Streams API} instead.
+ */
+export async function* readLines(
+  reader: Reader,
+  decoderOpts?: {
+    encoding?: string;
+    fatal?: boolean;
+    ignoreBOM?: boolean;
+  },
+): AsyncIterableIterator<string> {
+  const bufReader = new BufReader(reader);
+  let chunks: Uint8Array[] = [];
+  const decoder = new TextDecoder(decoderOpts?.encoding, decoderOpts);
+  while (true) {
+    const res = await bufReader.readLine();
+    if (!res) {
+      if (chunks.length > 0) {
+        yield decoder.decode(concat(chunks));
+      }
+      break;
+    }
+    chunks.push(res.line);
+    if (!res.more) {
+      yield decoder.decode(concat(chunks));
+      chunks = [];
+    }
+  }
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","server":"cloudflare","content-type":"text/typescript","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"58c1975b6f35f75fbd4813b1261f7845\"","cf-ray":"9e98a5d1bfc03992-IAD","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lK%2F6zWGmJ7Z8CgMOi3fXgi06Lkydwd0uQFhBroQVBH1RkFuGcjHGF2Z0F0SD%2BUlTqUBBDAR9YdJmxzAKtKsV3%2BPen0eSNeqvOCg%2FedCzkkKKI1%2BLyftJcs4%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-expose-headers":"*","x-content-type-options":"nosniff","access-control-allow-origin":"*","x-jsr-backend":"modules","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","content-length":"1510","vary":"Origin"},"url":"https://jsr.io/@std/io/0.224.8/read_lines.ts","time":1775728648}

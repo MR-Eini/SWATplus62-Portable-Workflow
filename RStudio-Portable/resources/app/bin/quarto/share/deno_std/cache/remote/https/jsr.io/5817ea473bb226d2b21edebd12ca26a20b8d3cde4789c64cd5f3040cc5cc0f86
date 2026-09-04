@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+const encoder = new TextEncoder();
+
+function getTypeName(value: unknown): string {
+  const type = typeof value;
+  if (type !== "object") {
+    return type;
+  } else if (value === null) {
+    return "null";
+  } else {
+    return value?.constructor?.name ?? "object";
+  }
+}
+
+export function validateBinaryLike(source: unknown): Uint8Array {
+  if (typeof source === "string") {
+    return encoder.encode(source);
+  } else if (source instanceof Uint8Array) {
+    return source;
+  } else if (source instanceof ArrayBuffer) {
+    return new Uint8Array(source);
+  }
+  throw new TypeError(
+    `The input must be a Uint8Array, a string, or an ArrayBuffer. Received a value of the type ${
+      getTypeName(source)
+    }.`,
+  );
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","server":"cloudflare","access-control-expose-headers":"*","x-content-type-options":"nosniff","etag":"\"d13b3b0dcf6d4f86b4aed186221caac0\"","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=C1U8eC0M4kJMF4efSd3QQxByV5k1oNyKYJ%2BRQYMPHUDylySLVNbE4p%2B5d1qvXF72G%2FjWlx6REbqjpQDtMKp7vT1ar2z94LH0UZh%2BcyoofSyEXtO2v1Z2ot4%3D\"}]}","content-type":"text/typescript","content-length":"798","vary":"Origin","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","x-jsr-backend":"modules","date":"Thu, 09 Apr 2026 09:57:28 GMT","cf-ray":"9e98a5d53be73992-IAD","access-control-allow-origin":"*"},"url":"https://jsr.io/@std/encoding/0.224.3/_validate_binary_like.ts","time":1775728648}

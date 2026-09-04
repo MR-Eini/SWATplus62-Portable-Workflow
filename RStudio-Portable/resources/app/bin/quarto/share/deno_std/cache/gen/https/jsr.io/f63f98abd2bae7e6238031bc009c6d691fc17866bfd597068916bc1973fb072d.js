@@ -1,0 +1,64 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { parseMediaType } from "./parse_media_type.ts";
+import { getCharset } from "./get_charset.ts";
+import { formatMediaType } from "./format_media_type.ts";
+import { typeByExtension } from "./type_by_extension.ts";
+/**
+ * Returns the full `Content-Type` or `Content-Disposition` header value for the
+ * given extension or media type.
+ *
+ * The function will treat the `extensionOrType` as a media type when it
+ * contains a `/`, otherwise it will process it as an extension, with or without
+ * the leading `.`.
+ *
+ * Returns `undefined` if unable to resolve the media type.
+ *
+ * > Note: a side effect of `deno/x/media_types` was that you could pass a file
+ * > name (e.g. `file.json`) and it would return the content type. This behavior
+ * > is intentionally not supported here. If you want to get an extension for a
+ * > file name, use {@linkcode https://jsr.io/@std/path/doc/~/extname | extname}
+ * > to determine the extension and pass it here.
+ *
+ * @template T Type of the extension or media type to resolve.
+ *
+ * @param extensionOrType The extension or media type to resolve.
+ *
+ * @returns The full `Content-Type` or `Content-Disposition` header value, or
+ * `undefined` if unable to resolve the media type.
+ *
+ * @example Usage
+ * ```ts
+ * import { contentType } from "@std/media-types/content-type";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(contentType(".json"), "application/json; charset=UTF-8");
+ * assertEquals(contentType("text/html"), "text/html; charset=UTF-8");
+ * assertEquals(contentType("text/html; charset=UTF-8"), "text/html; charset=UTF-8");
+ * assertEquals(contentType("txt"), "text/plain; charset=UTF-8");
+ * assertEquals(contentType("foo"), undefined);
+ * assertEquals(contentType("file.json"), undefined);
+ * ```
+ */ export function contentType(extensionOrType) {
+  try {
+    const [mediaType, params = {}] = extensionOrType.includes("/") ? parseMediaType(extensionOrType) : [
+      typeByExtension(extensionOrType),
+      undefined
+    ];
+    if (!mediaType) {
+      return undefined;
+    }
+    if (!("charset" in params)) {
+      const charset = getCharset(mediaType);
+      if (charset) {
+        params.charset = charset;
+      }
+    }
+    return formatMediaType(mediaType, params);
+  } catch  {
+  // just swallow returning undefined
+  }
+  return undefined;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvbWVkaWEtdHlwZXMvMC4yMjQuMS9jb250ZW50X3R5cGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gQ29weXJpZ2h0IDIwMTgtMjAyNCB0aGUgRGVubyBhdXRob3JzLiBBbGwgcmlnaHRzIHJlc2VydmVkLiBNSVQgbGljZW5zZS5cbi8vIFRoaXMgbW9kdWxlIGlzIGJyb3dzZXIgY29tcGF0aWJsZS5cblxuaW1wb3J0IHsgcGFyc2VNZWRpYVR5cGUgfSBmcm9tIFwiLi9wYXJzZV9tZWRpYV90eXBlLnRzXCI7XG5pbXBvcnQgeyBnZXRDaGFyc2V0IH0gZnJvbSBcIi4vZ2V0X2NoYXJzZXQudHNcIjtcbmltcG9ydCB7IGZvcm1hdE1lZGlhVHlwZSB9IGZyb20gXCIuL2Zvcm1hdF9tZWRpYV90eXBlLnRzXCI7XG5pbXBvcnQgdHlwZSB7IGRiIH0gZnJvbSBcIi4vX2RiLnRzXCI7XG5pbXBvcnQgeyB0eXBlQnlFeHRlbnNpb24gfSBmcm9tIFwiLi90eXBlX2J5X2V4dGVuc2lvbi50c1wiO1xuXG4vKiogTUlNRS10eXBlcyBkYXRhYmFzZS4gKi9cbmV4cG9ydCB0eXBlIERCID0gdHlwZW9mIGRiO1xuLyoqIE1hcHMgY29udGVudCB0eXBlcyB0byB0aGVpciBjb3JyZXNwb25kaW5nIGZpbGUgZXh0ZW5zaW9ucy4gKi9cbmV4cG9ydCB0eXBlIENvbnRlbnRUeXBlVG9FeHRlbnNpb24gPSB7XG4gIC8qKlxuICAgKiBNYXBzIGVhY2ggY29udGVudCB0eXBlIGtleSB0byBpdHMgY29ycmVzcG9uZGluZyBmaWxlIGV4dGVuc2lvbi5cbiAgICovXG4gIFtLIGluIGtleW9mIERCXTogREJbS10gZXh0ZW5kcyB7IFwiZXh0ZW5zaW9uc1wiOiByZWFkb25seSBzdHJpbmdbXSB9XG4gICAgPyBEQltLXVtcImV4dGVuc2lvbnNcIl1bbnVtYmVyXVxuICAgIDogbmV2ZXI7XG59O1xuXG4vKiogS25vd24gZXh0ZW5zaW9uIG9yIHR5cGUuIFVzZWQgaW4ge0BsaW5rY29kZSBjb250ZW50VHlwZX0uICovXG5leHBvcnQgdHlwZSBLbm93bkV4dGVuc2lvbk9yVHlwZSA9XG4gIHwga2V5b2YgQ29udGVudFR5cGVUb0V4dGVuc2lvblxuICB8IENvbnRlbnRUeXBlVG9FeHRlbnNpb25ba2V5b2YgQ29udGVudFR5cGVUb0V4dGVuc2lvbl1cbiAgfCBgLiR7Q29udGVudFR5cGVUb0V4dGVuc2lvbltrZXlvZiBDb250ZW50VHlwZVRvRXh0ZW5zaW9uXX1gO1xuXG4vKipcbiAqIFJldHVybnMgdGhlIGZ1bGwgYENvbnRlbnQtVHlwZWAgb3IgYENvbnRlbnQtRGlzcG9zaXRpb25gIGhlYWRlciB2YWx1ZSBmb3IgdGhlXG4gKiBnaXZlbiBleHRlbnNpb24gb3IgbWVkaWEgdHlwZS5cbiAqXG4gKiBUaGUgZnVuY3Rpb24gd2lsbCB0cmVhdCB0aGUgYGV4dGVuc2lvbk9yVHlwZWAgYXMgYSBtZWRpYSB0eXBlIHdoZW4gaXRcbiAqIGNvbnRhaW5zIGEgYC9gLCBvdGhlcndpc2UgaXQgd2lsbCBwcm9jZXNzIGl0IGFzIGFuIGV4dGVuc2lvbiwgd2l0aCBvciB3aXRob3V0XG4gKiB0aGUgbGVhZGluZyBgLmAuXG4gKlxuICogUmV0dXJucyBgdW5kZWZpbmVkYCBpZiB1bmFibGUgdG8gcmVzb2x2ZSB0aGUgbWVkaWEgdHlwZS5cbiAqXG4gKiA+IE5vdGU6IGEgc2lkZSBlZmZlY3Qgb2YgYGRlbm8veC9tZWRpYV90eXBlc2Agd2FzIHRoYXQgeW91IGNvdWxkIHBhc3MgYSBmaWxlXG4gKiA+IG5hbWUgKGUuZy4gYGZpbGUuanNvbmApIGFuZCBpdCB3b3VsZCByZXR1cm4gdGhlIGNvbnRlbnQgdHlwZS4gVGhpcyBiZWhhdmlvclxuICogPiBpcyBpbnRlbnRpb25hbGx5IG5vdCBzdXBwb3J0ZWQgaGVyZS4gSWYgeW91IHdhbnQgdG8gZ2V0IGFuIGV4dGVuc2lvbiBmb3IgYVxuICogPiBmaWxlIG5hbWUsIHVzZSB7QGxpbmtjb2RlIGh0dHBzOi8vanNyLmlvL0BzdGQvcGF0aC9kb2Mvfi9leHRuYW1lIHwgZXh0bmFtZX1cbiAqID4gdG8gZGV0ZXJtaW5lIHRoZSBleHRlbnNpb24gYW5kIHBhc3MgaXQgaGVyZS5cbiAqXG4gKiBAdGVtcGxhdGUgVCBUeXBlIG9mIHRoZSBleHRlbnNpb24gb3IgbWVkaWEgdHlwZSB0byByZXNvbHZlLlxuICpcbiAqIEBwYXJhbSBleHRlbnNpb25PclR5cGUgVGhlIGV4dGVuc2lvbiBvciBtZWRpYSB0eXBlIHRvIHJlc29sdmUuXG4gKlxuICogQHJldHVybnMgVGhlIGZ1bGwgYENvbnRlbnQtVHlwZWAgb3IgYENvbnRlbnQtRGlzcG9zaXRpb25gIGhlYWRlciB2YWx1ZSwgb3JcbiAqIGB1bmRlZmluZWRgIGlmIHVuYWJsZSB0byByZXNvbHZlIHRoZSBtZWRpYSB0eXBlLlxuICpcbiAqIEBleGFtcGxlIFVzYWdlXG4gKiBgYGB0c1xuICogaW1wb3J0IHsgY29udGVudFR5cGUgfSBmcm9tIFwiQHN0ZC9tZWRpYS10eXBlcy9jb250ZW50LXR5cGVcIjtcbiAqIGltcG9ydCB7IGFzc2VydEVxdWFscyB9IGZyb20gXCJAc3RkL2Fzc2VydC9hc3NlcnQtZXF1YWxzXCI7XG4gKlxuICogYXNzZXJ0RXF1YWxzKGNvbnRlbnRUeXBlKFwiLmpzb25cIiksIFwiYXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOFwiKTtcbiAqIGFzc2VydEVxdWFscyhjb250ZW50VHlwZShcInRleHQvaHRtbFwiKSwgXCJ0ZXh0L2h0bWw7IGNoYXJzZXQ9VVRGLThcIik7XG4gKiBhc3NlcnRFcXVhbHMoY29udGVudFR5cGUoXCJ0ZXh0L2h0bWw7IGNoYXJzZXQ9VVRGLThcIiksIFwidGV4dC9odG1sOyBjaGFyc2V0PVVURi04XCIpO1xuICogYXNzZXJ0RXF1YWxzKGNvbnRlbnRUeXBlKFwidHh0XCIpLCBcInRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLThcIik7XG4gKiBhc3NlcnRFcXVhbHMoY29udGVudFR5cGUoXCJmb29cIiksIHVuZGVmaW5lZCk7XG4gKiBhc3NlcnRFcXVhbHMoY29udGVudFR5cGUoXCJmaWxlLmpzb25cIiksIHVuZGVmaW5lZCk7XG4gKiBgYGBcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGNvbnRlbnRUeXBlPFxuICAvLyBXb3JrYXJvdW5kIHRvIGF1dG9jb21wbGV0ZSBmb3IgcGFyYW1ldGVyczogaHR0cHM6Ly9naXRodWIuY29tL21pY3Jvc29mdC9UeXBlU2NyaXB0L2lzc3Vlcy8yOTcyOSNpc3N1ZWNvbW1lbnQtNTY3ODcxOTM5XG4gIC8vIGRlbm8tbGludC1pZ25vcmUgYmFuLXR5cGVzXG4gIFQgZXh0ZW5kcyAoc3RyaW5nICYge30pIHwgS25vd25FeHRlbnNpb25PclR5cGUsXG4+KFxuICBleHRlbnNpb25PclR5cGU6IFQsXG4pOiBMb3dlcmNhc2U8VD4gZXh0ZW5kcyBLbm93bkV4dGVuc2lvbk9yVHlwZSA/IHN0cmluZyA6IHN0cmluZyB8IHVuZGVmaW5lZCB7XG4gIHRyeSB7XG4gICAgY29uc3QgW21lZGlhVHlwZSwgcGFyYW1zID0ge31dID0gZXh0ZW5zaW9uT3JUeXBlLmluY2x1ZGVzKFwiL1wiKVxuICAgICAgPyBwYXJzZU1lZGlhVHlwZShleHRlbnNpb25PclR5cGUpXG4gICAgICA6IFt0eXBlQnlFeHRlbnNpb24oZXh0ZW5zaW9uT3JUeXBlKSwgdW5kZWZpbmVkXTtcbiAgICBpZiAoIW1lZGlhVHlwZSkge1xuICAgICAgcmV0dXJuIHVuZGVmaW5lZCBhcyBMb3dlcmNhc2U8VD4gZXh0ZW5kcyBLbm93bkV4dGVuc2lvbk9yVHlwZSA/IHN0cmluZ1xuICAgICAgICA6IHN0cmluZyB8IHVuZGVmaW5lZDtcbiAgICB9XG4gICAgaWYgKCEoXCJjaGFyc2V0XCIgaW4gcGFyYW1zKSkge1xuICAgICAgY29uc3QgY2hhcnNldCA9IGdldENoYXJzZXQobWVkaWFUeXBlKTtcbiAgICAgIGlmIChjaGFyc2V0KSB7XG4gICAgICAgIHBhcmFtcy5jaGFyc2V0ID0gY2hhcnNldDtcbiAgICAgIH1cbiAgICB9XG4gICAgcmV0dXJuIGZvcm1hdE1lZGlhVHlwZShtZWRpYVR5cGUsIHBhcmFtcyk7XG4gIH0gY2F0Y2gge1xuICAgIC8vIGp1c3Qgc3dhbGxvdyByZXR1cm5pbmcgdW5kZWZpbmVkXG4gIH1cbiAgcmV0dXJuIHVuZGVmaW5lZCBhcyBMb3dlcmNhc2U8VD4gZXh0ZW5kcyBLbm93bkV4dGVuc2lvbk9yVHlwZSA/IHN0cmluZ1xuICAgIDogc3RyaW5nIHwgdW5kZWZpbmVkO1xufVxuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDBFQUEwRTtBQUMxRSxxQ0FBcUM7QUFFckMsU0FBUyxjQUFjLFFBQVEsd0JBQXdCO0FBQ3ZELFNBQVMsVUFBVSxRQUFRLG1CQUFtQjtBQUM5QyxTQUFTLGVBQWUsUUFBUSx5QkFBeUI7QUFFekQsU0FBUyxlQUFlLFFBQVEseUJBQXlCO0FBb0J6RDs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Q0FtQ0MsR0FDRCxPQUFPLFNBQVMsWUFLZCxlQUFrQjtFQUVsQixJQUFJO0lBQ0YsTUFBTSxDQUFDLFdBQVcsU0FBUyxDQUFDLENBQUMsQ0FBQyxHQUFHLGdCQUFnQixRQUFRLENBQUMsT0FDdEQsZUFBZSxtQkFDZjtNQUFDLGdCQUFnQjtNQUFrQjtLQUFVO0lBQ2pELElBQUksQ0FBQyxXQUFXO01BQ2QsT0FBTztJQUVUO0lBQ0EsSUFBSSxDQUFDLENBQUMsYUFBYSxNQUFNLEdBQUc7TUFDMUIsTUFBTSxVQUFVLFdBQVc7TUFDM0IsSUFBSSxTQUFTO1FBQ1gsT0FBTyxPQUFPLEdBQUc7TUFDbkI7SUFDRjtJQUNBLE9BQU8sZ0JBQWdCLFdBQVc7RUFDcEMsRUFBRSxPQUFNO0VBQ04sbUNBQW1DO0VBQ3JDO0VBQ0EsT0FBTztBQUVUIn0=
+// denoCacheMetadata=6414255685030814782,16247671298527801960

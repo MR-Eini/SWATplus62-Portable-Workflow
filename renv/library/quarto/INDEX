@@ -1,0 +1,40 @@
+add_spin_preamble       Add spin preamble to R script
+check_newer_version     Check for newer version of Quarto
+detect_bookdown_crossrefs
+                        Detect Bookdown Cross-References for Quarto
+                        Migration
+find_project_root       Find the root of a Quarto project
+get_running_project_root
+                        Get the root of the currently running Quarto
+                        project
+has_parameters          Check if a Quarto document uses parameters
+is_using_quarto         Check is a directory is using quarto
+new_blog_post           Create a new blog post
+project_path            Get path relative to project root
+                        (Quarto-aware)
+qmd_to_r_script         Convert Quarto document to R script
+quarto_add_extension    Install a Quarto extensions
+quarto_available        Check if quarto is available and version meet
+                        some requirements
+quarto_binary_sitrep    Check configurations for quarto binary used
+quarto_create_project   Create a quarto project
+quarto_inspect          Inspect Quarto Input File or Project
+quarto_list_extensions
+                        List Installed Quarto extensions
+quarto_path             Path to the quarto binary
+quarto_preview          Quarto Preview
+quarto_publish_doc      Publish Quarto Documents
+quarto_remove_extension
+                        Remove a Quarto extensions
+quarto_render           Render Markdown
+quarto_serve            Serve Interactive Document
+quarto_update_extension
+                        Update a Quarto extensions
+quarto_use_template     Use a custom format extension template
+quarto_version          Check quarto version
+tbl_qmd_elements        Create Quarto Markdown HTML Elements for Tables
+theme_colors_flextable
+                        Create a theme for a plotting or table package
+write_yaml_metadata_block
+                        Write YAML Metadata Block for Quarto Documents
+yaml_quote_string       Add quoted attribute to strings for YAML output

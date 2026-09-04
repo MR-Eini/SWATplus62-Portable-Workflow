@@ -1,0 +1,28 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { isPlainObject } from "../_utils.ts";
+function resolveYamlOmap(data) {
+  const objectKeys = new Set();
+  for (const object of data){
+    if (!isPlainObject(object)) return false;
+    const keys = Object.keys(object);
+    if (keys.length !== 1) return false;
+    for (const key of keys){
+      if (objectKeys.has(key)) return false;
+      objectKeys.add(key);
+    }
+  }
+  return true;
+}
+export const omap = {
+  tag: "tag:yaml.org,2002:omap",
+  kind: "sequence",
+  resolve: resolveYamlOmap,
+  construct (data) {
+    return data;
+  }
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQveWFtbC8xLjAuNS9fdHlwZS9vbWFwLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIFBvcnRlZCBmcm9tIGpzLXlhbWwgdjMuMTMuMTpcbi8vIGh0dHBzOi8vZ2l0aHViLmNvbS9ub2RlY2EvanMteWFtbC9jb21taXQvNjY1YWFkZGE0MjM0OWRjYWU4NjlmMTIwNDBkOWIxMGVmMThkMTJkYVxuLy8gQ29weXJpZ2h0IDIwMTEtMjAxNSBieSBWaXRhbHkgUHV6cmluLiBBbGwgcmlnaHRzIHJlc2VydmVkLiBNSVQgbGljZW5zZS5cbi8vIENvcHlyaWdodCAyMDE4LTIwMjQgdGhlIERlbm8gYXV0aG9ycy4gQWxsIHJpZ2h0cyByZXNlcnZlZC4gTUlUIGxpY2Vuc2UuXG5cbmltcG9ydCB0eXBlIHsgVHlwZSB9IGZyb20gXCIuLi9fdHlwZS50c1wiO1xuaW1wb3J0IHsgaXNQbGFpbk9iamVjdCB9IGZyb20gXCIuLi9fdXRpbHMudHNcIjtcblxuZnVuY3Rpb24gcmVzb2x2ZVlhbWxPbWFwKGRhdGE6IFJlY29yZDxzdHJpbmcsIHVua25vd24+W10pOiBib29sZWFuIHtcbiAgY29uc3Qgb2JqZWN0S2V5cyA9IG5ldyBTZXQoKTtcbiAgZm9yIChjb25zdCBvYmplY3Qgb2YgZGF0YSkge1xuICAgIGlmICghaXNQbGFpbk9iamVjdChvYmplY3QpKSByZXR1cm4gZmFsc2U7XG4gICAgY29uc3Qga2V5cyA9IE9iamVjdC5rZXlzKG9iamVjdCk7XG4gICAgaWYgKGtleXMubGVuZ3RoICE9PSAxKSByZXR1cm4gZmFsc2U7XG4gICAgZm9yIChjb25zdCBrZXkgb2Yga2V5cykge1xuICAgICAgaWYgKG9iamVjdEtleXMuaGFzKGtleSkpIHJldHVybiBmYWxzZTtcbiAgICAgIG9iamVjdEtleXMuYWRkKGtleSk7XG4gICAgfVxuICB9XG4gIHJldHVybiB0cnVlO1xufVxuXG5leHBvcnQgY29uc3Qgb21hcDogVHlwZTxcInNlcXVlbmNlXCIsIFJlY29yZDxQcm9wZXJ0eUtleSwgdW5rbm93bj5bXT4gPSB7XG4gIHRhZzogXCJ0YWc6eWFtbC5vcmcsMjAwMjpvbWFwXCIsXG4gIGtpbmQ6IFwic2VxdWVuY2VcIixcbiAgcmVzb2x2ZTogcmVzb2x2ZVlhbWxPbWFwLFxuICBjb25zdHJ1Y3QoZGF0YSkge1xuICAgIHJldHVybiBkYXRhO1xuICB9LFxufTtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSwrQkFBK0I7QUFDL0Isb0ZBQW9GO0FBQ3BGLDBFQUEwRTtBQUMxRSwwRUFBMEU7QUFHMUUsU0FBUyxhQUFhLFFBQVEsZUFBZTtBQUU3QyxTQUFTLGdCQUFnQixJQUErQjtFQUN0RCxNQUFNLGFBQWEsSUFBSTtFQUN2QixLQUFLLE1BQU0sVUFBVSxLQUFNO0lBQ3pCLElBQUksQ0FBQyxjQUFjLFNBQVMsT0FBTztJQUNuQyxNQUFNLE9BQU8sT0FBTyxJQUFJLENBQUM7SUFDekIsSUFBSSxLQUFLLE1BQU0sS0FBSyxHQUFHLE9BQU87SUFDOUIsS0FBSyxNQUFNLE9BQU8sS0FBTTtNQUN0QixJQUFJLFdBQVcsR0FBRyxDQUFDLE1BQU0sT0FBTztNQUNoQyxXQUFXLEdBQUcsQ0FBQztJQUNqQjtFQUNGO0VBQ0EsT0FBTztBQUNUO0FBRUEsT0FBTyxNQUFNLE9BQXlEO0VBQ3BFLEtBQUs7RUFDTCxNQUFNO0VBQ04sU0FBUztFQUNULFdBQVUsSUFBSTtJQUNaLE9BQU87RUFDVDtBQUNGLEVBQUUifQ==
+// denoCacheMetadata=17543844291134287060,5728513866909831783

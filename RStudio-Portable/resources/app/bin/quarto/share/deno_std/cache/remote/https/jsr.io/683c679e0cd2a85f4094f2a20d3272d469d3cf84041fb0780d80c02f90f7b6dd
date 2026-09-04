@@ -1,0 +1,44 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns all elements in the given array that produce a distinct value using
+ * the given selector, preserving order by first occurrence.
+ *
+ * @template T The type of the elements in the input array.
+ * @template D The type of the values produced by the selector function.
+ *
+ * @param array The array to filter for distinct elements.
+ * @param selector The function to extract the value to compare for
+ * distinctness.
+ *
+ * @returns An array of distinct elements in the input array.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { distinctBy } from "@std/collections/distinct-by";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const names = ["Anna", "Kim", "Arnold", "Kate"];
+ * const exampleNamesByFirstLetter = distinctBy(names, (name) => name.charAt(0));
+ *
+ * assertEquals(exampleNamesByFirstLetter, ["Anna", "Kim"]);
+ * ```
+ */
+export function distinctBy<T, D>(
+  array: Iterable<T>,
+  selector: (el: T) => D,
+): T[] {
+  const selectedValues = new Set<D>();
+  const result: T[] = [];
+  for (const element of array) {
+    const selected = selector(element);
+    if (!selectedValues.has(selected)) {
+      selectedValues.add(selected);
+      result.push(element);
+    }
+  }
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","cf-ray":"9e98a5d02e303992-IAD","access-control-expose-headers":"*","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400","etag":"\"77205e8bb511aebb3130933e4a5464ae\"","x-jsr-backend":"modules","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mcjZx%2FST3QYIVOpiBDlHiw671qc9PrR%2FNl%2Bdb%2BBBhl4sDwmBvFOLzRHhap8oVtt5cgGiiYnAOjBXL3fL3e16lI6Y26tMePIWaxGUDGNxuiGBa%2FqVzXwA55A%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-length":"1340","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","access-control-allow-origin":"*"},"url":"https://jsr.io/@std/collections/0.224.2/distinct_by.ts","time":1775728648}

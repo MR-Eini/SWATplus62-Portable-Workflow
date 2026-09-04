@@ -1,0 +1,78 @@
+pak (c) 2017-2024 Posit Software, PBC (formerly RStudio)
+
+# Except for the following parts
+
+## callr
+
+(c) 2015-2016 Ascent Digital Services (formerly Mango Solutions)
+(c) 2017 Gábor Csárdi
+(c) 2017-2024 Posit Software, PBC (formerly RStudio)
+
+## curl
+
+(c) Jeroen Ooms
+(c) Posit Software, PBC (formerly RStudio)
+
+## jsonlite
+
+(c) Jeroen Ooms
+(c) Lloyd Hilaiel
+(c) Duncan Temple Lang
+
+## keyring
+
+(c) 2017-2025 Alec Wong
+(c) 2017-2024 Posit Software, PBC (formerly RStudio)
+
+## lpSolve
+
+(c) Michel Berkelaar and lpSolve authors
+(c) Posit Software, PBC (formerly RStudio)
+
+## processx
+
+(c) 2016 Ascent Digital Services (formerly Mango Solutions)
+(c) 2017 Gábor Csárdi
+(c) 2017-2024 Posit Software, PBC (formerly RStudio)
+
+## ps
+
+(c) Jay Loden
+(c) Dave Daeschler
+(c) Giampaolo Rodola
+(c) Posit Software, PBC (formerly RStudio)
+
+# ts
+
+(c) Gábor Csárdi
+(c) Tree-sitter authors
+(c) Posit Software, PBC (formerly RStudio)
+
+# tstoml
+
+(c) Gábor Csárdi
+(c) Tree-sitter authors
+(c) Posit Software, PBC (formerly RStudio)
+
+## yaml
+
+(c) Shawn P Garbett
+(c) Jeremy Stephens
+(c) Kirill Simonov
+(c) Yihui Xie
+(c) Zhuoer Dong
+(c) Hadley Wickham
+(c) Jeffrey Horner
+(c) reikoch
+(c) Will Beasley
+(c) Brendan O'Connor
+(c) Gregory R. Warnes
+(c) Michael Quinn
+(c) Zhian N. Kamvar
+(c) Charlie Gao
+
+## zip
+
+(c) Kuba Podgórski
+(c) Rich Geldreich
+(c) Posit Software, PBC (formerly RStudio)

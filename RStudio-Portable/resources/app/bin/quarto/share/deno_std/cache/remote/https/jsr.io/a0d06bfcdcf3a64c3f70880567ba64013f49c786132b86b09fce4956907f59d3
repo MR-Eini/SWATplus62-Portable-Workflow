@@ -1,0 +1,41 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+const textDecoder = new TextDecoder();
+
+/**
+ * Converts a {@linkcode ReadableSteam} of strings or {@linkcode Uint8Array}s
+ * to a single string. Works the same as {@linkcode Response.text}.
+ *
+ * @param readableStream A `ReadableStream` to convert into a `string`.
+ * @returns A `Promise` that resolves to the `string`.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { toText } from "@std/streams/to-text";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream = ReadableStream.from(["Hello, ", "world!"]);
+ * assertEquals(await toText(stream), "Hello, world!");
+ * ```
+ */
+export async function toText(
+  readableStream: ReadableStream,
+): Promise<string> {
+  const reader = readableStream.getReader();
+  let result = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    result += typeof value === "string" ? value : textDecoder.decode(value);
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","etag":"\"e9f9789801e22c99896ed9ed57d4e870\"","cf-ray":"9e98a5d2c9223992-IAD","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wqtZkGk65JQBRn%2BH2TpEJnbPLw0LCzRMJrvCd2L3ZJ1pLMksJX0qBL7StFuXNRDuMZL6KY3uzLjOLugkVIbGfvX6oSzCEhWjUeGvQ71%2BFP%2F%2BCN5E3%2FUmQDI%3D\"}]}","x-content-type-options":"nosniff","content-length":"1067","server":"cloudflare"},"url":"https://jsr.io/@std/streams/0.224.5/to_text.ts","time":1775728648}

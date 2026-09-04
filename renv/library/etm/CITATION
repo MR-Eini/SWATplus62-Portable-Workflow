@@ -1,0 +1,13 @@
+bibentry(
+  bibtype      = "Article",
+  title        = "Empirical Transition Matrix of Multi-State Models: The {etm} Package",
+  author       = c(person("Arthur", "Allignol"),
+                   person("Martin", "Schumacher"),
+                   person("Jan", "Beyersmann")),
+  journal      = "Journal of Statistical Software",
+  year         = "2011",
+  volume       = "38",
+  number       = "4",
+  pages        = "1--15",
+  url          = "https://www.jstatsoft.org/v38/i04/",
+  doi          = "10.18637/jss.v038.i04")

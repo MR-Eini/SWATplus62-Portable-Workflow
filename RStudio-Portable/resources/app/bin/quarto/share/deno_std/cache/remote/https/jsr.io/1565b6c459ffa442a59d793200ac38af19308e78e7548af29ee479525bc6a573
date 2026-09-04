@@ -1,0 +1,43 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns all elements in the given collection until the first element that
+ * does not match the given predicate.
+ *
+ * @template T The type of the array elements.
+ *
+ * @param array The array to take elements from.
+ * @param predicate The predicate function to determine if an element should be
+ * included.
+ *
+ * @returns A new array containing all elements until the first element that
+ * does not match the predicate.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { takeWhile } from "@std/collections/take-while";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const numbers = [1, 2, 3, 4, 5, 6];
+ *
+ * const result = takeWhile(numbers, (number) => number < 4);
+ *
+ * assertEquals(result, [1, 2, 3]);
+ * ```
+ */
+export function takeWhile<T>(
+  array: readonly T[],
+  predicate: (el: T) => boolean,
+): T[] {
+  let offset = 0;
+  const length = array.length;
+
+  while (length > offset && predicate(array[offset] as T)) {
+    offset++;
+  }
+
+  return array.slice(0, offset);
+}
+
+// denoCacheMetadata={"headers":{"server":"cloudflare","x-jsr-backend":"modules","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","cf-ray":"9e98a5d02e623992-IAD","date":"Thu, 09 Apr 2026 09:57:27 GMT","etag":"\"36287b2f79fbf227e61b729d0e0bed46\"","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-expose-headers":"*","content-length":"1116","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NwII%2BHlsmIFs7DkalYRugxS%2BrdfHLuwsTsEixwt7K7%2BgNOBLNP9Is2YGHf%2FNJA9j%2BKXdtF2%2FjMWO%2FvoM0Gn9gaz7qUQeiTHh2fmrGRJnO36zP5tW5cZ6AoM%3D\"}]}"},"url":"https://jsr.io/@std/collections/0.224.2/take_while.ts","time":1775728647}

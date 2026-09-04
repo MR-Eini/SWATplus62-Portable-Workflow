@@ -1,0 +1,68 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { Comparator, Range, SemVer } from "./types.ts";
+import { testComparatorSet } from "./_test_comparator_set.ts";
+import { isWildcardComparator } from "./_shared.ts";
+import { compare } from "./compare.ts";
+
+/**
+ * Check if the SemVer is greater than the range.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse, parseRange, greaterThanRange } from "@std/semver";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const v0 = parse("1.2.3");
+ * const v1 = parse("1.2.4");
+ * const range = parseRange(">=1.2.3 <1.2.4");
+ * assertFalse(greaterThanRange(v0, range));
+ * assert(greaterThanRange(v1, range));
+ * ```
+ *
+ * @param semver The version to check.
+ * @param range The range to check against.
+ * @returns `true` if the semver is greater than the range, `false` otherwise.
+ */
+export function greaterThanRange(semver: SemVer, range: Range): boolean {
+  return range.every((comparatorSet) =>
+    greaterThanComparatorSet(semver, comparatorSet)
+  );
+}
+
+function greaterThanComparatorSet(
+  semver: SemVer,
+  comparatorSet: Comparator[],
+): boolean {
+  // If the comparator set contains wildcard, then the semver is not greater than the range.
+  if (comparatorSet.some(isWildcardComparator)) return false;
+  // If the semver satisfies the comparator set, then it's not greater than the range.
+  if (testComparatorSet(semver, comparatorSet)) return false;
+  // If the semver is less than any of the comparator set, then it's not greater than the range.
+  if (
+    comparatorSet.some((comparator) => lessThanComparator(semver, comparator))
+  ) return false;
+  return true;
+}
+
+function lessThanComparator(semver: SemVer, comparator: Comparator): boolean {
+  const cmp = compare(semver, comparator);
+  switch (comparator.operator) {
+    case "=":
+    case undefined:
+      return cmp < 0;
+    case "!=":
+      return false;
+    case ">":
+      return cmp <= 0;
+    case "<":
+      return false;
+    case ">=":
+      return cmp < 0;
+    case "<=":
+      return false;
+  }
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=z%2BsoB7w%2B%2FCpyNKJ23wydujKgVtanpr0uvT8UiK5XEAI5Iz7A2pCkfJCalc8Itwc48WjpnJ7M36Odnvfs%2FsVJlKNHw5g8EAR7uCP91%2FK%2B5PYtmVzz6uEMNRs%3D\"}]}","cf-ray":"9e98a5d288db3992-IAD","vary":"Origin","x-jsr-backend":"modules","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","access-control-allow-origin":"*","content-type":"text/typescript","etag":"\"a9b484757612776df23fd31e5609fb3b\"","content-length":"2100","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-robots-tag":"noindex","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare"},"url":"https://jsr.io/@std/semver/0.224.3/greater_than_range.ts","time":1775728648}

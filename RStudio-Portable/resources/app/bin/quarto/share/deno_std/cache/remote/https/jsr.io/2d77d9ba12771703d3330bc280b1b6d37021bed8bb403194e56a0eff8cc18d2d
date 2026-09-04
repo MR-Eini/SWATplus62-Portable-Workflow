@@ -1,0 +1,53 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns a new record with all entries of the given record except the ones that
+ * have a key that does not match the given predicate.
+ *
+ * @template T The type of the values in the input record.
+ *
+ * @param record The record to filter keys from.
+ * @param predicate The function to test each key for a condition.
+ *
+ * @returns A new record with all entries that have a key that matches the given
+ * predicate.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { filterKeys } from "@std/collections/filter-keys";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const menu = {
+ *   Salad: 11,
+ *   Soup: 8,
+ *   Pasta: 13,
+ * };
+ *
+ * const menuWithoutSalad = filterKeys(menu, (item) => item !== "Salad");
+ *
+ * assertEquals(
+ *   menuWithoutSalad,
+ *   {
+ *     Soup: 8,
+ *     Pasta: 13,
+ *   },
+ * );
+ * ```
+ */
+export function filterKeys<T>(
+  record: Readonly<Record<string, T>>,
+  predicate: (key: string) => boolean,
+): Record<string, T> {
+  const result: Record<string, T> = {};
+
+  for (const [key, value] of Object.entries(record)) {
+    if (predicate(key)) {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","etag":"\"a3bdadeca9080ec8fcf8195ea7a28421\"","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin","content-type":"text/typescript","server":"cloudflare","cf-ray":"9e98a5d02e373992-IAD","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=S0dX7Xq6tPdB1Hhwzy8HMM2gl654c1QVKo9c94ZpIxP5xiwuJBQV9Yk%2BBoNkD1d6k7yRYgENXQWMBOvL5ovCDs%2F8JhI2XV9%2FTHMwjtGPMYj4ppKtJskXDlg%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","cross-origin-resource-policy":"cross-origin","content-length":"1263","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","access-control-allow-origin":"*"},"url":"https://jsr.io/@std/collections/0.224.2/filter_keys.ts","time":1775728648}

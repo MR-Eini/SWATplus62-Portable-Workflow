@@ -1,0 +1,204 @@
+{
+  "manifest": {
+    "/csv_stringify_stream.ts": {
+      "size": 2799,
+      "checksum": "sha256-6806733844be44a4b81d57b09a89fc90f4f813e8d1f573901ff0d39d6737db6b"
+    },
+    "/stringify_test.ts": {
+      "size": 15576,
+      "checksum": "sha256-c6607711a387e7e2d7204088e26e736a722aaafa6897eadb62fdf63bae5cd47f"
+    },
+    "/testdata/simple.csv": {
+      "size": 25,
+      "checksum": "sha256-16064cef3bb06cf0694e7a130f7a5434c06dde36b323f887749ec1d4b87c37c9"
+    },
+    "/parse_test.ts": {
+      "size": 24160,
+      "checksum": "sha256-d57254d229041826e344765d779b89f0a0dfbc2c60b57ebd6418ed194706a384"
+    },
+    "/testdata/large.csv": {
+      "size": 196608,
+      "checksum": "sha256-1ce898f2d4ff64414e5e0c7f3a04032b0a3232b9def30fdf3890e308c7940cff"
+    },
+    "/parse.ts": {
+      "size": 10874,
+      "checksum": "sha256-a45544d73b2a84a3b2c3d764af35125e9f588abcd01486084575ab492b0539f9"
+    },
+    "/deno.json": {
+      "size": 265,
+      "checksum": "sha256-1dc0d6b08063a5a79651078b3cc75f51490b035ea249e6e36175fa0e3ebc3d20"
+    },
+    "/csv_parse_stream.ts": {
+      "size": 6248,
+      "checksum": "sha256-01880023e53b2196bd59869d6425c56e8c7317b7411ccb8b6ba3a429a8e7a29f"
+    },
+    "/csv_stringify_stream_test.ts": {
+      "size": 2748,
+      "checksum": "sha256-1829226bb629adbf5b5363133da827a2fcbef9c8f74bf91c87ba2736d7a15135"
+    },
+    "/_io.ts": {
+      "size": 11228,
+      "checksum": "sha256-3b7d542f5bcbf1b6f15cb70c3f67f387a2408a3b7b6b40b7a75cd62091fc6fd1"
+    },
+    "/csv_parse_stream_test.ts": {
+      "size": 13066,
+      "checksum": "sha256-abc1045c6756e9fe2cce9940b3c6b10ea3bef695cc347fc67bd8adf5b6e26ab9"
+    },
+    "/stringify.ts": {
+      "size": 8454,
+      "checksum": "sha256-ab83e5ebf24cfe2c5c44a29317fdac861588bff8a9f680f710b276aa8b057dfc"
+    },
+    "/mod.ts": {
+      "size": 1764,
+      "checksum": "sha256-862fa0ab6942d1d9062d6e69b33c45cc96c16fe12f16d2d2975a7a8684003ff9"
+    }
+  },
+  "moduleGraph2": {
+    "/parse.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_io.ts",
+          "specifierRange": [
+            [
+              13,
+              7
+            ],
+            [
+              13,
+              17
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./stringify.ts",
+          "specifierRange": [
+            [
+              65,
+              14
+            ],
+            [
+              65,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./parse.ts",
+          "specifierRange": [
+            [
+              66,
+              14
+            ],
+            [
+              66,
+              26
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./csv_parse_stream.ts",
+          "specifierRange": [
+            [
+              67,
+              14
+            ],
+            [
+              67,
+              37
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./csv_stringify_stream.ts",
+          "specifierRange": [
+            [
+              68,
+              14
+            ],
+            [
+              68,
+              41
+            ]
+          ]
+        }
+      ]
+    },
+    "/stringify.ts": {},
+    "/csv_parse_stream.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_io.ts",
+          "specifierRange": [
+            [
+              10,
+              7
+            ],
+            [
+              10,
+              17
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/streams@^0.224.4/text-delimiter-stream",
+          "specifierRange": [
+            [
+              11,
+              36
+            ],
+            [
+              11,
+              86
+            ]
+          ]
+        }
+      ]
+    },
+    "/csv_stringify_stream.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./stringify.ts",
+          "specifierRange": [
+            [
+              2,
+              26
+            ],
+            [
+              2,
+              42
+            ]
+          ]
+        }
+      ]
+    },
+    "/_io.ts": {}
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./csv-parse-stream": "./csv_parse_stream.ts",
+    "./csv-stringify-stream": "./csv_stringify_stream.ts",
+    "./parse": "./parse.ts",
+    "./stringify": "./stringify.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pamt72Gyb3AKzuPqppjo1s%2Bcq1FJMRdLMUHhnDLIwrnC%2BN6CH%2BK%2BFsft6yqF0L%2F1wBNI%2FJ7LqKkZ7CQQhaj03tGufSLER8NFDvSn6BWT8TW1kCak5IaGTLs%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","x-robots-tag":"noindex","x-jsr-backend":"modules","cf-ray":"9e98a5ccaa473992-IAD","cross-origin-resource-policy":"cross-origin","vary":"Origin","date":"Thu, 09 Apr 2026 09:57:27 GMT","access-control-allow-origin":"*","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","etag":"W/\"84530f217e7e8778d9060669884bcd0c\"","content-type":"application/json","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/csv/0.224.3_meta.json","time":1775728647}

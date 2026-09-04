@@ -1,0 +1,49 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Builds two separate arrays from the given array of 2-tuples, with the first
+ * returned array holding all first tuple elements and the second one holding
+ * all the second elements.
+ *
+ * @template T The type of the first tuple elements.
+ * @template U The type of the second tuple elements.
+ *
+ * @param pairs The array of 2-tuples to unzip.
+ *
+ * @returns A tuple containing two arrays, the first one holding all first tuple
+ * elements and the second one holding all second elements.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { unzip } from "@std/collections/unzip";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const parents = [
+ *   ["Maria", "Jeff"],
+ *   ["Anna", "Kim"],
+ *   ["John", "Leroy"],
+ * ] as [string, string][];
+ *
+ * const [moms, dads] = unzip(parents);
+ *
+ * assertEquals(moms, ["Maria", "Anna", "John"]);
+ * assertEquals(dads, ["Jeff", "Kim", "Leroy"]);
+ * ```
+ */
+export function unzip<T, U>(pairs: readonly [T, U][]): [T[], U[]] {
+  const { length } = pairs;
+  const result: [T[], U[]] = [
+    Array<T>(length),
+    Array<U>(length),
+  ];
+
+  pairs.forEach(([first, second], index) => {
+    result[0][index] = first;
+    result[1][index] = second;
+  });
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jSAN5mRj9xNJky%2BJK4gMNBCaJKi%2BcXzAPuWztFj6csgKmMTV5AR3qR7eA32B8VSphELqBE2yPlqz0al2qK68krwy1lBgyy7Yt5cXz279JB9xtpG4GKdQlHQ%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d02e653992-IAD","access-control-expose-headers":"*","x-jsr-backend":"modules","server":"cloudflare","content-length":"1344","date":"Thu, 09 Apr 2026 09:57:27 GMT","x-content-type-options":"nosniff","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"519e8c7c0ce1951eb9bb222f46d7b942\"","x-robots-tag":"noindex","vary":"Origin","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/collections/0.224.2/unzip.ts","time":1775728647}

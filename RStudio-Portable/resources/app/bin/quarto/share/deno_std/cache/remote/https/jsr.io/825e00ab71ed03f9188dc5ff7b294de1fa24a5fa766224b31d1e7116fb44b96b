@@ -1,0 +1,34 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { relative as posixRelative } from "./posix/relative.ts";
+import { relative as windowsRelative } from "./windows/relative.ts";
+
+/**
+ * Return the relative path from `from` to `to` based on current working
+ * directory.
+ *
+ * @example Usage
+ * ```ts
+ * import { relative } from "@std/path/relative";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * if (Deno.build.os === "windows") {
+ *   const path = relative("C:\\foobar\\test\\aaa", "C:\\foobar\\impl\\bbb");
+ *   assertEquals(path, "..\\..\\impl\\bbb");
+ * } else {
+ *   const path = relative("/data/foobar/test/aaa", "/data/foobar/impl/bbb");
+ *   assertEquals(path, "../../impl/bbb");
+ * }
+ * ```
+ *
+ * @param from Path in current working directory.
+ * @param to Path in current working directory.
+ * @returns The relative path from `from` to `to`.
+ */
+export function relative(from: string, to: string): string {
+  return isWindows ? windowsRelative(from, to) : posixRelative(from, to);
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","content-length":"1122","etag":"\"8773031626e738754c0c12d4d4684032\"","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3ROnZJmPQlWQXhKkK1kx7BqOK75bM3GGUGmRgidDGCFp7WowD87t9zTvGd1Nz%2FQV0I%2BEHm7RwMk1BeBzYNNANLEBK4%2F6KBAGWfafldiI56WOY%2BcnzexPYUA%3D\"}]}","cf-ray":"9e98a5d4bb4b3992-IAD","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","x-jsr-backend":"modules","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/relative.ts","time":1775728648}

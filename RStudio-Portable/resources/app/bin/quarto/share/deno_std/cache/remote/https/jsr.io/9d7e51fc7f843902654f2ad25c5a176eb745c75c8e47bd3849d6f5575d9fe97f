@@ -1,0 +1,47 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { parseMediaType } from "./parse_media_type.ts";
+import type { DBEntry } from "./_util.ts";
+import { db, type KeyOfDb } from "./_db.ts";
+
+/**
+ * Given a media type or header value, identify the encoding charset. If the
+ * charset cannot be determined, the function returns `undefined`.
+ *
+ * @param type The media type or header value to get the charset for.
+ *
+ * @returns The charset for the given media type or header value, or `undefined`
+ * if the charset cannot be determined.
+ *
+ * @example Usage
+ * ```ts
+ * import { getCharset } from "@std/media-types/get-charset";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(getCharset("text/plain"), "UTF-8");
+ * assertEquals(getCharset("application/foo"), undefined);
+ * assertEquals(getCharset("application/news-checkgroups"), "US-ASCII");
+ * assertEquals(getCharset("application/news-checkgroups; charset=UTF-8"), "UTF-8");
+ * ```
+ */
+export function getCharset(type: string): string | undefined {
+  try {
+    const [mediaType, params] = parseMediaType(type);
+    if (params?.charset) {
+      return params.charset;
+    }
+    const entry = db[mediaType as KeyOfDb] as DBEntry;
+    if (entry?.charset) {
+      return entry.charset;
+    }
+    if (mediaType.startsWith("text/")) {
+      return "UTF-8";
+    }
+  } catch {
+    // just swallow errors, returning undefined
+  }
+  return undefined;
+}
+
+// denoCacheMetadata={"headers":{"x-jsr-backend":"modules","content-length":"1497","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mOJfjR%2B33EgTj02iw5aWJmyrqsfiz9pnLABYon207WKdCY8Szj%2B5V8q7ZB07lcRHZbPr6FPXAAXRp%2BTkLWIp9Vhbl5xGH%2Fi4f9OzWDWtNrzIT6tv66DcSHE%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","etag":"\"e5f0924df391714f979edadfa6e1d59e\"","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","vary":"Origin","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","server":"cloudflare","x-robots-tag":"noindex","access-control-allow-origin":"*","cf-ray":"9e98a5d228393992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/media-types/0.224.1/get_charset.ts","time":1775728648}

@@ -1,0 +1,272 @@
+agg_ohlc                Aggregate a time series of data into a single
+                        bar of _OHLC_ data.
+agg_stats_r             Calculate the aggregation (weighted average) of
+                        a statistical estimator over a _OHLC_ time
+                        series using 'R' code.
+calc_covar              Calculate the covariance matrix of the columns
+                        of a _time series_ using 'RcppArmadillo'.
+calc_cvar               Calculate the Value at Risk (_VaR_) or the
+                        Conditional Value at Risk (_CVaR_) of an _xts_
+                        _time series_ of returns, using 'R' code.
+calc_eigen              Calculate the eigen decomposition of a square,
+                        symmetric matrix using 'RcppArmadillo'.
+calc_eigenp             Calculate the partial eigen decomposition of a
+                        dense symmetric matrix using 'RcppArmadillo'.
+calc_endpoints          Calculate a vector of end points that divides
+                        an integer time sequence of time periods into
+                        equal time intervals.
+calc_hurst              Calculate the Hurst exponent from the
+                        volatility ratio of aggregated returns.
+calc_hurst_ohlc         Calculate the Hurst exponent from the
+                        volatility ratio of aggregated _OHLC_ prices.
+calc_inv                Calculate the _reduced inverse_ of a symmetric
+                        _matrix_ of data using eigen decomposition.
+calc_invrec             Calculate the approximate inverse of a square
+                        _matrix_ recursively using the Schulz formula
+                        (without copying the data in memory).
+calc_invref             Calculate the inverse of a square _matrix_ in
+                        place, without copying the data in memory.
+calc_invsvd             Calculate the _reduced inverse_ of a _matrix_
+                        of data using Singular Value Decomposition
+                        (_SVD_).
+calc_kurtosis           Calculate the kurtosis of the columns of a
+                        _time series_ or a _matrix_ using
+                        'RcppArmadillo'.
+calc_lm                 Perform multivariate linear regression using
+                        least squares and return a named list of
+                        regression coefficients, their t-values, and
+                        p-values.
+calc_mean               Calculate the mean (location) of the columns of
+                        a _time series_ or a _matrix_ using
+                        'RcppArmadillo'.
+calc_ranks              Calculate the ranks of the elements of a
+                        single-column _time series_, _matrix_, or a
+                        _vector_ using 'RcppArmadillo'.
+calc_ranks_stl          Calculate the ranks of the elements of a
+                        single-column _time series_, _matrix_, or a
+                        _vector_ using the 'STL'.
+calc_reg                Perform multivariate regression using different
+                        methods, and return a vector of regression
+                        coefficients, their t-values, and the last
+                        residual z-score.
+calc_scale              Standardize (center and scale) the columns of a
+                        _time series_ of data in place, without copying
+                        the data in memory, using 'RcppArmadillo'.
+calc_season             Calculate the intraday seasonality aggregations
+                        over a single-column _xts_ time series.
+calc_skew               Calculate the skewness of the columns of a
+                        _time series_ or a _matrix_ using
+                        'RcppArmadillo'.
+calc_startpoints        Calculate a vector of start points by lagging
+                        (shifting) a vector of end points.
+calc_var                Calculate the dispersion (variance) of the
+                        columns of a _time series_ or a _matrix_ using
+                        'RcppArmadillo'.
+calc_var_ag             Calculate the variance of returns aggregated
+                        over the end points.
+calc_var_ohlc           Calculate the variance of returns from _OHLC_
+                        prices using different price range estimators.
+calc_var_ohlc_ag        Calculate the variance of aggregated _OHLC_
+                        prices using different price range estimators.
+calc_var_ohlc_r         Calculate the variance of an _OHLC_ time
+                        series, using different range estimators for
+                        variance.
+calc_varvec             Calculate the variance of a single-column _time
+                        series_ or a _vector_ using 'RcppArmadillo'.
+calc_weights            Calculate the optimal portfolio weights using a
+                        variety of different objective functions.
+decode_it               Calculate the _vector_ of data from its run
+                        length encoding.
+diff_vec                Calculate the differences between the
+                        neighboring elements of a single-column _time
+                        series_ or a _vector_.
+diffit                  Calculate the row differences of a _time
+                        series_ or a _matrix_ using _RcppArmadillo_.
+encode_it               Calculate the run length encoding of a
+                        single-column _time series_, _matrix_, or a
+                        _vector_.
+hf_data                 High frequency data sets
+lag_vec                 Apply a lag to a single-column _time series_ or
+                        a _vector_ using 'RcppArmadillo'.
+lagit                   Apply a lag to the rows of a _time series_ or a
+                        _matrix_ using 'RcppArmadillo'.
+lik_garch               Calculate the log-likelihood of a time series
+                        of returns assuming a _GARCH(1,1)_ process.
+mult_mat                Multiply element-wise the rows or columns of a
+                        _matrix_ times a _vector_.
+mult_mat_ref            Multiply the rows or columns of a _matrix_
+                        times a _vector_, element-wise and in place,
+                        without copying the data in memory.
+ohlc_returns            Calculate single period percentage returns from
+                        either _TAQ_ or _OHLC_ prices.
+ohlc_sharpe             Calculate time series of point Sharpe-like
+                        statistics for each row of a _OHLC_ time
+                        series.
+ohlc_skew               Calculate time series of point skew estimates
+                        from a _OHLC_ time series, assuming zero drift.
+ohlc_variance           Calculate a time series of point estimates of
+                        variance for an _OHLC_ time series, using
+                        different range estimators for variance.
+param_portf             Create a named list of model parameters that
+                        can be passed into portfolio optimization
+                        functions.
+param_reg               Create a named list of model parameters that
+                        can be passed into regression and machine
+                        learning functions.
+push_cov2cor            Calculate the correlation matrix from the
+                        covariance matrix.
+push_covar              Update the trailing covariance matrix of
+                        streaming asset returns, with a row of new
+                        returns using an online recursive formula.
+push_eigen              Update the trailing eigen values and eigen
+                        vectors of streaming asset return data, with a
+                        row of new returns.
+push_sga                Update the trailing eigen values and eigen
+                        vectors of streaming asset return data, with a
+                        row of new returns, using the _SGA_ algorithm.
+random_ohlc             Simulate a random _OHLC_ time series of prices
+                        and trading volumes, in _xts_ format.
+random_taq              Simulate a random _TAQ_ time series of prices
+                        and trading volumes, in _xts_ format.
+remove_jumps            Remove overnight close-to-open price jumps from
+                        an _OHLC_ time series, by adding adjustment
+                        terms to its prices.
+roll_apply              Apply an aggregation function over a rolling
+                        look-back interval and the end points of an
+                        _OHLC_ time series, using 'R' code.
+roll_backtest           Perform a backtest simulation of a trading
+                        strategy (model) over a vector of end points
+                        along a time series of prices.
+roll_conv               Calculate the rolling convolutions (weighted
+                        sums) of a _time series_ with a single-column
+                        _matrix_ of weights.
+roll_count              Count the number of consecutive 'TRUE' elements
+                        in a Boolean vector, and reset the count to
+                        zero after every 'FALSE' element.
+roll_hurst              Calculate a time series of _Hurst_ exponents
+                        over a rolling look-back interval.
+roll_kurtosis           Calculate a _matrix_ of kurtosis estimates over
+                        a rolling look-back interval attached at the
+                        end points of a _time series_ or a _matrix_.
+roll_mean               Calculate a _matrix_ of mean (location)
+                        estimates over a rolling look-back interval
+                        attached at the end points of a _time series_
+                        or a _matrix_.
+roll_moment             Calculate a _matrix_ of moment values over a
+                        rolling look-back interval attached at the end
+                        points of a _time series_ or a _matrix_.
+roll_ohlc               Aggregate a time series to an _OHLC_ time
+                        series with lower periodicity.
+roll_portf              Simulate (backtest) a portfolio momentum
+                        strategy, using 'RcppArmadillo'.
+roll_reg                Perform a rolling regression and calculate a
+                        matrix of regression coefficients, their
+                        t-values, and z-scores.
+roll_scale              Perform a rolling standardization (centering
+                        and scaling) of the columns of a _time series_
+                        of data using 'RcppArmadillo'.
+roll_sharpe             Calculate a time series of Sharpe ratios over a
+                        rolling look-back interval for an _OHLC_ time
+                        series.
+roll_skew               Calculate a _matrix_ of skewness estimates over
+                        a rolling look-back interval attached at the
+                        end points of a _time series_ or a _matrix_.
+roll_stats              Calculate a vector of statistics over an _OHLC_
+                        time series, and calculate a rolling mean over
+                        the statistics.
+roll_sum                Calculate the rolling sums over a _time series_
+                        or a _matrix_ using _Rcpp_.
+roll_sumep              Calculate the rolling sums at the end points of
+                        a _time series_ or a _matrix_.
+roll_sumw               Calculate the rolling weighted sums over a
+                        _time series_ or a _matrix_ using _Rcpp_.
+roll_var                Calculate a _matrix_ of dispersion (variance)
+                        estimates over a rolling look-back interval
+                        attached at the end points of a _time series_
+                        or a _matrix_.
+roll_var_ohlc           Calculate a _vector_ of variance estimates over
+                        a rolling look-back interval attached at the
+                        end points of a _time series_ or a _matrix_
+                        with _OHLC_ price data.
+roll_varvec             Calculate a _vector_ of variance estimates over
+                        a rolling look-back interval for a
+                        single-column _time series_ or a single-column
+                        _matrix_, using 'RcppArmadillo'.
+roll_vwap               Calculate the volume-weighted average price of
+                        an _OHLC_ time series over a rolling look-back
+                        interval.
+roll_zscores            Calculate a _vector_ of z-scores of the
+                        residuals of rolling regressions at the end
+                        points of the predictor matrix.
+run_autocovar           Calculate the trailing autocovariance of a
+                        _time series_ of returns using an online
+                        recursive formula.
+run_covar               Calculate the trailing covariances of two
+                        streaming _time series_ of returns using an
+                        online recursive formula.
+run_max                 Calculate the trailing maximum values of
+                        streaming _time series_ data using an online
+                        recursive formula.
+run_mean                Calculate the exponential moving average (EMA)
+                        of streaming _time series_ data using an online
+                        recursive formula.
+run_min                 Calculate the trailing minimum values of
+                        streaming _time series_ data using an online
+                        recursive formula.
+run_reg                 Perform regressions on the streaming _time
+                        series_ of response and predictor data, and
+                        calculate the regression coefficients, the
+                        residuals, and the forecasts, using online
+                        recursive formulas.
+run_scale               Standardize (center and scale) the columns of a
+                        _time series_ of data over time and in place,
+                        without copying the data in memory, using
+                        'RcppArmadillo'.
+run_var                 Calculate the exponential moving average mean
+                        and variance of streaming _time series_ data
+                        using an online recursive formula.
+run_var_ohlc            Calculate the trailing variance of streaming
+                        _OHLC_ price data using an online recursive
+                        formula.
+run_zscores             Calculate the trailing means, volatilities, and
+                        z-scores of a streaming _time series_ of data
+                        using an online recursive formula.
+save_rets               Load, scrub, aggregate, and rbind multiple days
+                        of _TAQ_ data for a single symbol. Calculate
+                        the returns and save them to a single "*.RData"
+                        file.
+save_rets_ohlc          Load _OHLC_ time series data for a single
+                        symbol, calculate its returns, and save them to
+                        a single "*.RData" file, without aggregation.
+save_scrub_agg          Load, scrub, aggregate, and rbind multiple days
+                        of _TAQ_ data for a single symbol, and save the
+                        _OHLC_ time series to a single "*.RData" file.
+save_taq                Load and scrub multiple days of _TAQ_ data for
+                        a single symbol, and save it to multiple
+                        "*.RData" files.
+scrub_agg               Scrub a single day of _TAQ_ data, aggregate it,
+                        and convert to _OHLC_ format.
+scrub_taq               Scrub a single day of _TAQ_ data in _xts_
+                        format, without aggregation.
+sim_ar                  Simulate _autoregressive_ returns by
+                        recursively filtering a _matrix_ of innovations
+                        through a _matrix_ of _autoregressive_
+                        coefficients.
+sim_df                  Simulate a _Dickey-Fuller_ process using
+                        _Rcpp_.
+sim_garch               Simulate or estimate the rolling variance under
+                        a _GARCH(1,1)_ process using _Rcpp_.
+sim_ou                  Simulate an _Ornstein-Uhlenbeck_ process using
+                        _Rcpp_.
+sim_portfoptim          Simulate a portfolio optimization strategy
+                        using online (recursive) updating of the
+                        covariance matrix.
+sim_schwartz            Simulate a _Schwartz_ process using _Rcpp_.
+which_extreme           Calculate a _Boolean_ vector that identifies
+                        extreme tail values in a single-column _xts_
+                        time series or vector, over a rolling look-back
+                        interval.
+which_jumps             Calculate a _Boolean_ vector that identifies
+                        isolated jumps (spikes) in a single-column
+                        _xts_ time series or vector, over a rolling
+                        interval.

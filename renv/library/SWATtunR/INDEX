@@ -1,0 +1,63 @@
+add_kill_op             Replace hvkl operations with harv + kill
+add_timestamp           Add a time stamp to the save name
+aggregate_time          Aggregate time series table
+calc_fdc                Calculate Flow Duration Curve (FDC)
+calc_fdc_rsr            Calculate RSR for Flow Duration Curve Segments
+calc_gof                Calculate a goodness-of-fit table
+calc_wyr                Calculate water yield ratio
+conc_to_load            Convert concentration and discharge time series
+                        into a load time series.
+copy_file_version       Copy a file with an optional version suffix.
+failed_runs             Identify and summarize failed SWAT+ runs
+filter_period           Filter a time period for a variable time series
+                        table.
+group_hydr_values       Group the values of a parameter in the file
+                        hydrology.hyd.
+id_to_run               Convert run ID values to run names
+id_to_unit              Generate 'unit' condition for parameter
+                        definition from ID vector
+initialize_hardcal      Initialize a hard calibration workflow
+initialize_softcal      Initialize a soft calibration workflow
+load_to_conc            Convert load and discharge time series into a
+                        concentration time series.
+plot_cal_val            Plot Calibration and Validation Performance
+                        Indexes in Boxplots
+plot_dotty              Plot Dotty
+plot_dotty_yields       Plot Dotty Yields
+plot_esco_epco          Plot esco (and epco) to identify appropriate
+                        parameter ranges.
+plot_fdc                Plot Flow Duration Curve (FDC) for Observed and
+                        Simulated Data
+plot_gof                Plot goodness of fit (GOF) tables
+plot_oat                Function to plot OAT (One-At-A-Time) analysis
+                        results
+plot_parameter_identifiability
+                        Plot Parameter Identifiability
+plot_pcp_vs_flow        Plot Precipitation vs. Runoff
+plot_phu_yld_bms        Plot PHU, yield, and biomass over days to
+                        maturity
+plot_timeseries         Plot time series of simulation results and
+                        observations
+prepare_plant_parameter
+                        Rearrange parameter change tables to SWATrunR
+                        format
+rank_gof                Rank lines in a table of goodness-of-fit
+                        values.
+remove_unsuccesful_runs
+                        Remove Unsuccessful Runs from Simulation
+run_to_id               Convert run_names to integer ID values
+sample_days_mat         Sample days to maturity values
+sample_lhs              Sample parameters with Latin Hypercube Sampling
+                        (LHS)
+sample_oat              Sample parameter values one-at-a-time (OAT)
+sum_variables           Sum values of simulated variables
+translate_to_boundaries
+                        Translate the normalized sampled values of a
+                        parameter to ranges of groups of that parameter
+                        (e.g. when perco should have different ranges
+                        based on the initial values of perco in all
+                        HRUs)
+update_par              Update Parameters
+view_timeseries         View interactive time series of simulation
+                        results and observations
+write_cal_file          Write a SWAT+ Calibration File

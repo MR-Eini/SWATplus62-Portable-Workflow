@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+// Ported from https://github.com/browserify/path-browserify/
+// This module is browser compatible.
+
+import {
+  CHAR_BACKWARD_SLASH,
+  CHAR_FORWARD_SLASH,
+  CHAR_LOWERCASE_A,
+  CHAR_LOWERCASE_Z,
+  CHAR_UPPERCASE_A,
+  CHAR_UPPERCASE_Z,
+} from "../_common/constants.ts";
+
+export function isPosixPathSeparator(code: number): boolean {
+  return code === CHAR_FORWARD_SLASH;
+}
+
+export function isPathSeparator(code: number): boolean {
+  return code === CHAR_FORWARD_SLASH || code === CHAR_BACKWARD_SLASH;
+}
+
+export function isWindowsDeviceRoot(code: number): boolean {
+  return (
+    (code >= CHAR_LOWERCASE_A && code <= CHAR_LOWERCASE_Z) ||
+    (code >= CHAR_UPPERCASE_A && code <= CHAR_UPPERCASE_Z)
+  );
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=UmmAWTX%2FNdahBDJf79hXRt%2F3bZgutqzXwNNeo1s%2FY0wnZ%2FdKasZTaJFbZPJmkVgU6HkSidMHC%2BvwsBfsYD91UQw5db3Aap9wCd9GNWgPpb%2B3vUrS14C7T%2FQ%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d55c253992-IAD","x-jsr-backend":"modules","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","etag":"\"77e408e05b02b82b6c91e057d35ac7f4\"","server":"cloudflare","access-control-expose-headers":"*","x-robots-tag":"noindex","content-type":"text/typescript","content-length":"828","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/windows/_util.ts","time":1775728648}

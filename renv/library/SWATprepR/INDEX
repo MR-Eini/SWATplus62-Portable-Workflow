@@ -1,0 +1,37 @@
+add_atmo_dep            Update SWAT+ project with atmospheric
+                        deposition data
+add_weather             Update SWAT+ SQLite database with weather data
+clean_outliers          Clean outliers outside specified standard
+                        deviations
+clean_wq                Clean water quality data from common issues
+extract_rotation        Extract rotation information from raster file
+find_dif                Find Differences Between Files in Two Setups
+get_atmo_dep            Extract EMEP atmospheric deposition data for a
+                        catchment
+get_lu_points           Prepare training points for remote sensing
+                        algorithm
+get_usersoil_table      Prepare user soil table for SWAT model
+interpolate             Interpolate Weather Data
+load_netcdf_weather     Extract Climate Data from CORDEX NetCDF into
+                        Nested List
+load_swat_weather       Load SWAT+ weather text files into R
+load_template           Load Data Templates
+plot_cal_data           Plot Calibration Data
+plot_fractions          Plot Regression and Fractions for Each Month
+plot_map                Prepare Interactive Map of Monitoring Points
+plot_monthly            Aggregating values of single station to
+                        interactive monthly box plots
+plot_weather            Prepare Plotly Figure for Weather Data
+plot_weather_compare    Plotting Figure to Compare Two Datasets with
+                        Weather Data
+plot_wgn_comparison     Plot WGN Parameters Comparison
+prepare_climate         Prepare or Update Climate Data Text Input Files
+                        in SWAT+ Model
+prepare_ps              Prepare Point Source Data Model Text Files
+prepare_wgn             Generate Weather Generator (WGN) Data for SWAT+
+                        Model
+setup_info              Read information about model setup from SWAT
+                        files
+sol_to_usersoil         Convert SWAT+ soils.sol data to usersoil format
+usersoil_to_sol         Convert 'usersoil.csv' to 'soils.sol'
+wbalance_table          Prepare water balance table

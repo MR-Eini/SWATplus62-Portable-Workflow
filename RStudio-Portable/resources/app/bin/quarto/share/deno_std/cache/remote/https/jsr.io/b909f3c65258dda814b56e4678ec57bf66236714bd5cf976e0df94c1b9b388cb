@@ -1,0 +1,44 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+/**
+ * Utilities for working with the
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Streams API}.
+ *
+ * Includes buffering and conversion.
+ *
+ * ```ts
+ * import { toText } from "@std/streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream = ReadableStream.from("Hello, world!");
+ * const text = await toText(stream);
+ *
+ * assertEquals(text, "Hello, world!");
+ * ```
+ *
+ * @module
+ */
+
+export * from "./buffer.ts";
+export * from "./byte_slice_stream.ts";
+export * from "./concat_readable_streams.ts";
+export * from "./delimiter_stream.ts";
+export * from "./early_zip_readable_streams.ts";
+export * from "./iterate_reader.ts";
+export * from "./limited_bytes_transform_stream.ts";
+export * from "./limited_transform_stream.ts";
+export * from "./merge_readable_streams.ts";
+export * from "./readable_stream_from_reader.ts";
+export * from "./reader_from_iterable.ts";
+export * from "./reader_from_stream_reader.ts";
+export * from "./text_delimiter_stream.ts";
+export * from "./text_line_stream.ts";
+export * from "./to_array_buffer.ts";
+export * from "./to_blob.ts";
+export * from "./to_json.ts";
+export * from "./to_text.ts";
+export * from "./to_transform_stream.ts";
+export * from "./writable_stream_from_writer.ts";
+export * from "./writer_from_stream_writer.ts";
+export * from "./zip_readable_streams.ts";
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SWCdpDikj8b1Vf8YAdBc5bEZxiBn7caJqvZUACRTKCdsU%2BSm5EQpfT1jSho6%2BiNphgd1tmwEA725SX0TVO0s6HGxjYPRuKlHN7qlx1C6nNRdTrKdL33UAac%3D\"}]}","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","vary":"Origin","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:27 GMT","etag":"\"f21c13e6ed8e3baf2de5ca2e0802b77a\"","access-control-expose-headers":"*","content-length":"1442","x-jsr-backend":"modules","cf-ray":"9e98a5d02e003992-IAD","content-type":"text/typescript","x-content-type-options":"nosniff","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-robots-tag":"noindex"},"url":"https://jsr.io/@std/streams/0.224.5/mod.ts","time":1775728647}

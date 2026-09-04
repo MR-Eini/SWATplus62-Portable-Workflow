@@ -1,0 +1,47 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import { Type } from "../type.ts";
+
+function resolveYamlNull(data: string): boolean {
+  const max = data.length;
+
+  return (
+    (max === 1 && data === "~") ||
+    (max === 4 && (data === "null" || data === "Null" || data === "NULL"))
+  );
+}
+
+function constructYamlNull(): null {
+  return null;
+}
+
+function isNull(object: unknown): object is null {
+  return object === null;
+}
+
+export const nil = new Type("tag:yaml.org,2002:null", {
+  construct: constructYamlNull,
+  defaultStyle: "lowercase",
+  kind: "scalar",
+  predicate: isNull,
+  represent: {
+    canonical(): string {
+      return "~";
+    },
+    lowercase(): string {
+      return "null";
+    },
+    uppercase(): string {
+      return "NULL";
+    },
+    camelcase(): string {
+      return "Null";
+    },
+  },
+  resolve: resolveYamlNull,
+});
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","vary":"Origin","content-length":"1067","etag":"\"9740fad9cc218c05e9cd4b351b631be9\"","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=oOj24DLhaYlt0%2BhVNEVbRe5dQq5aktyxGWUhoADVZ9MhYH0%2BmgLndH0cfJf4bugtpIsweQ7r%2FvuGiFYFaOL54KghGLcWVB8YETu3xXFFZNdJkYhTkWK8RXw%3D\"}]}","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","cf-ray":"9e98a5d46b083992-IAD","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","x-content-type-options":"nosniff","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/yaml/0.224.3/_type/nil.ts","time":1775728648}

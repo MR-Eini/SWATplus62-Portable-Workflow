@@ -1,0 +1,93 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+const NEWLINE_REGEXP = /\r\n|\r|\n/;
+const encoder = new TextEncoder();
+
+/**
+ * Represents a message in the Server-Sent Event (SSE) protocol.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#fields}
+ */
+export interface ServerSentEventMessage {
+  /** Ignored by the client. */
+  comment?: string;
+  /** A string identifying the type of event described. */
+  event?: string;
+  /** The data field for the message. Split by new lines. */
+  data?: string;
+  /** The event ID to set the {@linkcode EventSource} object's last event ID value. */
+  id?: string | number;
+  /** The reconnection time. */
+  retry?: number;
+}
+
+function assertHasNoNewline(value: string, varName: string) {
+  if (value.match(NEWLINE_REGEXP) !== null) {
+    throw new RangeError(`${varName} cannot contain a newline`);
+  }
+}
+
+/**
+ * Converts a server-sent message object into a string for the client.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format}
+ */
+function stringify(message: ServerSentEventMessage): Uint8Array {
+  const lines = [];
+  if (message.comment) {
+    assertHasNoNewline(message.comment, "`message.comment`");
+    lines.push(`:${message.comment}`);
+  }
+  if (message.event) {
+    assertHasNoNewline(message.event, "`message.event`");
+    lines.push(`event:${message.event}`);
+  }
+  if (message.data) {
+    message.data.split(NEWLINE_REGEXP).forEach((line) =>
+      lines.push(`data:${line}`)
+    );
+  }
+  if (message.id) {
+    assertHasNoNewline(message.id.toString(), "`message.id`");
+    lines.push(`id:${message.id}`);
+  }
+  if (message.retry) lines.push(`retry:${message.retry}`);
+  return encoder.encode(lines.join("\n") + "\n\n");
+}
+
+/**
+ * Transforms server-sent message objects into strings for the client.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events}
+ *
+ * @example Usage
+ * ```ts no-assert
+ * import {
+ *   type ServerSentEventMessage,
+ *   ServerSentEventStream,
+ * } from "@std/http/server-sent-event-stream";
+ *
+ * const stream = ReadableStream.from<ServerSentEventMessage>([
+ *   { data: "hello there" }
+ * ]).pipeThrough(new ServerSentEventStream());
+ * new Response(stream, {
+ *   headers: {
+ *     "content-type": "text/event-stream",
+ *     "cache-control": "no-cache",
+ *   },
+ * });
+ * ```
+ */
+export class ServerSentEventStream
+  extends TransformStream<ServerSentEventMessage, Uint8Array> {
+  constructor() {
+    super({
+      transform: (message, controller) => {
+        controller.enqueue(stringify(message));
+      },
+    });
+  }
+}
+
+// denoCacheMetadata={"headers":{"server":"cloudflare","access-control-allow-origin":"*","content-length":"2771","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"dbbc7c0cfb9feb0f452dc63b78d173bf\"","x-jsr-backend":"modules","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CqJXpk8mTMDVkuSB5DT6xuEYNpSH2BNfhYt9%2FwCyiuZ8%2BQCugfehj3%2B7FRx6Xou%2BIY0kY4chJnPUykKIkUL7XG%2BZxegj15yGf8gWUHXkSsk1KT9ErtS%2BW28%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin","x-content-type-options":"nosniff","cf-ray":"9e98a5d19f923992-IAD","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/http/0.224.5/server_sent_event_stream.ts","time":1775728648}

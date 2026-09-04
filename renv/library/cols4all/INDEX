@@ -1,0 +1,14 @@
+c4a                     Get a cols4all color palette
+c4a_citation            Show how to cite palettes
+c4a_data                Build and load palette data
+c4a_gui                 Graphical user interface to analyse palettes
+c4a_info                Get information from a cols4all palette
+c4a_modify              Edit cols4all palettes (in development)
+c4a_options             Set cols4all options
+c4a_palettes            Get available palette names and series
+c4a_plot                Plot a color palette
+c4a_scores              Get information from a cols4all palette
+c4a_sysdata_import      Import and export system data
+cols4all-package        cols4all overview
+scale_color_discrete_c4a_cat
+                        col4all scales for ggplot2

@@ -1,0 +1,14 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import { Type } from "../type.ts";
+
+export const str = new Type("tag:yaml.org,2002:str", {
+  construct(data): string {
+    return data !== null ? data : "";
+  },
+  kind: "scalar",
+});
+
+// denoCacheMetadata={"headers":{"etag":"\"31ea4e6d25cc3635414e8fc87bb122f0\"","x-jsr-backend":"modules","cf-ray":"9e98a5d47b193992-IAD","vary":"Origin","x-robots-tag":"noindex","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KezZ8BlJORTlna3MUcG618JwrNEroHIfqb%2F7iOuw5gZFNXbAlX%2B4PSoGrluEPkJWr%2Bo5FZ2%2FWtQ8L0rVdikAlQQ6SzaAV2xJc%2BTEESGUpL4nnkdtpBhOEvY%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"377","access-control-expose-headers":"*","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/yaml/0.224.3/_type/str.ts","time":1775728648}

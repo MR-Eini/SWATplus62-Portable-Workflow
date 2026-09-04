@@ -1,0 +1,88 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isIterator, isToken, needsEncoding } from "./_util.ts";
+
+/**
+ * Serializes the media type and the optional parameters as a media type
+ * conforming to {@link https://www.rfc-editor.org/rfc/rfc2045.html | RFC 2045} and
+ * {@link https://www.rfc-editor.org/rfc/rfc2616.html | RFC 2616}.
+ *
+ * The type and parameter names are written in lower-case.
+ *
+ * When any of the arguments results in a standard violation then the return
+ * value will be an empty string (`""`).
+ *
+ * @param type The media type to serialize.
+ * @param param Optional parameters to serialize.
+ *
+ * @returns The serialized media type.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { formatMediaType } from "@std/media-types/format-media-type";
+ * import { assertEquals } from "@std/assert";
+ *
+ * assertEquals(formatMediaType("text/plain"), "text/plain");
+ * ```
+ *
+ * @example With parameters
+ * ```ts
+ * import { formatMediaType } from "@std/media-types/format-media-type";
+ * import { assertEquals } from "@std/assert";
+ *
+ * assertEquals(formatMediaType("text/plain", { charset: "UTF-8" }), "text/plain; charset=UTF-8");
+ * ```
+ */
+export function formatMediaType(
+  type: string,
+  param?: Record<string, string> | Iterable<[string, string]>,
+): string {
+  let serializedMediaType = "";
+  const [major = "", sub] = type.split("/");
+  if (!sub) {
+    if (!isToken(type)) {
+      return "";
+    }
+    serializedMediaType += type.toLowerCase();
+  } else {
+    if (!isToken(major) || !isToken(sub)) {
+      return "";
+    }
+    serializedMediaType += `${major.toLowerCase()}/${sub.toLowerCase()}`;
+  }
+
+  if (param) {
+    param = isIterator(param) ? Object.fromEntries(param) : param;
+    const attrs = Object.keys(param);
+    attrs.sort();
+
+    for (const attribute of attrs) {
+      if (!isToken(attribute)) {
+        return "";
+      }
+      const value = param[attribute]!;
+      serializedMediaType += `; ${attribute.toLowerCase()}`;
+
+      const needEnc = needsEncoding(value);
+      if (needEnc) {
+        serializedMediaType += "*";
+      }
+      serializedMediaType += "=";
+
+      if (needEnc) {
+        serializedMediaType += `utf-8''${encodeURIComponent(value)}`;
+        continue;
+      }
+
+      if (isToken(value)) {
+        serializedMediaType += value;
+        continue;
+      }
+      serializedMediaType += `"${value.replace(/["\\]/gi, (m) => `\\${m}`)}"`;
+    }
+  }
+  return serializedMediaType;
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","vary":"Origin","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EL50pq%2BtZ%2F2%2Frl41WtmswNgQnFUrJ35VhexwkSnPfwFl4m49diHc9821riSmJfeZX7crYImb8uxPgtwOa0Rwli%2FU8fCaf5XZEfj5X19zkQRb2tz9gD1PlyA%3D\"}]}","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","content-length":"2511","etag":"\"cf9cadfc6bbbcebe72c6d6b00c253211\"","server":"cloudflare","x-jsr-backend":"modules","access-control-expose-headers":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d52bde3992-IAD"},"url":"https://jsr.io/@std/media-types/1.0.3/format_media_type.ts","time":1775728648}

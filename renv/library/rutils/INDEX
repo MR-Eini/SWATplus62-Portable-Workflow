@@ -1,0 +1,72 @@
+adjust_ohlc             Adjust the first four columns of _OHLC_ data
+                        using the "adjusted" price column.
+calc_endpoints          Calculate a vector of equally spaced end points
+                        along the elements of a vector, matrix, or time
+                        series.
+calc_sharpe             Calculate the Sharpe and Sortino ratios of a
+                        time series of returns.
+calc_skew               Calculate the skewness or kurtosis of a time
+                        series of returns.
+chart_dygraph           Plot an interactive _dygraphs_ candlestick plot
+                        with background shading for an _OHLC_ time
+                        series in _xts_ format.
+chart_dygraph2y         Plot an interactive _dygraphs_ line plot for
+                        two _xts_ time series, with two _"y"_ axes.
+chart_xts               Plot either a line plot or a candlestick plot
+                        of an _xts_ time series, with custom line
+                        colors, y-axis range, and with vertical
+                        background shading.
+chart_xts2y             Plot two _xts_ time series with two y-axes in
+                        an x11 window.
+diffit                  Calculate the row differences of a _numeric_ or
+                        _Boolean_ vector, matrix, or _xts_ time series.
+diffohlc                Calculate the reduced form of an _OHLC_ time
+                        series, or calculate the standard form from the
+                        reduced form of an _OHLC_ time series.
+diffxts                 Calculate the time differences of an _xts_ time
+                        series.
+do_call                 Recursively apply a function to a list of
+                        objects, such as _xts_ time series.
+do_call_assign          Apply a function to a list of objects, merge
+                        the outputs into a single object, and assign
+                        the object to the output environment.
+do_call_rbind           Recursively "rbind" a list of objects, such as
+                        _xts_ time series.
+etf_data                The etf_data dataset contains a single
+                        environment called etfenv, which includes daily
+                        'OHLC' time series data for a portfolio of
+                        symbols.  All the prices are already adjusted.
+get_col                 Extract columns of data from _OHLC_ time series
+                        using column field names.
+get_data                Load _OHLC_ time series data into an
+                        environment, either from an external source
+                        (download from _YAHOO_), or from _CSV_ files in
+                        a local drive.
+get_name                Extract symbol names (tickers) from a vector of
+                        _character_ strings.
+getpoly                 Download an _OHLC_ time series of prices from
+                        Polygon.
+lagit                   Apply a lag to a _numeric_ or _Boolean_ vector,
+                        matrix, or _xts_ time series.
+lagxts                  Apply a time lag to an _xts_ time series.
+nalocf                  Replace 'NA' values with the most recent
+                        non-'NA' values prior to them.
+optim_bfgs              Perform multivariate optimization using the
+                        BFGS method.
+optim_coordescent       Perform multivariate optimization using
+                        coordinate descent with quasi-Newton updates.
+optim_newton            Perform one-dimensional optimization using the
+                        Newton-Raphson method.
+plot_acf                Calculate the autocorrelation function (ACF) of
+                        a time series of returns, and plot it.
+roll_max                Calculate the rolling maximum of an _xts_ time
+                        series over a sliding window (lookback period).
+roll_sum                Calculate the rolling sum of a _numeric_
+                        vector, matrix, or _xts_ time series over a
+                        sliding window (lookback period).
+sub_set                 Subset an _xts_ time series (extract an _xts_
+                        sub-series corresponding to the input dates).
+tdistr                  Calculate the density of the non-standard
+                        Student's t-distribution.
+to_period               Aggregate an _xts_ time series to a lower
+                        periodicity.

@@ -1,0 +1,63 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+type Delimiter = string | [begin: string, end: string];
+
+function getBeginToken(delimiter: Delimiter): string {
+  return Array.isArray(delimiter) ? delimiter[0] : delimiter;
+}
+
+function getEndToken(delimiter: Delimiter): string {
+  return Array.isArray(delimiter) ? delimiter[1] : delimiter;
+}
+
+function createRegExps(delimiters: Delimiter[]): [RegExp, RegExp] {
+  const beginPattern = "(" + delimiters.map(getBeginToken).join("|") + ")";
+  const pattern = "^(" +
+    "\\ufeff?" + // Maybe byte order mark
+    beginPattern +
+    "$([\\s\\S]+?)" +
+    "^(?:" + delimiters.map(getEndToken).join("|") + ")\\s*" +
+    "$" +
+    (globalThis?.Deno?.build?.os === "windows" ? "\\r?" : "") +
+    "(?:\\n)?)";
+
+  return [
+    new RegExp("^" + beginPattern + "$", "im"),
+    new RegExp(pattern, "im"),
+  ];
+}
+
+const [RECOGNIZE_YAML_REGEXP, EXTRACT_YAML_REGEXP] = createRegExps(
+  [
+    ["---yaml", "---"],
+    "= yaml =",
+    "---",
+  ],
+);
+const [RECOGNIZE_TOML_REGEXP, EXTRACT_TOML_REGEXP] = createRegExps(
+  [
+    ["---toml", "---"],
+    "\\+\\+\\+",
+    "= toml =",
+  ],
+);
+const [RECOGNIZE_JSON_REGEXP, EXTRACT_JSON_REGEXP] = createRegExps(
+  [
+    ["---json", "---"],
+    "= json =",
+  ],
+);
+
+export const RECOGNIZE_REGEXP_MAP = {
+  yaml: RECOGNIZE_YAML_REGEXP,
+  toml: RECOGNIZE_TOML_REGEXP,
+  json: RECOGNIZE_JSON_REGEXP,
+} as const;
+
+export const EXTRACT_REGEXP_MAP = {
+  yaml: EXTRACT_YAML_REGEXP,
+  toml: EXTRACT_TOML_REGEXP,
+  json: EXTRACT_JSON_REGEXP,
+} as const;
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"1544","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GEA%2Be%2BMEUUYk6Sr4guhriOYUbsA4eX39aZYdq7I94h3hDtB9MCo8MGLha2k3h6SMWrXOZdT5yR4zxf6Xtyn7Pf94XD8hT9degUy4unBtxtT4CQxh7LthiHM%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","access-control-expose-headers":"*","etag":"\"5e14152b3f07be742c9a41c6a6a5769e\"","vary":"Origin","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d319733992-IAD","content-type":"text/typescript","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/front-matter/0.224.3/_formats.ts","time":1775728648}

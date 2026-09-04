@@ -1,0 +1,27 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertPath } from "../_common/assert_path.ts";
+import { normalize } from "./normalize.ts";
+
+/**
+ * Join all given a sequence of `paths`,then normalizes the resulting path.
+ * @param paths to be joined and normalized
+ */
+export function join(...paths: string[]): string {
+  if (paths.length === 0) return ".";
+
+  let joined: string | undefined;
+  for (let i = 0; i < paths.length; ++i) {
+    const path = paths[i]!;
+    assertPath(path);
+    if (path.length > 0) {
+      if (!joined) joined = path;
+      else joined += `/${path}`;
+    }
+  }
+  if (!joined) return ".";
+  return normalize(joined);
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d3ba253992-IAD","cache-control":"public, max-age=31536000, immutable","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3kW3jWUq%2FP3Kbh8K8Hmnd4yc%2BO18rNju8pxhAtN0s4cLUaMxJFRIYa0QE9sl3gxaB0I9DV0dFmle8H3W7LLWZLib%2Ft0cjDyEMOkoJJH3dJTFzxSV3nHsj1s%3D\"}]}","vary":"Origin","access-control-allow-origin":"*","access-control-expose-headers":"*","x-robots-tag":"noindex","server":"cloudflare","content-length":"721","content-type":"text/typescript","x-content-type-options":"nosniff","etag":"\"ff34cab15102e215f38b15c468693eab\"","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/path/0.224.0/posix/join.ts","time":1775728648}

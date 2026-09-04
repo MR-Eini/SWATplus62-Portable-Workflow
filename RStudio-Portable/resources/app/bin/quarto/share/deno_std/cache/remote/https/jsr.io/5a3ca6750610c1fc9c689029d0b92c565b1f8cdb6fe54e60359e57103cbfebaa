@@ -1,0 +1,39 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import type { Type } from "../_type.ts";
+
+const YAML_TRUE_BOOLEANS = ["true", "True", "TRUE"];
+const YAML_FALSE_BOOLEANS = ["false", "False", "FALSE"];
+const YAML_BOOLEANS = [...YAML_TRUE_BOOLEANS, ...YAML_FALSE_BOOLEANS];
+
+export const bool: Type<"scalar", boolean> = {
+  tag: "tag:yaml.org,2002:bool",
+  kind: "scalar",
+  defaultStyle: "lowercase",
+  predicate: (value: unknown): value is boolean =>
+    typeof value === "boolean" || value instanceof Boolean,
+  construct: (data: string): boolean => YAML_TRUE_BOOLEANS.includes(data),
+  resolve: (data: string): boolean => YAML_BOOLEANS.includes(data),
+  represent: {
+    // deno-lint-ignore ban-types
+    lowercase: (object: boolean | Boolean): string => {
+      const value = object instanceof Boolean ? object.valueOf() : object;
+      return value ? "true" : "false";
+    },
+    // deno-lint-ignore ban-types
+    uppercase: (object: boolean | Boolean): string => {
+      const value = object instanceof Boolean ? object.valueOf() : object;
+      return value ? "TRUE" : "FALSE";
+    },
+    // deno-lint-ignore ban-types
+    camelcase: (object: boolean | Boolean): string => {
+      const value = object instanceof Boolean ? object.valueOf() : object;
+      return value ? "True" : "False";
+    },
+  },
+};
+
+// denoCacheMetadata={"headers":{"etag":"\"f045ffcf9744b66680452b926444b8ed\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","cf-ray":"9e98a5d53bf23992-IAD","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SnfLibOq43BipoEcDLwlJeoFESK%2FrzLRqgpQG6Y2%2FfFms5O%2FGnWcw20I6I2J%2FjgiPawBKfR79fkKsbKqdvrPHQVGbrGRvQgVRHuL3joAFjkJAn%2FwiWYN64s%3D\"}]}","access-control-allow-origin":"*","content-length":"1529","x-robots-tag":"noindex","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","vary":"Origin","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/yaml/1.0.5/_type/bool.ts","time":1775728648}

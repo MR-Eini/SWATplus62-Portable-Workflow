@@ -1,0 +1,28 @@
+Number of parameters:
+25
+NAME        CHG_TYPE             VAL           CONDS    LYR1    LYR2   YEAR1   YEAR2    DAY1    DAY2 OBJ_TOT
+snomelt_tmp   absval -1.855934691322               0       0       0       0       0       0       0       0
+snofall_tmp   absval 1.8208292357916               0       0       0       0       0       0       0       0
+esco          absval 0.6643845979386               0       0       0       0       0       0       0       0
+cn2           relchg 0.0254974260360               0       0       0       0       0       0       0       0
+cn3_swf       absval 0.2998049117605               0       0       0       0       0       0       0       0
+surlag        absval 1.2350856685064               0       0       0       0       0       0       0       0
+lat_len       abschg 17.598492235563               0       0       0       0       0       0       0       0
+latq_co       absval 0.8773002065901               0       0       0       0       0       0       0       0
+bd            relchg -0.241769828142               0       0       0       0       0       0       0       0
+k             relchg 2.0443317293436               0       0       0       0       0       0       0       0
+perco         absval 0.7272691745702               0       0       0       0       0       0       0       0
+flo_min       abschg -2.244449803106               0       0       0       0       0       0       0       0
+revap_co      absval 0.0644088678520               0       0       0       0       0       0       0       0
+revap_min     abschg 2.6423154353542               0       0       0       0       0       0       0       0
+alpha         absval 0.0779255577615               0       0       0       0       0       0       0       0
+nperco        absval 0.1365352176869               0       0       0       0       0       0       0       0
+sdnco         absval 0.9152572163513               0       0       0       0       0       0       0       0
+hlife_n       absval 18.988387306785               0       0       0       0       0       0       0       0
+cmn           absval 0.0000174795147               0       0       0       0       0       0       0       0
+cov           relchg -0.324361696034               0       0       0       0       0       0       0       0
+ch_clay       absval 85.670991449592               0       0       0       0       0       0       0       0
+bedldcoef     absval 0.0946740731445               0       0       0       0       0       0       0       0
+cherod        relchg -0.210226501215               0       0       0       0       0       0       0       0
+phoskd        absval 139.71323608011               0       0       0       0       0       0       0       0
+psp           absval 0.5799594233828               0       0       0       0       0       0       0       0

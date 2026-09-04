@@ -1,0 +1,111 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Merge multiple streams into a single one, taking order into account, and each
+ * stream will wait for a chunk to enqueue before the next stream can append
+ * another chunk.
+ *
+ * If a stream ends before other ones, the others will be cancelled after the
+ * last chunk of said stream is read. See the examples below for more
+ * comprehensible information. If you want to continue reading the other streams
+ * even after one of them ends, use {@linkcode zipReadableStreams}.
+ *
+ * @typeparam T The type of the chunks in the input streams.
+ * @returns A `ReadableStream` that will emit the zipped chunks
+ *
+ * @example Zip 2 streams with the same length
+ * ```ts
+ * import { earlyZipReadableStreams } from "@std/streams/early-zip-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from(["1", "2", "3"]);
+ * const stream2 = ReadableStream.from(["a", "b", "c"]);
+ * const zippedStream = earlyZipReadableStreams(stream1, stream2);
+ *
+ * assertEquals(
+ *   await Array.fromAsync(zippedStream),
+ *   ["1", "a", "2", "b", "3", "c"],
+ * );
+ * ```
+ *
+ * @example Zip 2 streams with different length (first one is shorter)
+ * ```ts
+ * import { earlyZipReadableStreams } from "@std/streams/early-zip-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from(["1", "2"]);
+ * const stream2 = ReadableStream.from(["a", "b", "c", "d"]);
+ * const zippedStream = earlyZipReadableStreams(stream1, stream2);
+ *
+ * // The first stream ends before the second one. When the first stream ends,
+ * // the second one is cancelled and no more data is read or added to the
+ * // zipped stream.
+ * assertEquals(
+ *   await Array.fromAsync(zippedStream),
+ *   ["1", "a", "2", "b"],
+ * );
+ * ```
+ *
+ * @example Zip 2 streams with different length (first one is longer)
+ * ```ts
+ * import { earlyZipReadableStreams } from "@std/streams/early-zip-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from(["1", "2", "3", "4"]);
+ * const stream2 = ReadableStream.from(["a", "b"]);
+ * const zippedStream = earlyZipReadableStreams(stream1, stream2);
+ *
+ * // The second stream ends before the first one. When the second stream ends,
+ * // the first one is cancelled, but the chunk of "3" is already read so it
+ * // is added to the zipped stream.
+ * assertEquals(
+ *   await Array.fromAsync(zippedStream),
+ *   ["1", "a", "2", "b", "3"],
+ * );
+ * ```
+ *
+ * @example Zip 3 streams
+ * ```ts
+ * import { earlyZipReadableStreams } from "@std/streams/early-zip-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from(["1"]);
+ * const stream2 = ReadableStream.from(["a", "b"]);
+ * const stream3 = ReadableStream.from(["A", "B", "C"]);
+ * const zippedStream = earlyZipReadableStreams(stream1, stream2, stream3);
+ *
+ * assertEquals(
+ *   await Array.fromAsync(zippedStream),
+ *   ["1", "a", "A"],
+ * );
+ * ```
+ */
+export function earlyZipReadableStreams<T>(
+  ...streams: ReadableStream<T>[]
+): ReadableStream<T> {
+  const readers = streams.map((s) => s.getReader());
+  return new ReadableStream<T>({
+    async start(controller) {
+      try {
+        loop:
+        while (true) {
+          for (const reader of readers) {
+            const { value, done } = await reader.read();
+            if (!done) {
+              controller.enqueue(value!);
+            } else {
+              await Promise.all(readers.map((reader) => reader.cancel()));
+              break loop;
+            }
+          }
+        }
+        controller.close();
+      } catch (e) {
+        controller.error(e);
+      }
+    },
+  });
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","vary":"Origin","access-control-expose-headers":"*","x-jsr-backend":"modules","cf-ray":"9e98a5d2a9033992-IAD","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KnIaRAGzC1AmvulxfbzvhDu3UI2%2Bige%2FmTSQNY42ZYhOB61MuCFxkriPzg4vXk%2BZKkwSVm5Y38%2F9o5LGw5ERPNAzmyE1STZ95LQ1BSScb6ls1KlkjHlPRAU%3D\"}]}","cache-control":"public, max-age=31536000, immutable","content-length":"3840","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","etag":"\"f3dd67dccb667bfa0673bd954b6df66a\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","content-type":"text/typescript","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/streams/0.224.5/early_zip_readable_streams.ts","time":1775728648}

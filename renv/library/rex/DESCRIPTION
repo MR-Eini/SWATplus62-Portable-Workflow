@@ -1,0 +1,38 @@
+Type: Package
+Package: rex
+Title: Friendly Regular Expressions
+Version: 1.2.2
+Authors@R: c(
+    person("Kevin", "Ushey", , "kevin@rstudio.com", role = c("aut", "cre")),
+    person("Jim", "Hester", , "james.f.hester@gmail.com", role = "aut"),
+    person("Robert", "Krzyzanowski", , "rkrzyzanowski@gmail.com", role = "aut")
+  )
+Description: A friendly interface for the construction of regular
+    expressions.
+License: MIT + file LICENSE
+URL: https://rex.r-lib.org, https://github.com/r-lib/rex
+BugReports: https://github.com/r-lib/rex/issues
+Suggests: covr, dplyr, ggplot2, Hmisc, knitr, magrittr, rmarkdown,
+        roxygen2, rvest, stringr, testthat
+VignetteBuilder: knitr
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+Collate: 'aaa.R' 'utils.R' 'escape.R' 'capture.R' 'character_class.R'
+        'counts.R' 'lookarounds.R' 'match.R' 'or.R' 'rex-mode.R'
+        'rex.R' 'shortcuts.R' 'wildcards.R' 'zzz.R'
+Config/Needs/website: r-lib/pkgdown, tidyverse/tidytemplate
+Imports: withr
+NeedsCompilation: no
+Packaged: 2026-03-27 21:22:29 UTC; kevin
+Author: Kevin Ushey [aut, cre],
+  Jim Hester [aut],
+  Robert Krzyzanowski [aut]
+Maintainer: Kevin Ushey <kevin@rstudio.com>
+Repository: CRAN
+Date/Publication: 2026-03-28 16:10:02 UTC
+Built: R 4.5.3; ; 2026-05-11 20:49:28 UTC; windows
+RemoteType: standard
+RemotePkgRef: rex
+RemoteRef: rex
+RemoteRepos: https://cran.rstudio.com
+RemoteSha: 1.2.2

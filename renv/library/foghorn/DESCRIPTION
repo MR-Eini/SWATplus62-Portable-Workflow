@@ -1,0 +1,39 @@
+Package: foghorn
+Title: Summarize CRAN Check Results in the Terminal
+Version: 1.6.1
+Authors@R: 
+    c(person(given = "Francois",
+             family = "Michonneau",
+             role = c("aut", "cre"),
+             email = "francois.michonneau@gmail.com"),
+      person(given = "Ben",
+             family = "Bolker",
+             role = "ctb"))
+Description: The CRAN check results and where your package stands in the
+    CRAN submission queue in your R terminal.
+License: MIT + file LICENSE
+URL: https://fmichonneau.github.io/foghorn/,
+        https://github.com/fmichonneau/foghorn
+BugReports: https://github.com/fmichonneau/foghorn/issues
+Depends: R (>= 3.1.0)
+Imports: cli (>= 3.6.1), curl (>= 2.2), httr2 (>= 1.0.0), rlang (>=
+        0.4.3), rvest (>= 0.3.2), tibble (>= 1.2), xml2 (>= 1.0.0)
+Suggests: covr, dplyr, knitr, progress, rmarkdown, testthat, withr
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+RoxygenNote: 7.3.2
+NeedsCompilation: no
+Packaged: 2025-07-19 08:39:30 UTC; francois
+Author: Francois Michonneau [aut, cre],
+  Ben Bolker [ctb]
+Maintainer: Francois Michonneau <francois.michonneau@gmail.com>
+Repository: CRAN
+Date/Publication: 2025-07-19 09:10:02 UTC
+Built: R 4.5.3; ; 2026-06-10 03:33:53 UTC; windows
+RemoteType: standard
+RemotePkgRef: foghorn
+RemoteRef: foghorn
+RemoteRepos: https://cran.rstudio.com
+RemoteSha.Version: 1.6.1

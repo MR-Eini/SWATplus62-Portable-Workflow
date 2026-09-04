@@ -1,0 +1,4 @@
+# Rules (apply based on ORIGINAL sequence; no cascading):
+# - alfa alfa alfa  -> change ONLY the middle (2nd) to oats
+# - fes2 fes2 fes2  -> change ONLY the middle (2nd) to oats
+# - oats oats oats  -> change ONLY the middle (2nd) to csil

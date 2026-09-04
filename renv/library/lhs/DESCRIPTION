@@ -1,0 +1,32 @@
+Package: lhs
+Title: Latin Hypercube Samples
+Version: 1.2.0
+Authors@R: 
+    person(given = "Rob",
+           family = "Carnell",
+           role = c("aut", "cre"),
+           email = "bertcarnell@gmail.com")
+Description: Provides a number of methods for creating and augmenting Latin Hypercube Samples and Orthogonal Array Latin Hypercube Samples.
+License: GPL-3
+Encoding: UTF-8
+Depends: R (>= 3.4.0)
+LinkingTo: Rcpp
+Imports: Rcpp
+Suggests: testthat, DoE.base, knitr, rmarkdown
+URL: https://github.com/bertcarnell/lhs
+BugReports: https://github.com/bertcarnell/lhs/issues
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+NeedsCompilation: yes
+Packaged: 2024-06-30 21:59:33 UTC; bertc
+Author: Rob Carnell [aut, cre]
+Maintainer: Rob Carnell <bertcarnell@gmail.com>
+Repository: CRAN
+Date/Publication: 2024-06-30 23:10:02 UTC
+Built: R 4.5.1; x86_64-w64-mingw32; 2025-09-11 11:07:38 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: lhs
+RemoteRef: lhs
+RemoteRepos: https://cran.rstudio.com
+RemoteSha: 1.2.0

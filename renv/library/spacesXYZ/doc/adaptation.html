@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Glenn Davis" />
+
+<meta name="date" content="2025-06-05" />
+
+<title>Chromatic Adaptation</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Chromatic Adaptation</h1>
+<h4 class="author">Glenn Davis</h4>
+<h4 class="date">2025-06-05</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#analogy-of-proportion" id="toc-analogy-of-proportion">Analogy of Proportion</a></li>
+<li><a href="#chromatic-adaptation-transforms" id="toc-chromatic-adaptation-transforms">Chromatic Adaptation
+Transforms</a></li>
+<li><a href="#cat-methods" id="toc-cat-methods">CAT Methods</a></li>
+<li><a href="#the-simplest-cat-method---xyz-scaling" id="toc-the-simplest-cat-method---xyz-scaling">The Simplest CAT Method -
+XYZ Scaling</a></li>
+<li><a href="#von-kries-based-cat-methods" id="toc-von-kries-based-cat-methods">Von-Kries-Based CAT
+Methods</a></li>
+<li><a href="#other-linear-cat-methods" id="toc-other-linear-cat-methods">Other Linear CAT Methods</a></li>
+<li><a href="#cat-methods-in-package-spacesxyz" id="toc-cat-methods-in-package-spacesxyz">CAT Methods in Package
+spacesXYZ</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#appendix-a---recovery-of-m_a" id="toc-appendix-a---recovery-of-m_a">Appendix A - Recovery of <span class="math inline">\(M_a\)</span></a></li>
+<li><a href="#session-information" id="toc-session-information">Session
+Information</a></li>
+</ul>
+</div>
+
+<p><br> I find chromatic adaptation mathematically interesting. This
+vignette is a longwinded formal approach that delays code to the end.
+Featured functions in this vignette are: <code>CAT()</code> and
+<code>adaptXYZ()</code>.</p>
+<p><br><br></p>
+<div id="analogy-of-proportion" class="section level1">
+<h1>Analogy of Proportion</h1>
+<p>Chromatic adaptation can be viewed as an Aristotelian <em>analogy of
+proportion</em>, see <span class="citation">[1]</span>. A general
+analogy of this type is usually written <span class="math inline">\(A:B
+= C:D\)</span> and read as “<span class="math inline">\(A\)</span> is to
+<span class="math inline">\(B\)</span> as <span class="math inline">\(C\)</span> is to <span class="math inline">\(D\)</span>”. In our case the expression <span class="math inline">\(A:I\)</span> is interpreted as “the color
+appearance of <span class="math inline">\(A\)</span> in a viewing
+environment with illuminant <span class="math inline">\(I\)</span> after
+the viewer is adapted to <span class="math inline">\(I\)</span>”, or
+more simply “the appearance of <span class="math inline">\(A\)</span>
+under illuminant <span class="math inline">\(I\)</span>”. It is better
+to think of <span class="math inline">\(A\)</span> not as an object
+color, but as a self-luminous color. The analogy <span class="math inline">\(A:I = B:J\)</span> can be read as “the appearance
+of <span class="math inline">\(A\)</span> under illuminant <span class="math inline">\(I\)</span> is the same as the appearance of <span class="math inline">\(B\)</span> under illuminant <span class="math inline">\(J\)</span>”. This phenomenon is called
+<em>chromatic adaptation</em> and takes place in the human eye and
+brain. Of course, the exact values of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> vary depending on the individual, so it
+only makes sense to think of averages, for a <em>standard observer</em>.
+All of these variables are typically XYZ tristimulus vectors, and that
+is what we will assume from now on. We require that all components of
+<span class="math inline">\(I\)</span> and <span class="math inline">\(J\)</span> are positive, i.e. the illuminants are
+in the <em>positive octant</em>.</p>
+<p>We will adopt these axioms throughout this vignette: <span class="math display">\[\begin{align}\label{eq:1}
+\tag{1.1}
+A1)&amp;  \hspace{5pt} I:I = J:J  \\
+A2)&amp;  \hspace{5pt}  A:I = B:I    \hspace{20pt}   \text{if and only
+if}  \hspace{20pt}   A = B
+\end{align}\]</span> In A2) the first equality is equality of
+appearance, and the second is equality of vectors.</p>
+<p>In most cases <span class="math inline">\(A\)</span>, <span class="math inline">\(I\)</span>, and <span class="math inline">\(J\)</span> are known, and <span class="math inline">\(B\)</span> is not. Solving the chromatic
+adaptation problem is solving the analogy <span class="math inline">\(A:I = X:J\)</span> for <span class="math inline">\(X\)</span>, where <span class="math inline">\(A\)</span> is the <em>source color</em>, <span class="math inline">\(I\)</span> is the the <em>source illuminant</em>
+(also called the <em>test illuminant</em>), and <span class="math inline">\(J\)</span> is the <em>target illuminant</em> (also
+called the <em>reference illuminant</em>). By axiom A2) the <em>target
+color</em> solution <span class="math inline">\(X\)</span> is
+unique.</p>
+<p><br></p>
+</div>
+<div id="chromatic-adaptation-transforms" class="section level1">
+<h1>Chromatic Adaptation Transforms</h1>
+<p>In most practical cases, illuminants <span class="math inline">\(I\)</span> and <span class="math inline">\(J\)</span> are fixed, and the source color <span class="math inline">\(A\)</span> is allowed to vary widely. Recall that
+<span class="math inline">\(X\)</span> is uniquely determined by <span class="math inline">\(A\)</span>, so in the analogy <span class="math inline">\(A:I = X:J\)</span> it makes sense to think of
+<span class="math inline">\(X\)</span> as a transform <span class="math inline">\(T(A)\)</span> of <span class="math inline">\(A\)</span>. Define the <em>ideal</em>
+<em>Chromatic Adaption Transform</em> <span class="math inline">\(T\)</span> from <span class="math inline">\(I\)</span> to <span class="math inline">\(J\)</span> by the analogy:<br />
+<span class="math display">\[\begin{equation}
+A:I = T(A):J
+\end{equation}\]</span></p>
+<p>If <span class="math inline">\(T(A):J=T(B):J\)</span> then <span class="math inline">\(A:I=B:I\)</span> and so <span class="math inline">\(A=B\)</span>, by (1.1). This shows that <span class="math inline">\(T\)</span> is injective.</p>
+<p>It is convenient to abbreviate Chromatic Adaption Transform by the
+acronym <strong>CAT</strong>. In theory the exactly accurate <em>ideal
+CAT</em> from <span class="math inline">\(I\)</span> to <span class="math inline">\(J\)</span> is unique, but in practice there are so
+many confounding variables and complexities that we cannot hope to find
+it. So from now on we open things up and look for approximations to
+<span class="math inline">\(T\)</span> using various methods (see the
+next section).</p>
+<p>There are 2 special cases where we can assert something exactly.
+Since <span class="math inline">\(I:I = J:J\)</span> by axiom A1), we
+can say that <span class="math inline">\(T(I)=J\)</span> exactly. And
+since <span class="math inline">\(A:I = A:I\)</span>, we can say that if
+<span class="math inline">\(J=I\)</span>, then <span class="math inline">\(T\)</span> is the identity transform. In both
+theory and practice, we obviously want these 2 properties to be true, so
+we require that all approximations have them.</p>
+<p><br></p>
+</div>
+<div id="cat-methods" class="section level1">
+<h1>CAT Methods</h1>
+A <em>CAT method</em> assigns to every pair of illuminants <span class="math inline">\(I\)</span> and <span class="math inline">\(J\)</span> a CAT from <span class="math inline">\(I\)</span> to <span class="math inline">\(J\)</span>, which we denote by <span class="math inline">\(T_{IJ}\)</span>. It is understood that <span class="math inline">\(T_{IJ}\)</span> is an approximation of the ideal.
+We require that <span class="math inline">\(T_{IJ}(I) = J\)</span> (see
+previous paragraph). A CAT is usually an instance of a CAT method.
+Consider these 3 properties for a CAT method:
+<ol>
+<li>
+identity. If <span class="math inline">\(J{=}I\)</span>, <span class="math inline">\(T_{II}\)</span> is the identity transform
+</li>
+<li>
+inverse. <span class="math inline">\(T_{JI}\)</span> is the inverse of
+<span class="math inline">\(T_{IJ}\)</span>
+</li>
+<li>
+commutative triangle. Adapting from <span class="math inline">\(I\)</span> to <span class="math inline">\(J\)</span>, and then from <span class="math inline">\(J\)</span> to <span class="math inline">\(K\)</span>, is the same as adapting from <span class="math inline">\(I\)</span> to <span class="math inline">\(K\)</span>. In symbols: <span class="math inline">\(T_{JK} \circ T_{IJ} = T_{IK}\)</span> (where <span class="math inline">\(\circ\)</span> denotes transform composition).
+</li>
+</ol>
+<p>Property 1 (identity) is required by the last paragraph of the
+previous section. We now argue that properties 2 and 3 are
+desirable.</p>
+<p>Property 2 (inverse) is true for an <em>ideal</em> CAT method, by the
+following argument: <span class="math display">\[\begin{align}
+A : I          &amp;= T_{IJ}(A) : J  \hspace{40pt} \text{by definition
+of }  T_{IJ} \\
+T_{IJ}(A) : J  &amp;= T_{JI}(T_{IJ}(A)) : I  \hspace{20pt} \text{by
+definition of } T_{JI}  \\
+A : I          &amp;= T_{JI}(T_{IJ}(A)) : I  \hspace{20pt}
+\text{previous 2 lines and transitivity of appearance}  \\
+A              &amp;= T_{JI}(T_{IJ}(A))      \hspace{32pt} \text{by
+axiom A2 in (1.1)}  \\
+T_{JI} \circ T_{IJ} &amp;= identity   \hspace{48pt}  \text{by definition
+of } identity
+\end{align}\]</span> Swapping <span class="math inline">\(I\)</span> and
+<span class="math inline">\(J\)</span> gives <span class="math inline">\(T_{IJ} \circ T_{JI} = identity\)</span>, and this
+proves property 2. According to Hunt <span class="citation">[4]</span>
+p. 591, the non-linear version of the CMCCAT97 method does NOT have
+property 2. The degree to which property 2 fails is therefore a measure
+of the accuracy of the appearance matching of the CMCCAT97 CATs. In
+Burns <span class="citation">[2]</span> is a CAT method which in the
+original and direct form does not have the inverse property, but can be
+slightly modified to a “symmetric” version that <em>does</em> enjoy the
+property.</p>
+<p>Property 3 (commutative triangle) is desirable because it makes it
+possible to use the intermediate <em>Profile Connection Space</em> (PCS
+with Illuminant D50) in ICC color profiles with no loss of accuracy. In
+property 3, <span class="math inline">\(J\)</span> represents the PCS in
+the middle, and the endpoints <span class="math inline">\(I\)</span> and
+<span class="math inline">\(K\)</span> are viewing illuminants for
+devices. If property 3 fails, then the 2-step adaptation may be
+sub-optimal.</p>
+<p><strong>Remark 3.1</strong> Assuming that each <span class="math inline">\(T_{II}\)</span> is invertible (a very mild
+condition), properties 1. and 2. follow from 3. Letting <span class="math inline">\(J = K = I\)</span> in property 3 we get <span class="math inline">\(T_{II} \circ T_{II} = T_{II}\)</span>. Since <span class="math inline">\(T_{II}\)</span> is invertible we conclude <span class="math inline">\(T_{II} = \text{identity}\)</span> and this proves
+property 1. Letting <span class="math inline">\(K = I\)</span> in
+property 3 we get <span class="math display">\[\begin{equation}
+T_{JI} \circ T_{IJ} = T_{II} = \text{identity}
+\end{equation}\]</span> Swapping <span class="math inline">\(I\)</span>
+and <span class="math inline">\(J\)</span> gives <span class="math display">\[\begin{equation}
+T_{IJ} \circ T_{JI} = T_{JJ} = \text{identity}
+\end{equation}\]</span> and this proves property 2. Note that property 3
+is similar to the <em>cocycle condition</em> in the construction of
+fiber bundles, see <span class="citation">[9]</span> and p. 14 of <span class="citation">[8]</span>. That property 3 implies properties 1 and 2
+is on p. 8 of <span class="citation">[8]</span>.</p>
+<p><strong>Remark 3.2</strong> Property 1 does NOT follow from property
+2. Here is a CAT method that is a counter-example. First suppose that
+the vectors <span class="math inline">\(I\)</span> and <span class="math inline">\(J\)</span> have the same length. Define <span class="math inline">\(T_{IJ}\)</span> to be the transform that first
+rotates space <span class="math inline">\(\pi\)</span> radians around
+<span class="math inline">\(I\)</span> and then rotates by the most
+direct rotation from <span class="math inline">\(I\)</span> to <span class="math inline">\(J\)</span>. If <span class="math inline">\(I\)</span> and <span class="math inline">\(J\)</span> do not have the same length, then
+rotate <span class="math inline">\(I\)</span> to the line spanned by
+<span class="math inline">\(J\)</span> and then follow this by a uniform
+scaling so the result expands or shrinks to <span class="math inline">\(J\)</span>. By “most direct rotation” we mean the
+rotation around the axis <span class="math inline">\(I{\times}J\)</span>
+(the 3D cross product). This <span class="math inline">\(T_{IJ}\)</span>
+is perfectly well-defined (unless <span class="math inline">\(J{=}-I\)</span> which is impossible since both are
+in the positive octant), and maps <span class="math inline">\(I\)</span>
+to <span class="math inline">\(J\)</span>. It is not hard to show that
+<span class="math inline">\(T_{JI} \circ T_{IJ} =  T_{IJ} \circ T_{JI} =
+identity\)</span>, so property 2 is true. But <span class="math inline">\(T_{II}\)</span> is rotation of <span class="math inline">\(\pi\)</span> radians around <span class="math inline">\(I\)</span>, so property 1 is false.</p>
+<p><br><br></p>
+</div>
+<div id="the-simplest-cat-method---xyz-scaling" class="section level1">
+<h1>The Simplest CAT Method - XYZ Scaling</h1>
+<p>A CAT method is called <em>linear</em> if and only if every <span class="math inline">\(T_{IJ}\)</span> is a linear map (from <span class="math inline">\(\mathbb{R}^3\)</span> to <span class="math inline">\(\mathbb{R}^3\)</span>). From this point on in the
+vignette all CAT methods are linear. <span class="math inline">\(T_{IJ}\)</span> now denotes a 3x3 matrix. In ICC
+v4.0 color profiles this matrix is saved in the
+<strong>chromaticAdaptationTag</strong> or <code>chad</code> tag, and
+converts from device white to PCS white, see <span class="citation">[5]</span>. To avoid confusion between matrices and
+vectors, we shift notation and replace <span class="math inline">\(I\)</span>, <span class="math inline">\(J\)</span>, and <span class="math inline">\(K\)</span> by 3-vectors <span class="math inline">\(u\)</span>, <span class="math inline">\(v\)</span>, and <span class="math inline">\(w\)</span> (since lower-case <span class="math inline">\(i\)</span>, <span class="math inline">\(j\)</span>, and <span class="math inline">\(k\)</span> look too much like integers). We also
+use the bold <span class="math inline">\(\mathbf{1} := (1,1,1)\)</span>
+for the 3-vector of all 1s, which is also a valid whitepoint.</p>
+The 3 properties in the previous section now take this form:
+<ol>
+<li>
+identity. <span class="math inline">\(T_{uu} = I\)</span>
+</li>
+<li>
+inverse. <span class="math inline">\(T_{vu} = T_{vu}^{-1}\)</span>
+</li>
+<li>
+commutative triangle. <span class="math inline">\(T_{vw} T_{uv} =
+T_{uw}\)</span>
+</li>
+</ol>
+<p>The rest of this section follows Lindbloom <span class="citation">[7]</span>. Given 3-vectors <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> with all entries positive, define the
+XYZ scaling CAT method by: <span class="math display">\[\begin{equation}
+T_{uv} := \operatorname{diag}(v) \operatorname{diag}(u)^{-1} =
+\operatorname{diag}(v/u)
+\end{equation}\]</span> Here and through the rest of this vignette, the
+vector division <span class="math inline">\(v/u\)</span> is component by
+component, i.e. the <em>Hadamard division</em>, see <span class="citation">[10]</span>. One easily verifies that: <span class="math display">\[\begin{equation}
+T_{vw} T_{uv} = \operatorname{diag}(w/v) \operatorname{diag}(v/u)  =
+\operatorname{diag}(w/u) = T_{uw}
+\end{equation}\]</span> so this CAT method satisfies property 3. Since
+<span class="math inline">\(T_{uu}\)</span> is trivially invertible, it
+also satisfies properties 1 and 2 by <strong>Remark 3.1</strong>. Each
+channel in XYZ is scaled independently. When this technique is used in
+electronic RGB cameras, and applied to the RGB channels independently,
+it is often called <em>white-balancing</em>. This CAT method is what one
+would get by transforming to XYZ to Lab using <span class="math inline">\(u\)</span> as the whitepoint, and then from Lab to
+XYZ using <span class="math inline">\(v\)</span> as the whitepoint
+(though this view hides the linearity of <span class="math inline">\(T_{uv}\)</span>). This CAT method is sometimes
+called the “Wrong von Kries”, see <span class="citation">[3]</span>.</p>
+<p><br><br></p>
+</div>
+<div id="von-kries-based-cat-methods" class="section level1">
+<h1>Von-Kries-Based CAT Methods</h1>
+<p>All the linear CAT methods in common use are <em>von-Kries-based</em>
+which is now defined, loosely following Lindbloom <span class="citation">[7]</span>. Let <span class="math inline">\(M_a\)</span> be an invertible 3x3 matrix that does
+not move <span class="math inline">\(\mathbf{1}\)</span> too much,
+i.e. <span class="math inline">\(M_a \mathbf{1} \approx
+\mathbf{1}\)</span>. First define <span class="math display">\[\begin{equation}
+T_{u\mathbf{1}} := \operatorname{diag}(M_a u)^{-1}
+M_a  \hspace{20pt}  \text{ and }  \hspace{20pt}
+T_{\mathbf{1}u} := M_a^{-1} \operatorname{diag}(M_a u)
+\end{equation}\]</span> One easily checks that <span class="math inline">\(T_{u\mathbf{1}} u = \mathbf{1}\)</span> and <span class="math inline">\(T_{\mathbf{1}u} \mathbf{1} = u\)</span> and these
+matrices are inverses of each other. Now define a
+<em>von-Kries-based</em> CAT method in general by: <span class="math display">\[\begin{equation}
+\tag{5.1}
+T_{uv} ~:=~ T_{\mathbf{1}v}  T_{u\mathbf{1}} ~=~ M_a^{-1}
+\operatorname{diag}(M_a v / M_a u) M_a
+\end{equation}\]</span> One easily checks that <span class="math display">\[\begin{equation}\label{eq:5}
+T_{vw} T_{uv} = T_{\mathbf{1}w} T_{v\mathbf{1}} T_{\mathbf{1}v}
+T_{u\mathbf{1}}  =  T_{\mathbf{1}w} ~ I ~ T_{u\mathbf{1}} = T_{uw}
+\end{equation}\]</span> so the method satisfies property 3. By
+<strong>Remark 3.1</strong> it also satisfies properties 1 and 2.</p>
+The argument for property 3 can be visualized in categorical terms by
+this diagram: <br><br>
+<center>
+<img role="img" src="data:image/png;base64,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" width="75%"><br> <font size="+1">Figure
+5.1 - Commutative Diagram of CATs</font>
+</center>
+<p><br> Since the 3 inner triangles commute, the outer triangle commutes
+too. The symbol <span class="math inline">\(\mathbb{R}^3_u\)</span>
+denotes the space of all possible XYZs under illuminant <span class="math inline">\(u\)</span>. We are being sloppy here because a CAT
+makes no sense when one of the XYZs is negative; but since the CATs in
+the figure are linear maps, they can still be defined mathematically
+even if they make no physical sense.</p>
+<p>Note that the dependence of the transforms on <span class="math inline">\(M_a\)</span> is suppressed in this notation. In
+the von Kries theory, <span class="math inline">\(M_a\)</span>
+transforms from XYZ to the <em>cone response domain</em>. In practice
+<span class="math inline">\(M_a\)</span> is calculated from a large
+number of pairs of experimentally measured <em>corresponding
+colors</em>. For example the popular Bradford <span class="math inline">\(M_a\)</span> was calculated from 58 pairs, see
+<span class="citation">[6]</span>. <span class="math inline">\(M_a\)</span> is called the <em>cone response
+matrix</em> for the <em>von-Kries-based</em> CAT method. In ArgyllCMS
+ICC color profiles, <span class="math inline">\(M_a\)</span> is saved in
+the <strong>SigAbsToRelTransSpace</strong> or <code>arts</code> private
+ICC tag, see <span class="citation">[3]</span>.</p>
+<p>In the special case <span class="math inline">\(M_a = I\)</span> the
+transforms become: <span class="math display">\[\begin{equation}
+T_{u\mathbf{1}} := \operatorname{diag}(u)^{-1}  \hspace{20pt}  \text{
+and } \hspace{20pt}
+T_{uv} := \operatorname{diag}(v) \operatorname{diag}(u)^{-1} =
+\operatorname{diag}(v/u)
+\end{equation}\]</span> which is just the XYZ scaling method in the
+previous section. There is more going on. In words, equation (5.1) says:
+transform <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> by <span class="math inline">\(M_a\)</span> and form the diagonal matrix one
+would get from XYZ scaling. To adapt color <span class="math inline">\(A\)</span> from <span class="math inline">\(u\)</span> to <span class="math inline">\(v\)</span>, transform <span class="math inline">\(A\)</span> by <span class="math inline">\(M_a\)</span>, and then by the diagonal matrix, and
+then transform back again by <span class="math inline">\(M_a^{-1}\)</span>. A fancy way to say the same
+thing is: a CAT matrix is von-Kries-based if and only if it is
+<em>linearly conjugate</em> to an XYZ scaling.</p>
+<p>Since <span class="math inline">\(M_a\)</span> has 9 parameters, it
+appears that these von-Kries-based CAT methods have 9 degrees of
+freedom. However, some changes of <span class="math inline">\(M_a\)</span> do not change the transforms. Let
+<span class="math inline">\(D\)</span> be a diagonal 3x3 matrix with
+positive entries on the diagonal, and let <span class="math inline">\(M&#39;_a := D M_a\)</span>. Then <span class="math display">\[\begin{align}
+T&#39;_{u\mathbf{1}} &amp;:= \operatorname{diag}(M&#39;_a u)^{-1}
+M&#39;_a \\
+                 &amp;= \left[ \operatorname{diag}(D M_a u) \right]^{-1}
+D M_a \\
+                 &amp;= \left[ D \operatorname{diag}(M_a u) \right]^{-1}
+D M_a \hspace{20pt} \text{this is the key step and uses the diagonality
+of } D  \\
+                 &amp;= \operatorname{diag}(M_a u)^{-1} D^{-1} D M_a \\
+                 &amp;= \operatorname{diag}(M_a u)^{-1}  M_a \\
+                 &amp;= T_{u\mathbf{1}}
+\end{align}\]</span> so changing <span class="math inline">\(M_a\)</span> to <span class="math inline">\(D
+M_a\)</span> leaves the CAT unchanged. Setting <span class="math inline">\(D = \operatorname{diag}(M_a
+\mathbf{1})^{-1}\)</span> implies that <span class="math inline">\(M&#39;_a \mathbf{1} = \mathbf{1}\)</span>. The
+matrix <span class="math inline">\(\operatorname{diag}(M_a
+\mathbf{1})\)</span> is invertible because <span class="math inline">\(M_a \mathbf{1} \approx \mathbf{1}\)</span> as we
+assumed above. Thus, any acceptable cone response matrix can be
+normalized so that <span class="math inline">\(M_a \mathbf{1} =
+\mathbf{1}\)</span> exactly, i.e. the row sums are all 1. So these
+von-Kries-based CAT methods have 9-3 = 6 degrees of freedom.
+Geometrically, <span class="math inline">\(M_a\)</span> leaves the line
+generated by <span class="math inline">\(\mathbf{1}\)</span> pointwise
+fixed, so we think of it as a “twist” around the line (more general than
+a rotation around the line). If <span class="math inline">\(\{
+\mathbf{1}, b_2, b_3  \}\)</span> is a basis of <span class="math inline">\(\mathbb{R}^3\)</span>, then <span class="math inline">\(M_a\)</span> can map <span class="math inline">\(b_2\)</span> and <span class="math inline">\(b_3\)</span> to <span class="math inline">\(\mathbb{R}^3\)</span> almost arbitrarily, and this
+gives the 3+3 = 6 degrees of freedom.</p>
+<p><br><br></p>
+</div>
+<div id="other-linear-cat-methods" class="section level1">
+<h1>Other Linear CAT Methods</h1>
+<p>This section is a detour that asks: “Are there are linear CAT methods
+that are NOT von-Kries-based ?” Note from (5.1) that if <span class="math inline">\(T_{uv}\)</span> is a von-Kries-based matrix, then
+<span class="math inline">\(T_{uv}\)</span> is diagonalizable. So if we
+can construct a linear CAT method whose matrices are not diagonalizable,
+then it is not von-Kries-based.</p>
+<p>As an example, define <span class="math inline">\(T_{uv}\)</span> to
+be the most direct rotation of <span class="math inline">\(u\)</span> to
+the ray generated by <span class="math inline">\(v\)</span>, followed by
+uniform scaling to take <span class="math inline">\(u\)</span> to <span class="math inline">\(v\)</span>. Since all the non-trivial <span class="math inline">\(T_{uv}\)</span> are products of rotations and
+scalings, they are not diagonalizable. Note that this CAT method has
+properties 1 and 2, but NOT property 3. It shows that properties 1 and 2
+do NOT imply property 3.</p>
+<p>Taking an idea from the previous section, we can modify this method
+to have property 3. Define <span class="math inline">\(T_{u\mathbf{1}}\)</span> to be the most direct
+rotation of <span class="math inline">\(u\)</span> to the ray generated
+by <span class="math inline">\(\mathbf{1}\)</span>, then followed by a
+uniform scaling that makes <span class="math inline">\(u\)</span> map to
+<span class="math inline">\(\mathbf{1}\)</span>. Define <span class="math inline">\(T_{\mathbf{1}u}\)</span> to be the inverse of
+<span class="math inline">\(T_{u\mathbf{1}}\)</span>. Now define <span class="math inline">\(T_{uv} :=
+T_{\mathbf{1}v}  T_{u\mathbf{1}}\)</span> as before. All three
+properties in section <a href="#cat-methods">CAT Methods</a> are
+satisfied by the same arguments from the previous section. This CAT
+method may perform poorly. In Burns <span class="citation">[2]</span>
+the problem of negative tristimulus values is discussed, and this type
+of CAT method might make make the problem worse. I am sure that many
+other interesting (but impractical) examples can be constructed.</p>
+<p><br><br></p>
+</div>
+<div id="cat-methods-in-package-spacesxyz" class="section level1">
+<h1>CAT Methods in Package spacesXYZ</h1>
+<p>Finally, we explore the CAT methods available in software.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>( spacesXYZ )</span></code></pre></div>
+<p>There is an S3 class <code>CAT</code> with constructor
+<code>CAT()</code>. The constructor takes arguments the source and
+target illuminant XYZ (denoted <span class="math inline">\(u\)</span>
+and <span class="math inline">\(v\)</span> above), and the CAT method.
+All the available non-trivial methods - <code>Bradford</code>,
+<code>MCAT02</code>, <code>vonKries</code>, and
+<code>Bianco-Schettini</code> - are von-Kries-based. For
+<code>MCAT02</code> only the simple linear variant is used. The
+<code>CAT</code> object is a list with cone response matrix
+<code>Ma</code> (denoted <span class="math inline">\(M_a\)</span>
+above), the adaptation matrix <code>M</code> (denoted <span class="math inline">\(T_{uv}\)</span> above), and other things, see the
+<code>CAT()</code> man page.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>Ma <span class="ot">=</span> <span class="fu">CAT</span>( <span class="at">source=</span><span class="st">&#39;A&#39;</span>, <span class="at">target=</span><span class="st">&#39;D65&#39;</span>, <span class="at">method=</span><span class="st">&#39;bradford&#39;</span> )<span class="sc">$</span>Ma ;  Ma</span></code></pre></div>
+<pre><code>##         X       Y       Z
+## L  0.8951  0.2664 -0.1614
+## M -0.7502  1.7135  0.0367
+## S  0.0389 -0.0685  1.0296</code></pre>
+<p>This is the famous Bradford cone-response-matrix, appearing in Lam
+<span class="citation">[6]</span> p. 3-46.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">rowSums</span>( Ma )</span></code></pre></div>
+<pre><code>##      L      M      S 
+## 1.0001 1.0000 1.0000</code></pre>
+<p>It appears that an attempt was made to normalize the row sums to 1,
+but roundoff made the last digit in the first row off by 1. There is no
+practical effect. The actual adaptation matrix is easily inspected and
+tested too:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>theCAT  <span class="ot">=</span> <span class="fu">CAT</span>( <span class="at">source=</span><span class="st">&#39;A&#39;</span>, <span class="at">target=</span><span class="st">&#39;D65&#39;</span>, <span class="at">method=</span><span class="st">&#39;bradford&#39;</span> )</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>A  <span class="ot">=</span>  <span class="fu">standardXYZ</span>(<span class="st">&#39;A&#39;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>A <span class="sc">%*%</span> <span class="fu">t</span>(theCAT<span class="sc">$</span>M) <span class="sc">-</span> <span class="fu">standardXYZ</span>(<span class="st">&#39;D65&#39;</span>)</span></code></pre></div>
+<pre><code>##              X             Y Z
+## A 2.220446e-16 -1.110223e-16 0</code></pre>
+<p>So <span class="math inline">\(M\)</span> maps the XYZ of Illuminant
+A to that of D65 as required. Using explicit matrix multiplication is
+OK, but the function <code>adaptXYZ()</code> is preferred:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">identical</span>(  <span class="fu">adaptXYZ</span>( theCAT, A ), A <span class="sc">%*%</span> <span class="fu">t</span>(theCAT<span class="sc">$</span>M) )</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>We can also inspect the row sums for method <code>MCAT02</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">rowSums</span>( <span class="fu">CAT</span>( <span class="at">source=</span><span class="st">&#39;A&#39;</span>, <span class="at">target=</span><span class="st">&#39;D65&#39;</span>, <span class="at">method=</span><span class="st">&#39;MCAT02&#39;</span> )<span class="sc">$</span>Ma )</span></code></pre></div>
+<pre><code>## L M S 
+## 1 1 1</code></pre>
+<p>So for <code>MCAT02</code> the normalization was more careful about
+roundoff. And for <code>vonKries</code> we have:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">rowSums</span>( <span class="fu">CAT</span>( <span class="at">source=</span><span class="st">&#39;A&#39;</span>, <span class="at">target=</span><span class="st">&#39;D65&#39;</span>, <span class="at">method=</span><span class="st">&#39;vonKries&#39;</span> )<span class="sc">$</span>Ma )</span></code></pre></div>
+<pre><code>##       L       M       S 
+## 1.02703 0.98472 0.91822</code></pre>
+<p>So for <code>vonKries</code> there was no normalization.</p>
+<p><br><br> <br><br></p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body">
+<div id="ref-Brown1989" class="csl-entry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">BROWN, William R. Two traditions of analogy.
+<em>Informal Logic</em>. 1989, <strong>11</strong>(3), 161–172. </div>
+</div>
+<div id="ref-Burns2019" class="csl-entry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">BURNS, Scott A. Chromatic adaptation transform
+by spectral reconstruction. <em>Color Research &amp; Application</em>.
+2019, <strong>44</strong>(5), 682–693. </div>
+</div>
+<div id="ref-ArgyllCMS" class="csl-entry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">GILL, Graeme. <span class="nocase">ArgyllCMS’s
+’arts’ (Absolute to media Relative Transform Space matrix) ICC tag
+(V1.0)</span> [online]. no date. Available at: <a href="https://www.argyllcms.com/doc/ArgyllCMS_arts_tag.html">https://www.argyllcms.com/doc/ArgyllCMS_arts_tag.html</a></div>
+</div>
+<div id="ref-Hunt2005" class="csl-entry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">HUNT, R. W. G. <em><span class="nocase">The
+Reproduction of Colour, 6th Edition</span></em>. B.m.: John Wiley &amp;
+Sons, 2005. <span class="nocase">The Wiley-IS&amp;T Series in Imaging
+Science and Technology</span>. ISBN 9780470024263. </div>
+</div>
+<div id="ref-ICCv4" class="csl-entry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">INTERNATIONAL COLOR CONSORTIUM. <em><span class="nocase">File Format for Color Profiles (version
+4.1.0)</span></em> [online]. Standard. B.m.: International Color
+Consortium. 2003. Available at: <a href="https://www.color.org/ICC1-V41.pdf">https://www.color.org/ICC1-V41.pdf</a></div>
+</div>
+<div id="ref-Lam1985" class="csl-entry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">LAM, King Man. <em><span class="nocase">Metamerism and Colour Constancy</span></em>. B.m.:
+University of Bradford, 1985. </div>
+</div>
+<div id="ref-Lindbloom" class="csl-entry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">LINDBLOOM, Bruce. <span>Chromatic
+Adaptation</span> [online]. no date. Available at: <a href="http://brucelindbloom.com/index.html?Eqn_ChromAdapt.html">http://brucelindbloom.com/index.html?Eqn_ChromAdapt.html</a></div>
+</div>
+<div id="ref-Steenrod1951" class="csl-entry">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">STEENROD, Norman Earl. <em>The topology of
+fibre bundles</em>. B.m.: Princeton University Press, 1951. Princeton
+landmarks in mathematics and physics series. ISBN 9780691080550. </div>
+</div>
+<div id="ref-fiberbundleconstruction" class="csl-entry">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">WIKIPEDIA CONTRIBUTORS. <em>Fiber bundle
+construction theorem — <span>Wikipedia</span><span>,</span> the free
+encyclopedia</em> [online]. 2019. Available at: <a href="https://en.wikipedia.org/w/index.php?title=Fiber_bundle_construction_theorem">https://en.wikipedia.org/w/index.php?title=Fiber_bundle_construction_theorem</a>.
+[Online; accessed 29-February-2020]</div>
+</div>
+<div id="ref-hadamardproduct" class="csl-entry">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">WIKIPEDIA CONTRIBUTORS. <em>Hadamard product
+(matrices) — <span>Wikipedia</span><span>,</span> the free
+encyclopedia</em> [online]. 2020. Available at: <a href="https://en.wikipedia.org/w/index.php?title=Hadamard_product_(matrices)">https://en.wikipedia.org/w/index.php?title=Hadamard_product_(matrices)</a>.
+[Online; accessed 29-February-2020]</div>
+</div>
+</div>
+<p><br><br></p>
+</div>
+<div id="appendix-a---recovery-of-m_a" class="section level1">
+<h1>Appendix A - Recovery of <span class="math inline">\(M_a\)</span></h1>
+<p>Suppose we know that a chromatic adaption matrix <span class="math inline">\(T_{uv}\)</span> is von-Kries-based and we also
+know the white points <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>. Can we recover the <em>cone response
+matrix</em> <span class="math inline">\(M_a\)</span> ? This appendix
+presents a recipe to do that. We saw earlier that <span class="math inline">\(M_a\)</span> is not unique; its rows are only
+defined up to a constant. So our solution will follow common practice
+and scale the rows to have sum 1.</p>
+<p>Rearrange equation (5.1) to the form: <span class="math display">\[\begin{equation}
+T^{\intercal}_{uv} M_a^{\intercal} ~:=~  M_a^{\intercal}
+\operatorname{diag}(M_a v / M_a u)
+\end{equation}\]</span> We see that the columns of <span class="math inline">\(M_a^{\intercal}\)</span> - equivalently the rows
+of <span class="math inline">\(M_a\)</span> - are the eigenvectors of
+<span class="math inline">\(T^{\intercal}_{uv}\)</span>. Amazingly, the
+eigenvectors of <span class="math inline">\(T^{\intercal}_{uv}\)</span>
+do not depend on <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> ! The eigenvectors are also only
+defined up to a constant, so rescaling them to have sum 1 is easy. But
+the eigenvectors (and eigenvalues) are also only defined up to a
+permutation; finding the right permutation is a little harder and is
+where <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are used.</p>
+<p>Here is a worked out example.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>whiteA <span class="ot">=</span> <span class="fu">standardXYZ</span>(<span class="st">&quot;A&quot;</span>)[<span class="dv">1</span>, ]  ;  whiteB <span class="ot">=</span> <span class="fu">standardXYZ</span>(<span class="st">&quot;B&quot;</span>)[<span class="dv">1</span>, ]</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>theCAT <span class="ot">=</span> <span class="fu">CAT</span>( whiteA, whiteB, <span class="at">method=</span><span class="st">&#39;MCAT02&#39;</span> )</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>T   <span class="ot">=</span> theCAT<span class="sc">$</span>M ; Ma <span class="ot">=</span> theCAT<span class="sc">$</span>Ma</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">eigen</span>( <span class="fu">t</span>(T) )</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>X   <span class="ot">=</span> <span class="fu">t</span>(res<span class="sc">$</span>vectors)  ;  X <span class="ot">=</span> <span class="fu">diag</span>( <span class="dv">1</span> <span class="sc">/</span> <span class="fu">rowSums</span>(X) ) <span class="sc">%*%</span> X  <span class="co"># X is &#39;first cut&#39; at the unknown Ma</span></span></code></pre></div>
+<p>Compare <code>Ma</code> and <code>X</code></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>Ma ; X</span></code></pre></div>
+<pre><code>##         X      Y       Z
+## L  0.7328 0.4296 -0.1624
+## M -0.7036 1.6975  0.0061
+## S  0.0030 0.0136  0.9834</code></pre>
+<pre><code>##         [,1]   [,2]    [,3]
+## [1,]  0.0030 0.0136  0.9834
+## [2,] -0.7036 1.6975  0.0061
+## [3,]  0.7328 0.4296 -0.1624</code></pre>
+<p>One can check that the row sums of <code>Ma</code> are 1. Now compare
+the white ratios and the eigenvalues:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">as.numeric</span>(Ma <span class="sc">%*%</span> whiteB <span class="sc">/</span> Ma <span class="sc">%*%</span> whiteA) ; res<span class="sc">$</span>values</span></code></pre></div>
+<pre><code>## [1] 0.8643826 1.0850937 2.3297865</code></pre>
+<pre><code>## [1] 2.3297865 1.0850937 0.8643826</code></pre>
+<p>So the row orders are reversed, and the eigenvalues too. The two
+permutations are the same: <code>c(3,2,1)</code>.<br />
+In practice <code>Ma</code> is the unknown so we do not have it, but we
+<em>do</em> have the eigenvalues <code>res$values</code>. Since we know
+that <code>res$values</code> are returned in decreasing order, we can
+compute the desired permutation like this:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>perm <span class="ot">=</span> <span class="fu">order</span>( Ma <span class="sc">%*%</span> whiteB <span class="sc">/</span> Ma <span class="sc">%*%</span> whiteA,  <span class="at">decreasing=</span><span class="cn">TRUE</span> )  ; perm</span></code></pre></div>
+<pre><code>## [1] 3 2 1</code></pre>
+<p>The permutation <code>perm</code> now takes the ratios to the
+eigenvalues, but we want the inverse, so invert <code>perm</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>perm <span class="ot">=</span> <span class="fu">order</span>(perm) ; perm   </span></code></pre></div>
+<pre><code>## [1] 3 2 1</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>res<span class="sc">$</span>values[perm]</span></code></pre></div>
+<pre><code>## [1] 0.8643826 1.0850937 2.3297865</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>X <span class="ot">=</span> X[perm, ]  ;  X  ;  <span class="fu">max</span>( <span class="fu">abs</span>(X <span class="sc">-</span> Ma) )</span></code></pre></div>
+<pre><code>##         [,1]   [,2]    [,3]
+## [1,]  0.7328 0.4296 -0.1624
+## [2,] -0.7036 1.6975  0.0061
+## [3,]  0.0030 0.0136  0.9834</code></pre>
+<pre><code>## [1] 1.776357e-15</code></pre>
+<p>We have recovered <span class="math inline">\(M_a\)</span> with good
+accuracy.</p>
+<p>Now suppose <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are <em>not</em> known, but <span class="math inline">\(M_a\)</span> <em>is</em> known to be in a small
+list of candidate matrices. Since there only 6 possible permutations
+that take matrix <code>X</code> to the right candidate, it will be easy
+to spot the right one.</p>
+<p><br><br></p>
+</div>
+<div id="session-information" class="section level1">
+<h1>Session Information</h1>
+<pre>
+R version 4.5.0 (2025-04-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=C                           LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8 LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Los_Angeles
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] spacesXYZ_1.6-0
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37        R6_2.6.1             microbenchmark_1.5.0 fastmap_1.2.0       
+ [5] xfun_0.52            glue_1.8.0           cachem_1.1.0         knitr_1.50          
+ [9] htmltools_0.5.8.1    logger_0.4.0         rmarkdown_2.29       lifecycle_1.0.4     
+[13] cli_3.6.5            sass_0.4.10          jquerylib_0.1.4      compiler_4.5.0      
+[17] tools_4.5.0          evaluate_1.0.3       bslib_0.9.0          yaml_2.3.10         
+[21] rlang_1.1.6          jsonlite_2.0.0      
+</pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

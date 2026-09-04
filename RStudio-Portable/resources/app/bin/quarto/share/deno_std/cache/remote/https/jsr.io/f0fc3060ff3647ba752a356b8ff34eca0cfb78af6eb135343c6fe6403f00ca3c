@@ -1,0 +1,193 @@
+{
+  "manifest": {
+    "/stringify.ts": {
+      "size": 9305,
+      "checksum": "sha256-737fa1cc72dc0b38020d8c5408d51b5bbc70ed6b94df59677d54457fd4506171"
+    },
+    "/testdata/boolean.toml": {
+      "size": 85,
+      "checksum": "sha256-c13f9a82e98c864b766b6004cd7b93df953244769c425a9e92f54d2f3542b6b6"
+    },
+    "/stringify_test.ts": {
+      "size": 2000,
+      "checksum": "sha256-761e55ae2b1853a71fb92065390c092d6b94c4ead25d1ff0511e8d07fdc7ef30"
+    },
+    "/testdata/cargo.toml": {
+      "size": 965,
+      "checksum": "sha256-2ca3b894c2c711ca0465e473c61c493b6fad2e796ca9fc1718d7249fef1a690f"
+    },
+    "/testdata/simple.toml": {
+      "size": 114,
+      "checksum": "sha256-0c33660017721be9a752319d87ff42b95eec9f04ef963fb17f0fe71026af5ea6"
+    },
+    "/testdata/inlineArrayOfInlineTable.toml": {
+      "size": 264,
+      "checksum": "sha256-e88de2856831f5c3157ebc5678131e6dc01b49e0eb80b81311e65d79a1899971"
+    },
+    "/testdata/keys.toml": {
+      "size": 214,
+      "checksum": "sha256-92d41dbaf62e068587c21668cb43fbd6f56ff6f93c36b2c2557da46bc8a8107e"
+    },
+    "/testdata/float.toml": {
+      "size": 516,
+      "checksum": "sha256-13d15cbd3c1635957e40a3b01cc96cf0a69a690a390539d384cdf49df386fde4"
+    },
+    "/parse_test.ts": {
+      "size": 28619,
+      "checksum": "sha256-54ceb14e4ea13da26c9eae34b1720fe624f776074ad8f454c430be1fc601f394"
+    },
+    "/testdata/CRLF.toml": {
+      "size": 36,
+      "checksum": "sha256-e1a17160f11ea80019539595e42a997ea2042d8ec35c7da4773ba7b18afc753e"
+    },
+    "/parse.ts": {
+      "size": 804,
+      "checksum": "sha256-a09dd0756ee9fa1ca44469863a9c25237da6ed2eb472bfa6c976bb2c14e4b5bb"
+    },
+    "/testdata/arrays.toml": {
+      "size": 305,
+      "checksum": "sha256-caaf463073518d01a7708af4c17e9f86ee994a6d542b755b7954be248a04b9e2"
+    },
+    "/testdata/integer.toml": {
+      "size": 349,
+      "checksum": "sha256-62c0141087c5b79f01d5e54471d399da2949a723c784959c6b666cdbc1332b10"
+    },
+    "/testdata/string.toml": {
+      "size": 1585,
+      "checksum": "sha256-deae7bbd99cbf7890b902e7e2065cd592f065c2c066cb755a0d3c5dca0b8ec8c"
+    },
+    "/testdata/arrayTable.toml": {
+      "size": 237,
+      "checksum": "sha256-8a4fc6f249f5e1e6cf6c97865745cdbc6ecb3ecf2e31e0ed506136cd213f718f"
+    },
+    "/testdata/error-invalid-whitespace1.toml": {
+      "size": 15,
+      "checksum": "sha256-2675fad0cedf7cd13cbf364ec4af60b0298db80d6fa3d8b07e6835d91d4b5403"
+    },
+    "/testdata/inlineTable.toml": {
+      "size": 471,
+      "checksum": "sha256-7cf749489b8e21b89ed260f32c9b0fc58d4471736b7b4b19c2976144c25438cf"
+    },
+    "/testdata/error-open-string.toml": {
+      "size": 37,
+      "checksum": "sha256-f88d3fe23f16cd8feace0e7cd70a75859c44b5095a429d93e74b96fa27e5c0a0"
+    },
+    "/testdata/comment.toml": {
+      "size": 975,
+      "checksum": "sha256-06c995fe1efc3059849b50834a5cc9e4094717c79bc7dbcc7425546a4d80f628"
+    },
+    "/testdata/table.toml": {
+      "size": 332,
+      "checksum": "sha256-d80293f6e2d30c5b3b3d0ab9d7d60cd3e6e53066c7afe77eb83e45e8b3c45485"
+    },
+    "/_parser.ts": {
+      "size": 21962,
+      "checksum": "sha256-2cb6a4e9657f84321791ad3a2b591ca27d1ca31c5282c0024c323c5dfbe2e233"
+    },
+    "/deno.json": {
+      "size": 156,
+      "checksum": "sha256-ad8b7d429785349018ee05674062c4e275b831cda9dca36413f1f0759f6ec5d4"
+    },
+    "/testdata/error-invalid-whitespace2.toml": {
+      "size": 14,
+      "checksum": "sha256-6c88c68c2b21876eab2d5c8e76d4d87eb6f857eb84bde01350c982fc6c857755"
+    },
+    "/testdata/cargoTest.toml": {
+      "size": 2611,
+      "checksum": "sha256-8f2b60eaf8c782f69ab97da8ed1d7cec2b7127fef98b18acecdd07bf180c12b6"
+    },
+    "/testdata/datetime.toml": {
+      "size": 264,
+      "checksum": "sha256-bb9a19ab08b342abdc28443deb36da2278804588f4e53168aa290090e97012c4"
+    },
+    "/testdata/error-invalid-string.toml": {
+      "size": 27,
+      "checksum": "sha256-8074a6998a14097a990d257f2b47837d9ffa63667f7f4131ef1947f09b97c36a"
+    },
+    "/mod.ts": {
+      "size": 3432,
+      "checksum": "sha256-a464764e9f76c0df54e3380c26ce2bfcfeece7b48c56b18a83166f1257468e3e"
+    }
+  },
+  "moduleGraph2": {
+    "/stringify.ts": {},
+    "/parse.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_parser.ts",
+          "specifierRange": [
+            [
+              3,
+              36
+            ],
+            [
+              3,
+              50
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./stringify.ts",
+          "specifierRange": [
+            [
+              126,
+              14
+            ],
+            [
+              126,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./parse.ts",
+          "specifierRange": [
+            [
+              127,
+              14
+            ],
+            [
+              127,
+              26
+            ]
+          ]
+        }
+      ]
+    },
+    "/_parser.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/collections@^1.0.0-rc.1/deep-merge",
+          "specifierRange": [
+            [
+              3,
+              26
+            ],
+            [
+              3,
+              72
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./parse": "./parse.ts",
+    "./stringify": "./stringify.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"server":"cloudflare","cf-ray":"9e98a5ccaa4d3992-IAD","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nDpZxDdqmqN2JBFuKJk2dNOpaXiUOKxaqnghpiF8Ta5f2OeW0i96mkQN6wW%2FtwVdwfwn9Kw%2FUOZrWMMjvEOK%2BZLAI0HhpC3NsOzaMPMIE75mrhJojhbxlLE%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:27 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-robots-tag":"noindex","etag":"W/\"c47cb30d26256a193d9fb7d5a2ed507d\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","content-type":"application/json","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/toml/0.224.1_meta.json","time":1775728647}

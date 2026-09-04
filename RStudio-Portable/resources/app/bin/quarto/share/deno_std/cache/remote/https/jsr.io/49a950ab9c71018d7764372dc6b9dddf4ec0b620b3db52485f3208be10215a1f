@@ -1,0 +1,46 @@
+// Ported and adapted from js-yaml-js-types v1.0.0:
+// https://github.com/nodeca/js-yaml-js-types/tree/ac537e7bbdd3c2cbbd9882ca3919c520c2dc022b
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import { Type } from "../type.ts";
+import type { Any } from "../_utils.ts";
+
+const REGEXP = /^\/(?<regexp>[\s\S]+)\/(?<modifiers>[gismuy]*)$/;
+
+export const regexp = new Type("tag:yaml.org,2002:js/regexp", {
+  kind: "scalar",
+  resolve(data: Any) {
+    if ((data === null) || (!data.length)) {
+      return false;
+    }
+
+    const regexp = `${data}`;
+    if (regexp.charAt(0) === "/") {
+      // Ensure regex is properly terminated
+      if (!REGEXP.test(data)) {
+        return false;
+      }
+      // Check no duplicate modifiers
+      const modifiers = [...(regexp.match(REGEXP)?.groups?.modifiers ?? "")];
+      if (new Set(modifiers).size < modifiers.length) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+  construct(data: string) {
+    const { regexp = `${data}`, modifiers = "" } =
+      `${data}`.match(REGEXP)?.groups ?? {};
+    return new RegExp(regexp, modifiers);
+  },
+  predicate(object: unknown) {
+    return object instanceof RegExp;
+  },
+  represent(object: RegExp) {
+    return object.toString();
+  },
+});
+
+// denoCacheMetadata={"headers":{"etag":"\"d0fe9177b8bb475f3ce1d595f06274e4\"","content-type":"text/typescript","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=B2xTJc41mipI%2B%2FgEqDgSjRgumbQtDnCtrHK0JlCg8sQBJBATAvvZL5PmNZiXUcIi2a4GYkO108xtmxMpuMjGB9rl6%2FPsZe4f0CASaIkv5fEpAiiCp7pMsfk%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","server":"cloudflare","cf-ray":"9e98a5d47b113992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-length":"1333","access-control-allow-origin":"*","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin"},"url":"https://jsr.io/@std/yaml/0.224.3/_type/regexp.ts","time":1775728648}

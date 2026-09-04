@@ -1,0 +1,102 @@
+crop_mgt,mon_1,day_1,mon_2,day_2,operation,op_data1,op_data2,op_data3
+rye,8,15,9,5,tillage,landlevl,NA,NA
+rye,9,5,9,20,fertilizer,elem_n ,broadcast,30
+rye,9,20,10,10,plant,rye,NA,NA
+rye,NA,NA,NA,NA,skip,NA,NA,NA
+rye,3,20,3,30,fertilizer,elem_n ,broadcast,60
+rye,7,15,7,31,harvest_only,rye,grain,NA
+rye,7,15,7,31,kill_only,rye,NA,NA
+canp,8,1,8,15,tillage,fallplow,NA,NA
+canp,8,1,8,15,fertilizer,elem_n ,broadcast,25
+canp,8,15,8,30,plant,canp,NA,NA
+canp,NA,NA,NA,NA,skip,NA,NA,NA
+canp,3,10,3,20,fertilizer,elem_n ,broadcast,100
+canp,3,10,3,20,fertilizer,elem_p,broadcast,30
+canp,7,10,7,25,harvest_only,canp,grain,NA
+canp,7,10,7,25,kill_only,canp,NA,NA
+oats,NA,NA,NA,NA,skip,NA,NA,NA
+oats,3,15,4,10,tillage,landlevl,NA,NA
+oats,3,15,4,10,fertilizer,elem_n ,broadcast,60
+oats,3,15,4,10,fertilizer,elem_p,broadcast,8
+oats,3,15,4,10,plant,oats,NA,NA
+oats,5,1,5,15,fertilizer,elem_n ,broadcast,60
+oats,8,1,8,15,harvest_only,oats,grain,NA
+oats,8,1,8,15,kill_only,oats,NA,NA
+csil,NA,NA,NA,NA,skip,NA,NA,NA
+csil,4,1,4,15,fertilizer,swine_fr,broadcast,30000
+csil,4,1,4,15,tillage,cchplow,NA,NA
+csil,5,1,5,10,plant,csil,NA,NA
+csil,6,10,6,20,fertilizer,elem_n,broadcast,100
+csil,6,10,6,20,fertilizer,elem_p,broadcast,60
+csil,8,20,9,20,harvest_only,csil,silage,NA
+csil,8,20,9,20,kill_only,csil,NA,NA
+pota,9,1,9,15,tillage,fallplow,NA,NA
+pota,10,1,10,15,fertilizer,swine_fr,broadcast,25000
+pota,NA,NA,NA,NA,skip,NA,NA,NA
+pota,4,1,4,20,tillage,fallplow,NA,NA
+pota,4,1,4,20,fertilizer,elem_n,broadcast,70
+pota,4,20,4,30,plant,pota,NA,NA
+pota,8,10,9,15,harvest_only,pota,tuber,NA
+pota,8,10,9,15,kill_only,pota,NA,NA
+buck,NA,NA,NA,NA,skip,NA,NA,NA
+buck,5,15,5,25,tillage,landlevl,NA,NA
+buck,5,15,5,25,fertilizer,elem_n,broadcast,40
+buck,5,15,5,25,fertilizer,elem_p,broadcast,13
+buck,5,15,5,25,plant,buck,NA,NA
+buck,8,1,9,30,harvest_only,buck,grain,NA
+buck,8,1,9,30,kill_only,buck,NA,NA
+alfa,NA,NA,NA,NA,skip,NA,NA,NA
+alfa,3,20,3,30,tillage,landlevl,NA,NA
+alfa,4,1,4,10,plant,lupn,NA,NA
+alfa,8,20,8,30,harvest_only,lupn,grain,NA
+alfa,8,20,8,30,kill_only,lupn,NA,NA
+fpea,NA,NA,NA,NA,skip,NA,NA,NA
+fpea,3,1,3,15,tillage,landlevl,NA,NA
+fpea,3,15,4,1,fertilizer,elem_n,broadcast,60
+fpea,3,15,4,1,fertilizer,elem_p,broadcast,8
+fpea,4,10,4,20,plant,fpea,NA,NA
+fpea,8,1,8,15,harvest_only,fpea,grain,NA
+fpea,8,1,8,15,kill_only,fpea,NA,NA
+agrl,8,15,9,5,tillage,landlevl,NA,NA
+agrl,9,5,9,20,fertilizer,elem_n ,broadcast,30
+agrl,9,20,10,10,plant,rye,NA,NA
+agrl,NA,NA,NA,NA,skip,NA,NA,NA
+agrl,3,20,3,30,fertilizer,elem_n ,broadcast,60
+agrl,7,15,7,31,harvest_only,rye,grain,NA
+agrl,7,15,7,31,kill_only,rye,NA,NA
+fesc_mgt,NA,NA,NA,NA,skip,NA,NA,NA
+fesc_mgt,3,10,3,20,plant,fesc_mgt,NA,NA
+fesc_mgt,6,15,6,30,harvest_only,fesc_mgt,hay_cut_low,NA
+fesc_mgt,9,1,9,15,harvest_only,fesc_mgt,hay_cut_low,NA
+fesc_mgt,9,1,9,15,kill_only,fesc_mgt,NA,NA
+berm,NA,NA,NA,NA,skip,NA,NA,NA
+berm,3,10,3,20,plant,lmix,NA,NA
+berm,9,1,9,15,tillage,fallplow,NA,NA
+berm,9,16,10,1,kill_only,lmix,NA,NA
+wwht,9,25,10,20,tillage,fallplow,NA,NA
+wwht,9,25,10,20,fertilizer,elem_n ,broadcast,25
+wwht,9,25,10,20,fertilizer,elem_p,broadcast,25
+wwht,9,25,10,20,plant,wwht,NA,NA
+wwht,NA,NA,NA,NA,skip,NA,NA,NA
+wwht,3,15,3,30,fertilizer,elem_n ,broadcast,65
+wwht,5,10,5,31,fertilizer,elem_n ,broadcast,45
+wwht,7,25,8,10,harvest_only,wwht,grain,NA
+wwht,7,25,8,10,kill_only,wwht,NA,NA
+trit,9,25,10,5,tillage,fallplow,NA,NA
+trit,9,25,10,5,fertilizer,elem_n ,broadcast,25
+trit,9,25,10,5,fertilizer,elem_p,broadcast,25
+trit,9,25,10,5,plant,trit,NA,NA
+trit,NA,NA,NA,NA,skip,NA,NA,NA
+trit,3,15,3,30,fertilizer,elem_n ,broadcast,55
+trit,5,10,5,31,fertilizer,elem_n ,broadcast,35
+trit,7,25,8,10,harvest_only,trit,grain,NA
+trit,7,25,8,10,kill_only,trit,NA,NA
+barl,10,15,10,25,tillage,fallplow,NA,NA
+barl,NA,NA,NA,NA,skip,NA,NA,NA
+barl,3,15,4,15,fertilizer,elem_n ,broadcast,15
+barl,3,15,4,15,fertilizer,elem_p,broadcast,17
+barl,3,25,4,15,plant,barl,NA,NA
+barl,5,10,5,20,fertilizer,elem_n ,broadcast,60
+barl,5,25,5,30,fertilizer,elem_n ,broadcast,20
+barl,7,15,7,31,harvest_only,barl,grain,NA
+barl,7,15,7,31,kill_only,barl,NA,NA

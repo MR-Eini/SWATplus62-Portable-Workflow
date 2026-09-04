@@ -1,0 +1,32 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { extensionsByType } from "./extensions_by_type.ts";
+
+/**
+ * Returns the most relevant extension for the given media type, or `undefined`
+ * if no extension can be found.
+ *
+ * Extensions are returned without a leading `.`.
+ *
+ * @param type The media type to get the extension for.
+ *
+ * @returns The extension for the given media type, or `undefined` if no
+ * extension is found.
+ *
+ * @example Usage
+ * ```ts
+ * import { extension } from "@std/media-types/extension";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(extension("text/plain"), "txt");
+ * assertEquals(extension("application/json"), "json");
+ * assertEquals(extension("text/html; charset=UTF-8"), "html");
+ * assertEquals(extension("application/foo"), undefined);
+ * ```
+ */
+export function extension(type: string): string | undefined {
+  return extensionsByType(type)?.[0];
+}
+
+// denoCacheMetadata={"headers":{"content-length":"996","x-content-type-options":"nosniff","vary":"Origin","content-type":"text/typescript","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","etag":"\"99e068bf8e6f90454f4ccab1cb829d93\"","x-jsr-backend":"modules","x-robots-tag":"noindex","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","server":"cloudflare","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=o2B7vuj95JqvEqjwX6vCna4XVN0%2FdupnJgHJgpjtUdarXyJMmUd%2FrE7GNv1ub%2FE6SSPFlaGn%2FVXFvhLmFypsx4TU4%2FEZ8tkuR4Xq0n9ti0hL8Iqqjz6rscw%3D\"}]}","cf-ray":"9e98a5d228303992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/media-types/0.224.1/extension.ts","time":1775728648}

@@ -1,0 +1,493 @@
+---
+title: "Chromatic Adaptation"
+author: "Glenn Davis"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+    number_sections: false
+    fig_caption: true
+bibliography: bibliography.bib
+
+#header-includes:
+#   - \usepackage{tikz}
+#   - \usetikzlibrary{shapes.geometric,arrows}
+
+csl: personal.csl
+# csl: iso690-numeric-brackets-cs.csl
+# csl: institute-of-mathematical-statistics.csl
+# csl: transactions-on-mathematical-software.csl
+vignette: >
+  %\VignetteIndexEntry{Chromatic Adaptation}
+  %\VignetteEngine{knitr::rmarkdown}
+  
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options( width=100 )
+```
+
+
+<br>
+I find chromatic adaptation mathematically interesting.
+This vignette is a longwinded formal approach that delays code to the end.
+Featured functions in this vignette are: `CAT()` and `adaptXYZ()`.
+
+<br><br>
+
+
+
+
+# Analogy of Proportion
+
+
+Chromatic adaptation can be viewed as an Aristotelian _analogy of proportion_, see @Brown1989.
+A general analogy of this type is usually written $A:B = C:D$ and read as
+"$A$ is to $B$ as $C$ is to $D$".
+In our case the expression $A:I$ is interpreted as
+"the color appearance of $A$ in a viewing environment with illuminant $I$ after the viewer is adapted to $I$",
+or more simply
+"the appearance of $A$ under illuminant $I$".
+It is better to think of $A$ not as an object color, but as a self-luminous color.
+The analogy $A:I = B:J$ can be read as
+"the appearance of $A$ under illuminant $I$
+is the same as the appearance of $B$ under illuminant $J$".
+This phenomenon is called _chromatic adaptation_ and takes place in the human eye and brain.
+Of course, the exact values of $A$ and $B$ vary depending on the individual,
+so it only makes sense to think of averages, for a _standard observer_.
+All of these variables are typically XYZ tristimulus vectors,
+and that is what we will assume from now on.
+We require that all components of $I$ and $J$ are positive,
+i.e. the illuminants are in the _positive octant_.
+
+We will adopt these  axioms throughout this vignette:
+\begin{align}\label{eq:1}
+\tag{1.1}
+A1)&  \hspace{5pt} I:I = J:J  \\
+A2)&  \hspace{5pt}  A:I = B:I    \hspace{20pt}   \text{if and only if}  \hspace{20pt}   A = B
+\end{align}
+In A2) the first equality is equality of appearance, and the second is equality of vectors.
+
+In most cases $A$, $I$, and $J$ are known, and $B$ is not.
+Solving the chromatic adaptation problem is solving
+the analogy $A:I = X:J$ for $X$,
+where $A$ is the _source color_,
+$I$ is the the _source illuminant_ (also called the _test illuminant_), 
+and $J$ is the _target illuminant_ (also called the _reference illuminant_).
+By axiom A2) the _target color_ solution $X$ is unique.
+
+
+
+<br>
+
+# Chromatic Adaptation Transforms
+
+In most practical cases, illuminants $I$ and $J$ are fixed, and the source color $A$ is allowed to vary widely.
+Recall that $X$ is uniquely determined by $A$, so
+in the analogy $A:I = X:J$ it makes sense to think of
+$X$ as a transform $T(A)$ of $A$.
+Define the _ideal_
+_Chromatic Adaption Transform_  $T$ from $I$ to $J$ by the analogy:   
+\begin{equation}
+A:I = T(A):J
+\end{equation}
+
+If $T(A):J=T(B):J$ then $A:I=B:I$ and so $A=B$, by (1.1).
+This shows that $T$ is injective.
+
+It is convenient to abbreviate Chromatic Adaption Transform  by the acronym __CAT__.
+In theory the exactly accurate _ideal CAT_ from $I$ to $J$ is unique,
+but in practice there are so many confounding variables and complexities
+that we cannot hope to find it.
+So from now on we open things up and look for approximations to $T$
+using various methods (see the next section).
+
+There are 2 special cases where we can assert something exactly.
+Since $I:I = J:J$ by axiom A1), we can say that $T(I)=J$ exactly.
+And since $A:I = A:I$, we can say that if $J=I$, then $T$ is the identity transform.
+In both theory and practice, we obviously want these 2 properties to be true,
+so we require that all approximations have them.
+
+
+<br>
+
+# CAT Methods
+
+A _CAT method_ assigns to every pair of illuminants $I$ and $J$ a CAT from $I$ to $J$,
+which we denote by $T_{IJ}$.
+It is understood that $T_{IJ}$ is an approximation of the ideal.
+We require that $T_{IJ}(I) = J$ (see previous paragraph).
+A CAT is usually an instance of a CAT method.
+Consider these 3 properties for a CAT method:
+<ol>
+<li>identity.  If $J{=}I$, $T_{II}$ is the identity transform</li>
+<li>inverse.  $T_{JI}$ is the inverse of $T_{IJ}$</li>
+<li>
+commutative triangle.  Adapting from $I$ to $J$, and then from $J$ to $K$, is the same as adapting from $I$ to $K$.
+In symbols:  $T_{JK} \circ T_{IJ} = T_{IK}$  (where $\circ$ denotes transform composition).
+</li>
+</ol>
+
+Property 1 (identity) is required by the last paragraph of the previous section.
+We now argue that properties 2 and 3 are desirable.
+
+Property 2 (inverse) is true for an _ideal_ CAT method, by the following argument:
+\begin{align}
+A : I          &= T_{IJ}(A) : J  \hspace{40pt} \text{by definition of }  T_{IJ} \\
+T_{IJ}(A) : J  &= T_{JI}(T_{IJ}(A)) : I  \hspace{20pt} \text{by definition of } T_{JI}  \\
+A : I          &= T_{JI}(T_{IJ}(A)) : I  \hspace{20pt} \text{previous 2 lines and transitivity of appearance}  \\
+A              &= T_{JI}(T_{IJ}(A))      \hspace{32pt} \text{by axiom A2 in (1.1)}  \\
+T_{JI} \circ T_{IJ} &= identity   \hspace{48pt}  \text{by definition of } identity
+\end{align}
+Swapping $I$ and $J$ gives $T_{IJ} \circ T_{JI} = identity$, and this proves property 2.
+According to Hunt @Hunt2005 p. 591, the non-linear version of the CMCCAT97 method does NOT have property 2.
+The degree to which property 2 fails is therefore a measure of the accuracy of the
+appearance matching of the CMCCAT97 CATs.
+In Burns @Burns2019 is a CAT method which in the original and direct form does not have the inverse property,
+but can be slightly modified to a "symmetric" version that _does_ enjoy the property.
+
+Property 3 (commutative triangle) is desirable because it makes it possible to
+use the intermediate _Profile Connection Space_ (PCS with Illuminant D50)
+in ICC color profiles with no loss of accuracy.
+In  property 3, $J$ represents the PCS in the middle, and the endpoints $I$ and $K$ are 
+viewing illuminants for devices.
+If property 3 fails, then the 2-step adaptation may be sub-optimal.
+
+
+__Remark 3.1__
+Assuming that each $T_{II}$ is invertible (a very mild condition), properties 1. and 2. follow from 3.
+Letting $J = K = I$ in property 3 we get $T_{II} \circ T_{II} = T_{II}$.
+Since $T_{II}$ is invertible we conclude $T_{II} = \text{identity}$ and this proves property 1.
+Letting $K = I$ in property 3 we get
+\begin{equation}
+T_{JI} \circ T_{IJ} = T_{II} = \text{identity}
+\end{equation}
+Swapping $I$ and $J$ gives
+\begin{equation}
+T_{IJ} \circ T_{JI} = T_{JJ} = \text{identity}
+\end{equation}
+and this proves property 2.
+Note that property 3 is similar to the _cocycle condition_ in the
+construction of fiber bundles, see @fiberbundleconstruction and p. 14 of @Steenrod1951.
+That property 3 implies properties 1 and 2 is on p. 8 of @Steenrod1951.
+
+
+
+__Remark 3.2__
+Property 1 does NOT follow from property 2.
+Here is a CAT method that is a counter-example.
+First suppose that the vectors $I$ and $J$ have the same length.
+Define $T_{IJ}$ to be the transform that first rotates space $\pi$ radians around $I$
+and then rotates by the most direct rotation from $I$ to $J$.
+If $I$ and $J$ do not have the same length, then rotate $I$ to the line spanned by $J$
+and then follow this by a uniform scaling so the result expands or shrinks to $J$.
+By "most direct rotation" we mean the rotation around the axis $I{\times}J$ (the 3D cross product).
+This $T_{IJ}$ is perfectly well-defined
+(unless $J{=}-I$ which is impossible since both are in the positive octant),
+and maps $I$ to $J$.
+It is not hard to show that $T_{JI} \circ T_{IJ} =  T_{IJ} \circ T_{JI} = identity$, so property 2 is true.
+But $T_{II}$ is rotation of $\pi$ radians around $I$, so property 1 is false.
+
+
+
+<br><br>
+
+# The Simplest CAT Method - XYZ Scaling
+
+A CAT method is called _linear_ if and only if every $T_{IJ}$ is a linear map
+(from $\mathbb{R}^3$ to $\mathbb{R}^3$).
+From this point on in the vignette all CAT methods are linear.
+$T_{IJ}$ now denotes a 3x3 matrix.
+In ICC v4.0 color profiles this matrix is saved in the __chromaticAdaptationTag__ or `chad` tag,
+and converts from device white to PCS white, see @ICCv4.
+To avoid confusion between matrices and vectors, we shift notation and replace $I$, $J$, and $K$
+by 3-vectors $u$, $v$, and $w$  (since lower-case $i$, $j$, and $k$ look too much like integers).
+We also use the bold $\mathbf{1} := (1,1,1)$ for the 3-vector of all 1s, which is also a valid whitepoint.
+
+The 3 properties in the previous section now take this form:
+<ol>
+<li>identity. $T_{uu} = I$</li>
+<li>inverse.  $T_{vu} = T_{vu}^{-1}$</li>
+<li>commutative triangle. $T_{vw} T_{uv} = T_{uw}$</li>
+</ol>
+
+The rest of this section follows Lindbloom  @Lindbloom.
+Given 3-vectors $u$ and $v$ with all entries positive, define the XYZ scaling CAT method by:
+\begin{equation}
+T_{uv} := \operatorname{diag}(v) \operatorname{diag}(u)^{-1} = \operatorname{diag}(v/u)
+\end{equation}
+Here and through the rest of this vignette,
+the vector division $v/u$ is component by component,
+i.e. the _Hadamard division_, see @hadamardproduct.
+One easily verifies that:
+\begin{equation}
+T_{vw} T_{uv} = \operatorname{diag}(w/v) \operatorname{diag}(v/u)  = \operatorname{diag}(w/u) = T_{uw}
+\end{equation}
+so this CAT method satisfies property 3.
+Since $T_{uu}$ is trivially invertible, it also satisfies properties 1 and 2 by __Remark 3.1__.
+Each channel in XYZ is scaled independently.
+When this technique is used in electronic RGB cameras, and applied to the RGB channels independently,
+it is often called _white-balancing_.
+This CAT method is what one would get by transforming to XYZ to Lab using $u$ as the whitepoint,
+and then from Lab to XYZ using $v$ as the whitepoint  (though this view hides the linearity of $T_{uv}$).
+This CAT method is sometimes called the "Wrong von Kries", see @ArgyllCMS.
+
+
+
+<br><br>
+
+
+# Von-Kries-Based CAT Methods
+
+All the linear CAT methods in common use are _von-Kries-based_ which is now defined,
+loosely following Lindbloom  @Lindbloom.
+Let $M_a$ be an invertible 3x3 matrix that does not move $\mathbf{1}$ too much,
+i.e. $M_a \mathbf{1} \approx \mathbf{1}$.
+First define
+\begin{equation}
+T_{u\mathbf{1}} := \operatorname{diag}(M_a u)^{-1} M_a  \hspace{20pt}  \text{ and }  \hspace{20pt}
+T_{\mathbf{1}u} := M_a^{-1} \operatorname{diag}(M_a u)
+\end{equation}
+One easily checks that $T_{u\mathbf{1}} u = \mathbf{1}$ and $T_{\mathbf{1}u} \mathbf{1} = u$
+and these matrices are inverses of each other.
+Now define a _von-Kries-based_ CAT method in general by:
+\begin{equation}
+\tag{5.1}
+T_{uv} ~:=~ T_{\mathbf{1}v}  T_{u\mathbf{1}} ~=~ M_a^{-1} \operatorname{diag}(M_a v / M_a u) M_a
+\end{equation}
+One easily checks that
+\begin{equation}\label{eq:5}
+T_{vw} T_{uv} = T_{\mathbf{1}w} T_{v\mathbf{1}} T_{\mathbf{1}v} T_{u\mathbf{1}}  =  T_{\mathbf{1}w} ~ I ~ T_{u\mathbf{1}} = T_{uw}
+\end{equation}
+so the method satisfies property 3.
+By __Remark 3.1__ it also satisfies properties 1 and 2.
+
+The argument for property 3 can be visualized in categorical terms by this diagram:
+<br><br>
+<center>
+<img src='adaptationdiagram1.png' width='75%'><br>
+<font size=+1>Figure 5.1 - Commutative Diagram of CATs</font>
+</center>
+<br>
+Since the 3 inner triangles commute, the outer triangle commutes too.
+The symbol $\mathbb{R}^3_u$ denotes the space of all possible XYZs under illuminant $u$.
+We are being sloppy here because a CAT makes no sense when one of the XYZs is negative;
+but since the CATs in the figure are linear maps, they can still be defined mathematically
+even if they make no physical sense.
+
+Note that the dependence of the transforms on $M_a$ is suppressed in this notation.
+In the von Kries theory, $M_a$ transforms from XYZ to the _cone response domain_.
+In practice $M_a$ is calculated from a large number of pairs of experimentally 
+measured _corresponding colors_.
+For example the popular Bradford $M_a$ was calculated from 58 pairs, see @Lam1985.
+$M_a$ is called the _cone response matrix_ for the _von-Kries-based_ CAT method.
+In ArgyllCMS ICC color profiles, $M_a$ is saved in the __SigAbsToRelTransSpace__ or `arts` private ICC tag, 
+see @ArgyllCMS.
+
+In the special case $M_a = I$ the transforms become:
+\begin{equation}
+T_{u\mathbf{1}} := \operatorname{diag}(u)^{-1}  \hspace{20pt}  \text{ and } \hspace{20pt}
+T_{uv} := \operatorname{diag}(v) \operatorname{diag}(u)^{-1} = \operatorname{diag}(v/u)
+\end{equation}
+which is just the XYZ scaling method in the previous section.
+There is more going on.
+In words, equation (5.1) says: transform $u$ and $v$ by $M_a$
+and form the diagonal matrix one would get from XYZ scaling.
+To adapt color $A$ from $u$ to $v$, transform $A$ by $M_a$,
+and then by the diagonal matrix, and then transform back again by $M_a^{-1}$.
+A fancy way to say the same thing is:
+a CAT matrix is von-Kries-based if and only if it is _linearly conjugate_ to an XYZ scaling.
+
+Since $M_a$ has 9 parameters, it appears that these von-Kries-based CAT methods have 9 degrees of freedom.
+However, some changes of $M_a$ do not change the transforms.
+Let $D$ be a diagonal 3x3 matrix with positive entries on the diagonal, and let $M'_a := D M_a$. Then
+\begin{align}
+T'_{u\mathbf{1}} &:= \operatorname{diag}(M'_a u)^{-1} M'_a \\
+                 &= \left[ \operatorname{diag}(D M_a u) \right]^{-1} D M_a \\
+                 &= \left[ D \operatorname{diag}(M_a u) \right]^{-1} D M_a \hspace{20pt} \text{this is the key step and uses the diagonality of } D  \\
+                 &= \operatorname{diag}(M_a u)^{-1} D^{-1} D M_a \\
+                 &= \operatorname{diag}(M_a u)^{-1}  M_a \\
+                 &= T_{u\mathbf{1}}
+\end{align}
+so changing $M_a$ to $D M_a$ leaves the CAT unchanged.
+Setting $D = \operatorname{diag}(M_a \mathbf{1})^{-1}$ implies that $M'_a \mathbf{1} = \mathbf{1}$.
+The matrix $\operatorname{diag}(M_a \mathbf{1})$ is invertible because $M_a \mathbf{1} \approx \mathbf{1}$
+as we assumed above.
+Thus, any acceptable cone response matrix can be normalized so that $M_a \mathbf{1} = \mathbf{1}$ exactly,
+i.e. the row sums are all 1.
+So these von-Kries-based CAT methods have 9-3 = 6 degrees of freedom.
+Geometrically, $M_a$ leaves the line generated by $\mathbf{1}$ pointwise fixed, so we think of it as
+a "twist" around the line (more general than a rotation around the line).
+If $\{ \mathbf{1}, b_2, b_3  \}$ is a basis of $\mathbb{R}^3$, then $M_a$ can map $b_2$ and $b_3$ to $\mathbb{R}^3$
+almost arbitrarily, and this gives the 3+3 = 6 degrees of freedom.
+
+
+<br><br>
+
+# Other Linear CAT Methods
+
+This section is a detour that asks:
+"Are there are linear CAT methods that are NOT von-Kries-based ?"
+Note from (5.1) that if $T_{uv}$ is a von-Kries-based matrix,
+then $T_{uv}$ is diagonalizable.
+So if we can construct a linear CAT method whose matrices are not diagonalizable,
+then it is not von-Kries-based.
+
+As an example, define $T_{uv}$ to be the most direct rotation of $u$ to the ray
+generated by $v$, followed by uniform scaling to take $u$ to $v$.
+Since all the non-trivial $T_{uv}$ are products of rotations and scalings, they are not diagonalizable.
+Note that this CAT method has properties 1 and 2, but NOT property 3.
+It shows that properties 1 and 2 do NOT imply property 3.
+
+Taking an idea from the previous section, we can modify this method to have property 3.
+Define $T_{u\mathbf{1}}$ to be the most direct rotation of $u$ to the ray generated by $\mathbf{1}$,
+then followed by a uniform scaling that makes $u$ map to $\mathbf{1}$.
+Define $T_{\mathbf{1}u}$ to be the inverse of $T_{u\mathbf{1}}$.
+Now define $T_{uv} := T_{\mathbf{1}v}  T_{u\mathbf{1}}$ as before.
+All three properties in section
+<a href="#cat-methods">CAT Methods</a>
+are satisfied by the same arguments from the previous section.
+This CAT method may perform poorly.
+In Burns @Burns2019 the problem of negative tristimulus values is discussed,
+and this type of CAT method might make make the problem worse.
+I am sure that many other interesting (but impractical) examples can be constructed.
+
+
+
+<br><br>
+
+# CAT Methods in Package spacesXYZ
+
+Finally, we explore the CAT methods available in software.
+
+```{r, echo=TRUE, message=FALSE}
+library( spacesXYZ )
+```
+
+There is an S3 class `CAT` with constructor `CAT()`.
+The constructor takes arguments the source and target illuminant XYZ
+(denoted $u$ and $v$ above), and the CAT method.
+All the available non-trivial methods
+- `Bradford`, `MCAT02`, `vonKries`, and `Bianco-Schettini` -
+are von-Kries-based.
+For `MCAT02` only the simple linear variant is used.
+The `CAT` object is a list with cone response matrix `Ma` (denoted $M_a$ above),
+the adaptation matrix `M` (denoted $T_{uv}$ above),
+and other things, see the `CAT()` man page.
+
+```{r, echo=TRUE, message=FALSE}
+Ma = CAT( source='A', target='D65', method='bradford' )$Ma ;  Ma
+```
+This is the famous Bradford cone-response-matrix, appearing in Lam @Lam1985  p. 3-46.
+```{r, echo=TRUE, message=FALSE}
+rowSums( Ma )
+```
+It appears that an attempt was made to normalize the row sums to 1, 
+but roundoff made the last digit in the first row off by 1.
+There is no practical effect.
+The actual adaptation matrix is easily inspected and tested too:
+```{r, echo=TRUE, message=FALSE}
+theCAT	= CAT( source='A', target='D65', method='bradford' )
+A  =  standardXYZ('A')
+A %*% t(theCAT$M) - standardXYZ('D65')
+```
+So $M$ maps the XYZ of Illuminant A to that of D65 as required.
+Using explicit matrix multiplication is OK, but the function `adaptXYZ()` is preferred:
+```{r, echo=TRUE, message=TRUE}
+identical(  adaptXYZ( theCAT, A ), A %*% t(theCAT$M) )
+```
+
+We can also inspect the row sums for method `MCAT02`.
+```{r, echo=TRUE, message=TRUE}
+rowSums( CAT( source='A', target='D65', method='MCAT02' )$Ma )
+```
+So for  `MCAT02` the normalization was more careful about roundoff.
+And for `vonKries` we have:
+```{r, echo=TRUE, message=TRUE}
+rowSums( CAT( source='A', target='D65', method='vonKries' )$Ma )
+```
+So for `vonKries` there was no normalization.
+
+
+<br><br>
+<br><br>
+
+# References
+
+<div id="refs"></div>
+
+
+
+<br><br>
+
+# Appendix A - Recovery of $M_a$
+
+Suppose we know that a chromatic adaption matrix $T_{uv}$ is von-Kries-based
+and we also know the white points $u$ and $v$.
+Can we recover the _cone response matrix_ $M_a$ ?
+This appendix presents a recipe to do that.
+We saw earlier that $M_a$ is not unique; its rows are only defined up to a constant.
+So our solution will follow common practice and scale the rows to have sum 1.
+
+Rearrange equation (5.1) to the form:
+\begin{equation}
+T^{\intercal}_{uv} M_a^{\intercal} ~:=~  M_a^{\intercal} \operatorname{diag}(M_a v / M_a u) 
+\end{equation}
+We see that the columns of $M_a^{\intercal}$ - equivalently the rows of $M_a$  - are the eigenvectors of $T^{\intercal}_{uv}$.
+Amazingly, the eigenvectors of $T^{\intercal}_{uv}$ do not depend on $u$ and $v$ !
+The eigenvectors are also only defined up to a constant,
+so rescaling them to have sum 1 is easy.
+But the eigenvectors (and eigenvalues) are also only defined up to a permutation;
+finding the right permutation is a little harder and is where $u$ and $v$ are used.
+
+Here is a worked out example.
+```{r, echo=TRUE, message=TRUE}
+whiteA = standardXYZ("A")[1, ]  ;  whiteB = standardXYZ("B")[1, ]
+theCAT = CAT( whiteA, whiteB, method='MCAT02' )
+T   = theCAT$M ; Ma = theCAT$Ma
+res = eigen( t(T) )
+X   = t(res$vectors)  ;  X = diag( 1 / rowSums(X) ) %*% X  # X is 'first cut' at the unknown Ma
+```
+Compare `Ma` and `X`
+```{r, echo=TRUE, message=TRUE}
+Ma ; X
+```
+One can check that the row sums of `Ma` are 1.
+Now compare the white ratios and the eigenvalues:
+```{r, echo=TRUE, message=TRUE}
+as.numeric(Ma %*% whiteB / Ma %*% whiteA) ; res$values
+```
+So the row orders are reversed, and the eigenvalues too.
+The two permutations are the same: `c(3,2,1)`.  
+In practice `Ma` is the unknown so we do not have it, but we _do_ have the eigenvalues `res$values`.
+Since we know that `res$values` are returned in decreasing order, we can compute the desired permutation like this:
+```{r, echo=TRUE, message=TRUE}
+perm = order( Ma %*% whiteB / Ma %*% whiteA,  decreasing=TRUE )  ; perm
+```
+The permutation `perm` now takes the ratios to the eigenvalues, but we want the inverse, so invert `perm`:
+```{r, echo=TRUE, message=TRUE}
+perm = order(perm) ; perm   
+res$values[perm]
+X = X[perm, ]  ;  X  ;  max( abs(X - Ma) )
+```
+We have recovered $M_a$ with good accuracy.
+
+Now suppose $u$ and $v$ are _not_ known,
+but $M_a$ _is_ known to be in a small list of candidate matrices.
+Since there only 6 possible permutations that take matrix `X` to the right candidate,
+it will be easy to spot the right one.
+
+
+
+<br><br>
+
+# Session Information
+
+<pre>
+```{r, echo=FALSE, results='asis'}
+sessionInfo()
+```
+</pre>

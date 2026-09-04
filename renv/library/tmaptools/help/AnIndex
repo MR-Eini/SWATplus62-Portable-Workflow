@@ -1,0 +1,17 @@
+tmaptools-package	tmaptools-package
+approx_areas	approx_areas
+approx_distances	approx_distances
+bb	bb
+bb_earth	bb_poly
+bb_poly	bb_poly
+calc_densities	calc_densities
+crop_shape	crop_shape
+geocode_OSM	geocode_OSM
+get_asp_ratio	get_asp_ratio
+get_neighbours	get_neighbours
+map_coloring	map_coloring
+read_GPX	read_GPX
+read_osm	read_osm
+rev_geocode_OSM	rev_geocode_OSM
+simplify_shape	simplify_shape
+tmaptools	tmaptools-package

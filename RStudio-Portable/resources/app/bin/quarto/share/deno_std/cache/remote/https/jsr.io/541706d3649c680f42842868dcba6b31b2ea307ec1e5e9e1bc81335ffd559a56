@@ -1,0 +1,74 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Options for {@linkcode delay}. */
+export interface DelayOptions {
+  /** Signal used to abort the delay. */
+  signal?: AbortSignal;
+  /** Indicates whether the process should continue to run as long as the timer exists.
+   *
+   * @default {true}
+   */
+  persistent?: boolean;
+}
+
+/**
+ * Resolve a {@linkcode Promise} after a given amount of milliseconds.
+ *
+ * @throws {DOMException} If the optional signal is aborted before the delay
+ * duration, and `signal.reason` is undefined.
+ * @param ms Duration in milliseconds for how long the delay should last.
+ * @param options Additional options.
+ *
+ * @example Basic usage
+ * ```ts no-assert
+ * import { delay } from "@std/async/delay";
+ *
+ * // ...
+ * const delayedPromise = delay(100);
+ * const result = await delayedPromise;
+ * // ...
+ * ```
+ *
+ * @example Disable persistence
+ *
+ * Setting `persistent` to `false` will allow the process to continue to run as
+ * long as the timer exists.
+ *
+ * ```ts no-assert
+ * import { delay } from "@std/async/delay";
+ *
+ * // ...
+ * await delay(100, { persistent: false });
+ * // ...
+ * ```
+ */
+export function delay(ms: number, options: DelayOptions = {}): Promise<void> {
+  const { signal, persistent = true } = options;
+  if (signal?.aborted) return Promise.reject(signal.reason);
+  return new Promise((resolve, reject) => {
+    const abort = () => {
+      clearTimeout(i);
+      reject(signal?.reason);
+    };
+    const done = () => {
+      signal?.removeEventListener("abort", abort);
+      resolve();
+    };
+    const i = setTimeout(done, ms);
+    signal?.addEventListener("abort", abort, { once: true });
+    if (persistent === false) {
+      try {
+        // @ts-ignore For browser compatibility
+        Deno.unrefTimer(i);
+      } catch (error) {
+        if (!(error instanceof ReferenceError)) {
+          throw error;
+        }
+        console.error("`persistent` option is only available in Deno");
+      }
+    }
+  });
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0hcSAVJFghK%2FyOM4LS%2BzArhmI0bQxKr6cMOHJ90AiUcZyz3ic0%2FSTn2iSQhkQG4FCOHZNf55YaRrfLGzcZBlPYDSK56nNqjfIdxAswMmMM9gM7gA7D%2Btg2w%3D\"}]}","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-length":"2039","cross-origin-resource-policy":"cross-origin","server":"cloudflare","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","x-content-type-options":"nosniff","cf-ray":"9e98a5d49b383992-IAD","etag":"\"29e8aaaccd034d3a404f869151336242\"","x-jsr-backend":"modules","vary":"Origin"},"url":"https://jsr.io/@std/async/1.0.5/delay.ts","time":1775728648}

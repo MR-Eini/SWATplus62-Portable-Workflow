@@ -1,0 +1,59 @@
+const xmlReplacer = /["&'<>$\x80-\uFFFF]/g;
+const xmlCodeMap = new Map([
+  [34, "&quot;"],
+  [38, "&amp;"],
+  [39, "&apos;"],
+  [60, "&lt;"],
+  [62, "&gt;"]
+]);
+const getCodePoint = String.prototype.codePointAt != null ? (str, index) => str.codePointAt(index) : (c, index) => (c.charCodeAt(index) & 64512) === 55296 ? (c.charCodeAt(index) - 55296) * 1024 + c.charCodeAt(index + 1) - 56320 + 65536 : c.charCodeAt(index);
+function encodeXML(str) {
+  let ret = "";
+  let lastIdx = 0;
+  let match;
+  while ((match = xmlReplacer.exec(str)) !== null) {
+    const i = match.index;
+    const char = str.charCodeAt(i);
+    const next = xmlCodeMap.get(char);
+    if (next !== void 0) {
+      ret += str.substring(lastIdx, i) + next;
+      lastIdx = i + 1;
+    } else {
+      ret += `${str.substring(lastIdx, i)}&#x${getCodePoint(str, i).toString(16)};`;
+      lastIdx = xmlReplacer.lastIndex += Number((char & 64512) === 55296);
+    }
+  }
+  return ret + str.substr(lastIdx);
+}
+const escape = encodeXML;
+function getEscaper(regex, map) {
+  return function escape2(data) {
+    let match;
+    let lastIdx = 0;
+    let result = "";
+    while (match = regex.exec(data)) {
+      if (lastIdx !== match.index) {
+        result += data.substring(lastIdx, match.index);
+      }
+      result += map.get(match[0].charCodeAt(0));
+      lastIdx = match.index + 1;
+    }
+    return result + data.substring(lastIdx);
+  };
+}
+const escapeUTF8 = getEscaper(/[&<>'"]/g, xmlCodeMap);
+const escapeAttribute = getEscaper(/["&\u00A0]/g, new Map([
+  [34, "&quot;"],
+  [38, "&amp;"],
+  [160, "&nbsp;"]
+]));
+const escapeText = getEscaper(/[&<>\u00A0]/g, new Map([
+  [38, "&amp;"],
+  [60, "&lt;"],
+  [62, "&gt;"],
+  [160, "&nbsp;"]
+]));
+export {encodeXML, escape, escapeAttribute, escapeText, escapeUTF8, getCodePoint, xmlReplacer};
+export default null;
+
+// denoCacheMetadata={"headers":{"cf-cache-status":"MISS","access-control-allow-origin":"*","x-vercel-id":"cle1::sfo1::kwv6w-1775164368686-7c2b2264db0c","strict-transport-security":"max-age=63072000","access-control-expose-headers":"Content-Length, X-Imports","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=C0gVRAINS97n0kd%2FO8IdfgR04MlPby5FFa%2FdFtWUeQRIs78gA7W%2BCZHGpDD0xXficNbKG2x1667K0jOtYaQn9fs3JqXVlv8s6s9Sq9%2FHNSb6dX6Mck4TzcoP0kbU51w7JQ%3D%3D\"}]}","content-type":"application/javascript; charset=utf-8","vary":"accept-encoding","x-cache":"HIT","x-vercel-cache":"MISS","cf-ray":"9e98a5cbcb26c9b7-IAD","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable","x-imports":"","date":"Thu, 09 Apr 2026 09:57:27 GMT","etag":"W/\"718-0856oBFy0YdHgqCRLmL1jBI6FFw\"","age":"0","server":"cloudflare"},"url":"https://cdn.skypack.dev/-/entities@v4.3.0-V4vIlnoYfSBRg1gj9BOL/dist=es2019,mode=imports/optimized/entities/lib/escape.js","time":1775728647}

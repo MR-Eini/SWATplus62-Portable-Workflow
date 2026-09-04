@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Installing and Configuring Drivers</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Installing and Configuring Drivers</h1>
+
+
+
+<p>This vignette outlines how to install common ODBC drivers and
+configure them with a driver manager.</p>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>For Unix and MacOS, ODBC drivers should be compiled against <a href="https://www.unixodbc.org/">unixODBC</a>. Drivers compiled against
+<a href="https://www.iodbc.org/">iODBC</a> <em>may</em> also work, but
+are not fully supported.</p>
+<p>After installation of the driver manager and driver, you will have to
+register the driver in a <a href="#dsn-configuration-files">odbcinst.ini</a> file for it to appear
+in <code>odbc::odbcListDrivers()</code>.</p>
+<div id="windows" class="section level3">
+<h3>Windows</h3>
+<p>Windows is bundled with ODBC libraries. However, drivers for each
+database need to be installed separately. Windows ODBC drivers typically
+include an installer that needs to be run and will install the driver to
+the proper locations.</p>
+</div>
+<div id="macos" class="section level3">
+<h3>MacOS</h3>
+<p><a href="https://brew.sh/">homebrew</a> can be used to easily install
+database drivers on MacOS.</p>
+<p>The UnixODBC driver manager is required for all databases:</p>
+<pre class="shell"><code>## Install the unixODBC library
+brew install unixodbc</code></pre>
+<p>Most common database drivers can be installed with homebrew. Some
+drivers are only available from the database vendor.</p>
+<pre class="shell"><code>## Microsoft SQL Server ODBC drivers
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
+brew update
+brew install msodbcsql17 mssql-tools
+
+## SQL Server ODBC drivers (Free TDS)
+brew install freetds
+
+## PostgreSQL ODBC drivers
+brew install psqlodbc
+
+## MySQL ODBC drivers (and database)
+brew install mysql
+brew install mariadb-connector-odbc
+
+## SQLite ODBC drivers
+brew install sqliteodbc</code></pre>
+<p>Some driver installations will not automatically configure the driver
+with the driver manager. See the <a href="#connecting">“Connecting to a
+Database”</a> section below to learn more about configuring drivers and
+data sources.</p>
+</div>
+<div id="linux---debian-ubuntu" class="section level3">
+<h3>Linux - Debian / Ubuntu</h3>
+<p><a href="https://wiki.debian.org/Apt">apt-get</a> can be used to
+easily install database drivers on Linux distributions which support it,
+such as Debian and Ubuntu.</p>
+<p>The UnixODBC driver manager is required for all databases:</p>
+<pre class="shell"><code>## Install the unixODBC library
+apt-get install unixodbc unixodbc-dev</code></pre>
+<p>For SQL Server on Linux it is recommended you use the <a href="https://learn.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15#ubuntu18">Microsoft
+Drivers</a>. The code below will install some common drivers:</p>
+<pre class="shell"><code>## SQL Server ODBC Drivers (Free TDS)
+apt-get install tdsodbc
+
+## PostgreSQL ODBC ODBC Driversz
+apt-get install odbc-postgresql
+
+## MySQL ODBC Drivers
+apt-get install libmyodbc
+
+## SQLite ODBC Drivers
+apt-get install libsqliteodbc</code></pre>
+</div>
+</div>
+<div id="driver-configuration" class="section level2">
+<h2>Driver configuration</h2>
+<p>On Windows, driver config is managed by the operating system, and you
+don’t generally need to edit any configuration files directly. On MacOS
+and Linux, however, the driver config is managed by unixODBC, and
+depending on how the driver is installed, it may or may not be
+automatically configured.</p>
+<p>You can see which drivers are configured by running
+<code>odbcListDrivers()</code>. If the driver you want is not installed,
+you will need to edit <code>odbcinst.ini</code>. You can use
+<code>odbcinst -j</code> (provided by unixODBC) to find out where this
+file lives.</p>
+<p>The basic form of this file is something like this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">[PostgreSQL Driver]</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="dt">Driver          </span><span class="ot">=</span><span class="st"> /usr/local/lib/psqlodbcw.so</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="kw">[SQLite Driver]</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="dt">Driver          </span><span class="ot">=</span><span class="st"> /usr/local/lib/libsqlite3odbc.dylib</span></span></code></pre></div>
+<p>i.e., a mapping between driver names, and the location of the driver
+file. The driver name is what you pass to <code>odbc::odbc()</code> when
+you connect, e,g:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>con1 <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(odbc<span class="sc">::</span><span class="fu">odbc</span>(), <span class="at">driver =</span> <span class="st">&quot;PostgreSQL Driver&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>con2 <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(odbc<span class="sc">::</span><span class="fu">odbc</span>(), <span class="at">driver =</span> <span class="st">&quot;SQLite Driver&quot;</span>)</span></code></pre></div>
+<p>If installing the driver did not automatically update this file,
+you’ll need to update it yourself. You’ll need to figure out where the
+driver library was installed, using something like
+<code>brew list {drivername}</code> or
+<code>dpkg-query -L {drivername}</code>.</p>
+</div>
+<div id="data-source-configuration" class="section level2">
+<h2>Data source configuration</h2>
+<p>It’s also possible to configure named data sources, so instead of
+typing this:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  odbc<span class="sc">::</span><span class="fu">odbc</span>(),</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">driver =</span> <span class="st">&quot;PostgreSQL Driver&quot;</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">database =</span> <span class="st">&quot;test_db&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">username =</span> <span class="st">&quot;postgres&quot;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">password =</span> <span class="fu">Sys.getenv</span>(<span class="st">&quot;PASSWORD&quot;</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">host =</span> <span class="st">&quot;localhost&quot;</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="at">port =</span> <span class="dv">5432</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>)</span></code></pre></div>
+<p>You can type:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(odbc<span class="sc">::</span><span class="fu">odbc</span>(), <span class="at">dsn =</span> <span class="st">&quot;test_db&quot;</span>)</span></code></pre></div>
+<p>On Windows, you can set up a data source by using the <a href="https://learn.microsoft.com/en-us/sql/odbc/admin/odbc-data-source-administrator">ODBC
+Data Source Administrator</a> application is used to manage ODBC data
+sources on Windows. On Linux and Mac, you’ll need to edit
+<code>odbc.ini</code> (again finding the location with
+<code>odbcinst -j</code>). Each data source is defined in a separate
+section (defined by <code>[name]</code>]), with each paramter going on
+its own line, e.g.:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="kw">[test_db]</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="dt">driver     </span><span class="ot">=</span><span class="st"> PostgreSQL Driver</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="dt">database   </span><span class="ot">=</span><span class="st"> test_db</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="dt">username   </span><span class="ot">=</span><span class="st"> postgres</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="dt">password   </span><span class="ot">=</span><span class="st"> password</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="dt">host       </span><span class="ot">=</span><span class="st"> </span><span class="kw">localhost</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="dt">port       </span><span class="ot">=</span><span class="st"> </span><span class="dv">5432</span></span></code></pre></div>
+<p>The <code>driver</code> entry represents the name of the driver
+defined in <code>odbcinst.ini</code>. You can see all currently defined
+data sources by running <code>odbcListDataSources()</code>.</p>
+</div>
+<div id="debugging-driver-and-data-source-configurations" class="section level2">
+<h2>Debugging driver and data source configurations</h2>
+<p>The odbc package may have trouble locating your driver and data
+source configurations. If you find that <code>odbcListDrivers()</code>
+and <code>odbcListDataSources()</code> report no configurations, check
+the output of <code>odbcListConfig()</code> next. While
+<code>odbcListDrivers()</code> and <code>odbcListConfig()</code>
+interface with the unixodbc driver manager through nanodbc—the tool that
+the odbc package uses to interface with the ODBC
+API—<code>odbcListConfig()</code> interfaces with unixODBC directly.
+<code>odbcListConfig()</code> will show where unixODBC is looking for
+your configurations.</p>
+<ul>
+<li><p>If the files listed in <code>odbcListConfig()</code> are at a
+location other than where you’ve configured drivers and data sources,
+either 1) configure the listed files as instructed above, or 2) change
+the folder where ODBC should look for configurations using the
+<code>ODBCSYSINI</code> environmental variable. See <a href="#odbcsysini">the following section</a> on setting
+<code>ODBCSYSINI</code>.</p></li>
+<li><p>If the files listed in <code>odbcListConfig()</code> are where
+you expected them to be and appear complete, the odbc package may have
+had trouble interfacing with the unixODBC driver manager through
+nanodbc. To remedy this, first run
+<code>dirname(odbcListConfig()[1])</code> and note its output. Then,
+follow the instructions in <a href="#odbcsysini">the section below</a>,
+replacing <code>&quot;some/folder&quot;</code> with the noted output. If this
+doesn’t resolve the issue, try to build the odbc package from source,
+e.g. with <code>devtools::install_github(&quot;r-dbi/odbc&quot;)</code>.</p></li>
+</ul>
+<div id="odbcsysini" class="section level3">
+<h3>Setting <code>ODBCSYSINI</code></h3>
+<p>The <code>ODBCSYSINI</code> environmental variable controls the path
+where unixODBC and the odbc package will look for configuration files.
+Setting <code>Sys.setenv(ODBCSYSINI = &quot;some/folder&quot;)</code> means that
+your configuration files should be located at
+<code>&quot;/my/folder/odbc.ini&quot;</code> and
+<code>&quot;/my/folder/odbcinst.ini&quot;</code>. Be sure to set
+<code>ODBCSYSINI</code> <em>before</em> loading the odbc package. That
+is:</p>
+<ul>
+<li>Restart R</li>
+<li>Run <code>Sys.setenv(ODBCSYSINI = &quot;some/folder&quot;)</code></li>
+<li>Load the odbc package with <code>library(odbc)</code></li>
+<li>Test <code>odbcListDrivers()</code> and
+<code>odbcListDataSources()</code> again</li>
+</ul>
+<p>If setting <code>ODBCSYSINI</code> resolves the issue you’ve noted,
+you may want to set that environmental variable every time you start R.
+To do so, add an entry like <code>ODBCSYSINI = some/folder</code> to
+your <code>~/.Renviron</code> file, which contains environmental
+variables that are set every time an R session is started. To open that
+file using R, run <code>usethis::edit_r_environ()</code>.</p>
+<p>Once you’ve edited <code>~/.Renviron</code>, you’ll need to save the
+file and restart R for changes to take effect.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

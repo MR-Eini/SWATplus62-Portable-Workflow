@@ -1,0 +1,106 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { CHAR_DOT } from "../_common/constants.ts";
+import type { ParsedPath } from "../_interface.ts";
+import { stripTrailingSeparators } from "../_common/strip_trailing_separators.ts";
+import { assertPath } from "../_common/assert_path.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+export type { ParsedPath } from "../_interface.ts";
+
+/**
+ * Return a `ParsedPath` object of the `path`.
+ * @param path to process
+ */
+export function parse(path: string): ParsedPath {
+  assertPath(path);
+
+  const ret: ParsedPath = { root: "", dir: "", base: "", ext: "", name: "" };
+  if (path.length === 0) return ret;
+  const isAbsolute = isPosixPathSeparator(path.charCodeAt(0));
+  let start: number;
+  if (isAbsolute) {
+    ret.root = "/";
+    start = 1;
+  } else {
+    start = 0;
+  }
+  let startDot = -1;
+  let startPart = 0;
+  let end = -1;
+  let matchedSlash = true;
+  let i = path.length - 1;
+
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  let preDotState = 0;
+
+  // Get non-dir info
+  for (; i >= start; --i) {
+    const code = path.charCodeAt(i);
+    if (isPosixPathSeparator(code)) {
+      // If we reached a path separator that was not part of a set of path
+      // separators at the end of the string, stop now
+      if (!matchedSlash) {
+        startPart = i + 1;
+        break;
+      }
+      continue;
+    }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === CHAR_DOT) {
+      // If this is our first dot, mark it as the start of our extension
+      if (startDot === -1) startDot = i;
+      else if (preDotState !== 1) preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (
+    startDot === -1 ||
+    end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    (preDotState === 1 && startDot === end - 1 && startDot === startPart + 1)
+  ) {
+    if (end !== -1) {
+      if (startPart === 0 && isAbsolute) {
+        ret.base = ret.name = path.slice(1, end);
+      } else {
+        ret.base = ret.name = path.slice(startPart, end);
+      }
+    }
+    // Fallback to '/' in case there is no basename
+    ret.base = ret.base || "/";
+  } else {
+    if (startPart === 0 && isAbsolute) {
+      ret.name = path.slice(1, startDot);
+      ret.base = path.slice(1, end);
+    } else {
+      ret.name = path.slice(startPart, startDot);
+      ret.base = path.slice(startPart, end);
+    }
+    ret.ext = path.slice(startDot, end);
+  }
+
+  if (startPart > 0) {
+    ret.dir = stripTrailingSeparators(
+      path.slice(0, startPart - 1),
+      isPosixPathSeparator,
+    );
+  } else if (isAbsolute) ret.dir = "/";
+
+  return ret;
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","access-control-allow-origin":"*","access-control-expose-headers":"*","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","vary":"Origin","cache-control":"public, max-age=31536000, immutable","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=i0rVMCBTSR2dzSI7gqKB9ZlS1xb%2FLguKGKlxysMR8cReUUK4T55BGKnn%2FR5H7fOo%2FOvKiPAuJWTsrkV6kqd9vM1mqu2y0mximZ7OYpf9AwmHdZClb1oc9E0%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","etag":"\"0f6ce5f23d772c5b796c84a5335a642a\"","content-length":"3120","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","cf-ray":"9e98a5d3da4e3992-IAD","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/path/0.224.0/posix/parse.ts","time":1775728648}

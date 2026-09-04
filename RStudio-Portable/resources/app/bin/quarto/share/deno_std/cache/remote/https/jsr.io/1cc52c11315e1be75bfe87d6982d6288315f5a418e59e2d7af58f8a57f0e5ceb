@@ -1,0 +1,35 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { types } from "./_db.ts";
+
+/**
+ * Returns the media type associated with the file extension, or `undefined` if
+ * no media type is found.
+ *
+ * Values are normalized to lower case and matched irrespective of a leading
+ * `.`.
+ *
+ * @param extension The file extension to get the media type for.
+ *
+ * @returns The media type associated with the file extension, or `undefined` if
+ * no media type is found.
+ *
+ * @example Usage
+ * ```ts
+ * import { typeByExtension } from "@std/media-types/type-by-extension";
+ * import { assertEquals } from "@std/assert";
+ *
+ * assertEquals(typeByExtension("js"), "text/javascript");
+ * assertEquals(typeByExtension(".HTML"), "text/html");
+ * assertEquals(typeByExtension("foo"), undefined);
+ * assertEquals(typeByExtension("file.json"), undefined);
+ * ```
+ */
+export function typeByExtension(extension: string): string | undefined {
+  extension = extension.startsWith(".") ? extension.slice(1) : extension;
+  // @ts-ignore Work around https://github.com/denoland/dnt/issues/148
+  return types.get(extension.toLowerCase());
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"3f04a01b145c0f263b2acf3cc2113388\"","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","cross-origin-resource-policy":"cross-origin","server":"cloudflare","cf-ray":"9e98a5d53be23992-IAD","content-length":"1182","x-content-type-options":"nosniff","vary":"Origin","content-type":"text/typescript","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nzGtAgX%2F0joEY%2BO6uEU%2F2qYVYjrOoR4WG%2FAnLFWtbzfBFil5G3cPz38V56QCCEDV6yujgOezH1gJNNDJpCdG%2B%2Bb9o%2FU7TJTDj7yslReywYsF%2F9%2FYiqi1n28%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex"},"url":"https://jsr.io/@std/media-types/1.0.3/type_by_extension.ts","time":1775728648}

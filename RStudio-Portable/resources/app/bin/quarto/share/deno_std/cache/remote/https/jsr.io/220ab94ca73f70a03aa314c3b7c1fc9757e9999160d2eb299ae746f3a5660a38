@@ -1,0 +1,485 @@
+{
+  "manifest": {
+    "/mod.ts": {
+      "size": 1255,
+      "checksum": "sha256-9eae499a27967458a8c60dbc83b3f3d02fa1836845f379bb307d52ca227db5a5"
+    },
+    "/format_media_type_test.ts": {
+      "size": 2241,
+      "checksum": "sha256-cd679ed70b77cc4b30d1d1ed4d1facd08c89ec90f15ec1353cb9eea7a016f8d3"
+    },
+    "/parse_media_type.ts": {
+      "size": 3638,
+      "checksum": "sha256-cf9c9153520b4a29b384c8f3229e9cefb20f8dde3da779b066c9d1077176a17b"
+    },
+    "/_util_test.ts": {
+      "size": 4185,
+      "checksum": "sha256-0148ba0889ec3ed06a28204fe41f51b62a46c3bbddbbe696bddae822e2dd39c6"
+    },
+    "/get_charset.ts": {
+      "size": 1497,
+      "checksum": "sha256-bfb156dcf7eb7b815a15491f509894dc4dc6c8b7fc7367c98f5521a3cb0e3d93"
+    },
+    "/extension_test.ts": {
+      "size": 543,
+      "checksum": "sha256-c197cc80e7fdac510d23c826398314aeccf580da5c694163ba16c7f9d94dc876"
+    },
+    "/content_type_test.ts": {
+      "size": 1545,
+      "checksum": "sha256-b8dd4a6ba0b82dc121315474328b8bcbfb504f0635c55cacb558d34cdf4e96e5"
+    },
+    "/deno.json": {
+      "size": 493,
+      "checksum": "sha256-71a2e7e5b18b97701ade408565eaed29eb45c2ce2d8bdadf1fbbc01f090b1930"
+    },
+    "/parse_media_type_test.ts": {
+      "size": 3945,
+      "checksum": "sha256-a3e166c28b4055759553a94415b16fbedae81c434e4cc6ac1295ed5f350485f8"
+    },
+    "/vendor/LICENSE": {
+      "size": 1172,
+      "checksum": "sha256-cc1dfd4dafa27271e8212cd3b274eeb3f262e40a6fdab36ddc3f9696f706f58b"
+    },
+    "/_db.ts": {
+      "size": 1347,
+      "checksum": "sha256-69a5b3e1bbdb3e0ec57a6541f6802894f64aa035d4629768c6ac252c4fca04ea"
+    },
+    "/get_charset_test.ts": {
+      "size": 654,
+      "checksum": "sha256-87f5151ceabc8eb7b99319fd65d9deefaaefdcef6481e31608836d3721ae1a1e"
+    },
+    "/extensions_by_type.ts": {
+      "size": 1205,
+      "checksum": "sha256-d42d5cc1d6a71469c142fe2d07c9c847fa73ac1494b81121a1976674075d9f6b"
+    },
+    "/type_by_extension_test.ts": {
+      "size": 683,
+      "checksum": "sha256-2e98710e8eb04256ea2e043bf808125f8fdc27c03ea7a7c12e85d3f4945d56d2"
+    },
+    "/type_by_extension.ts": {
+      "size": 1203,
+      "checksum": "sha256-5f77642375016b4ecfec93032675d217cb17807c1d3a13958239607d5e0a8ea1"
+    },
+    "/_util.ts": {
+      "size": 3253,
+      "checksum": "sha256-a351cc583523d47d42e65073d67c7a80575d1d1aaf8e72e6dfa5dbd986bbdb52"
+    },
+    "/format_media_type.ts": {
+      "size": 2525,
+      "checksum": "sha256-47d4bfde8e3f21a5ebde26aa7b815e9b408069159a113c8ff85e6038b760b7ad"
+    },
+    "/content_type.ts": {
+      "size": 3551,
+      "checksum": "sha256-61a0bdd7095f6a55f98d97f3ced333a3c9d7d7161c02382681f559301e236323"
+    },
+    "/extensions_by_type_test.ts": {
+      "size": 652,
+      "checksum": "sha256-0924f46d1f6cd2eece855222f8120d06e83f212219a696e8f4bd46301aa1bd01"
+    },
+    "/vendor/mime-db.v1.52.0.ts": {
+      "size": 186498,
+      "checksum": "sha256-0218d2c7d900e8cd6fa4a866e0c387712af4af9a1bae55d6b2546c73d273a1e6"
+    },
+    "/extension.ts": {
+      "size": 996,
+      "checksum": "sha256-8e53932e049c9432984e4bd1529161df7c024bbb0aa733084dad6ac48ad48bbb"
+    }
+  },
+  "moduleGraph2": {
+    "/parse_media_type.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_util.ts",
+          "specifierRange": [
+            [
+              3,
+              54
+            ],
+            [
+              3,
+              66
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./content_type.ts",
+          "specifierRange": [
+            [
+              29,
+              14
+            ],
+            [
+              29,
+              33
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./extension.ts",
+          "specifierRange": [
+            [
+              30,
+              14
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./extensions_by_type.ts",
+          "specifierRange": [
+            [
+              31,
+              14
+            ],
+            [
+              31,
+              39
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./format_media_type.ts",
+          "specifierRange": [
+            [
+              32,
+              14
+            ],
+            [
+              32,
+              38
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./get_charset.ts",
+          "specifierRange": [
+            [
+              33,
+              14
+            ],
+            [
+              33,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./parse_media_type.ts",
+          "specifierRange": [
+            [
+              34,
+              14
+            ],
+            [
+              34,
+              37
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./type_by_extension.ts",
+          "specifierRange": [
+            [
+              35,
+              14
+            ],
+            [
+              35,
+              38
+            ]
+          ]
+        }
+      ]
+    },
+    "/vendor/mime-db.v1.52.0.ts": {},
+    "/extension.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./extensions_by_type.ts",
+          "specifierRange": [
+            [
+              3,
+              33
+            ],
+            [
+              3,
+              58
+            ]
+          ]
+        }
+      ]
+    },
+    "/type_by_extension.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_db.ts",
+          "specifierRange": [
+            [
+              3,
+              22
+            ],
+            [
+              3,
+              32
+            ]
+          ]
+        }
+      ]
+    },
+    "/content_type.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./parse_media_type.ts",
+          "specifierRange": [
+            [
+              3,
+              31
+            ],
+            [
+              3,
+              54
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./get_charset.ts",
+          "specifierRange": [
+            [
+              4,
+              27
+            ],
+            [
+              4,
+              45
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./format_media_type.ts",
+          "specifierRange": [
+            [
+              5,
+              32
+            ],
+            [
+              5,
+              56
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./_db.ts",
+          "specifierRange": [
+            [
+              6,
+              24
+            ],
+            [
+              6,
+              34
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./type_by_extension.ts",
+          "specifierRange": [
+            [
+              7,
+              32
+            ],
+            [
+              7,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    "/_util.ts": {},
+    "/_db.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./vendor/mime-db.v1.52.0.ts",
+          "specifierRange": [
+            [
+              1,
+              15
+            ],
+            [
+              1,
+              44
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./_util.ts",
+          "specifierRange": [
+            [
+              2,
+              29
+            ],
+            [
+              2,
+              41
+            ]
+          ]
+        }
+      ]
+    },
+    "/get_charset.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./parse_media_type.ts",
+          "specifierRange": [
+            [
+              3,
+              31
+            ],
+            [
+              3,
+              54
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./_util.ts",
+          "specifierRange": [
+            [
+              4,
+              29
+            ],
+            [
+              4,
+              41
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_db.ts",
+          "specifierRange": [
+            [
+              5,
+              33
+            ],
+            [
+              5,
+              43
+            ]
+          ]
+        }
+      ]
+    },
+    "/format_media_type.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_util.ts",
+          "specifierRange": [
+            [
+              3,
+              51
+            ],
+            [
+              3,
+              63
+            ]
+          ]
+        }
+      ]
+    },
+    "/extensions_by_type.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./parse_media_type.ts",
+          "specifierRange": [
+            [
+              3,
+              31
+            ],
+            [
+              3,
+              54
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_db.ts",
+          "specifierRange": [
+            [
+              4,
+              27
+            ],
+            [
+              4,
+              37
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./content-type": "./content_type.ts",
+    "./extension": "./extension.ts",
+    "./extensions-by-type": "./extensions_by_type.ts",
+    "./format-media-type": "./format_media_type.ts",
+    "./get-charset": "./get_charset.ts",
+    "./parse-media-type": "./parse_media_type.ts",
+    "./type-by-extension": "./type_by_extension.ts",
+    "./vendor/mime-db.v1.52.0": "./vendor/mime-db.v1.52.0.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"server":"cloudflare","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","content-type":"application/json","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin","access-control-allow-origin":"*","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:27 GMT","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=v3Wdt5tNduG6CncT%2BQxMW2LEu%2BgnUUOWKy6QuNk%2BdPP8Hd%2BzPrpLnKlZGMiPhuKCqTYVViXz90EB2hyJPDqPmgVhSMYZ7hf3giLGYmtcPqhR620CYA5QAJ8%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","etag":"W/\"0644c7619ff118e7ecadb55b30e2c68b\"","cf-ray":"9e98a5ccaa5a3992-IAD","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/media-types/0.224.1_meta.json","time":1775728647}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: High Frequency Time Series Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> High Frequency Time Series Management
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;HighFreq&rsquo; version 0.1</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../demo">Code demos</a>.  Use <a href="../../utils/help/demo">demo()</a> to run them.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p style="text-align: center;">
+<a href="#A">A</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#H">H</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#O">O</a>
+<a href="#P">P</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#W">W</a>
+</p>
+
+
+<h2><a id="A">-- A --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="agg_ohlc.html">agg_ohlc</a></td>
+<td>Aggregate a time series of data into a single bar of _OHLC_ data.</td></tr>
+<tr><td style="width: 25%;"><a href="agg_stats_r.html">agg_stats_r</a></td>
+<td>Calculate the aggregation (weighted average) of a statistical estimator over a _OHLC_ time series using 'R' code.</td></tr>
+</table>
+
+<h2><a id="C">-- C --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="calc_covar.html">calc_covar</a></td>
+<td>Calculate the covariance matrix of the columns of a _time series_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_cvar.html">calc_cvar</a></td>
+<td>Calculate the Value at Risk (_VaR_) or the Conditional Value at Risk (_CVaR_) of an _xts_ _time series_ of returns, using 'R' code.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_eigen.html">calc_eigen</a></td>
+<td>Calculate the eigen decomposition of a square, symmetric matrix using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_eigenp.html">calc_eigenp</a></td>
+<td>Calculate the partial eigen decomposition of a dense symmetric matrix using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_endpoints.html">calc_endpoints</a></td>
+<td>Calculate a vector of end points that divides an integer time sequence of time periods into equal time intervals.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_hurst.html">calc_hurst</a></td>
+<td>Calculate the Hurst exponent from the volatility ratio of aggregated returns.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_hurst_ohlc.html">calc_hurst_ohlc</a></td>
+<td>Calculate the Hurst exponent from the volatility ratio of aggregated _OHLC_ prices.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_inv.html">calc_inv</a></td>
+<td>Calculate the _reduced inverse_ of a symmetric _matrix_ of data using eigen decomposition.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_invrec.html">calc_invrec</a></td>
+<td>Calculate the approximate inverse of a square _matrix_ recursively using the Schulz formula (without copying the data in memory).</td></tr>
+<tr><td style="width: 25%;"><a href="calc_invref.html">calc_invref</a></td>
+<td>Calculate the inverse of a square _matrix_ in place, without copying the data in memory.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_invsvd.html">calc_invsvd</a></td>
+<td>Calculate the _reduced inverse_ of a _matrix_ of data using Singular Value Decomposition (_SVD_).</td></tr>
+<tr><td style="width: 25%;"><a href="calc_kurtosis.html">calc_kurtosis</a></td>
+<td>Calculate the kurtosis of the columns of a _time series_ or a _matrix_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_lm.html">calc_lm</a></td>
+<td>Perform multivariate linear regression using least squares and return a named list of regression coefficients, their t-values, and p-values.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_mean.html">calc_mean</a></td>
+<td>Calculate the mean (location) of the columns of a _time series_ or a _matrix_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_ranks.html">calc_ranks</a></td>
+<td>Calculate the ranks of the elements of a single-column _time series_, _matrix_, or a _vector_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_ranks_stl.html">calc_ranks_stl</a></td>
+<td>Calculate the ranks of the elements of a single-column _time series_, _matrix_, or a _vector_ using the 'STL'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_reg.html">calc_reg</a></td>
+<td>Perform multivariate regression using different methods, and return a vector of regression coefficients, their t-values, and the last residual z-score.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_scale.html">calc_scale</a></td>
+<td>Standardize (center and scale) the columns of a _time series_ of data in place, without copying the data in memory, using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_season.html">calc_season</a></td>
+<td>Calculate the intraday seasonality aggregations over a single-column _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_skew.html">calc_skew</a></td>
+<td>Calculate the skewness of the columns of a _time series_ or a _matrix_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_startpoints.html">calc_startpoints</a></td>
+<td>Calculate a vector of start points by lagging (shifting) a vector of end points.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_var.html">calc_var</a></td>
+<td>Calculate the dispersion (variance) of the columns of a _time series_ or a _matrix_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_varvec.html">calc_varvec</a></td>
+<td>Calculate the variance of a single-column _time series_ or a _vector_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_var_ag.html">calc_var_ag</a></td>
+<td>Calculate the variance of returns aggregated over the end points.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_var_ohlc.html">calc_var_ohlc</a></td>
+<td>Calculate the variance of returns from _OHLC_ prices using different price range estimators.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_var_ohlc_ag.html">calc_var_ohlc_ag</a></td>
+<td>Calculate the variance of aggregated _OHLC_ prices using different price range estimators.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_var_ohlc_r.html">calc_var_ohlc_r</a></td>
+<td>Calculate the variance of an _OHLC_ time series, using different range estimators for variance.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_weights.html">calc_weights</a></td>
+<td>Calculate the optimal portfolio weights using a variety of different objective functions.</td></tr>
+</table>
+
+<h2><a id="D">-- D --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="decode_it.html">decode_it</a></td>
+<td>Calculate the _vector_ of data from its run length encoding.</td></tr>
+<tr><td style="width: 25%;"><a href="diffit.html">diffit</a></td>
+<td>Calculate the row differences of a _time series_ or a _matrix_ using _RcppArmadillo_.</td></tr>
+<tr><td style="width: 25%;"><a href="diff_vec.html">diff_vec</a></td>
+<td>Calculate the differences between the neighboring elements of a single-column _time series_ or a _vector_.</td></tr>
+</table>
+
+<h2><a id="E">-- E --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="encode_it.html">encode_it</a></td>
+<td>Calculate the run length encoding of a single-column _time series_, _matrix_, or a _vector_.</td></tr>
+</table>
+
+<h2><a id="H">-- H --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="hf_data.html">hf_data</a></td>
+<td>High frequency data sets</td></tr>
+</table>
+
+<h2><a id="L">-- L --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="lagit.html">lagit</a></td>
+<td>Apply a lag to the rows of a _time series_ or a _matrix_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="lag_vec.html">lag_vec</a></td>
+<td>Apply a lag to a single-column _time series_ or a _vector_ using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="lik_garch.html">lik_garch</a></td>
+<td>Calculate the log-likelihood of a time series of returns assuming a _GARCH(1,1)_ process.</td></tr>
+</table>
+
+<h2><a id="M">-- M --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="mult_mat.html">mult_mat</a></td>
+<td>Multiply element-wise the rows or columns of a _matrix_ times a _vector_.</td></tr>
+<tr><td style="width: 25%;"><a href="mult_mat_ref.html">mult_mat_ref</a></td>
+<td>Multiply the rows or columns of a _matrix_ times a _vector_, element-wise and in place, without copying the data in memory.</td></tr>
+</table>
+
+<h2><a id="O">-- O --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="ohlc_returns.html">ohlc_returns</a></td>
+<td>Calculate single period percentage returns from either _TAQ_ or _OHLC_ prices.</td></tr>
+<tr><td style="width: 25%;"><a href="ohlc_sharpe.html">ohlc_sharpe</a></td>
+<td>Calculate time series of point Sharpe-like statistics for each row of a _OHLC_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="ohlc_skew.html">ohlc_skew</a></td>
+<td>Calculate time series of point skew estimates from a _OHLC_ time series, assuming zero drift.</td></tr>
+<tr><td style="width: 25%;"><a href="ohlc_variance.html">ohlc_variance</a></td>
+<td>Calculate a time series of point estimates of variance for an _OHLC_ time series, using different range estimators for variance.</td></tr>
+</table>
+
+<h2><a id="P">-- P --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="param_portf.html">param_portf</a></td>
+<td>Create a named list of model parameters that can be passed into portfolio optimization functions.</td></tr>
+<tr><td style="width: 25%;"><a href="param_reg.html">param_reg</a></td>
+<td>Create a named list of model parameters that can be passed into regression and machine learning functions.</td></tr>
+<tr><td style="width: 25%;"><a href="push_cov2cor.html">push_cov2cor</a></td>
+<td>Calculate the correlation matrix from the covariance matrix.</td></tr>
+<tr><td style="width: 25%;"><a href="push_covar.html">push_covar</a></td>
+<td>Update the trailing covariance matrix of streaming asset returns, with a row of new returns using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="push_eigen.html">push_eigen</a></td>
+<td>Update the trailing eigen values and eigen vectors of streaming asset return data, with a row of new returns.</td></tr>
+<tr><td style="width: 25%;"><a href="push_sga.html">push_sga</a></td>
+<td>Update the trailing eigen values and eigen vectors of streaming asset return data, with a row of new returns, using the _SGA_ algorithm.</td></tr>
+</table>
+
+<h2><a id="R">-- R --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="random_ohlc.html">random_ohlc</a></td>
+<td>Simulate a random _OHLC_ time series of prices and trading volumes, in _xts_ format.</td></tr>
+<tr><td style="width: 25%;"><a href="random_taq.html">random_taq</a></td>
+<td>Simulate a random _TAQ_ time series of prices and trading volumes, in _xts_ format.</td></tr>
+<tr><td style="width: 25%;"><a href="remove_jumps.html">remove_jumps</a></td>
+<td>Remove overnight close-to-open price jumps from an _OHLC_ time series, by adding adjustment terms to its prices.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_apply.html">roll_apply</a></td>
+<td>Apply an aggregation function over a rolling look-back interval and the end points of an _OHLC_ time series, using 'R' code.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_backtest.html">roll_backtest</a></td>
+<td>Perform a backtest simulation of a trading strategy (model) over a vector of end points along a time series of prices.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_conv.html">roll_conv</a></td>
+<td>Calculate the rolling convolutions (weighted sums) of a _time series_ with a single-column _matrix_ of weights.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_count.html">roll_count</a></td>
+<td>Count the number of consecutive 'TRUE' elements in a Boolean vector, and reset the count to zero after every 'FALSE' element.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_hurst.html">roll_hurst</a></td>
+<td>Calculate a time series of _Hurst_ exponents over a rolling look-back interval.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_kurtosis.html">roll_kurtosis</a></td>
+<td>Calculate a _matrix_ of kurtosis estimates over a rolling look-back interval attached at the end points of a _time series_ or a _matrix_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_mean.html">roll_mean</a></td>
+<td>Calculate a _matrix_ of mean (location) estimates over a rolling look-back interval attached at the end points of a _time series_ or a _matrix_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_moment.html">roll_moment</a></td>
+<td>Calculate a _matrix_ of moment values over a rolling look-back interval attached at the end points of a _time series_ or a _matrix_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_ohlc.html">roll_ohlc</a></td>
+<td>Aggregate a time series to an _OHLC_ time series with lower periodicity.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_portf.html">roll_portf</a></td>
+<td>Simulate (backtest) a portfolio momentum strategy, using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_reg.html">roll_reg</a></td>
+<td>Perform a rolling regression and calculate a matrix of regression coefficients, their t-values, and z-scores.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_scale.html">roll_scale</a></td>
+<td>Perform a rolling standardization (centering and scaling) of the columns of a _time series_ of data using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_sharpe.html">roll_sharpe</a></td>
+<td>Calculate a time series of Sharpe ratios over a rolling look-back interval for an _OHLC_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_skew.html">roll_skew</a></td>
+<td>Calculate a _matrix_ of skewness estimates over a rolling look-back interval attached at the end points of a _time series_ or a _matrix_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_stats.html">roll_stats</a></td>
+<td>Calculate a vector of statistics over an _OHLC_ time series, and calculate a rolling mean over the statistics.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_sum.html">roll_sum</a></td>
+<td>Calculate the rolling sums over a _time series_ or a _matrix_ using _Rcpp_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_sumep.html">roll_sumep</a></td>
+<td>Calculate the rolling sums at the end points of a _time series_ or a _matrix_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_sumw.html">roll_sumw</a></td>
+<td>Calculate the rolling weighted sums over a _time series_ or a _matrix_ using _Rcpp_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_var.html">roll_var</a></td>
+<td>Calculate a _matrix_ of dispersion (variance) estimates over a rolling look-back interval attached at the end points of a _time series_ or a _matrix_.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_varvec.html">roll_varvec</a></td>
+<td>Calculate a _vector_ of variance estimates over a rolling look-back interval for a single-column _time series_ or a single-column _matrix_, using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_var_ohlc.html">roll_var_ohlc</a></td>
+<td>Calculate a _vector_ of variance estimates over a rolling look-back interval attached at the end points of a _time series_ or a _matrix_ with _OHLC_ price data.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_vwap.html">roll_vwap</a></td>
+<td>Calculate the volume-weighted average price of an _OHLC_ time series over a rolling look-back interval.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_zscores.html">roll_zscores</a></td>
+<td>Calculate a _vector_ of z-scores of the residuals of rolling regressions at the end points of the predictor matrix.</td></tr>
+<tr><td style="width: 25%;"><a href="run_autocovar.html">run_autocovar</a></td>
+<td>Calculate the trailing autocovariance of a _time series_ of returns using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_covar.html">run_covar</a></td>
+<td>Calculate the trailing covariances of two streaming _time series_ of returns using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_max.html">run_max</a></td>
+<td>Calculate the trailing maximum values of streaming _time series_ data using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_mean.html">run_mean</a></td>
+<td>Calculate the exponential moving average (EMA) of streaming _time series_ data using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_min.html">run_min</a></td>
+<td>Calculate the trailing minimum values of streaming _time series_ data using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_reg.html">run_reg</a></td>
+<td>Perform regressions on the streaming _time series_ of response and predictor data, and calculate the regression coefficients, the residuals, and the forecasts, using online recursive formulas.</td></tr>
+<tr><td style="width: 25%;"><a href="run_scale.html">run_scale</a></td>
+<td>Standardize (center and scale) the columns of a _time series_ of data over time and in place, without copying the data in memory, using 'RcppArmadillo'.</td></tr>
+<tr><td style="width: 25%;"><a href="run_var.html">run_var</a></td>
+<td>Calculate the exponential moving average mean and variance of streaming _time series_ data using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_var_ohlc.html">run_var_ohlc</a></td>
+<td>Calculate the trailing variance of streaming _OHLC_ price data using an online recursive formula.</td></tr>
+<tr><td style="width: 25%;"><a href="run_zscores.html">run_zscores</a></td>
+<td>Calculate the trailing means, volatilities, and z-scores of a streaming _time series_ of data using an online recursive formula.</td></tr>
+</table>
+
+<h2><a id="S">-- S --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="save_rets.html">save_rets</a></td>
+<td>Load, scrub, aggregate, and rbind multiple days of _TAQ_ data for a single symbol. Calculate the returns and save them to a single "*.RData" file.</td></tr>
+<tr><td style="width: 25%;"><a href="save_rets_ohlc.html">save_rets_ohlc</a></td>
+<td>Load _OHLC_ time series data for a single symbol, calculate its returns, and save them to a single "*.RData" file, without aggregation.</td></tr>
+<tr><td style="width: 25%;"><a href="save_scrub_agg.html">save_scrub_agg</a></td>
+<td>Load, scrub, aggregate, and rbind multiple days of _TAQ_ data for a single symbol, and save the _OHLC_ time series to a single "*.RData" file.</td></tr>
+<tr><td style="width: 25%;"><a href="save_taq.html">save_taq</a></td>
+<td>Load and scrub multiple days of _TAQ_ data for a single symbol, and save it to multiple "*.RData" files.</td></tr>
+<tr><td style="width: 25%;"><a href="scrub_agg.html">scrub_agg</a></td>
+<td>Scrub a single day of _TAQ_ data, aggregate it, and convert to _OHLC_ format.</td></tr>
+<tr><td style="width: 25%;"><a href="scrub_taq.html">scrub_taq</a></td>
+<td>Scrub a single day of _TAQ_ data in _xts_ format, without aggregation.</td></tr>
+<tr><td style="width: 25%;"><a href="sim_ar.html">sim_ar</a></td>
+<td>Simulate _autoregressive_ returns by recursively filtering a _matrix_ of innovations through a _matrix_ of _autoregressive_ coefficients.</td></tr>
+<tr><td style="width: 25%;"><a href="sim_df.html">sim_df</a></td>
+<td>Simulate a _Dickey-Fuller_ process using _Rcpp_.</td></tr>
+<tr><td style="width: 25%;"><a href="sim_garch.html">sim_garch</a></td>
+<td>Simulate or estimate the rolling variance under a _GARCH(1,1)_ process using _Rcpp_.</td></tr>
+<tr><td style="width: 25%;"><a href="sim_ou.html">sim_ou</a></td>
+<td>Simulate an _Ornstein-Uhlenbeck_ process using _Rcpp_.</td></tr>
+<tr><td style="width: 25%;"><a href="sim_portfoptim.html">sim_portfoptim</a></td>
+<td>Simulate a portfolio optimization strategy using online (recursive) updating of the covariance matrix.</td></tr>
+<tr><td style="width: 25%;"><a href="sim_schwartz.html">sim_schwartz</a></td>
+<td>Simulate a _Schwartz_ process using _Rcpp_.</td></tr>
+<tr><td style="width: 25%;"><a href="hf_data.html">SPY</a></td>
+<td>High frequency data sets</td></tr>
+</table>
+
+<h2><a id="W">-- W --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="which_extreme.html">which_extreme</a></td>
+<td>Calculate a _Boolean_ vector that identifies extreme tail values in a single-column _xts_ time series or vector, over a rolling look-back interval.</td></tr>
+<tr><td style="width: 25%;"><a href="which_jumps.html">which_jumps</a></td>
+<td>Calculate a _Boolean_ vector that identifies isolated jumps (spikes) in a single-column _xts_ time series or vector, over a rolling interval.</td></tr>
+</table>
+</div></body></html>

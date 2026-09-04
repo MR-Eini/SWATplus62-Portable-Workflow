@@ -1,0 +1,244 @@
+import {Text, Tag, Style, Script, CDATA, Comment, Directive, Doctype, Root} from "/-/domelementtype@v2.3.0-PrmNUNoEHMqortEMiiky/dist=es2019,mode=imports/optimized/domelementtype.js";
+import {encodeXML, escapeText, escapeAttribute} from "/-/entities@v4.2.0-t42Wo66cVV1L2FcPgERr/dist=es2019,mode=imports/optimized/entities.js";
+const elementNames = new Map([
+  "altGlyph",
+  "altGlyphDef",
+  "altGlyphItem",
+  "animateColor",
+  "animateMotion",
+  "animateTransform",
+  "clipPath",
+  "feBlend",
+  "feColorMatrix",
+  "feComponentTransfer",
+  "feComposite",
+  "feConvolveMatrix",
+  "feDiffuseLighting",
+  "feDisplacementMap",
+  "feDistantLight",
+  "feDropShadow",
+  "feFlood",
+  "feFuncA",
+  "feFuncB",
+  "feFuncG",
+  "feFuncR",
+  "feGaussianBlur",
+  "feImage",
+  "feMerge",
+  "feMergeNode",
+  "feMorphology",
+  "feOffset",
+  "fePointLight",
+  "feSpecularLighting",
+  "feSpotLight",
+  "feTile",
+  "feTurbulence",
+  "foreignObject",
+  "glyphRef",
+  "linearGradient",
+  "radialGradient",
+  "textPath"
+].map((val) => [val.toLowerCase(), val]));
+const attributeNames = new Map([
+  "definitionURL",
+  "attributeName",
+  "attributeType",
+  "baseFrequency",
+  "baseProfile",
+  "calcMode",
+  "clipPathUnits",
+  "diffuseConstant",
+  "edgeMode",
+  "filterUnits",
+  "glyphRef",
+  "gradientTransform",
+  "gradientUnits",
+  "kernelMatrix",
+  "kernelUnitLength",
+  "keyPoints",
+  "keySplines",
+  "keyTimes",
+  "lengthAdjust",
+  "limitingConeAngle",
+  "markerHeight",
+  "markerUnits",
+  "markerWidth",
+  "maskContentUnits",
+  "maskUnits",
+  "numOctaves",
+  "pathLength",
+  "patternContentUnits",
+  "patternTransform",
+  "patternUnits",
+  "pointsAtX",
+  "pointsAtY",
+  "pointsAtZ",
+  "preserveAlpha",
+  "preserveAspectRatio",
+  "primitiveUnits",
+  "refX",
+  "refY",
+  "repeatCount",
+  "repeatDur",
+  "requiredExtensions",
+  "requiredFeatures",
+  "specularConstant",
+  "specularExponent",
+  "spreadMethod",
+  "startOffset",
+  "stdDeviation",
+  "stitchTiles",
+  "surfaceScale",
+  "systemLanguage",
+  "tableValues",
+  "targetX",
+  "targetY",
+  "textLength",
+  "viewBox",
+  "viewTarget",
+  "xChannelSelector",
+  "yChannelSelector",
+  "zoomAndPan"
+].map((val) => [val.toLowerCase(), val]));
+const unencodedElements = new Set([
+  "style",
+  "script",
+  "xmp",
+  "iframe",
+  "noembed",
+  "noframes",
+  "plaintext",
+  "noscript"
+]);
+function replaceQuotes(value) {
+  return value.replace(/"/g, "&quot;");
+}
+function formatAttributes(attributes, opts) {
+  var _a;
+  if (!attributes)
+    return;
+  const encode = ((_a = opts.encodeEntities) !== null && _a !== void 0 ? _a : opts.decodeEntities) === false ? replaceQuotes : opts.xmlMode || opts.encodeEntities !== "utf8" ? encodeXML : escapeAttribute;
+  return Object.keys(attributes).map((key) => {
+    var _a2, _b;
+    const value = (_a2 = attributes[key]) !== null && _a2 !== void 0 ? _a2 : "";
+    if (opts.xmlMode === "foreign") {
+      key = (_b = attributeNames.get(key)) !== null && _b !== void 0 ? _b : key;
+    }
+    if (!opts.emptyAttrs && !opts.xmlMode && value === "") {
+      return key;
+    }
+    return `${key}="${encode(value)}"`;
+  }).join(" ");
+}
+const singleTag = new Set([
+  "area",
+  "base",
+  "basefont",
+  "br",
+  "col",
+  "command",
+  "embed",
+  "frame",
+  "hr",
+  "img",
+  "input",
+  "isindex",
+  "keygen",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr"
+]);
+function render(node, options = {}) {
+  const nodes = "length" in node ? node : [node];
+  let output = "";
+  for (let i = 0; i < nodes.length; i++) {
+    output += renderNode(nodes[i], options);
+  }
+  return output;
+}
+function renderNode(node, options) {
+  switch (node.type) {
+    case Root:
+      return render(node.children, options);
+    case Doctype:
+    case Directive:
+      return renderDirective(node);
+    case Comment:
+      return renderComment(node);
+    case CDATA:
+      return renderCdata(node);
+    case Script:
+    case Style:
+    case Tag:
+      return renderTag(node, options);
+    case Text:
+      return renderText(node, options);
+  }
+}
+const foreignModeIntegrationPoints = new Set([
+  "mi",
+  "mo",
+  "mn",
+  "ms",
+  "mtext",
+  "annotation-xml",
+  "foreignObject",
+  "desc",
+  "title"
+]);
+const foreignElements = new Set(["svg", "math"]);
+function renderTag(elem, opts) {
+  var _a;
+  if (opts.xmlMode === "foreign") {
+    elem.name = (_a = elementNames.get(elem.name)) !== null && _a !== void 0 ? _a : elem.name;
+    if (elem.parent && foreignModeIntegrationPoints.has(elem.parent.name)) {
+      opts = {...opts, xmlMode: false};
+    }
+  }
+  if (!opts.xmlMode && foreignElements.has(elem.name)) {
+    opts = {...opts, xmlMode: "foreign"};
+  }
+  let tag = `<${elem.name}`;
+  const attribs = formatAttributes(elem.attribs, opts);
+  if (attribs) {
+    tag += ` ${attribs}`;
+  }
+  if (elem.children.length === 0 && (opts.xmlMode ? opts.selfClosingTags !== false : opts.selfClosingTags && singleTag.has(elem.name))) {
+    if (!opts.xmlMode)
+      tag += " ";
+    tag += "/>";
+  } else {
+    tag += ">";
+    if (elem.children.length > 0) {
+      tag += render(elem.children, opts);
+    }
+    if (opts.xmlMode || !singleTag.has(elem.name)) {
+      tag += `</${elem.name}>`;
+    }
+  }
+  return tag;
+}
+function renderDirective(elem) {
+  return `<${elem.data}>`;
+}
+function renderText(elem, opts) {
+  var _a;
+  let data = elem.data || "";
+  if (((_a = opts.encodeEntities) !== null && _a !== void 0 ? _a : opts.decodeEntities) !== false && !(!opts.xmlMode && elem.parent && unencodedElements.has(elem.parent.name))) {
+    data = opts.xmlMode || opts.encodeEntities !== "utf8" ? encodeXML(data) : escapeText(data);
+  }
+  return data;
+}
+function renderCdata(elem) {
+  return `<![CDATA[${elem.children[0].data}]]>`;
+}
+function renderComment(elem) {
+  return `<!--${elem.data}-->`;
+}
+export default render;
+export {render};
+
+// denoCacheMetadata={"headers":{"strict-transport-security":"max-age=63072000","vary":"accept-encoding","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:26 GMT","cf-cache-status":"MISS","etag":"W/\"1676-To6prWHkJBmOlrwIdGcSORy/tVM\"","content-type":"application/javascript; charset=utf-8","cf-ray":"9e98a5cb1908c9b7-IAD","server":"cloudflare","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=JZ7NoHuYClnGD5%2F%2BZJuztZEMeNBA3cEHNW1P%2BIBPTFI%2BYZNMa0Rt9cqvvAuCaBvoJVWMh%2BFn0ivRpGAXiV2RkLXpYT6sI8ki67ySid1VIDu%2B0ys4iFTO42UOxQfmhnt8SA%3D%3D\"}]}","x-vercel-id":"pdx1::sfo1::4bgz8-1775164362823-11c9538a9857","x-imports":"/-/domelementtype@v2.3.0-PrmNUNoEHMqortEMiiky/dist=es2019,mode=imports/optimized/domelementtype.js, /-/entities@v4.2.0-t42Wo66cVV1L2FcPgERr/dist=es2019,mode=imports/optimized/entities.js","access-control-allow-origin":"*","x-cache":"HIT","age":"0","x-vercel-cache":"MISS","access-control-expose-headers":"Content-Length, X-Imports","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://cdn.skypack.dev/-/dom-serializer@v2.0.0-0QgVINP0DwZRFE7238Nk/dist=es2019,mode=imports/optimized/dom-serializer.js","time":1775728646}

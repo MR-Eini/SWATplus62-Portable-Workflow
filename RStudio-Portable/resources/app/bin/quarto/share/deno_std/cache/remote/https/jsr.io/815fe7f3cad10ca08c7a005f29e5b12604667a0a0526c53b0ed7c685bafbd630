@@ -1,0 +1,68 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Builds all possible orders of all elements in the given array
+ * Ignores equality of elements, meaning this will always return the same
+ * number of permutations for a given length of input.
+ *
+ * @template T The type of the elements in the array.
+ *
+ * @param inputArray The array to build permutations from.
+ *
+ * @returns An array of all possible permutations of the given array.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { permutations } from "@std/collections/permutations";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const numbers = [ 1, 2 ];
+ * const windows = permutations(numbers);
+ *
+ * assertEquals(windows, [
+ *   [ 1, 2 ],
+ *   [ 2, 1 ],
+ * ]);
+ * ```
+ */
+export function permutations<T>(inputArray: Iterable<T>): T[][] {
+  const result: T[][] = [];
+
+  const array = [...inputArray];
+
+  const k = array.length;
+
+  if (k === 0) {
+    return result;
+  }
+
+  // Heap's Algorithm
+  const c = new Array<number>(k).fill(0);
+
+  result.push([...array]);
+
+  let i = 1;
+
+  while (i < k) {
+    if (c[i]! < i) {
+      if (i % 2 === 0) {
+        [array[0], array[i]] = [array[i], array[0]] as [T, T];
+      } else {
+        [array[c[i]!], array[i]] = [array[i], array[c[i]!]] as [T, T];
+      }
+
+      result.push([...array]);
+
+      c[i] += 1;
+      i = 1;
+    } else {
+      c[i] = 0;
+      i += 1;
+    }
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable","etag":"\"3d0981a42a66dcd182dc00314a39d291\"","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","content-type":"text/typescript","server":"cloudflare","x-robots-tag":"noindex","cf-ray":"9e98a5d02e533992-IAD","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WSH%2Fs1lFx7wAOjHWLNP0shk%2B7FaL5VyUC5Z%2B9pWnHInZNSwRDrTmneYM9NydpYF56vqMZSTMuUlXVy0OUBz0OFQeoQduD9NL0AkGBMuRgwyno%2BtfJoCb00I%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","x-jsr-backend":"modules","vary":"Origin","content-length":"1479","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/collections/0.224.2/permutations.ts","time":1775728648}

@@ -1,0 +1,315 @@
+﻿id,type,y_1991,y_1992,y_1993,y_1994,y_1995,y_1996,y_1997,y_1998,y_1999,y_2000,y_2001,y_2002,y_2003,y_2004,y_2005,y_2006,y_2007,y_2008,y_2009,y_2010,y_2011,y_2012,y_2013,y_2014,y_2015,y_2016,y_2017,y_2018,y_2019,y_2020,y_2021,y_2022,y_2023,y_2024,y_2025,drainage
+1,frsd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+2,frsd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+3,frsd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+4,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+5,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+6,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+7,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+8,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+9,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+10,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+11,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+12,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+13,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+14,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+15,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+16,frse, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+17,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+18,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+19,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+20,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+21,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+22,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+23,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+24,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+25,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+26,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+27,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+28,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+29,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+30,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+31,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+32,orcd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+33,orcd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+34,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+35,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+36,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+37,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+38,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+39,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+40,urmd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+41,urmd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+42,urmd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+43,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+44,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+45,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+46,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+47,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+48,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+49,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+50,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+51,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+52,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+53,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+54,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+55,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+56,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+57,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+58,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+59,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+60,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+61,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+62,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+63,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+64,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+65,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+66,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+67,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+68,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+69,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+70,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+71,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+72,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+73,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+74,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+75,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+76,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+77,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+78,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+79,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+80,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+81,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+82,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+83,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+84,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+85,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+86,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+87,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+88,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+89,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+90,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+91,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+92,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+93,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+94,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+95,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+96,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+97,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+98,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+99,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+100,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+101,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+102,agrl20,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,0
+103,agrl26,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,alfa,0
+104,agrl66,alfa,alfa,alfa,alfa,oats_cc,alfa,alfa,alfa,alfa,oats_cc,alfa,alfa,alfa,alfa,oats_cc,alfa,alfa,alfa,alfa,oats_cc,alfa,alfa,alfa,alfa,oats_cc,alfa,alfa,alfa,alfa,oats_cc,alfa,alfa,alfa,alfa,oats_cc,0
+105,agrl90,alfa,alfa,alfa,fesc_mgt,barl,alfa,alfa,alfa,fesc_mgt,barl,alfa,alfa,alfa,fesc_mgt,barl,alfa,alfa,alfa,fesc_mgt,barl,alfa,alfa,alfa,fesc_mgt,barl,alfa,alfa,alfa,fesc_mgt,barl,alfa,alfa,alfa,fesc_mgt,barl,0
+106,agrl96,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,0
+107,agrl204,alfa,barl,barl,oats_cc,alfa,alfa,barl,barl,oats_cc,alfa,alfa,barl,barl,oats_cc,alfa,alfa,barl,barl,oats_cc,alfa,alfa,barl,barl,oats_cc,alfa,alfa,barl,barl,oats_cc,alfa,alfa,barl,barl,oats_cc,alfa,0
+108,agrl207,alfa,barl,buck,pota,pota,alfa,barl,buck,pota,pota,alfa,barl,buck,pota,pota,alfa,barl,buck,pota,pota,alfa,barl,buck,pota,pota,alfa,barl,buck,pota,pota,alfa,barl,buck,pota,pota,0
+109,agrl218,alfa,barl,pota,wwht,canp,alfa,barl,pota,wwht,canp,alfa,barl,pota,wwht,canp,alfa,barl,pota,wwht,canp,alfa,barl,pota,wwht,canp,alfa,barl,pota,wwht,canp,alfa,barl,pota,wwht,canp,0
+110,agrl246,alfa,buck,rye,alfa,rye,alfa,buck,rye,alfa,rye,alfa,buck,rye,alfa,rye,alfa,buck,rye,alfa,rye,alfa,buck,rye,alfa,rye,alfa,buck,rye,alfa,rye,alfa,buck,rye,alfa,rye,0
+111,agrl247,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,0
+112,agrl253,alfa,canp,pota,pota,trit,alfa,canp,pota,pota,trit,alfa,canp,pota,pota,trit,alfa,canp,pota,pota,trit,alfa,canp,pota,pota,trit,alfa,canp,pota,pota,trit,alfa,canp,pota,pota,trit,0
+113,agrl258,alfa,canp,trit,alfa,trit,alfa,canp,trit,alfa,trit,alfa,canp,trit,alfa,trit,alfa,canp,trit,alfa,trit,alfa,canp,trit,alfa,trit,alfa,canp,trit,alfa,trit,alfa,canp,trit,alfa,trit,0
+114,agrl270,alfa,csil_cc,csil_cc,alfa,fpea,alfa,csil_cc,csil_cc,alfa,fpea,alfa,csil_cc,csil_cc,alfa,fpea,alfa,csil_cc,csil_cc,alfa,fpea,alfa,csil_cc,csil_cc,alfa,fpea,alfa,csil_cc,csil_cc,alfa,fpea,alfa,csil_cc,csil_cc,alfa,fpea,0
+115,agrl301,alfa,oats_cc,barl,barl,rye,alfa,oats_cc,barl,barl,rye,alfa,oats_cc,barl,barl,rye,alfa,oats_cc,barl,barl,rye,alfa,oats_cc,barl,barl,rye,alfa,oats_cc,barl,barl,rye,alfa,oats_cc,barl,barl,rye,0
+116,agrl342,alfa,oats_cc,trit,alfa,rye,alfa,oats_cc,trit,alfa,rye,alfa,oats_cc,trit,alfa,rye,alfa,oats_cc,trit,alfa,rye,alfa,oats_cc,trit,alfa,rye,alfa,oats_cc,trit,alfa,rye,alfa,oats_cc,trit,alfa,rye,0
+117,agrl343,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,0
+118,agrl344,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,alfa,oats_cc,trit,buck,rye,0
+119,agrl382,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,0
+120,agrl386,alfa,rye,buck,alfa,rye,alfa,rye,buck,alfa,rye,alfa,rye,buck,alfa,rye,alfa,rye,buck,alfa,rye,alfa,rye,buck,alfa,rye,alfa,rye,buck,alfa,rye,alfa,rye,buck,alfa,rye,0
+121,agrl415,alfa,trit,alfa,pota,pota,alfa,trit,alfa,pota,pota,alfa,trit,alfa,pota,pota,alfa,trit,alfa,pota,pota,alfa,trit,alfa,pota,pota,alfa,trit,alfa,pota,pota,alfa,trit,alfa,pota,pota,0
+122,agrl430,alfa,trit,pota,wwht,canp,alfa,trit,pota,wwht,canp,alfa,trit,pota,wwht,canp,alfa,trit,pota,wwht,canp,alfa,trit,pota,wwht,canp,alfa,trit,pota,wwht,canp,alfa,trit,pota,wwht,canp,0
+123,agrl493,barl,alfa,trit,pota,oats_cc,barl,alfa,trit,pota,oats_cc,barl,alfa,trit,pota,oats_cc,barl,alfa,trit,pota,oats_cc,barl,alfa,trit,pota,oats_cc,barl,alfa,trit,pota,oats_cc,barl,alfa,trit,pota,oats_cc,0
+124,agrl567,barl,barl,canp,trit,pota,barl,barl,canp,trit,pota,barl,barl,canp,trit,pota,barl,barl,canp,trit,pota,barl,barl,canp,trit,pota,barl,barl,canp,trit,pota,barl,barl,canp,trit,pota,0
+125,agrl580,barl,barl,oats_cc,fpea,barl,barl,barl,oats_cc,fpea,barl,barl,barl,oats_cc,fpea,barl,barl,barl,oats_cc,fpea,barl,barl,barl,oats_cc,fpea,barl,barl,barl,oats_cc,fpea,barl,barl,barl,oats_cc,fpea,barl,0
+126,agrl713,barl,oats_cc,alfa,rye,alfa,barl,oats_cc,alfa,rye,alfa,barl,oats_cc,alfa,rye,alfa,barl,oats_cc,alfa,rye,alfa,barl,oats_cc,alfa,rye,alfa,barl,oats_cc,alfa,rye,alfa,barl,oats_cc,alfa,rye,alfa,0
+127,agrl727,barl,oats_cc,barl,oats_cc,alfa,barl,oats_cc,barl,oats_cc,alfa,barl,oats_cc,barl,oats_cc,alfa,barl,oats_cc,barl,oats_cc,alfa,barl,oats_cc,barl,oats_cc,alfa,barl,oats_cc,barl,oats_cc,alfa,barl,oats_cc,barl,oats_cc,alfa,0
+128,agrl732,barl,oats_cc,barl,oats_cc,wwht,barl,oats_cc,barl,oats_cc,wwht,barl,oats_cc,barl,oats_cc,wwht,barl,oats_cc,barl,oats_cc,wwht,barl,oats_cc,barl,oats_cc,wwht,barl,oats_cc,barl,oats_cc,wwht,barl,oats_cc,barl,oats_cc,wwht,0
+129,agrl750,barl,oats_cc,oats_cc,barl,oats_cc,barl,oats_cc,oats_cc,barl,oats_cc,barl,oats_cc,oats_cc,barl,oats_cc,barl,oats_cc,oats_cc,barl,oats_cc,barl,oats_cc,oats_cc,barl,oats_cc,barl,oats_cc,oats_cc,barl,oats_cc,barl,oats_cc,oats_cc,barl,oats_cc,0
+130,agrl762,barl,oats_cc,oats_cc,oats_cc,rye,barl,oats_cc,oats_cc,oats_cc,rye,barl,oats_cc,oats_cc,oats_cc,rye,barl,oats_cc,oats_cc,oats_cc,rye,barl,oats_cc,oats_cc,oats_cc,rye,barl,oats_cc,oats_cc,oats_cc,rye,barl,oats_cc,oats_cc,oats_cc,rye,0
+131,agrl779,barl,oats_cc,rye,oats_cc,barl,barl,oats_cc,rye,oats_cc,barl,barl,oats_cc,rye,oats_cc,barl,barl,oats_cc,rye,oats_cc,barl,barl,oats_cc,rye,oats_cc,barl,barl,oats_cc,rye,oats_cc,barl,barl,oats_cc,rye,oats_cc,barl,0
+132,agrl796,barl,oats_cc,trit,wwht,fpea,barl,oats_cc,trit,wwht,fpea,barl,oats_cc,trit,wwht,fpea,barl,oats_cc,trit,wwht,fpea,barl,oats_cc,trit,wwht,fpea,barl,oats_cc,trit,wwht,fpea,barl,oats_cc,trit,wwht,fpea,0
+133,agrl808,barl,pota,pota,pota,pota,barl,pota,pota,pota,pota,barl,pota,pota,pota,pota,barl,pota,pota,pota,pota,barl,pota,pota,pota,pota,barl,pota,pota,pota,pota,barl,pota,pota,pota,pota,0
+134,agrl811,barl,pota,wwht,canp,rye,barl,pota,wwht,canp,rye,barl,pota,wwht,canp,rye,barl,pota,wwht,canp,rye,barl,pota,wwht,canp,rye,barl,pota,wwht,canp,rye,barl,pota,wwht,canp,rye,0
+135,agrl943,berm,berm,berm,berm,oats_cc,berm,berm,berm,berm,oats_cc,berm,berm,berm,berm,oats_cc,berm,berm,berm,berm,oats_cc,berm,berm,berm,berm,oats_cc,berm,berm,berm,berm,oats_cc,berm,berm,berm,berm,oats_cc,0
+136,agrl948,berm,berm,berm,fesc_mgt,fesc_mgt,berm,berm,berm,fesc_mgt,fesc_mgt,berm,berm,berm,fesc_mgt,fesc_mgt,berm,berm,berm,fesc_mgt,fesc_mgt,berm,berm,berm,fesc_mgt,fesc_mgt,berm,berm,berm,fesc_mgt,fesc_mgt,berm,berm,berm,fesc_mgt,fesc_mgt,0
+137,agrl966,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,berm,fesc_mgt,alfa,fesc_mgt,fesc_mgt,0
+138,agrl967,berm,fesc_mgt,alfa,oats_cc,trit,berm,fesc_mgt,alfa,oats_cc,trit,berm,fesc_mgt,alfa,oats_cc,trit,berm,fesc_mgt,alfa,oats_cc,trit,berm,fesc_mgt,alfa,oats_cc,trit,berm,fesc_mgt,alfa,oats_cc,trit,berm,fesc_mgt,alfa,oats_cc,trit,0
+139,agrl969,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,0
+140,agrl970,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,0
+141,agrl985,buck,alfa,alfa,rye,buck,buck,alfa,alfa,rye,buck,buck,alfa,alfa,rye,buck,buck,alfa,alfa,rye,buck,buck,alfa,alfa,rye,buck,buck,alfa,alfa,rye,buck,buck,alfa,alfa,rye,buck,0
+142,agrl988,buck,alfa,barl,trit,trit,buck,alfa,barl,trit,trit,buck,alfa,barl,trit,trit,buck,alfa,barl,trit,trit,buck,alfa,barl,trit,trit,buck,alfa,barl,trit,trit,buck,alfa,barl,trit,trit,0
+143,agrl996,buck,alfa,buck,rye,alfa,buck,alfa,buck,rye,alfa,buck,alfa,buck,rye,alfa,buck,alfa,buck,rye,alfa,buck,alfa,buck,rye,alfa,buck,alfa,buck,rye,alfa,buck,alfa,buck,rye,alfa,0
+144,agrl1007,buck,alfa,rye,buck,alfa,buck,alfa,rye,buck,alfa,buck,alfa,rye,buck,alfa,buck,alfa,rye,buck,alfa,buck,alfa,rye,buck,alfa,buck,alfa,rye,buck,alfa,buck,alfa,rye,buck,alfa,0
+145,agrl1008,buck,alfa,rye,buck,rye,buck,alfa,rye,buck,rye,buck,alfa,rye,buck,rye,buck,alfa,rye,buck,rye,buck,alfa,rye,buck,rye,buck,alfa,rye,buck,rye,buck,alfa,rye,buck,rye,0
+146,agrl1011,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,0
+147,agrl1079,buck,oats_cc,barl,rye,oats_cc,buck,oats_cc,barl,rye,oats_cc,buck,oats_cc,barl,rye,oats_cc,buck,oats_cc,barl,rye,oats_cc,buck,oats_cc,barl,rye,oats_cc,buck,oats_cc,barl,rye,oats_cc,buck,oats_cc,barl,rye,oats_cc,0
+148,agrl1145,canp,canp,barl,alfa,canp,canp,canp,barl,alfa,canp,canp,canp,barl,alfa,canp,canp,canp,barl,alfa,canp,canp,canp,barl,alfa,canp,canp,canp,barl,alfa,canp,canp,canp,barl,alfa,canp,0
+149,agrl1163,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,canp,fesc_mgt,fesc_mgt,canp,fesc_mgt,0
+150,agrl1164,canp,fesc_mgt,fesc_mgt,canp,trit,canp,fesc_mgt,fesc_mgt,canp,trit,canp,fesc_mgt,fesc_mgt,canp,trit,canp,fesc_mgt,fesc_mgt,canp,trit,canp,fesc_mgt,fesc_mgt,canp,trit,canp,fesc_mgt,fesc_mgt,canp,trit,canp,fesc_mgt,fesc_mgt,canp,trit,0
+151,agrl1169,canp,fesc_mgt,fesc_mgt,trit,pota,canp,fesc_mgt,fesc_mgt,trit,pota,canp,fesc_mgt,fesc_mgt,trit,pota,canp,fesc_mgt,fesc_mgt,trit,pota,canp,fesc_mgt,fesc_mgt,trit,pota,canp,fesc_mgt,fesc_mgt,trit,pota,canp,fesc_mgt,fesc_mgt,trit,pota,0
+152,agrl1188,canp,pota,wwht,barl,fpea,canp,pota,wwht,barl,fpea,canp,pota,wwht,barl,fpea,canp,pota,wwht,barl,fpea,canp,pota,wwht,barl,fpea,canp,pota,wwht,barl,fpea,canp,pota,wwht,barl,fpea,0
+153,agrl1190,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,0
+154,agrl1191,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,canp,pota,wwht,canp,pota,0
+155,agrl1272,canp,wwht,barl,alfa,canp,canp,wwht,barl,alfa,canp,canp,wwht,barl,alfa,canp,canp,wwht,barl,alfa,canp,canp,wwht,barl,alfa,canp,canp,wwht,barl,alfa,canp,canp,wwht,barl,alfa,canp,0
+156,agrl1284,canp,wwht,barl,trit,fpea,canp,wwht,barl,trit,fpea,canp,wwht,barl,trit,fpea,canp,wwht,barl,trit,fpea,canp,wwht,barl,trit,fpea,canp,wwht,barl,trit,fpea,canp,wwht,barl,trit,fpea,0
+157,agrl1345,canp,wwht,pota,rye,csil_cc,canp,wwht,pota,rye,csil_cc,canp,wwht,pota,rye,csil_cc,canp,wwht,pota,rye,csil_cc,canp,wwht,pota,rye,csil_cc,canp,wwht,pota,rye,csil_cc,canp,wwht,pota,rye,csil_cc,0
+158,agrl1360,canp,wwht,pota,wwht,trit,canp,wwht,pota,wwht,trit,canp,wwht,pota,wwht,trit,canp,wwht,pota,wwht,trit,canp,wwht,pota,wwht,trit,canp,wwht,pota,wwht,trit,canp,wwht,pota,wwht,trit,0
+159,agrl1393,canp,wwht,wwht,oats_cc,oats_cc,canp,wwht,wwht,oats_cc,oats_cc,canp,wwht,wwht,oats_cc,oats_cc,canp,wwht,wwht,oats_cc,oats_cc,canp,wwht,wwht,oats_cc,oats_cc,canp,wwht,wwht,oats_cc,oats_cc,canp,wwht,wwht,oats_cc,oats_cc,0
+160,agrl1409,csil_cc,berm,oats_cc,buck,pota,csil_cc,berm,oats_cc,buck,pota,csil_cc,berm,oats_cc,buck,pota,csil_cc,berm,oats_cc,buck,pota,csil_cc,berm,oats_cc,buck,pota,csil_cc,berm,oats_cc,buck,pota,csil_cc,berm,oats_cc,buck,pota,0
+161,agrl1494,csil_cc,csil_cc,csil_cc,csil_cc,trit,csil_cc,csil_cc,csil_cc,csil_cc,trit,csil_cc,csil_cc,csil_cc,csil_cc,trit,csil_cc,csil_cc,csil_cc,csil_cc,trit,csil_cc,csil_cc,csil_cc,csil_cc,trit,csil_cc,csil_cc,csil_cc,csil_cc,trit,csil_cc,csil_cc,csil_cc,csil_cc,trit,0
+162,agrl1594,fesc_mgt,canp,wwht,pota,wwht,fesc_mgt,canp,wwht,pota,wwht,fesc_mgt,canp,wwht,pota,wwht,fesc_mgt,canp,wwht,pota,wwht,fesc_mgt,canp,wwht,pota,wwht,fesc_mgt,canp,wwht,pota,wwht,fesc_mgt,canp,wwht,pota,wwht,0
+163,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+164,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+165,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+166,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+167,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+168,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+169,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+170,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+171,agrl1753,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,0
+172,agrl1756,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,trit,0
+173,agrl1811,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,oats_cc,fesc_mgt,0
+174,agrl1839,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,fesc_mgt,fesc_mgt,oats_cc,oats_cc,berm,0
+175,agrl1906,fesc_mgt,trit,canp,trit,pota,fesc_mgt,trit,canp,trit,pota,fesc_mgt,trit,canp,trit,pota,fesc_mgt,trit,canp,trit,pota,fesc_mgt,trit,canp,trit,pota,fesc_mgt,trit,canp,trit,pota,fesc_mgt,trit,canp,trit,pota,0
+176,agrl1912,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,0
+177,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+178,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+179,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+180,agrl2007,fpea,alfa,fesc_mgt,oats_cc,fpea,fpea,alfa,fesc_mgt,oats_cc,fpea,fpea,alfa,fesc_mgt,oats_cc,fpea,fpea,alfa,fesc_mgt,oats_cc,fpea,fpea,alfa,fesc_mgt,oats_cc,fpea,fpea,alfa,fesc_mgt,oats_cc,fpea,fpea,alfa,fesc_mgt,oats_cc,fpea,0
+181,agrl2015,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,0
+182,agrl2016,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,fpea,barl,canp,trit,pota,0
+183,agrl2017,fpea,barl,canp,trit,trit,fpea,barl,canp,trit,trit,fpea,barl,canp,trit,trit,fpea,barl,canp,trit,trit,fpea,barl,canp,trit,trit,fpea,barl,canp,trit,trit,fpea,barl,canp,trit,trit,0
+184,agrl2026,fpea,canp,trit,alfa,canp,fpea,canp,trit,alfa,canp,fpea,canp,trit,alfa,canp,fpea,canp,trit,alfa,canp,fpea,canp,trit,alfa,canp,fpea,canp,trit,alfa,canp,fpea,canp,trit,alfa,canp,0
+185,agrl2027,fpea,canp,trit,barl,canp,fpea,canp,trit,barl,canp,fpea,canp,trit,barl,canp,fpea,canp,trit,barl,canp,fpea,canp,trit,barl,canp,fpea,canp,trit,barl,canp,fpea,canp,trit,barl,canp,0
+186,agrl2124,oats_cc,alfa,oats_cc,buck,alfa,oats_cc,alfa,oats_cc,buck,alfa,oats_cc,alfa,oats_cc,buck,alfa,oats_cc,alfa,oats_cc,buck,alfa,oats_cc,alfa,oats_cc,buck,alfa,oats_cc,alfa,oats_cc,buck,alfa,oats_cc,alfa,oats_cc,buck,alfa,0
+187,agrl2128,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,0
+188,agrl2159,oats_cc,barl,alfa,barl,barl,oats_cc,barl,alfa,barl,barl,oats_cc,barl,alfa,barl,barl,oats_cc,barl,alfa,barl,barl,oats_cc,barl,alfa,barl,barl,oats_cc,barl,alfa,barl,barl,oats_cc,barl,alfa,barl,barl,0
+189,agrl2178,oats_cc,barl,buck,barl,oats_cc,oats_cc,barl,buck,barl,oats_cc,oats_cc,barl,buck,barl,oats_cc,oats_cc,barl,buck,barl,oats_cc,oats_cc,barl,buck,barl,oats_cc,oats_cc,barl,buck,barl,oats_cc,oats_cc,barl,buck,barl,oats_cc,0
+190,agrl2248,oats_cc,berm,buck,rye,berm,oats_cc,berm,buck,rye,berm,oats_cc,berm,buck,rye,berm,oats_cc,berm,buck,rye,berm,oats_cc,berm,buck,rye,berm,oats_cc,berm,buck,rye,berm,oats_cc,berm,buck,rye,berm,0
+191,agrl2272,oats_cc,canp,alfa,alfa,canp,oats_cc,canp,alfa,alfa,canp,oats_cc,canp,alfa,alfa,canp,oats_cc,canp,alfa,alfa,canp,oats_cc,canp,alfa,alfa,canp,oats_cc,canp,alfa,alfa,canp,oats_cc,canp,alfa,alfa,canp,0
+192,agrl2284,oats_cc,canp,wwht,alfa,canp,oats_cc,canp,wwht,alfa,canp,oats_cc,canp,wwht,alfa,canp,oats_cc,canp,wwht,alfa,canp,oats_cc,canp,wwht,alfa,canp,oats_cc,canp,wwht,alfa,canp,oats_cc,canp,wwht,alfa,canp,0
+193,agrl2316,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,oats_cc,fesc_mgt,fesc_mgt,oats_cc,oats_cc,0
+194,agrl2343,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,oats_cc,oats_cc,alfa,oats_cc,alfa,0
+195,agrl2440,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,0
+196,agrl2472,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,oats_cc,oats_cc,oats_cc,oats_cc,barl,0
+197,agrl2588,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,0
+198,agrl2622,oats_cc,oats_cc,oats_cc,oats_cc,trit,oats_cc,oats_cc,oats_cc,oats_cc,trit,oats_cc,oats_cc,oats_cc,oats_cc,trit,oats_cc,oats_cc,oats_cc,oats_cc,trit,oats_cc,oats_cc,oats_cc,oats_cc,trit,oats_cc,oats_cc,oats_cc,oats_cc,trit,oats_cc,oats_cc,oats_cc,oats_cc,trit,0
+199,agrl2694,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,0
+200,agrl2695,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,oats_cc,oats_cc,oats_cc,wwht,oats_cc,0
+201,agrl2871,oats_cc,rye,barl,pota,trit,oats_cc,rye,barl,pota,trit,oats_cc,rye,barl,pota,trit,oats_cc,rye,barl,pota,trit,oats_cc,rye,barl,pota,trit,oats_cc,rye,barl,pota,trit,oats_cc,rye,barl,pota,trit,0
+202,agrl2891,oats_cc,rye,oats_cc,alfa,rye,oats_cc,rye,oats_cc,alfa,rye,oats_cc,rye,oats_cc,alfa,rye,oats_cc,rye,oats_cc,alfa,rye,oats_cc,rye,oats_cc,alfa,rye,oats_cc,rye,oats_cc,alfa,rye,oats_cc,rye,oats_cc,alfa,rye,0
+203,agrl2894,oats_cc,rye,oats_cc,barl,canp,oats_cc,rye,oats_cc,barl,canp,oats_cc,rye,oats_cc,barl,canp,oats_cc,rye,oats_cc,barl,canp,oats_cc,rye,oats_cc,barl,canp,oats_cc,rye,oats_cc,barl,canp,oats_cc,rye,oats_cc,barl,canp,0
+204,agrl2960,oats_cc,rye,oats_cc,rye,oats_cc,oats_cc,rye,oats_cc,rye,oats_cc,oats_cc,rye,oats_cc,rye,oats_cc,oats_cc,rye,oats_cc,rye,oats_cc,oats_cc,rye,oats_cc,rye,oats_cc,oats_cc,rye,oats_cc,rye,oats_cc,oats_cc,rye,oats_cc,rye,oats_cc,0
+205,agrl3198,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,0
+206,agrl3199,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,wwht,wwht,wwht,alfa,fesc_mgt,0
+207,agrl3438,pota,wwht,fpea,wwht,trit,pota,wwht,fpea,wwht,trit,pota,wwht,fpea,wwht,trit,pota,wwht,fpea,wwht,trit,pota,wwht,fpea,wwht,trit,pota,wwht,fpea,wwht,trit,pota,wwht,fpea,wwht,trit,0
+208,agrl3462,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,rye,alfa,buck,rye,buck,0
+209,agrl3476,rye,alfa,oats_cc,rye,alfa,rye,alfa,oats_cc,rye,alfa,rye,alfa,oats_cc,rye,alfa,rye,alfa,oats_cc,rye,alfa,rye,alfa,oats_cc,rye,alfa,rye,alfa,oats_cc,rye,alfa,rye,alfa,oats_cc,rye,alfa,0
+210,agrl3529,rye,barl,oats_cc,alfa,rye,rye,barl,oats_cc,alfa,rye,rye,barl,oats_cc,alfa,rye,rye,barl,oats_cc,alfa,rye,rye,barl,oats_cc,alfa,rye,rye,barl,oats_cc,alfa,rye,rye,barl,oats_cc,alfa,rye,0
+211,agrl3627,rye,oats_cc,barl,oats_cc,barl,rye,oats_cc,barl,oats_cc,barl,rye,oats_cc,barl,oats_cc,barl,rye,oats_cc,barl,oats_cc,barl,rye,oats_cc,barl,oats_cc,barl,rye,oats_cc,barl,oats_cc,barl,rye,oats_cc,barl,oats_cc,barl,0
+212,agrl3649,rye,oats_cc,oats_cc,oats_cc,berm,rye,oats_cc,oats_cc,oats_cc,berm,rye,oats_cc,oats_cc,oats_cc,berm,rye,oats_cc,oats_cc,oats_cc,berm,rye,oats_cc,oats_cc,oats_cc,berm,rye,oats_cc,oats_cc,oats_cc,berm,rye,oats_cc,oats_cc,oats_cc,berm,0
+213,agrl3694,rye,oats_cc,oats_cc,wwht,trit,rye,oats_cc,oats_cc,wwht,trit,rye,oats_cc,oats_cc,wwht,trit,rye,oats_cc,oats_cc,wwht,trit,rye,oats_cc,oats_cc,wwht,trit,rye,oats_cc,oats_cc,wwht,trit,rye,oats_cc,oats_cc,wwht,trit,0
+214,agrl3713,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,0
+215,agrl3714,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,rye,oats_cc,rye,buck,rye,0
+216,agrl3824,rye,rye,csil_cc,oats_cc,barl,rye,rye,csil_cc,oats_cc,barl,rye,rye,csil_cc,oats_cc,barl,rye,rye,csil_cc,oats_cc,barl,rye,rye,csil_cc,oats_cc,barl,rye,rye,csil_cc,oats_cc,barl,rye,rye,csil_cc,oats_cc,barl,0
+217,agrl3851,rye,rye,oats_cc,rye,oats_cc,rye,rye,oats_cc,rye,oats_cc,rye,rye,oats_cc,rye,oats_cc,rye,rye,oats_cc,rye,oats_cc,rye,rye,oats_cc,rye,oats_cc,rye,rye,oats_cc,rye,oats_cc,rye,rye,oats_cc,rye,oats_cc,0
+218,agrl3972,rye,trit,rye,oats_cc,fpea,rye,trit,rye,oats_cc,fpea,rye,trit,rye,oats_cc,fpea,rye,trit,rye,oats_cc,fpea,rye,trit,rye,oats_cc,fpea,rye,trit,rye,oats_cc,fpea,rye,trit,rye,oats_cc,fpea,0
+219,agrl4024,trit,alfa,rye,oats_cc,barl,trit,alfa,rye,oats_cc,barl,trit,alfa,rye,oats_cc,barl,trit,alfa,rye,oats_cc,barl,trit,alfa,rye,oats_cc,barl,trit,alfa,rye,oats_cc,barl,trit,alfa,rye,oats_cc,barl,0
+220,agrl4061,trit,barl,wwht,fpea,wwht,trit,barl,wwht,fpea,wwht,trit,barl,wwht,fpea,wwht,trit,barl,wwht,fpea,wwht,trit,barl,wwht,fpea,wwht,trit,barl,wwht,fpea,wwht,trit,barl,wwht,fpea,wwht,0
+221,agrl4168,trit,fesc_mgt,fesc_mgt,trit,canp,trit,fesc_mgt,fesc_mgt,trit,canp,trit,fesc_mgt,fesc_mgt,trit,canp,trit,fesc_mgt,fesc_mgt,trit,canp,trit,fesc_mgt,fesc_mgt,trit,canp,trit,fesc_mgt,fesc_mgt,trit,canp,trit,fesc_mgt,fesc_mgt,trit,canp,0
+222,agrl4171,trit,fpea,canp,barl,fpea,trit,fpea,canp,barl,fpea,trit,fpea,canp,barl,fpea,trit,fpea,canp,barl,fpea,trit,fpea,canp,barl,fpea,trit,fpea,canp,barl,fpea,trit,fpea,canp,barl,fpea,0
+223,agrl4187,trit,oats_cc,buck,pota,pota,trit,oats_cc,buck,pota,pota,trit,oats_cc,buck,pota,pota,trit,oats_cc,buck,pota,pota,trit,oats_cc,buck,pota,pota,trit,oats_cc,buck,pota,pota,trit,oats_cc,buck,pota,pota,0
+224,agrl4192,trit,oats_cc,canp,trit,pota,trit,oats_cc,canp,trit,pota,trit,oats_cc,canp,trit,pota,trit,oats_cc,canp,trit,pota,trit,oats_cc,canp,trit,pota,trit,oats_cc,canp,trit,pota,trit,oats_cc,canp,trit,pota,0
+225,agrl4307,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,0
+226,agrl4308,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,trit,rye,csil_cc,barl,trit,0
+227,agrl4313,trit,rye,oats_cc,buck,rye,trit,rye,oats_cc,buck,rye,trit,rye,oats_cc,buck,rye,trit,rye,oats_cc,buck,rye,trit,rye,oats_cc,buck,rye,trit,rye,oats_cc,buck,rye,trit,rye,oats_cc,buck,rye,0
+228,agrl4367,trit,trit,canp,trit,pota,trit,trit,canp,trit,pota,trit,trit,canp,trit,pota,trit,trit,canp,trit,pota,trit,trit,canp,trit,pota,trit,trit,canp,trit,pota,trit,trit,canp,trit,pota,0
+229,agrl4418,trit,trit,trit,pota,barl,trit,trit,trit,pota,barl,trit,trit,trit,pota,barl,trit,trit,trit,pota,barl,trit,trit,trit,pota,barl,trit,trit,trit,pota,barl,trit,trit,trit,pota,barl,0
+230,agrl4445,trit,trit,trit,wwht,canp,trit,trit,trit,wwht,canp,trit,trit,trit,wwht,canp,trit,trit,trit,wwht,canp,trit,trit,trit,wwht,canp,trit,trit,trit,wwht,canp,trit,trit,trit,wwht,canp,0
+231,agrl4494,wwht,barl,canp,oats_cc,pota,wwht,barl,canp,oats_cc,pota,wwht,barl,canp,oats_cc,pota,wwht,barl,canp,oats_cc,pota,wwht,barl,canp,oats_cc,pota,wwht,barl,canp,oats_cc,pota,wwht,barl,canp,oats_cc,pota,0
+232,agrl4531,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,0
+233,agrl4532,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,wwht,canp,barl,trit,fpea,0
+234,agrl4539,wwht,canp,pota,pota,fpea,wwht,canp,pota,pota,fpea,wwht,canp,pota,pota,fpea,wwht,canp,pota,pota,fpea,wwht,canp,pota,pota,fpea,wwht,canp,pota,pota,fpea,wwht,canp,pota,pota,fpea,0
+235,agrl4549,wwht,canp,rye,oats_cc,oats_cc,wwht,canp,rye,oats_cc,oats_cc,wwht,canp,rye,oats_cc,oats_cc,wwht,canp,rye,oats_cc,oats_cc,wwht,canp,rye,oats_cc,oats_cc,wwht,canp,rye,oats_cc,oats_cc,wwht,canp,rye,oats_cc,oats_cc,0
+236,agrl4553,wwht,canp,rye,rye,trit,wwht,canp,rye,rye,trit,wwht,canp,rye,rye,trit,wwht,canp,rye,rye,trit,wwht,canp,rye,rye,trit,wwht,canp,rye,rye,trit,wwht,canp,rye,rye,trit,0
+237,agrl4566,wwht,canp,trit,trit,pota,wwht,canp,trit,trit,pota,wwht,canp,trit,trit,pota,wwht,canp,trit,trit,pota,wwht,canp,trit,trit,pota,wwht,canp,trit,trit,pota,wwht,canp,trit,trit,pota,0
+238,agrl4749,wwht,trit,fpea,canp,wwht,wwht,trit,fpea,canp,wwht,wwht,trit,fpea,canp,wwht,wwht,trit,fpea,canp,wwht,wwht,trit,fpea,canp,wwht,wwht,trit,fpea,canp,wwht,wwht,trit,fpea,canp,wwht,0
+239,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+240,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+241,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+242,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+243,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+244,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+245,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+246,urhd, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+247,agrl4811,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,0
+248,agrl4815,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,0
+249,agrl4816,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,pota,barl,fpea,oats_cc,wwht,0
+250,agrl4826,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,0
+251,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+252,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+253,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+254,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+255,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+256,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+257,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+258,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+259,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+260,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+261,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+262,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+263,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+264,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+265,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+266,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+267,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+268,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+269,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+270,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+271,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+272,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+273,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,0
+274,agrl4849,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,0
+275,agrl4850,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,canp,pota,wwht,canp,wwht,0
+276,agrl4862,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,0
+277,agrl4865,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,0
+278,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+279,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+280,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+281,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+282,urld, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+283,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+284,wehb, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+285,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+286,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+287,wetf, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,32
+288,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+289,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+290,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+291,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+292,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+293,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,8
+294,agrl4888_drn,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,alfa,alfa,alfa,fpea,alfa,9
+295,agrl4938_drn,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,alfa,rye,barl,canp,fpea,9
+296,agrl5027_drn,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,46
+297,agrl5035_drn,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,buck,alfa,trit,trit,alfa,46
+298,agrl5109_drn,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,fesc_mgt,fesc_mgt,fesc_mgt,berm,berm,46
+299,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+300,agrl5168_drn,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,fesc_mgt,trit,fpea,pota,wwht,46
+301,agrl5178_drn,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,fesc_mgt,fesc_mgt,fesc_mgt,berm,fesc_mgt,46
+302,fesc, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,46
+303,agrl5279_drn,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,oats_cc,46
+304,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,32
+305,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+306,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+307,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,32
+308,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+309,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+310,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+311,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+312,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+313,frst, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,9
+314,agrl5596_drn,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,wwht,canp,wwht,pota,wwht,46

@@ -1,0 +1,49 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Applies the given selector to elements in the given array until a value is
+ * produced that is neither `null` nor `undefined` and returns that value.
+ * Returns `undefined` if no such value is produced.
+ *
+ * @template T The type of the elements in the input array.
+ * @template O The type of the value produced by the selector function.
+ *
+ * @param array The array to select a value from.
+ * @param selector The function to extract a value from an element.
+ *
+ * @returns The first non-`null` and non-`undefined` value produced by the
+ * selector function, or `undefined` if no such value is produced.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { firstNotNullishOf } from "@std/collections/first-not-nullish-of";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const tables = [
+ *   { number: 11, order: null },
+ *   { number: 12, order: "Soup" },
+ *   { number: 13, order: "Salad" },
+ * ];
+ *
+ * const nextOrder = firstNotNullishOf(tables, (table) => table.order);
+ *
+ * assertEquals(nextOrder, "Soup");
+ * ```
+ */
+export function firstNotNullishOf<T, O>(
+  array: Iterable<T>,
+  selector: (item: T) => O | undefined | null,
+): NonNullable<O> | undefined {
+  for (const current of array) {
+    const selected = selector(current);
+
+    if (selected !== null && selected !== undefined) {
+      return selected as NonNullable<O>;
+    }
+  }
+
+  return undefined;
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","x-robots-tag":"noindex","etag":"\"b89e70afb8f7d3262dd1cce886be7f2c\"","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rPL%2FyI4ejhGWI82hJ%2FjQaj%2FYbwxtY23nE0DzV9%2B6Mo%2BtH23WO6JJsqIynyWcotaob0ObOxt3gMk2Er6rmvMjg3VcNfdYnYM1Xpn4bvHClMkwhPgL6tjSXzg%3D\"}]}","x-content-type-options":"nosniff","x-jsr-backend":"modules","cache-control":"public, max-age=31536000, immutable","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","content-type":"text/typescript","vary":"Origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d02e3b3992-IAD","alt-svc":"h3=\":443\"; ma=86400","content-length":"1506","access-control-expose-headers":"*"},"url":"https://jsr.io/@std/collections/0.224.2/first_not_nullish_of.ts","time":1775728648}

@@ -1,0 +1,71 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Reads and writes comma-separated values (CSV) files.
+ *
+ * There are many kinds of CSV files; this module supports the format described
+ * in {@link https://www.rfc-editor.org/rfc/rfc4180.html | RFC 4180}.
+ *
+ * A csv file contains zero or more records of one or more fields per record.
+ * Each record is separated by the newline character. The final record may
+ * optionally be followed by a newline character.
+ *
+ * ```csv
+ * field1,field2,field3
+ * ```
+ *
+ * White space is considered part of a field.
+ *
+ * Carriage returns before newline characters are silently removed.
+ *
+ * Blank lines are ignored. A line with only whitespace characters (excluding
+ * the ending newline character) is not considered a blank line.
+ *
+ * Fields which start and stop with the quote character " are called
+ * quoted-fields. The beginning and ending quote are not part of the field.
+ *
+ * The source:
+ *
+ * ```csv
+ * normal string,"quoted-field"
+ * ```
+ *
+ * results in the fields
+ *
+ * ```ts no-assert
+ * [`normal string`, `quoted-field`]
+ * ```
+ *
+ * Within a quoted-field a quote character followed by a second quote character is considered a single quote.
+ *
+ * ```csv
+ * "the ""word"" is true","a ""quoted-field"""
+ * ```
+ *
+ * results in
+ *
+ * [`the "word" is true`, `a "quoted-field"`]
+ *
+ * Newlines and commas may be included in a quoted-field
+ *
+ * ```csv
+ * "Multi-line
+ * field","comma is ,"
+ * ```
+ *
+ * results in
+ *
+ * ```ts no-assert
+ * [`Multi-line
+ * field`, `comma is ,`]
+ * ```
+ *
+ * @module
+ */
+
+export * from "./stringify.ts";
+export * from "./parse.ts";
+export * from "./csv_parse_stream.ts";
+export * from "./csv_stringify_stream.ts";
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=U7J76Al4EACtwynuEYp%2FnFpq6po4wwB3mUIjg%2F5LmHPMtJ%2Fscg%2B3dn6CJyrdK8Fw%2FgZx3Lt0%2FHy0sT5O8an0HMJukcK3gv9PAH%2FbvfIbJ6b4mB14K4iEfYg%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","x-jsr-backend":"modules","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","vary":"Origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","server":"cloudflare","access-control-allow-origin":"*","cf-ray":"9e98a5d02de23992-IAD","etag":"\"4f22331002b6414744a9d3249ca07c8d\"","x-content-type-options":"nosniff","content-type":"text/typescript","content-length":"1764","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/csv/0.224.3/mod.ts","time":1775728648}

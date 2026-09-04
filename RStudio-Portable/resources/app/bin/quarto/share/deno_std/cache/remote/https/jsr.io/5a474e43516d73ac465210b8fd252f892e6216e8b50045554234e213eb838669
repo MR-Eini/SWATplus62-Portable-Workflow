@@ -1,0 +1,29 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { parserFactory, toml } from "./_parser.ts";
+
+/**
+ * Parses a {@link https://toml.io | TOML} string into an object.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse } from "@std/toml/parse";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const tomlString = `title = "TOML Example"
+ * [owner]
+ * name = "Alice"
+ * bio = "Alice is a programmer."`;
+ *
+ * const obj = parse(tomlString);
+ * assertEquals(obj, { title: "TOML Example", owner: { name: "Alice", bio: "Alice is a programmer." } });
+ * ```
+ * @param tomlString TOML string to be parsed.
+ * @returns The parsed JS object.
+ */
+export function parse(tomlString: string): Record<string, unknown> {
+  return parserFactory(toml)(tomlString);
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"7fb7299a59b8226606e648284de9fd7b\"","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IA9N4GdmkXHEE3NYEd%2BGVrsQgi4EN63K%2Bt8YMB7oK%2F2M3SHcBJyAraPd6iDbXCah7Ze4fBoPIUY2PG8AOhjHaTvys3QdjAFr%2BanRGlbsZaMfwfie3FYQC5Y%3D\"}]}","cf-ray":"9e98a5d49b2a3992-IAD","access-control-allow-origin":"*","vary":"Origin","content-length":"820","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","server":"cloudflare","cache-control":"public, max-age=31536000, immutable","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/toml/1.0.1/parse.ts","time":1775728648}

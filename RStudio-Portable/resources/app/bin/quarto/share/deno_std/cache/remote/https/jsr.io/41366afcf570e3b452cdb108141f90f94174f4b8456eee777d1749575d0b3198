@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { SemVer } from "./types.ts";
+import { compare } from "./compare.ts";
+
+/**
+ * Less than or equal to comparison
+ *
+ * This is equal to `compare(s0, s1) <= 0`.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse, lessOrEqual } from "@std/semver";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const s0 = parse("1.2.3");
+ * const s1 = parse("1.2.4");
+ * assert(lessOrEqual(s0, s1));
+ * assertFalse(lessOrEqual(s1, s0));
+ * assert(lessOrEqual(s0, s0));
+ * ```
+ *
+ * @param s0 the first version to compare
+ * @param s1 the second version to compare
+ * @returns `true` if `s0` is less than or equal to `s1`, `false` otherwise
+ */
+export function lessOrEqual(s0: SemVer, s1: SemVer): boolean {
+  return compare(s0, s1) <= 0;
+}
+
+// denoCacheMetadata={"headers":{"nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MON0Gdi3daineknEEh3bv7DdkGt2b2og2F7%2FeMo4Jb3wisHGh4CPr%2BhbprSPhjdlwC0MdH%2FoL8UvkKRW9XCgNcfUktnYOdIn34kd4vgnYQv6YY%2Fi0HxR7no%3D\"}]}","content-type":"text/typescript","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","x-jsr-backend":"modules","cf-ray":"9e98a5d298e43992-IAD","cross-origin-resource-policy":"cross-origin","server":"cloudflare","x-robots-tag":"noindex","vary":"Origin","etag":"\"5fb6049be2d65e498941aae9723f1ed2\"","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-length":"855","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/semver/0.224.3/less_or_equal.ts","time":1775728648}

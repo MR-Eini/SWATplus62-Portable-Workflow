@@ -1,0 +1,16 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { isAbsolute as posixIsAbsolute } from "./posix/is_absolute.ts";
+import { isAbsolute as windowsIsAbsolute } from "./windows/is_absolute.ts";
+
+/**
+ * Verifies whether provided path is absolute
+ * @param path to be verified as absolute
+ */
+export function isAbsolute(path: string): boolean {
+  return isWindows ? windowsIsAbsolute(path) : posixIsAbsolute(path);
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6Jji%2BUGNpLfy%2BasdRZAlLoiBjmXg%2FGz0WOPqRR6036cLdzQLXmPobL6gF5d4mhXd9MToVM2Gsk3tun1hrIRaZ%2BZa682sEUUPp6CEnyAc1rrRnBu7fxieNLs%3D\"}]}","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-length":"521","cf-ray":"9e98a5d248683992-IAD","access-control-allow-origin":"*","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","x-robots-tag":"noindex","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","vary":"Origin","x-content-type-options":"nosniff","etag":"\"259a91ecb424abce5f9650ea09ed7f55\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/path/0.224.0/is_absolute.ts","time":1775728648}

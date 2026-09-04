@@ -1,0 +1,2 @@
+(()=>{"use strict";var e={288(e){e.exports=require("electron")}},r={};function n(t){var o=r[t];if(void 0!==o)return o.exports;var s=r[t]={exports:{}};return e[t](s,s.exports,n),s.exports}(()=>{const e=n(288);e.contextBridge.exposeInMainWorld("whatsNew",{close:()=>{e.ipcRenderer.send("whats-new-close")},openExternal:r=>{e.ipcRenderer.send("whats-new-open-external",r)}})})()})();
+//# sourceMappingURL=preload.js.map

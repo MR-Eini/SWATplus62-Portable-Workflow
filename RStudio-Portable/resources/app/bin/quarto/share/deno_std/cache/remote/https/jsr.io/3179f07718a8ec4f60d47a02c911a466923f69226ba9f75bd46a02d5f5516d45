@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { compare } from "./compare.ts";
+import type { SemVer } from "./types.ts";
+
+/**
+ * Returns `true` if both semantic versions are logically equivalent, even if they're not the exact same version object.
+ *
+ * This is equal to `compare(s0, s1) === 0`.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse, equals } from "@std/semver";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const s0 = parse("1.2.3");
+ * const s1 = parse("1.2.3");
+ *
+ * assert(equals(s0, s1));
+ * assertFalse(equals(s0, parse("1.2.4")));
+ * ```
+ *
+ * @param s0 The first SemVer to compare
+ * @param s1 The second SemVer to compare
+ * @returns `true` if `s0` is equal to `s1`, `false` otherwise
+ */
+export function equals(s0: SemVer, s1: SemVer): boolean {
+  return compare(s0, s1) === 0;
+}
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:28 GMT","cache-control":"public, max-age=31536000, immutable","vary":"Origin","server":"cloudflare","access-control-allow-origin":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SYoHwfx4opuWUyYYFerjnhWL769IHQyJjCYha52isX8wDM9D7wp90Mr%2BGkwa1a8K7Y%2Fsg5efjrMSnhR8G2aE%2FtcN9A2lF4xm7T8Fa7xiCKa0sjJ%2Bpwg7Neo%3D\"}]}","content-length":"890","access-control-expose-headers":"*","content-type":"text/typescript","etag":"\"bcfba545a0c53f315f326b93a7c310ba\"","x-jsr-backend":"modules","x-robots-tag":"noindex","cf-ray":"9e98a5d288d53992-IAD"},"url":"https://jsr.io/@std/semver/0.224.3/equals.ts","time":1775728648}

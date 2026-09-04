@@ -1,0 +1,27 @@
+#
+#	Standard Illuminants - White Point values in 1931 XYZ
+#
+#	http://en.wikipedia.org/wiki/Illuminants
+#	http://brucelindbloom.com/
+#   ASTM E308-1
+
+          X	Y	Z	x	y	CCT	Note	Sources
+A	1.09850	1	0.35585	0.44758	0.40745	2856	Incandescent / Tungsten	ASTM E308-1 and CIE
+B	0.99072	1	0.85223	NA	NA	4874	Direct sunlight at noon {obsolete}	Wyszecki & Stiles, 2nd edition (1982)
+C	0.98074	1	1.18232	0.31006	0.31616	6774	Average / North sky Daylight {obsolete}	ASTM E308-1 and CIE
+C.NBS	NA	NA	NA	0.3101	0.3163	6774	Average / North sky Daylight {obsolete}	Kelly, et. al. [RP1549] (1943)
+C.JOSA	NA	NA	NA	0.31012	0.31631	6774	Average / North sky Daylight {obsolete}	Judd, Deane B. The 1931 I.C.I. Standard Observer and Coordinate System for Colorimetry (1933)
+C.NTSC	NA	NA	NA	0.310	0.316	6774	Average / North sky Daylight {obsolete}	National Television System Committee (1953)
+D50	0.96422	1	0.82521	0.34567	0.35851	5001.8	Horizon Light	ASTM E308-1 and CIE
+D50.ICC	0.96420288	1	0.82490540	NA	NA	5000.7	ICC profile PCS reference white.  with 16-bit resolution	ICC publications
+D55	0.95682	1	0.92149	0.33243	0.34744	5503	Mid-morning / Mid-afternoon Daylight	ASTM E308-1 and CIE
+D60	0.95230	1	1.00859	0.32163	0.33774	6003	from daylight locus polynomials, then rounded to 5 digits	TB-2018-001
+ACES	0.95265	1	1.00883	0.32168	0.33767	6000	from daylight spectrum at 6000K, then rounded to 5 digits	S-2008-001 and TB-2018-001
+D65	0.95047	1	1.08883	0.3127	0.3290	6504	Noon Daylight: Television, sRGB color space	ASTM E308-1 and sRGB specification
+D75	0.94972	1	1.22638	0.29903	0.31488	7504	North sky Daylight	ASTM E308-1 and CIE
+E	1	1	1	0.333333333333333	0.333333333333333	5454	Equal energy white	ASTM E308-1
+F2	0.99186	1	0.67393	NA	NA	4230	Cool White Fluorescent	ASTM E308-1
+F7	0.95041	1	1.08747	NA	NA	6500	D65 simulator, Daylight simulator	ASTM E308-1
+F11	1.00962	1	0.64350	NA	NA	4000	Philips TL84, Ultralume 40	ASTM E308-1
+DCI	NA	NA	NA	0.314	0.351	6300	DCI-P3 (Theater)	SMPTE EG 432-1 and SMPTE RP 431-2
+

@@ -1,0 +1,27 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { Schema } from "../schema.ts";
+import { binary, merge, omap, pairs, set, timestamp } from "../_type/mod.ts";
+import { CORE_SCHEMA } from "./core.ts";
+
+/**
+ * Default YAML schema. It is not described in the YAML specification.
+ */
+export const DEFAULT_SCHEMA: Schema = new Schema({
+  explicit: [binary, omap, pairs, set],
+  implicit: [timestamp, merge],
+  include: [CORE_SCHEMA],
+});
+
+/**
+ * Default YAML schema. It is not described in the YAML specification.
+ *
+ * @deprecated This will be removed in 1.0.0. Use {@link DEFAULT_SCHEMA} instead.
+ */
+export const def = DEFAULT_SCHEMA;
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d3499e3992-IAD","content-type":"text/typescript","x-jsr-backend":"modules","access-control-expose-headers":"*","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=yqgvRNE20iU5CNE3Rafbm7FgYXTO%2BwmBGvZE%2Fq6g6fR3Le48VTBsz8gP%2FqKV%2BK0nQPxEeLgUZkp0seyOqSe9AteRyjaKsrrATOwjK8T%2FdIpUAv7M7WNbWnw%3D\"}]}","content-length":"897","date":"Thu, 09 Apr 2026 09:57:28 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","etag":"\"ffa4a2fcd05d34281bc8bbe66f06f94b\"","cross-origin-resource-policy":"cross-origin","server":"cloudflare"},"url":"https://jsr.io/@std/yaml/0.224.3/schema/default.ts","time":1775728648}

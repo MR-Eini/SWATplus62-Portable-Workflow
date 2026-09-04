@@ -1,0 +1,53 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns a new record with all entries of the given record except the ones
+ * that have a value that does not match the given predicate.
+ *
+ * @template T The type of the values in the input record.
+ *
+ * @param record The record to filter values from.
+ * @param predicate The function to test each value for a condition.
+ *
+ * @returns A new record with all entries that have a value that matches the
+ * given predicate.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { filterValues } from "@std/collections/filter-values";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const people = {
+ *   Arnold: 37,
+ *   Sarah: 7,
+ *   Kim: 23,
+ * };
+ * const adults = filterValues(people, (person) => person >= 18);
+ *
+ * assertEquals(
+ *   adults,
+ *   {
+ *     Arnold: 37,
+ *     Kim: 23,
+ *   },
+ * );
+ * ```
+ */
+export function filterValues<T>(
+  record: Readonly<Record<string, T>>,
+  predicate: (value: T) => boolean,
+): Record<string, T> {
+  const result: Record<string, T> = {};
+  const entries = Object.entries(record);
+
+  for (const [key, value] of entries) {
+    if (predicate(value)) {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","content-length":"1285","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","vary":"Origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","etag":"\"cf17ca6e0a9e3fd7a6349103b8c0f6e2\"","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d02e393992-IAD","access-control-allow-origin":"*","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xxINKvdD7bag8VgKvJa98iJ8C0L0WS6Zu%2FFz0D8r4HmtamqBQMe3%2BU3W4YHaBVVjmTX5EmKVBWneGm8GnOlTmHhlpqI%2Fdj65W%2Feo1LeXOCVqNWaC5F%2B2pTA%3D\"}]}"},"url":"https://jsr.io/@std/collections/0.224.2/filter_values.ts","time":1775728648}

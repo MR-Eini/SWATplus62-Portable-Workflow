@@ -1,0 +1,8 @@
+addLeafLegends          Add Customizable Color Legends to a 'leaflet'
+                        map widget
+addLegendAwesomeIcon    Add a legend with Awesome Icons
+addLegendImage          Add a Legend with Images
+availableShapes         Available shapes for map symbols
+legendSymbols           Add a legend for the sizing of symbols or the
+                        width of lines
+mapSymbols              Create Map Symbols for 'leaflet' maps

@@ -1,0 +1,54 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { BaseHandler } from "./base_handler.ts";
+import { DEFAULT_CONFIG, DEFAULT_LEVEL } from "./_config.ts";
+import { type LogConfig, Logger } from "./logger.ts";
+import { state } from "./_state.ts";
+
+/** Setup logger config. */
+export function setup(config: LogConfig) {
+  state.config = {
+    handlers: { ...DEFAULT_CONFIG.handlers, ...config.handlers },
+    loggers: { ...DEFAULT_CONFIG.loggers, ...config.loggers },
+  };
+
+  // tear down existing handlers
+  state.handlers.forEach((handler) => {
+    handler.destroy();
+  });
+  state.handlers.clear();
+
+  // setup handlers
+  const handlers = state.config.handlers ?? {};
+
+  for (const [handlerName, handler] of Object.entries(handlers)) {
+    handler.setup();
+    state.handlers.set(handlerName, handler);
+  }
+
+  // remove existing loggers
+  state.loggers.clear();
+
+  // setup loggers
+  const loggers = state.config.loggers ?? {};
+  for (const [loggerName, loggerConfig] of Object.entries(loggers)) {
+    const handlerNames = loggerConfig.handlers ?? [];
+    const handlers: BaseHandler[] = [];
+
+    handlerNames.forEach((handlerName) => {
+      const handler = state.handlers.get(handlerName);
+      if (handler) {
+        handlers.push(handler);
+      }
+    });
+
+    const levelName = loggerConfig.level ?? DEFAULT_LEVEL;
+    const logger = new Logger(loggerName, levelName, { handlers: handlers });
+    state.loggers.set(loggerName, logger);
+  }
+}
+
+setup(DEFAULT_CONFIG);
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","x-content-type-options":"nosniff","x-jsr-backend":"modules","content-type":"text/typescript","cf-ray":"9e98a5d2182b3992-IAD","etag":"\"8b007ec97e97e650c599fd61c8ca038a\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","content-length":"1548","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HBEJq4X28S9xvSm9dPNPpgeg5oeNgIWhTQ8dYlYePOLCRDTWuQBn4swtUP4GGV2WggY%2FoBQKICwy7erajyHvoVEb0V4dJosp9yw0ccZ3wfUsD8kQ0w2HprE%3D\"}]}"},"url":"https://jsr.io/@std/log/0.224.7/setup.ts","time":1775728648}

@@ -1,0 +1,9 @@
+farmr_project           farmr_project
+load_demo               Loading SWAT demo data for testing 'SWATfarmR'
+load_farmr              Load an existing SWATfarmR project
+new_farmr               Initiate a new SWATfarmR project
+variable_decay          Cumulative exponential decay.
+w_lin                   Linear function to calculate weight transition
+                        between boundaries.
+w_log                   Logistic function to calculate weight
+                        transition between boundaries.

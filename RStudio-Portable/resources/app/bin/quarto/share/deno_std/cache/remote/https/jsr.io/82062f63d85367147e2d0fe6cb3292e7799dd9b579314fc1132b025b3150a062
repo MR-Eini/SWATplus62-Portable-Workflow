@@ -1,0 +1,73 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { Schema } from "../schema.ts";
+import { regexp, undefinedType } from "../_type/mod.ts";
+import { DEFAULT_SCHEMA } from "./default.ts";
+
+/***
+ * Extends JS-YAML default schema with additional JavaScript types
+ * It is not described in the YAML specification.
+ * Functions are no longer supported for security reasons.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   EXTENDED_SCHEMA,
+ *   parse,
+ * } from "@std/yaml";
+ *
+ * const data = parse(
+ *   `
+ *   regexp:
+ *     simple: !!js/regexp foobar
+ *     modifiers: !!js/regexp /foobar/mi
+ *   undefined: !!js/undefined ~
+ * # Disabled, see: https://github.com/denoland/deno_std/pull/1275
+ * #  function: !!js/function >
+ * #    function foobar() {
+ * #      return 'hello world!';
+ * #    }
+ * `,
+ *   { schema: EXTENDED_SCHEMA },
+ * );
+ * ```
+ */
+export const EXTENDED_SCHEMA: Schema = new Schema({
+  explicit: [regexp, undefinedType],
+  include: [DEFAULT_SCHEMA],
+});
+
+/***
+ * Extends JS-YAML default schema with additional JavaScript types
+ * It is not described in the YAML specification.
+ * Functions are no longer supported for security reasons.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   EXTENDED_SCHEMA,
+ *   parse,
+ * } from "@std/yaml";
+ *
+ * const data = parse(
+ *   `
+ *   regexp:
+ *     simple: !!js/regexp foobar
+ *     modifiers: !!js/regexp /foobar/mi
+ *   undefined: !!js/undefined ~
+ * # Disabled, see: https://github.com/denoland/deno_std/pull/1275
+ * #  function: !!js/function >
+ * #    function foobar() {
+ * #      return 'hello world!';
+ * #    }
+ * `,
+ *   { schema: EXTENDED_SCHEMA },
+ * );
+ * ```
+ *
+ * @deprecated This will be removed in 1.0.0. Use {@link EXTENDED_SCHEMA} instead.
+ */
+export const extended = EXTENDED_SCHEMA;
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","vary":"Origin","access-control-expose-headers":"*","x-robots-tag":"noindex","cf-ray":"9e98a5d349a03992-IAD","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Q60H7pzEJEi9m1sWnRxZL%2FCyszB%2F%2BkfBTDL2zkBKUkifmaqv2b17u4mrxEc2SgFp8vEUfgHzQCd%2BQdeaS1teERtjz%2BguA2ujJW5ZdX4wr%2BxCEQfrr3HW06U%3D\"}]}","content-length":"1818","cross-origin-resource-policy":"cross-origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","etag":"\"be1ff764337e8ee028cfcb92bd230de1\"","x-jsr-backend":"modules","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/yaml/0.224.3/schema/extended.ts","time":1775728648}

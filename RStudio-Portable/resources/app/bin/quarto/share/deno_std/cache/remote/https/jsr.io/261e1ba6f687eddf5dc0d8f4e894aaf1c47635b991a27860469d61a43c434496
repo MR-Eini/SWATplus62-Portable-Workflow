@@ -1,0 +1,23 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { relative as posixRelative } from "./posix/relative.ts";
+import { relative as windowsRelative } from "./windows/relative.ts";
+
+/**
+ * Return the relative path from `from` to `to` based on current working directory.
+ *
+ * An example in windws, for instance:
+ *  from = 'C:\\orandea\\test\\aaa'
+ *  to = 'C:\\orandea\\impl\\bbb'
+ * The output of the function should be: '..\\..\\impl\\bbb'
+ *
+ * @param from path in current working directory
+ * @param to path in current working directory
+ */
+export function relative(from: string, to: string): string {
+  return isWindows ? windowsRelative(from, to) : posixRelative(from, to);
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","content-length":"788","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"0735763219b351c3520264c14dcdb50e\"","access-control-expose-headers":"*","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d248793992-IAD","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=RUsRXNJ2qJIOjdOdiITaY00M2jNyqM3ZPsnHovs%2FQVw9t%2FEk%2FALQ0dZ7lRgQLPhOrYGF%2BQ5b9aSQ2YDH9svl1UcltteOFpQ1o1k0xuSZoN2PaIg%2FEWQBDv4%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","vary":"Origin","x-jsr-backend":"modules","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:28 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/path/0.224.0/relative.ts","time":1775728648}

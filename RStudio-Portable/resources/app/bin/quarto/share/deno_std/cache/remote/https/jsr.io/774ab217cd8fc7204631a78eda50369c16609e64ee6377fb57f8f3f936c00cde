@@ -1,0 +1,154 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { DAY, HOUR, MINUTE, SECOND, WEEK } from "./constants.ts";
+
+/**
+ * Duration units for {@linkcode DifferenceFormat} and
+ * {@linkcode DifferenceOptions}.
+ */
+export type Unit =
+  | "milliseconds"
+  | "seconds"
+  | "minutes"
+  | "hours"
+  | "days"
+  | "weeks"
+  | "months"
+  | "quarters"
+  | "years";
+
+/** Return type for {@linkcode difference}. */
+export type DifferenceFormat = Partial<Record<Unit, number>>;
+
+/** Options for {@linkcode difference}. */
+export type DifferenceOptions = {
+  /**
+   * Units to calculate difference in. Defaults to all units.
+   */
+  units?: Unit[];
+};
+
+function calculateMonthsDifference(from: Date, to: Date): number {
+  let months = (to.getFullYear() - from.getFullYear()) * 12 +
+    (to.getMonth() - from.getMonth());
+  if (to.getDate() < from.getDate()) {
+    months--;
+  }
+  return months;
+}
+
+/**
+ * Calculates the difference of the 2 given dates in various units. If the units
+ * are omitted, it returns the difference in the all available units.
+ *
+ * @param from Year to calculate difference from.
+ * @param to Year to calculate difference to.
+ * @param options Options such as units to calculate difference in.
+ * @returns The difference of the 2 given dates in various units.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { difference } from "@std/datetime/difference";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const date0 = new Date("2018-05-14");
+ * const date1 = new Date("2020-05-13");
+ *
+ * assertEquals(difference(date0, date1), {
+ *   milliseconds: 63072000000,
+ *   seconds: 63072000,
+ *   minutes: 1051200,
+ *   hours: 17520,
+ *   days: 730,
+ *   weeks: 104,
+ *   months: 23,
+ *   quarters: 7,
+ *   years: 1
+ * });
+ * ```
+ *
+ * @example Calculate difference in specific units
+ *
+ * The `units` option defines which units to calculate the difference in.
+ *
+ * ```ts
+ * import { difference } from "@std/datetime/difference";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const date0 = new Date("2018-05-14");
+ * const date1 = new Date("2020-05-13");
+ *
+ * const result = difference(date0, date1, { units: ["days", "months", "years"] });
+ *
+ * assertEquals(result, {
+ *   days: 730,
+ *   months: 23,
+ *   years: 1
+ * });
+ * ```
+ */
+export function difference(
+  from: Date,
+  to: Date,
+  options?: DifferenceOptions,
+): DifferenceFormat {
+  [from, to] = from < to ? [from, to] : [to, from];
+  const uniqueUnits = options?.units ? [...new Set(options?.units)] : [
+    "milliseconds",
+    "seconds",
+    "minutes",
+    "hours",
+    "days",
+    "weeks",
+    "months",
+    "quarters",
+    "years",
+  ];
+
+  const differenceInMs = Math.abs(from.getTime() - to.getTime());
+
+  const differences: DifferenceFormat = {};
+
+  for (const uniqueUnit of uniqueUnits) {
+    switch (uniqueUnit) {
+      case "milliseconds":
+        differences.milliseconds = differenceInMs;
+        break;
+      case "seconds":
+        differences.seconds = Math.floor(differenceInMs / SECOND);
+        break;
+      case "minutes":
+        differences.minutes = Math.floor(differenceInMs / MINUTE);
+        break;
+      case "hours":
+        differences.hours = Math.floor(differenceInMs / HOUR);
+        break;
+      case "days":
+        differences.days = Math.floor(differenceInMs / DAY);
+        break;
+      case "weeks":
+        differences.weeks = Math.floor(differenceInMs / WEEK);
+        break;
+      case "months":
+        differences.months = calculateMonthsDifference(from, to);
+        break;
+      case "quarters":
+        differences.quarters = Math.floor(
+          (differences.months !== undefined && differences.months / 3) ||
+            calculateMonthsDifference(from, to) / 3,
+        );
+        break;
+      case "years":
+        differences.years = Math.floor(
+          (differences.months !== undefined && differences.months / 12) ||
+            calculateMonthsDifference(from, to) / 12,
+        );
+        break;
+    }
+  }
+
+  return differences;
+}
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:27 GMT","content-length":"4029","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=C5%2BvC7%2BBJayND8tl8cko%2BThAP68OkcCxnp%2BJNp1ZXRLVb9ilJofgYArg0UXwSPkynLRA1ql62LxjMQgzgumMnuMoT%2FWtc%2FroY3SNwGIzdrIqpXpRo6kYAnA%3D\"}]}","cf-ray":"9e98a5d02e723992-IAD","etag":"\"ab0b317afd880ebd0a16437f80591b4f\"","server":"cloudflare","cross-origin-resource-policy":"cross-origin","access-control-expose-headers":"*","x-jsr-backend":"modules","vary":"Origin","x-content-type-options":"nosniff","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript"},"url":"https://jsr.io/@std/datetime/0.224.5/difference.ts","time":1775728647}

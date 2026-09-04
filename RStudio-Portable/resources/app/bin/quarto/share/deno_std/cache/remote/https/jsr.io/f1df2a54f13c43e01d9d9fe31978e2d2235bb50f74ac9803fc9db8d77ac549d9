@@ -1,0 +1,39 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { Range } from "./types.ts";
+import { parseRange } from "./parse_range.ts";
+
+/**
+ * Parses the given range string and returns a Range object. If the range string
+ * is invalid, `undefined` is returned.
+ *
+ * @example Usage
+ * ```ts
+ * import { tryParseRange } from "@std/semver";
+ * import { assertEquals } from "@std/assert";
+ *
+ * assertEquals(tryParseRange(">=1.2.3 <1.2.4"), [
+ *  [
+ *    { operator: ">=", major: 1, minor: 2, patch: 3, prerelease: [], build: [] },
+ *    { operator: "<", major: 1, minor: 2, patch: 4, prerelease: [], build: [] },
+ *  ],
+ * ]);
+ * ```
+ *
+ * @param range The range string
+ * @returns A Range object if valid otherwise `undefined`
+ */
+export function tryParseRange(
+  range: string,
+): Range | undefined {
+  try {
+    // Return '*' instead of '' so that truthiness works.
+    // This will throw if it's invalid anyway
+    return parseRange(range);
+  } catch {
+    return undefined;
+  }
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","cf-ray":"9e98a5d288c23992-IAD","x-jsr-backend":"modules","etag":"\"d3117b4a448cf64bf8227cfaa7d19119\"","vary":"Origin","x-robots-tag":"noindex","content-type":"text/typescript","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"1050","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WhTX0lt%2FFm1GIEKy0fNPh6gc%2B8k%2FZuzX%2B5fdaqf%2BTVbpfOtPgIf0xRu%2FlnlfG0HmOzoONP43H0YdKTKcDpRf9UpSt4dCL%2FBhcyCvIFVZ9DcvHvx9IdQXyTQ%3D\"}]}","access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/semver/0.224.3/try_parse_range.ts","time":1775728648}

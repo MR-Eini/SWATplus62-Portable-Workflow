@@ -1,0 +1,33 @@
+Package: rutils
+Type: Package
+Title: Utility Functions for Simplifying Financial Data Management and
+        Modeling
+Version: 0.2
+Date: 2018-09-12
+Author: Jerzy Pawlowski (algoquant)
+Maintainer: Jerzy Pawlowski <jp3900@nyu.edu>
+Description: Functions for managing object names and attributes, applying
+    functions over lists, managing objects in environments.
+License: MPL-2.0
+Depends: R (>= 3.5.0), xts, quantmod, dygraphs
+Imports: xts, quantmod, dygraphs
+Suggests: knitr, rmarkdown, testthat
+VignetteBuilder: knitr
+LazyData: true
+ByteCompile: true
+Repository: GitHub
+URL: https://github.com/algoquant/rutils
+RoxygenNote: 7.3.3
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: rutils
+RemoteUsername: algoquant
+RemoteRef: HEAD
+RemoteSha: 131a2b9b950c35a9ad48aee05444f76244ab0616
+GithubRepo: rutils
+GithubUsername: algoquant
+GithubRef: HEAD
+GithubSHA1: 131a2b9b950c35a9ad48aee05444f76244ab0616
+NeedsCompilation: no
+Packaged: 2026-05-15 07:53:07 UTC; Gram
+Built: R 4.5.1; ; 2026-05-15 07:53:09 UTC; windows

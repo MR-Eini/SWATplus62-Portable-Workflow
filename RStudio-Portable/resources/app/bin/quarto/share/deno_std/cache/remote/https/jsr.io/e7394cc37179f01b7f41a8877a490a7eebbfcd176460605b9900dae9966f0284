@@ -1,0 +1,58 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Return type for {@linkcode invertBy}. */
+export type InvertByResult<
+  T extends Record<PropertyKey, PropertyKey>,
+  K extends keyof T,
+> = Record<PropertyKey, K[]>;
+
+/**
+ * Composes a new record with all keys and values inverted.
+ *
+ * The new record is generated from the result of running each element of the
+ * input record through the given transformer function.
+ *
+ * The corresponding inverted value of each inverted key is an array of keys
+ * responsible for generating the inverted value.
+ *
+ * @template R The type of the input record.
+ * @template T The type of the iterator function.
+ *
+ * @param record The record to invert.
+ * @param transformer The function to transform keys.
+ *
+ * @returns A new record with all keys and values inverted.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { invertBy } from "@std/collections/invert-by";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const record = { a: "x", b: "y", c: "z" };
+ *
+ * assertEquals(
+ *   invertBy(record, (key) => String(key).toUpperCase()),
+ *   { X: ["a"], Y: ["b"], Z: ["c"] }
+ * );
+ * ```
+ */
+export function invertBy<
+  R extends Record<PropertyKey, PropertyKey>,
+  T extends (key: PropertyKey) => PropertyKey,
+>(record: Readonly<R>, transformer: T): InvertByResult<R, keyof R> {
+  const result = {} as InvertByResult<R, keyof R>;
+
+  for (const [key, value] of Object.entries(record)) {
+    const mappedKey = transformer(value);
+    if (!Object.hasOwn(result, mappedKey)) {
+      result[mappedKey] = [key];
+    } else {
+      result[mappedKey]!.push(key);
+    }
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IKU0e1jX7FbTtpnhMGZ81U%2FEGIlhizHnqxxFt17%2FjoQR0LngrlfWwhJiSWpVCbT8Nsc1Jj%2FA3gx6bu6daDvAzibMRmU%2BuWEoCjk57rKKxgVJs8%2FidhHamHQ%3D\"}]}","cache-control":"public, max-age=31536000, immutable","content-length":"1705","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","x-jsr-backend":"modules","content-type":"text/typescript","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","access-control-expose-headers":"*","x-content-type-options":"nosniff","x-robots-tag":"noindex","etag":"\"4247ce16be76c00a6573024ccb976ecf\"","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","cf-ray":"9e98a5d02e3e3992-IAD"},"url":"https://jsr.io/@std/collections/0.224.2/invert_by.ts","time":1775728648}

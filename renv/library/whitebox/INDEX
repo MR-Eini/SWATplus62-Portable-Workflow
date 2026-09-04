@@ -1,0 +1,854 @@
+check_whitebox_binary   Check for 'WhiteboxTools' executable path
+sample_dem_data         Convenience method for path to sample DEM and
+                        soils data
+wbt                     Run WhiteboxTools by Tool Name
+wbt_absolute_value      Absolute value
+wbt_accumulation_curvature
+                        Accumulation curvature
+wbt_activate            Activate 'WhiteboxTools' Extensions
+wbt_adaptive_filter     Adaptive filter
+wbt_add                 Add
+wbt_add_point_coordinates_to_table
+                        Add point coordinates to table
+wbt_aggregate_raster    Aggregate raster
+wbt_and                 And
+wbt_anova               Anova
+wbt_arc_cos             Arc cos
+wbt_arc_sin             Arc sin
+wbt_arc_tan             Arc tan
+wbt_arcosh              Arcosh
+wbt_arsinh              Arsinh
+wbt_artanh              Artanh
+wbt_ascii_to_las        Ascii to las
+wbt_aspect              Aspect
+wbt_assess_route        Assess route
+wbt_atan2               Atan2
+wbt_attribute_correlation
+                        Attribute correlation
+wbt_attribute_correlation_neighbourhood_analysis
+                        Attribute correlation neighbourhood analysis
+wbt_attribute_histogram
+                        Attribute histogram
+wbt_attribute_scattergram
+                        Attribute scattergram
+wbt_average_flowpath_slope
+                        Average flowpath slope
+wbt_average_normal_vector_angular_deviation
+                        Average normal vector angular deviation
+wbt_average_overlay     Average overlay
+wbt_average_upslope_flowpath_length
+                        Average upslope flowpath length
+wbt_balance_contrast_enhancement
+                        Balance contrast enhancement
+wbt_basins              Basins
+wbt_bilateral_filter    Bilateral filter
+wbt_block_maximum_gridding
+                        Block maximum gridding
+wbt_block_minimum_gridding
+                        Block minimum gridding
+wbt_boundary_shape_complexity
+                        Boundary shape complexity
+wbt_breach_depressions
+                        Breach depressions
+wbt_breach_depressions_least_cost
+                        Breach depressions least cost
+wbt_breach_single_cell_pits
+                        Breach single cell pits
+wbt_breakline_mapping   Breakline mapping
+wbt_buffer_raster       Buffer raster
+wbt_burn_streams_at_roads
+                        Burn streams at roads
+wbt_canny_edge_detection
+                        Canny edge detection
+wbt_ceil                Ceil
+wbt_centroid            Centroid
+wbt_centroid_vector     Centroid vector
+wbt_change_vector_analysis
+                        Change vector analysis
+wbt_circular_variance_of_aspect
+                        Circular variance of aspect
+wbt_classify_buildings_in_lidar
+                        Classify buildings in lidar
+wbt_classify_lidar      Classify lidar
+wbt_classify_overlap_points
+                        Classify overlap points
+wbt_clean_vector        Clean vector
+wbt_clip                Clip
+wbt_clip_lidar_to_polygon
+                        Clip lidar to polygon
+wbt_clip_raster_to_polygon
+                        Clip raster to polygon
+wbt_closing             Closing
+wbt_clump               Clump
+wbt_colourize_based_on_class
+                        Colourize based on class
+wbt_colourize_based_on_point_returns
+                        Colourize based on point returns
+wbt_compactness_ratio   Compactness ratio
+wbt_conditional_evaluation
+                        Conditional evaluation
+wbt_conditioned_latin_hypercube
+                        Conditioned latin hypercube
+wbt_conservative_smoothing_filter
+                        Conservative smoothing filter
+wbt_construct_vector_tin
+                        Construct vector tin
+wbt_contours_from_points
+                        Contours from points
+wbt_contours_from_raster
+                        Contours from raster
+wbt_convert_nodata_to_zero
+                        Convert nodata to zero
+wbt_convert_raster_format
+                        Convert raster format
+wbt_corner_detection    Corner detection
+wbt_correct_vignetting
+                        Correct vignetting
+wbt_cos                 Cos
+wbt_cosh                Cosh
+wbt_cost_allocation     Cost allocation
+wbt_cost_distance       Cost distance
+wbt_cost_pathway        Cost pathway
+wbt_count_if            Count if
+wbt_create_colour_composite
+                        Create colour composite
+wbt_create_hexagonal_vector_grid
+                        Create hexagonal vector grid
+wbt_create_plane        Create plane
+wbt_create_rectangular_vector_grid
+                        Create rectangular vector grid
+wbt_crispness_index     Crispness index
+wbt_cross_tabulation    Cross tabulation
+wbt_csv_points_to_vector
+                        Csv points to vector
+wbt_cumulative_distribution
+                        Cumulative distribution
+wbt_curvedness          Curvedness
+wbt_d8_flow_accumulation
+                        D8 flow accumulation
+wbt_d8_mass_flux        D8 mass flux
+wbt_d8_pointer          D8 pointer
+wbt_d_inf_flow_accumulation
+                        D inf flow accumulation
+wbt_d_inf_mass_flux     D inf mass flux
+wbt_d_inf_pointer       D inf pointer
+wbt_dbscan              Dbscan
+wbt_decrement           Decrement
+wbt_dem_void_filling    Dem void filling
+wbt_depth_in_sink       Depth in sink
+wbt_depth_to_water      Depth to water
+wbt_dev_from_mean_elev
+                        Dev from mean elev
+wbt_diff_from_mean_elev
+                        Diff from mean elev
+wbt_diff_of_gaussian_filter
+                        Diff of gaussian filter
+wbt_difference          Difference
+wbt_difference_curvature
+                        Difference curvature
+wbt_direct_decorrelation_stretch
+                        Direct decorrelation stretch
+wbt_directional_relief
+                        Directional relief
+wbt_dissolve            Dissolve
+wbt_distance_to_outlet
+                        Distance to outlet
+wbt_diversity_filter    Diversity filter
+wbt_divide              Divide
+wbt_downslope_distance_to_stream
+                        Downslope distance to stream
+wbt_downslope_flowpath_length
+                        Downslope flowpath length
+wbt_downslope_index     Downslope index
+wbt_edge_contamination
+                        Edge contamination
+wbt_edge_density        Edge density
+wbt_edge_preserving_mean_filter
+                        Edge preserving mean filter
+wbt_edge_proportion     Edge proportion
+wbt_elev_above_pit      Elev above pit
+wbt_elev_percentile     Elev percentile
+wbt_elev_relative_to_min_max
+                        Elev relative to min max
+wbt_elev_relative_to_watershed_min_max
+                        Elev relative to watershed min max
+wbt_elevation_above_stream
+                        Elevation above stream
+wbt_elevation_above_stream_euclidean
+                        Elevation above stream euclidean
+wbt_eliminate_coincident_points
+                        Eliminate coincident points
+wbt_elongation_ratio    Elongation ratio
+wbt_embankment_mapping
+                        Embankment mapping
+wbt_emboss_filter       Emboss filter
+wbt_equal_to            Equal to
+wbt_erase               Erase
+wbt_erase_polygon_from_lidar
+                        Erase polygon from lidar
+wbt_erase_polygon_from_raster
+                        Erase polygon from raster
+wbt_euclidean_allocation
+                        Euclidean allocation
+wbt_euclidean_distance
+                        Euclidean distance
+wbt_evaluate_training_sites
+                        Evaluate training sites
+wbt_exp                 Exp
+wbt_exp2                Exp2
+wbt_export_table_to_csv
+                        Export table to csv
+wbt_exposure_towards_wind_flux
+                        Exposure towards wind flux
+wbt_extend_vector_lines
+                        Extend vector lines
+wbt_extract_nodes       Extract nodes
+wbt_extract_raster_values_at_points
+                        Extract raster values at points
+wbt_extract_streams     Extract streams
+wbt_extract_valleys     Extract valleys
+wbt_farthest_channel_head
+                        Farthest channel head
+wbt_fast_almost_gaussian_filter
+                        Fast almost gaussian filter
+wbt_fd8_flow_accumulation
+                        Fd8 flow accumulation
+wbt_fd8_pointer         Fd8 pointer
+wbt_feature_preserving_smoothing
+                        Feature preserving smoothing
+wbt_fetch_analysis      Fetch analysis
+wbt_file_path           Prepare File Paths for WhiteboxTools Commands
+wbt_fill_burn           Fill burn
+wbt_fill_depressions    Fill depressions
+wbt_fill_depressions_planchon_and_darboux
+                        Fill depressions planchon and darboux
+wbt_fill_depressions_wang_and_liu
+                        Fill depressions wang and liu
+wbt_fill_missing_data   Fill missing data
+wbt_fill_single_cell_pits
+                        Fill single cell pits
+wbt_filter_lidar        Filter lidar
+wbt_filter_lidar_classes
+                        Filter lidar classes
+wbt_filter_lidar_scan_angles
+                        Filter lidar scan angles
+wbt_filter_raster_features_by_area
+                        Filter raster features by area
+wbt_find_flightline_edge_points
+                        Find flightline edge points
+wbt_find_lowest_or_highest_points
+                        Find lowest or highest points
+wbt_find_main_stem      Find main stem
+wbt_find_no_flow_cells
+                        Find no flow cells
+wbt_find_parallel_flow
+                        Find parallel flow
+wbt_find_patch_or_class_edge_cells
+                        Find patch or class edge cells
+wbt_find_ridges         Find ridges
+wbt_fix_dangling_arcs   Fix dangling arcs
+wbt_flatten_lakes       Flatten lakes
+wbt_flightline_overlap
+                        Flightline overlap
+wbt_flip_image          Flip image
+wbt_flood_order         Flood order
+wbt_floor               Floor
+wbt_flow_accumulation_full_workflow
+                        Flow accumulation full workflow
+wbt_flow_length_diff    Flow length diff
+wbt_gamma_correction    Gamma correction
+wbt_gaussian_contrast_stretch
+                        Gaussian contrast stretch
+wbt_gaussian_curvature
+                        Gaussian curvature
+wbt_gaussian_filter     Gaussian filter
+wbt_gaussian_scale_space
+                        Gaussian scale space
+wbt_generalize_classified_raster
+                        Generalize classified raster
+wbt_generalize_with_similarity
+                        Generalize with similarity
+wbt_generating_function
+                        Generating function
+wbt_geomorphons         Geomorphons
+wbt_greater_than        Greater than
+wbt_hack_stream_order   Hack stream order
+wbt_heat_map            Heat map
+wbt_height_above_ground
+                        Height above ground
+wbt_help                Help description for 'WhiteboxTools'
+wbt_high_pass_bilateral_filter
+                        High pass bilateral filter
+wbt_high_pass_filter    High pass filter
+wbt_high_pass_median_filter
+                        High pass median filter
+wbt_highest_position    Highest position
+wbt_hillshade           Hillshade
+wbt_hillslopes          Hillslopes
+wbt_histogram_equalization
+                        Histogram equalization
+wbt_histogram_matching
+                        Histogram matching
+wbt_histogram_matching_two_images
+                        Histogram matching two images
+wbt_hole_proportion     Hole proportion
+wbt_horizon_angle       Horizon angle
+wbt_horizontal_excess_curvature
+                        Horizontal excess curvature
+wbt_horton_stream_order
+                        Horton stream order
+wbt_hydrologic_connectivity
+                        Hydrologic connectivity
+wbt_hypsometric_analysis
+                        Hypsometric analysis
+wbt_hypsometrically_tinted_hillshade
+                        Hypsometrically tinted hillshade
+wbt_idw_interpolation   Idw interpolation
+wbt_ihs_to_rgb          Ihs to rgb
+wbt_image_autocorrelation
+                        Image autocorrelation
+wbt_image_correlation   Image correlation
+wbt_image_correlation_neighbourhood_analysis
+                        Image correlation neighbourhood analysis
+wbt_image_regression    Image regression
+wbt_image_segmentation
+                        Image segmentation
+wbt_image_slider        Image slider
+wbt_image_stack_profile
+                        Image stack profile
+wbt_impoundment_size_index
+                        Impoundment size index
+wbt_in_place_add        In place add
+wbt_in_place_divide     In place divide
+wbt_in_place_multiply   In place multiply
+wbt_in_place_subtract   In place subtract
+wbt_increment           Increment
+wbt_individual_tree_detection
+                        Individual tree detection
+wbt_init                Initialize 'WhiteboxTools'
+wbt_insert_dams         Insert dams
+wbt_install             Download and Install 'WhiteboxTools'
+wbt_install_wb_extension
+                        Install wb extension
+wbt_integer_division    Integer division
+wbt_integral_image      Integral image
+wbt_intersect           Intersect
+wbt_inverse_principal_component_analysis
+                        Inverse principal component analysis
+wbt_is_no_data          Is no data
+wbt_isobasins           Isobasins
+wbt_jenson_snap_pour_points
+                        Jenson snap pour points
+wbt_join_tables         Join tables
+wbt_k_means_clustering
+                        K means clustering
+wbt_k_nearest_mean_filter
+                        K nearest mean filter
+wbt_kappa_index         Kappa index
+wbt_knn_classification
+                        Knn classification
+wbt_knn_regression      Knn regression
+wbt_ks_test_for_normality
+                        Ks test for normality
+wbt_laplacian_filter    Laplacian filter
+wbt_laplacian_of_gaussian_filter
+                        Laplacian of gaussian filter
+wbt_las_to_ascii        Las to ascii
+wbt_las_to_laz          Las to laz
+wbt_las_to_multipoint_shapefile
+                        Las to multipoint shapefile
+wbt_las_to_shapefile    Las to shapefile
+wbt_las_to_zlidar       Las to zlidar
+wbt_launch_runner       Launch 'WhiteboxTools Runner' GUI
+wbt_launch_wb_runner    Launch wb runner
+wbt_layer_footprint     Layer footprint
+wbt_laz_to_las          Laz to las
+wbt_lee_sigma_filter    Lee sigma filter
+wbt_length_of_upstream_channels
+                        Length of upstream channels
+wbt_less_than           Less than
+wbt_license             License information for 'WhiteboxTools'
+wbt_lidar_block_maximum
+                        Lidar block maximum
+wbt_lidar_block_minimum
+                        Lidar block minimum
+wbt_lidar_classify_subset
+                        Lidar classify subset
+wbt_lidar_colourize     Lidar colourize
+wbt_lidar_contour       Lidar contour
+wbt_lidar_digital_surface_model
+                        Lidar digital surface model
+wbt_lidar_eigenvalue_features
+                        Lidar eigenvalue features
+wbt_lidar_elevation_slice
+                        Lidar elevation slice
+wbt_lidar_ground_point_filter
+                        Lidar ground point filter
+wbt_lidar_hex_binning   Lidar hex binning
+wbt_lidar_hillshade     Lidar hillshade
+wbt_lidar_histogram     Lidar histogram
+wbt_lidar_idw_interpolation
+                        Lidar idw interpolation
+wbt_lidar_info          Lidar info
+wbt_lidar_join          Lidar join
+wbt_lidar_kappa_index   Lidar kappa index
+wbt_lidar_nearest_neighbour_gridding
+                        Lidar nearest neighbour gridding
+wbt_lidar_point_density
+                        Lidar point density
+wbt_lidar_point_return_analysis
+                        Lidar point return analysis
+wbt_lidar_point_stats   Lidar point stats
+wbt_lidar_ransac_planes
+                        Lidar ransac planes
+wbt_lidar_rbf_interpolation
+                        Lidar rbf interpolation
+wbt_lidar_remove_duplicates
+                        Lidar remove duplicates
+wbt_lidar_remove_outliers
+                        Lidar remove outliers
+wbt_lidar_rooftop_analysis
+                        Lidar rooftop analysis
+wbt_lidar_segmentation
+                        Lidar segmentation
+wbt_lidar_segmentation_based_filter
+                        Lidar segmentation based filter
+wbt_lidar_shift         Lidar shift
+wbt_lidar_sibson_interpolation
+                        Lidar sibson interpolation
+wbt_lidar_sort_by_time
+                        Lidar sort by time
+wbt_lidar_thin          Lidar thin
+wbt_lidar_thin_high_density
+                        Lidar thin high density
+wbt_lidar_tile          Lidar tile
+wbt_lidar_tile_footprint
+                        Lidar tile footprint
+wbt_lidar_tin_gridding
+                        Lidar tin gridding
+wbt_lidar_tophat_transform
+                        Lidar tophat transform
+wbt_line_detection_filter
+                        Line detection filter
+wbt_line_intersections
+                        Line intersections
+wbt_line_thinning       Line thinning
+wbt_linearity_index     Linearity index
+wbt_lines_to_polygons   Lines to polygons
+wbt_list_tools          All available tools in 'WhiteboxTools'
+wbt_list_unique_values
+                        List unique values
+wbt_list_unique_values_raster
+                        List unique values raster
+wbt_ln                  Ln
+wbt_local_hypsometric_analysis
+                        Local hypsometric analysis
+wbt_local_quadratic_regression
+                        Local quadratic regression
+wbt_log10               Log10
+wbt_log2                Log2
+wbt_logistic_regression
+                        Logistic regression
+wbt_long_profile        Long profile
+wbt_long_profile_from_points
+                        Long profile from points
+wbt_longest_flowpath    Longest flowpath
+wbt_low_points_on_headwater_divides
+                        Low points on headwater divides
+wbt_lowest_position     Lowest position
+wbt_majority_filter     Majority filter
+wbt_map_off_terrain_objects
+                        Map off terrain objects
+wbt_max                 Max
+wbt_max_absolute_overlay
+                        Max absolute overlay
+wbt_max_anisotropy_dev
+                        Max anisotropy dev
+wbt_max_anisotropy_dev_signature
+                        Max anisotropy dev signature
+wbt_max_branch_length   Max branch length
+wbt_max_difference_from_mean
+                        Max difference from mean
+wbt_max_downslope_elev_change
+                        Max downslope elev change
+wbt_max_elev_dev_signature
+                        Max elev dev signature
+wbt_max_elevation_deviation
+                        Max elevation deviation
+wbt_max_overlay         Max overlay
+wbt_max_upslope_elev_change
+                        Max upslope elev change
+wbt_max_upslope_flowpath_length
+                        Max upslope flowpath length
+wbt_max_upslope_value   Max upslope value
+wbt_maximal_curvature   Maximal curvature
+wbt_maximum_filter      Maximum filter
+wbt_md_inf_flow_accumulation
+                        Md inf flow accumulation
+wbt_mean_curvature      Mean curvature
+wbt_mean_filter         Mean filter
+wbt_median_filter       Median filter
+wbt_medoid              Medoid
+wbt_merge_line_segments
+                        Merge line segments
+wbt_merge_table_with_csv
+                        Merge table with csv
+wbt_merge_vectors       Merge vectors
+wbt_min                 Min
+wbt_min_absolute_overlay
+                        Min absolute overlay
+wbt_min_dist_classification
+                        Min dist classification
+wbt_min_downslope_elev_change
+                        Min downslope elev change
+wbt_min_max_contrast_stretch
+                        Min max contrast stretch
+wbt_min_overlay         Min overlay
+wbt_minimal_curvature   Minimal curvature
+wbt_minimum_bounding_box
+                        Minimum bounding box
+wbt_minimum_bounding_circle
+                        Minimum bounding circle
+wbt_minimum_bounding_envelope
+                        Minimum bounding envelope
+wbt_minimum_convex_hull
+                        Minimum convex hull
+wbt_minimum_filter      Minimum filter
+wbt_modified_k_means_clustering
+                        Modified k means clustering
+wbt_modify_lidar        Modify lidar
+wbt_modify_no_data_value
+                        Modify no data value
+wbt_modulo              Modulo
+wbt_mosaic              Mosaic
+wbt_mosaic_with_feathering
+                        Mosaic with feathering
+wbt_multi_part_to_single_part
+                        Multi part to single part
+wbt_multidirectional_hillshade
+                        Multidirectional hillshade
+wbt_multiply            Multiply
+wbt_multiply_overlay    Multiply overlay
+wbt_multiscale_curvatures
+                        Multiscale curvatures
+wbt_multiscale_elevation_percentile
+                        Multiscale elevation percentile
+wbt_multiscale_roughness
+                        Multiscale roughness
+wbt_multiscale_roughness_signature
+                        Multiscale roughness signature
+wbt_multiscale_std_dev_normals
+                        Multiscale std dev normals
+wbt_multiscale_std_dev_normals_signature
+                        Multiscale std dev normals signature
+wbt_multiscale_topographic_position_image
+                        Multiscale topographic position image
+wbt_narrowness_index    Narrowness index
+wbt_natural_neighbour_interpolation
+                        Natural neighbour interpolation
+wbt_nearest_neighbour_gridding
+                        Nearest neighbour gridding
+wbt_negate              Negate
+wbt_new_raster_from_base
+                        New raster from base
+wbt_normal_vectors      Normal vectors
+wbt_normalize_lidar     Normalize lidar
+wbt_normalized_difference_index
+                        Normalized difference index
+wbt_not                 Not
+wbt_not_equal_to        Not equal to
+wbt_num_downslope_neighbours
+                        Num downslope neighbours
+wbt_num_inflowing_neighbours
+                        Num inflowing neighbours
+wbt_num_upslope_neighbours
+                        Num upslope neighbours
+wbt_olympic_filter      Olympic filter
+wbt_opening             Opening
+wbt_openness            Openness
+wbt_or                  Or
+wbt_paired_sample_t_test
+                        Paired sample t test
+wbt_panchromatic_sharpening
+                        Panchromatic sharpening
+wbt_parallelepiped_classification
+                        Parallelepiped classification
+wbt_patch_orientation   Patch orientation
+wbt_pennock_landform_class
+                        Pennock landform class
+wbt_percent_elev_range
+                        Percent elev range
+wbt_percent_equal_to    Percent equal to
+wbt_percent_greater_than
+                        Percent greater than
+wbt_percent_less_than   Percent less than
+wbt_percentage_contrast_stretch
+                        Percentage contrast stretch
+wbt_percentile_filter   Percentile filter
+wbt_perimeter_area_ratio
+                        Perimeter area ratio
+wbt_phi_coefficient     Phi coefficient
+wbt_pick_from_list      Pick from list
+wbt_piecewise_contrast_stretch
+                        Piecewise contrast stretch
+wbt_plan_curvature      Plan curvature
+wbt_polygon_area        Polygon area
+wbt_polygon_long_axis   Polygon long axis
+wbt_polygon_perimeter   Polygon perimeter
+wbt_polygon_short_axis
+                        Polygon short axis
+wbt_polygonize          Polygonize
+wbt_polygons_to_lines   Polygons to lines
+wbt_power               Power
+wbt_prewitt_filter      Prewitt filter
+wbt_principal_component_analysis
+                        Principal component analysis
+wbt_print_geo_tiff_tags
+                        Print geo tiff tags
+wbt_profile             Profile
+wbt_profile_curvature   Profile curvature
+wbt_qin_flow_accumulation
+                        Qin flow accumulation
+wbt_quantiles           Quantiles
+wbt_quinn_flow_accumulation
+                        Quinn flow accumulation
+wbt_radial_basis_function_interpolation
+                        Radial basis function interpolation
+wbt_radius_of_gyration
+                        Radius of gyration
+wbt_raise_walls         Raise walls
+wbt_random_field        Random field
+wbt_random_forest_classification
+                        Random forest classification
+wbt_random_forest_regression
+                        Random forest regression
+wbt_random_sample       Random sample
+wbt_range_filter        Range filter
+wbt_raster_area         Raster area
+wbt_raster_calculator   Raster calculator
+wbt_raster_cell_assignment
+                        Raster cell assignment
+wbt_raster_histogram    Raster histogram
+wbt_raster_perimeter    Raster perimeter
+wbt_raster_streams_to_vector
+                        Raster streams to vector
+wbt_raster_summary_stats
+                        Raster summary stats
+wbt_raster_to_vector_lines
+                        Raster to vector lines
+wbt_raster_to_vector_points
+                        Raster to vector points
+wbt_raster_to_vector_polygons
+                        Raster to vector polygons
+wbt_rasterize_streams   Rasterize streams
+wbt_reciprocal          Reciprocal
+wbt_reclass             Reclass
+wbt_reclass_equal_interval
+                        Reclass equal interval
+wbt_reclass_from_file   Reclass from file
+wbt_reconcile_multiple_headers
+                        Reconcile multiple headers
+wbt_recover_flightline_info
+                        Recover flightline info
+wbt_recreate_pass_lines
+                        Recreate pass lines
+wbt_reinitialize_attribute_table
+                        Reinitialize attribute table
+wbt_related_circumscribing_circle
+                        Related circumscribing circle
+wbt_relative_aspect     Relative aspect
+wbt_relative_topographic_position
+                        Relative topographic position
+wbt_remove_field_edge_points
+                        Remove field edge points
+wbt_remove_off_terrain_objects
+                        Remove off terrain objects
+wbt_remove_polygon_holes
+                        Remove polygon holes
+wbt_remove_raster_polygon_holes
+                        Remove raster polygon holes
+wbt_remove_short_streams
+                        Remove short streams
+wbt_remove_spurs        Remove spurs
+wbt_repair_stream_vector_topology
+                        Repair stream vector topology
+wbt_resample            Resample
+wbt_rescale_value_range
+                        Rescale value range
+wbt_rgb_to_ihs          Rgb to ihs
+wbt_rho8_flow_accumulation
+                        Rho8 flow accumulation
+wbt_rho8_pointer        Rho8 pointer
+wbt_ring_curvature      Ring curvature
+wbt_river_centerlines   River centerlines
+wbt_roberts_cross_filter
+                        Roberts cross filter
+wbt_root_mean_square_error
+                        Root mean square error
+wbt_rotor               Rotor
+wbt_round               Round
+wbt_ruggedness_index    Ruggedness index
+wbt_run_tool            Run a tool in 'WhiteboxTools' by name
+wbt_rust_backtrace      Convenience method for setting RUST_BACKTRACE
+                        options for debugging
+wbt_scharr_filter       Scharr filter
+wbt_sediment_transport_index
+                        Sediment transport index
+wbt_select_tiles_by_polygon
+                        Select tiles by polygon
+wbt_set_nodata_value    Set nodata value
+wbt_shadow_animation    Shadow animation
+wbt_shadow_image        Shadow image
+wbt_shape_complexity_index
+                        Shape complexity index
+wbt_shape_complexity_index_raster
+                        Shape complexity index raster
+wbt_shape_index         Shape index
+wbt_shreve_stream_magnitude
+                        Shreve stream magnitude
+wbt_sigmoidal_contrast_stretch
+                        Sigmoidal contrast stretch
+wbt_sin                 Sin
+wbt_single_part_to_multi_part
+                        Single part to multi part
+wbt_sinh                Sinh
+wbt_sink                Sink
+wbt_slope               Slope
+wbt_slope_vs_aspect_plot
+                        Slope vs aspect plot
+wbt_slope_vs_elevation_plot
+                        Slope vs elevation plot
+wbt_smooth_vectors      Smooth vectors
+wbt_smooth_vegetation_residual
+                        Smooth vegetation residual
+wbt_snap_pour_points    Snap pour points
+wbt_sobel_filter        Sobel filter
+wbt_sort_lidar          Sort lidar
+wbt_source              Initialize an R object containing spatial data
+                        for use by WhiteboxTools
+wbt_spherical_std_dev_of_normals
+                        Spherical std dev of normals
+wbt_split_colour_composite
+                        Split colour composite
+wbt_split_lidar         Split lidar
+wbt_split_vector_lines
+                        Split vector lines
+wbt_split_with_lines    Split with lines
+wbt_square              Square
+wbt_square_root         Square root
+wbt_standard_deviation_contrast_stretch
+                        Standard deviation contrast stretch
+wbt_standard_deviation_filter
+                        Standard deviation filter
+wbt_standard_deviation_of_slope
+                        Standard deviation of slope
+wbt_stochastic_depression_analysis
+                        Stochastic depression analysis
+wbt_strahler_order_basins
+                        Strahler order basins
+wbt_strahler_stream_order
+                        Strahler stream order
+wbt_stream_link_class   Stream link class
+wbt_stream_link_identifier
+                        Stream link identifier
+wbt_stream_link_length
+                        Stream link length
+wbt_stream_link_slope   Stream link slope
+wbt_stream_power_index
+                        Stream power index
+wbt_stream_slope_continuous
+                        Stream slope continuous
+wbt_subbasins           Subbasins
+wbt_subtract            Subtract
+wbt_sum_overlay         Sum overlay
+wbt_surface_area_ratio
+                        Surface area ratio
+wbt_svm_classification
+                        Svm classification
+wbt_svm_regression      Svm regression
+wbt_symmetrical_difference
+                        Symmetrical difference
+wbt_tan                 Tan
+wbt_tangential_curvature
+                        Tangential curvature
+wbt_tanh                Tanh
+wbt_thicken_raster_line
+                        Thicken raster line
+wbt_time_in_daylight    Time in daylight
+wbt_tin_gridding        Tin gridding
+wbt_to_degrees          To degrees
+wbt_to_radians          To radians
+wbt_tool_help           Help description for a specific tool in
+                        'WhiteboxTools'
+wbt_tool_parameters     Tool parameter descriptions for a specific tool
+                        in 'WhiteboxTools'
+wbt_toolbox             The toolbox for a specific tool in
+                        WhiteboxTools
+wbt_tophat_transform    Tophat transform
+wbt_topo_render         Topo render
+wbt_topographic_position_animation
+                        Topographic position animation
+wbt_topological_stream_order
+                        Topological stream order
+wbt_total_curvature     Total curvature
+wbt_total_filter        Total filter
+wbt_trace_downslope_flowpaths
+                        Trace downslope flowpaths
+wbt_travelling_salesman_problem
+                        Travelling salesman problem
+wbt_trend_surface       Trend surface
+wbt_trend_surface_vector_points
+                        Trend surface vector points
+wbt_tributary_identifier
+                        Tributary identifier
+wbt_truncate            Truncate
+wbt_turning_bands_simulation
+                        Turning bands simulation
+wbt_two_sample_ks_test
+                        Two sample ks test
+wbt_union               Union
+wbt_unnest_basins       Unnest basins
+wbt_unsharp_masking     Unsharp masking
+wbt_unsphericity        Unsphericity
+wbt_update_nodata_cells
+                        Update nodata cells
+wbt_upslope_depression_storage
+                        Upslope depression storage
+wbt_user_defined_weights_filter
+                        User ined weights filter
+wbt_vector_hex_binning
+                        Vector hex binning
+wbt_vector_lines_to_raster
+                        Vector lines to raster
+wbt_vector_points_to_raster
+                        Vector points to raster
+wbt_vector_polygons_to_raster
+                        Vector polygons to raster
+wbt_vector_stream_network_analysis
+                        Vector stream network analysis
+wbt_version             Version information for 'WhiteboxTools'
+wbt_vertical_excess_curvature
+                        Vertical excess curvature
+wbt_view_code           Source code for a specific tool in
+                        'WhiteboxTools'
+wbt_viewshed            Viewshed
+wbt_visibility_index    Visibility index
+wbt_voronoi_diagram     Voronoi diagram
+wbt_watershed           Watershed
+wbt_weighted_overlay    Weighted overlay
+wbt_weighted_sum        Weighted sum
+wbt_wetness_index       Wetness index
+wbt_wilcoxon_signed_rank_test
+                        Wilcoxon signed rank test
+wbt_write_function_memory_insertion
+                        Write function memory insertion
+wbt_xor                 Xor
+wbt_yield_filter        Yield filter
+wbt_yield_map           Yield map
+wbt_yield_normalization
+                        Yield normalization
+wbt_z_scores            Z scores
+wbt_zlidar_to_las       Zlidar to las
+wbt_zonal_statistics    Zonal statistics
+wbttoolparameters       'WhiteboxTools' Tool Parameters
+wbttools                'WhiteboxTools' Tool List

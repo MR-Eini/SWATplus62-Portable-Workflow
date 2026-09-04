@@ -1,0 +1,65 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { writeAll } from "./write_all.ts";
+import type { Writer } from "./types.ts";
+import { isCloser } from "./_common.ts";
+
+/** Options for {@linkcode toWritableStream}. */
+export interface toWritableStreamOptions {
+  /**
+   * If the `writer` is also a `Closer`, automatically close the `writer`
+   * when the stream is closed, aborted, or a write error occurs.
+   *
+   * @default {true}
+   */
+  autoClose?: boolean;
+}
+
+/**
+ * Create a {@linkcode WritableStream} from a {@linkcode Writer}.
+ *
+ * @example Usage
+ * ```ts no-assert
+ * import { toWritableStream } from "@std/io/to-writable-stream";
+ *
+ * await ReadableStream.from(["Hello World"])
+ *   .pipeThrough(new TextEncoderStream())
+ *   .pipeTo(toWritableStream(Deno.stdout));
+ * ```
+ *
+ * @param writer The writer to write to
+ * @param options The options
+ * @returns The writable stream
+ */
+export function toWritableStream(
+  writer: Writer,
+  options?: toWritableStreamOptions,
+): WritableStream<Uint8Array> {
+  const { autoClose = true } = options ?? {};
+
+  return new WritableStream({
+    async write(chunk, controller) {
+      try {
+        await writeAll(writer, chunk);
+      } catch (e) {
+        controller.error(e);
+        if (isCloser(writer) && autoClose) {
+          writer.close();
+        }
+      }
+    },
+    close() {
+      if (isCloser(writer) && autoClose) {
+        writer.close();
+      }
+    },
+    abort() {
+      if (isCloser(writer) && autoClose) {
+        writer.close();
+      }
+    },
+  });
+}
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-expose-headers":"*","x-content-type-options":"nosniff","access-control-allow-origin":"*","x-jsr-backend":"modules","server":"cloudflare","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8siu8eDghHXJNa26VvlQYvg3N5KHLV1dhK1aljo%2BnMyvZQ12hhn896QIlmhYNwxJbwmRG5SmCVh18VLM9ac4BnqrXQX1drVWyDgFRmBtggM4JHCCG3C3%2BPo%3D\"}]}","content-length":"1597","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","vary":"Origin","cache-control":"public, max-age=31536000, immutable","etag":"\"9d7ba57e5fa2f2de32b8a61a0de79af6\"","x-robots-tag":"noindex","cf-ray":"9e98a5d1eff03992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/io/0.224.8/to_writable_stream.ts","time":1775728648}

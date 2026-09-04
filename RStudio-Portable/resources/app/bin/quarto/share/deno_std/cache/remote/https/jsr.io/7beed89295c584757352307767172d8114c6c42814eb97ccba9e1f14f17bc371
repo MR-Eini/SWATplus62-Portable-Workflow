@@ -1,0 +1,52 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+/**
+ * Concatenates multiple `ReadableStream`s into a single ordered
+ * `ReadableStream`.
+ *
+ * Cancelling the resulting stream will cancel all the input streams.
+ *
+ * @typeParam T The type of the chunks in the streams.
+ * @param streams An iterable of `ReadableStream`s to concat.
+ * @returns A `ReadableStream` that will emit the concatenated chunks.
+ *
+ * @example Usage
+ * ```ts
+ * import { concatReadableStreams } from "@std/streams/concat-readable-streams";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream1 = ReadableStream.from([1, 2, 3]);
+ * const stream2 = ReadableStream.from([4, 5, 6]);
+ * const stream3 = ReadableStream.from([7, 8, 9]);
+ *
+ * assertEquals(
+ *   await Array.fromAsync(concatReadableStreams(stream1, stream2, stream3)),
+ *   [1, 2, 3, 4, 5, 6, 7, 8, 9],
+ * );
+ * ```
+ */
+export function concatReadableStreams<T>(
+  ...streams: ReadableStream<T>[]
+): ReadableStream<T> {
+  let i = 0;
+  return new ReadableStream<T>({
+    async pull(controller) {
+      const reader = streams[i]!.getReader();
+      const { done, value } = await reader.read();
+      if (done) {
+        if (streams.length === ++i) {
+          return controller.close();
+        }
+        return await this.pull!(controller);
+      }
+      controller.enqueue(value);
+      reader.releaseLock();
+    },
+    async cancel(reason) {
+      const promises = streams.map((stream) => stream.cancel(reason));
+      await Promise.allSettled(promises);
+    },
+  });
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:28 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-type":"text/typescript","cf-ray":"9e98a5d2a8f53992-IAD","content-length":"1557","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","etag":"\"a2499af4ba80a0405a2c1f0d94c95359\"","vary":"Origin","server":"cloudflare","access-control-expose-headers":"*","x-content-type-options":"nosniff","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=RdXAUDnCGiB32n2tB8my0Fuhb1zKkwf%2BI5PeuZq8NRc8DnK3VTDntbrLbjcpFnYuJpDQpWCvJsMVgdjl%2Bq82SAq0vnC2Hu0TSxoqLJqGN7i7I6JGyYc0pSc%3D\"}]}"},"url":"https://jsr.io/@std/streams/0.224.5/concat_readable_streams.ts","time":1775728648}

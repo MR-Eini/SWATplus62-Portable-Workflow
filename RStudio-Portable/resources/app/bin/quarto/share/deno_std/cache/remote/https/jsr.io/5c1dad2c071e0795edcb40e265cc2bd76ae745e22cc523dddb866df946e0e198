@@ -1,0 +1,47 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+import { basename } from "jsr:/@std/path@^0.224.0/basename";
+import { normalize } from "jsr:/@std/path@^0.224.0/normalize";
+import { toPathString } from "./_to_path_string.ts";
+
+/**
+ * Walk entry for {@linkcode walk}, {@linkcode walkSync},
+ * {@linkcode expandGlob} and {@linkcode expandGlobSync}.
+ */
+export interface WalkEntry extends Deno.DirEntry {
+  /** Full path of the entry. */
+  path: string;
+}
+
+/** Create {@linkcode WalkEntry} for the `path` synchronously. */
+export function createWalkEntrySync(path: string | URL): WalkEntry {
+  path = toPathString(path);
+  path = normalize(path);
+  const name = basename(path);
+  const info = Deno.statSync(path);
+  return {
+    path,
+    name,
+    isFile: info.isFile,
+    isDirectory: info.isDirectory,
+    isSymlink: info.isSymlink,
+  };
+}
+
+/** Create {@linkcode WalkEntry} for the `path` asynchronously. */
+export async function createWalkEntry(path: string | URL): Promise<WalkEntry> {
+  path = toPathString(path);
+  path = normalize(path);
+  const name = basename(path);
+  const info = await Deno.stat(path);
+  return {
+    path,
+    name,
+    isFile: info.isFile,
+    isDirectory: info.isDirectory,
+    isSymlink: info.isSymlink,
+  };
+}
+
+// denoCacheMetadata={"headers":{"vary":"Origin","access-control-expose-headers":"*","content-type":"text/typescript","content-length":"1318","access-control-allow-origin":"*","x-robots-tag":"noindex","server":"cloudflare","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aJ7LeEhLJV8wDtIuaBDqJViZge5Om5diaY5LVTOjdax5h1JergInS7NDSvp%2BjVzQ%2BzNKt%2Bb%2BKD4S9iihchdB3gZjmB%2FaOmd8wHNGNWbZBWCVu%2FJC6uBSdSE%3D\"}]}","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","cf-ray":"9e98a5d349ae3992-IAD","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","etag":"\"fb120aac254f18af47035cc1f3512ef9\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/fs/0.224.0/_create_walk_entry.ts","time":1775728648}

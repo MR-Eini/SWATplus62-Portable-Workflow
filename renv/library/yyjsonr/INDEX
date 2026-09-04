@@ -1,0 +1,36 @@
+as_scalar               Tag an atomic vector with a single element as
+                        class 'scalar'.  When output to JSON it will be
+                        output as a scalar not a vector
+opts_read_geojson       Options for reading in GeoJSON
+opts_read_json          Create named list of options for parsing R from
+                        JSON
+opts_write_geojson      Options for writing from 'sf' object to
+                        'GeoJSON'
+opts_write_json         Create named list of options for serializing R
+                        to JSON
+read_geojson_conn       Parse geoJSON from an R connection object.
+read_geojson_str        Load GeoJSON as 'sf' object
+read_json_conn          Parse JSON from an R connection object.
+read_json_file          Convert JSON to R
+read_json_raw           Convert JSON in a raw vector to R
+read_json_str           Convert JSON in a character string to R
+read_ndjson_file        Parse an NDJSON file to a data.frame or list
+read_ndjson_raw         Parse an NDJSON within a raw vector to a
+                        data.frame or list
+read_ndjson_str         Parse an NDJSON string to a data.frame or list
+validate_json_file      Validate JSON in file or string
+write_geojson_str       Write SF to GeoJSON string
+write_json_file         Convert R object to JSON file
+write_json_raw          Convert R object to a raw vector of JSON data
+write_json_str          Convert R object to JSON string
+write_ndjson_file       Write list or data.frame object to NDJSON in a
+                        file
+write_ndjson_raw        Write list or data.frame object to NDJSON in a
+                        raw vector
+write_ndjson_str        Write list or data.frame object to NDJSON in a
+                        string
+yyjson_read_flag        Advanced: Values for setting internal options
+                        directly on YYJSON library
+yyjson_version          Version number of 'yyjson' C library
+yyjson_write_flag       Advanced: Values for setting internal options
+                        directly on YYJSON library

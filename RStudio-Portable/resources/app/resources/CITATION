@@ -1,0 +1,19 @@
+bibentry("Manual",
+         title = "RStudio: Integrated Development Environment for R",
+         author = person("Posit team"),
+         organization = "Posit Software, PBC",
+         address      = "Boston, MA",
+         year         = "2026",
+         url          = "http://www.posit.co/",
+         
+         textVersion = 
+         paste("Posit team (2026). ", 
+               "RStudio: Integrated Development Environment for R. ",
+               "Posit Software, PBC, Boston, MA. ",
+               "URL http://www.posit.co/.",
+               sep=""),
+         
+         mheader = "To cite RStudio in publications use:",
+	 
+	     mfooter = ""
+	)

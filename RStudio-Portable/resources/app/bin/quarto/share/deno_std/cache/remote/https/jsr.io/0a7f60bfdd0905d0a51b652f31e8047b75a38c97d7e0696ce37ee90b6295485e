@@ -1,0 +1,98 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Applies the given transformer to all values in the given record and returns a
+ * new record containing the resulting keys associated to the last value that
+ * produced them.
+ *
+ * @template T The type of the values in the input record.
+ * @template O The type of the values in the output record.
+ * @template K The type of the keys in the input and output records.
+ *
+ * @param record The record to map values from.
+ * @param transformer The function to transform each value.
+ *
+ * @returns A new record with all values transformed by the given transformer.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { mapValues } from "@std/collections/map-values";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const usersById = {
+ *   a5ec: { name: "Mischa" },
+ *   de4f: { name: "Kim" },
+ * };
+ * const namesById = mapValues(usersById, (user) => user.name);
+ *
+ * assertEquals(
+ *   namesById,
+ *   {
+ *     a5ec: "Mischa",
+ *     de4f: "Kim",
+ *   },
+ * );
+ * ```
+ */
+export function mapValues<T, O, K extends string>(
+  record: Readonly<Record<K, T>>,
+  transformer: (value: T, key: K) => O,
+): Record<K, O>;
+/**
+ * Applies the given transformer to all values in the given record and returns a
+ * new record containing the resulting keys associated to the last value that
+ * produced them.
+ *
+ * @template T The type of the values in the input record.
+ * @template O The type of the values in the output record.
+ * @template K The type of the keys in the input and output records.
+ *
+ * @param record The record to map values from.
+ * @param transformer The function to transform each value.
+ *
+ * @returns A new record with all values transformed by the given transformer.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { mapValues } from "@std/collections/map-values";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const usersById = {
+ *   "a5ec": { name: "Mischa" },
+ *   "de4f": { name: "Kim" },
+ * };
+ * const namesById = mapValues(usersById, (user) => user.name);
+ *
+ * assertEquals(
+ *   namesById,
+ *   {
+ *     "a5ec": "Mischa",
+ *     "de4f": "Kim",
+ *   },
+ * );
+ * ```
+ */
+export function mapValues<T, O, K extends string>(
+  record: Readonly<Partial<Record<K, T>>>,
+  transformer: (value: T, key: K) => O,
+): Partial<Record<K, O>>;
+export function mapValues<T, O, K extends string>(
+  record: Record<K, T>,
+  transformer: (value: T, key: K) => O,
+  // deno-lint-ignore no-explicit-any
+): any {
+  // deno-lint-ignore no-explicit-any
+  const result: any = {};
+  const entries = Object.entries<T>(record);
+
+  for (const [key, value] of entries) {
+    const mappedValue = transformer(value, key as K);
+
+    result[key] = mappedValue;
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"vary":"Origin","access-control-expose-headers":"*","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gjoetJT6XIbhw7YEtQzr59PAq9brnliQQVLhwOHBL1Gmhf0NhkuRdPse1rzA2ZZoxMFSvVpukz3fyDcde3TKCJ697Db3G0DPSK3JmwmgphVnXp9SSkY8d6s%3D\"}]}","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d02e453992-IAD","date":"Thu, 09 Apr 2026 09:57:27 GMT","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","content-length":"2822","x-jsr-backend":"modules","server":"cloudflare","etag":"\"73c6cfa94fd31d0862416e9a3361ccd4\""},"url":"https://jsr.io/@std/collections/0.224.2/map_values.ts","time":1775728647}

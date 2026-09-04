@@ -1,0 +1,12 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+// Ported from https://github.com/browserify/path-browserify/
+// This module is browser compatible.
+
+import { CHAR_FORWARD_SLASH } from "../_common/constants.ts";
+
+export function isPosixPathSeparator(code: number): boolean {
+  return code === CHAR_FORWARD_SLASH;
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=E%2BbnafGn5p%2BiljiM0tt6PeOW9t%2FjkoupkvVcp2nis5AkkdDF4nxIxcJgTgiX5%2F32G5BoX6ToJvoV3sRFZnabKki8Z35CRJQX1OV5XUcylFbqkUcCqWhmlUU%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","x-content-type-options":"nosniff","x-jsr-backend":"modules","content-length":"391","etag":"\"645f33cec02ec7bfe4abcef50d55052e\"","access-control-expose-headers":"*","cf-ray":"9e98a5d4eb943992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","server":"cloudflare"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/posix/_util.ts","time":1775728648}

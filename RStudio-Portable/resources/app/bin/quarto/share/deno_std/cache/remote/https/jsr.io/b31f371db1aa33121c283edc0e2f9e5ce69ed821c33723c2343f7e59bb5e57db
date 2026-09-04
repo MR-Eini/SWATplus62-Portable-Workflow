@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { CHAR_COLON } from "../_common/constants.ts";
+import { assertPath } from "../_common/assert_path.ts";
+import { isPathSeparator, isWindowsDeviceRoot } from "./_util.ts";
+
+/**
+ * Verifies whether provided path is absolute
+ * @param path to be verified as absolute
+ */
+export function isAbsolute(path: string): boolean {
+  assertPath(path);
+
+  const len = path.length;
+  if (len === 0) return false;
+
+  const code = path.charCodeAt(0);
+  if (isPathSeparator(code)) {
+    return true;
+  } else if (isWindowsDeviceRoot(code)) {
+    // Possible device root
+
+    if (len > 2 && path.charCodeAt(1) === CHAR_COLON) {
+      if (isPathSeparator(path.charCodeAt(2))) return true;
+    }
+  }
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","vary":"Origin","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d389e53992-IAD","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mPbvekwZ2JCwETHy%2B8G%2F5wZ%2BDY8OQEddK2LKG0%2FnDuXQ%2BObB7R55URQCWOC6f%2BTfSj2rWSKFvKGqqBPb1udbaIDKmnCMlNQNxpEcbbasOzgQ3gYhDfTaz2Q%3D\"}]}","access-control-allow-origin":"*","x-content-type-options":"nosniff","server":"cloudflare","etag":"\"b9be1ca91532dbb9bcc80bd73b5434fc\"","x-robots-tag":"noindex","content-length":"818"},"url":"https://jsr.io/@std/path/0.224.0/windows/is_absolute.ts","time":1775728648}

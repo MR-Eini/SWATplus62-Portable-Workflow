@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { join as posixJoin } from "./posix/join.ts";
+import { join as windowsJoin } from "./windows/join.ts";
+
+/**
+ * Joins a sequence of paths, then normalizes the resulting path.
+ *
+ * @example Usage
+ * ```ts
+ * import { join } from "@std/path/join";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * if (Deno.build.os === "windows") {
+ *   assertEquals(join("C:\\foo", "bar", "baz\\quux", "garply", ".."), "C:\\foo\\bar\\baz\\quux");
+ * } else {
+ *   assertEquals(join("/foo", "bar", "baz/quux", "garply", ".."), "/foo/bar/baz/quux");
+ * }
+ * ```
+ *
+ * @param paths Paths to be joined and normalized.
+ * @returns The joined and normalized path.
+ */
+export function join(...paths: string[]): string {
+  return isWindows ? windowsJoin(...paths) : posixJoin(...paths);
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","server":"cloudflare","cf-ray":"9e98a5d4bb4a3992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-expose-headers":"*","x-robots-tag":"noindex","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nxTo82%2FanJd0fQ8qKcpQWjXy7p1cvetnUkrWUzziNPmacfyH8K7Xk0GVey8N4C%2Bj51y8xeaIvCm5APM1AozVbXNiSBCqMLMmB2fA8HyntxCALdWt1M7tckE%3D\"}]}","etag":"\"62af3bba5f3d5b4c6f74ae3b59584aac\"","vary":"Origin","content-type":"text/typescript","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","content-length":"940","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/join.ts","time":1775728648}

@@ -1,0 +1,40 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Return type for {@linkcode invert}. */
+export type InvertResult<T extends Record<PropertyKey, PropertyKey>> = {
+  [P in keyof T as T[P]]: P;
+};
+
+/**
+ * Composes a new record with all keys and values inverted.
+ *
+ * If the record contains duplicate values, subsequent values overwrite property
+ * assignments of previous values. If the record contains values which aren't
+ * {@linkcode PropertyKey}s their string representation is used as the key.
+ *
+ * @template T The type of the input record.
+ *
+ * @param record The record to invert.
+ *
+ * @returns A new record with all keys and values inverted.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { invert } from "@std/collections/invert";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const record = { a: "x", b: "y", c: "z" };
+ *
+ * assertEquals(invert(record), { x: "a", y: "b", z: "c" });
+ * ```
+ */
+export function invert<T extends Record<PropertyKey, PropertyKey>>(
+  record: Readonly<T>,
+): InvertResult<T> {
+  return Object.fromEntries(
+    Object.entries(record).map(([key, value]) => [value, key]),
+  );
+}
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:27 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","etag":"\"e010343403a756d5adcae29172078efa\"","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d02e3f3992-IAD","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","content-type":"text/typescript","server":"cloudflare","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=XrAFhZ4NGG39DjsHCzftR8a9IwElsgvTr536cwLle%2Fwc2wz3Ucbc5nboC8zTMfUlnZSqRdKxELJ4c3ojsDAXIL8lEACVdcM%2B1rf9ZZq%2B71NUvjAYLME7tzE%3D\"}]}","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","vary":"Origin","alt-svc":"h3=\":443\"; ma=86400","content-length":"1204"},"url":"https://jsr.io/@std/collections/0.224.2/invert.ts","time":1775728647}

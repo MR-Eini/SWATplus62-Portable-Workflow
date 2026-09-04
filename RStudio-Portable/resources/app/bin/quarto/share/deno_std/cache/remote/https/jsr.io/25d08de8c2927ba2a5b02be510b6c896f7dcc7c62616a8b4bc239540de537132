@@ -1,0 +1,37 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Test whether the given string is a glob */
+export function isGlob(str: string): boolean {
+  const chars: Record<string, string> = { "{": "}", "(": ")", "[": "]" };
+  const regex =
+    /\\(.)|(^!|\*|\?|[\].+)]\?|\[[^\\\]]+\]|\{[^\\}]+\}|\(\?[:!=][^\\)]+\)|\([^|]+\|[^\\)]+\))/;
+
+  if (str === "") {
+    return false;
+  }
+
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(str))) {
+    if (match[2]) return true;
+    let idx = match.index + match[0].length;
+
+    // if an open bracket/brace/paren is escaped,
+    // set the index to the next closing character
+    const open = match[1];
+    const close = open ? chars[open] : null;
+    if (open && close) {
+      const n = str.indexOf(close, idx);
+      if (n !== -1) {
+        idx = n + 1;
+      }
+    }
+
+    str = str.slice(idx);
+  }
+
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cf-ray":"9e98a5d2588e3992-IAD","content-type":"text/typescript","vary":"Origin","content-length":"938","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","etag":"\"aadbc2e32508ade85b7cadc05fb2b5d3\"","access-control-expose-headers":"*","x-jsr-backend":"modules","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CoX5bwMyWrMowMW1z3B31HuvWw%2BmsOGPFbtD4BNRUcnOFUVkJTg9WMbS%2BfIjztLdm8Uh%2FIw1dm6WJik7Z5oQCMK4%2BSaTn4icc9j3TOaDkqOqxEtxzAfZv3U%3D\"}]}"},"url":"https://jsr.io/@std/path/0.224.0/is_glob.ts","time":1775728648}

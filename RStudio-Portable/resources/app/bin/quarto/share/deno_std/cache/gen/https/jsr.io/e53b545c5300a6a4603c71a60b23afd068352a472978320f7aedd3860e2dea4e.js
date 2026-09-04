@@ -1,0 +1,11 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+export const str = {
+  tag: "tag:yaml.org,2002:str",
+  kind: "scalar",
+  resolve: ()=>true,
+  construct: (data)=>data !== null ? data : ""
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQveWFtbC8xLjAuNS9fdHlwZS9zdHIudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gUG9ydGVkIGZyb20ganMteWFtbCB2My4xMy4xOlxuLy8gaHR0cHM6Ly9naXRodWIuY29tL25vZGVjYS9qcy15YW1sL2NvbW1pdC82NjVhYWRkYTQyMzQ5ZGNhZTg2OWYxMjA0MGQ5YjEwZWYxOGQxMmRhXG4vLyBDb3B5cmlnaHQgMjAxOC0yMDI0IHRoZSBEZW5vIGF1dGhvcnMuIEFsbCByaWdodHMgcmVzZXJ2ZWQuIE1JVCBsaWNlbnNlLlxuXG5pbXBvcnQgdHlwZSB7IFR5cGUgfSBmcm9tIFwiLi4vX3R5cGUudHNcIjtcblxuZXhwb3J0IGNvbnN0IHN0cjogVHlwZTxcInNjYWxhclwiLCBzdHJpbmc+ID0ge1xuICB0YWc6IFwidGFnOnlhbWwub3JnLDIwMDI6c3RyXCIsXG4gIGtpbmQ6IFwic2NhbGFyXCIsXG4gIHJlc29sdmU6ICgpOiBib29sZWFuID0+IHRydWUsXG4gIGNvbnN0cnVjdDogKGRhdGE6IHN0cmluZyB8IG51bGwpOiBzdHJpbmcgPT4gZGF0YSAhPT0gbnVsbCA/IGRhdGEgOiBcIlwiLFxufTtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSwrQkFBK0I7QUFDL0Isb0ZBQW9GO0FBQ3BGLDBFQUEwRTtBQUkxRSxPQUFPLE1BQU0sTUFBOEI7RUFDekMsS0FBSztFQUNMLE1BQU07RUFDTixTQUFTLElBQWU7RUFDeEIsV0FBVyxDQUFDLE9BQWdDLFNBQVMsT0FBTyxPQUFPO0FBQ3JFLEVBQUUifQ==
+// denoCacheMetadata=778435339588781817,979264102238051448

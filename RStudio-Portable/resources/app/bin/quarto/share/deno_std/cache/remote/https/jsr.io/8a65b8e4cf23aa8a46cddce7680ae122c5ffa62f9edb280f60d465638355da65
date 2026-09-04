@@ -1,0 +1,134 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertArg } from "../_common/normalize.ts";
+import { CHAR_COLON } from "../_common/constants.ts";
+import { normalizeString } from "../_common/normalize_string.ts";
+import { isPathSeparator, isWindowsDeviceRoot } from "./_util.ts";
+
+/**
+ * Normalize the `path`, resolving `'..'` and `'.'` segments.
+ * Note that resolving these segments does not necessarily mean that all will be eliminated.
+ * A `'..'` at the top-level will be preserved, and an empty path is canonically `'.'`.
+ *
+ * @example Usage
+ * ```ts
+ * import { normalize } from "@std/path/windows/normalize";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const normalized = normalize("C:\\foo\\..\\bar");
+ * assertEquals(normalized, "C:\\bar");
+ * ```
+ *
+ * @param path The path to normalize
+ * @returns The normalized path
+ */
+export function normalize(path: string): string {
+  assertArg(path);
+
+  const len = path.length;
+  let rootEnd = 0;
+  let device: string | undefined;
+  let isAbsolute = false;
+  const code = path.charCodeAt(0);
+
+  // Try to match a root
+  if (len > 1) {
+    if (isPathSeparator(code)) {
+      // Possible UNC root
+
+      // If we started with a separator, we know we at least have an absolute
+      // path of some kind (UNC or otherwise)
+      isAbsolute = true;
+
+      if (isPathSeparator(path.charCodeAt(1))) {
+        // Matched double path separator at beginning
+        let j = 2;
+        let last = j;
+        // Match 1 or more non-path separators
+        for (; j < len; ++j) {
+          if (isPathSeparator(path.charCodeAt(j))) break;
+        }
+        if (j < len && j !== last) {
+          const firstPart = path.slice(last, j);
+          // Matched!
+          last = j;
+          // Match 1 or more path separators
+          for (; j < len; ++j) {
+            if (!isPathSeparator(path.charCodeAt(j))) break;
+          }
+          if (j < len && j !== last) {
+            // Matched!
+            last = j;
+            // Match 1 or more non-path separators
+            for (; j < len; ++j) {
+              if (isPathSeparator(path.charCodeAt(j))) break;
+            }
+            if (j === len) {
+              // We matched a UNC root only
+              // Return the normalized version of the UNC root since there
+              // is nothing left to process
+
+              return `\\\\${firstPart}\\${path.slice(last)}\\`;
+            } else if (j !== last) {
+              // We matched a UNC root with leftovers
+
+              device = `\\\\${firstPart}\\${path.slice(last, j)}`;
+              rootEnd = j;
+            }
+          }
+        }
+      } else {
+        rootEnd = 1;
+      }
+    } else if (isWindowsDeviceRoot(code)) {
+      // Possible device root
+
+      if (path.charCodeAt(1) === CHAR_COLON) {
+        device = path.slice(0, 2);
+        rootEnd = 2;
+        if (len > 2) {
+          if (isPathSeparator(path.charCodeAt(2))) {
+            // Treat separator following drive name as an absolute path
+            // indicator
+            isAbsolute = true;
+            rootEnd = 3;
+          }
+        }
+      }
+    }
+  } else if (isPathSeparator(code)) {
+    // `path` contains just a path separator, exit early to avoid unnecessary
+    // work
+    return "\\";
+  }
+
+  let tail: string;
+  if (rootEnd < len) {
+    tail = normalizeString(
+      path.slice(rootEnd),
+      !isAbsolute,
+      "\\",
+      isPathSeparator,
+    );
+  } else {
+    tail = "";
+  }
+  if (tail.length === 0 && !isAbsolute) tail = ".";
+  if (tail.length > 0 && isPathSeparator(path.charCodeAt(len - 1))) {
+    tail += "\\";
+  }
+  if (device === undefined) {
+    if (isAbsolute) {
+      if (tail.length > 0) return `\\${tail}`;
+      else return "\\";
+    }
+    return tail;
+  } else if (isAbsolute) {
+    if (tail.length > 0) return `${device}\\${tail}`;
+    else return `${device}\\`;
+  }
+  return device + tail;
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"4bfec97364142233fe10e722614873e1\"","x-content-type-options":"nosniff","x-jsr-backend":"modules","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Lu8oLKRp8gFHQ1SIKoTA%2BVoFK6tq7Vs2dOt35CCa8xSwzi7ZoHGTNnwMNkkrUmZaA7TkzL1lH8nt%2FP%2BZJadu%2BztmQu9z0tqYKP7xo8RYKdGXeq1a89iY%2BwA%3D\"}]}","cache-control":"public, max-age=31536000, immutable","vary":"Origin","access-control-expose-headers":"*","content-length":"3950","x-robots-tag":"noindex","content-type":"text/typescript","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","cf-ray":"9e98a5d55c263992-IAD","access-control-allow-origin":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/windows/normalize.ts","time":1775728648}

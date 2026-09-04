@@ -1,0 +1,35 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { SemVer } from "./types.ts";
+import { parse } from "./parse.ts";
+
+/**
+ * Returns the parsed version, or undefined if it's not valid.
+ *
+ * @example Usage
+ * ```ts
+ * import { tryParse } from "@std/semver/try-parse";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(tryParse("1.2.3"), { major: 1, minor: 2, patch: 3, prerelease: [], build: [] });
+ * assertEquals(tryParse("1.2.3-alpha"), { major: 1, minor: 2, patch: 3, prerelease: ["alpha"], build: [] });
+ * assertEquals(tryParse("1.2.3+build"), { major: 1, minor: 2, patch: 3, prerelease: [], build: ["build"] });
+ * assertEquals(tryParse("1.2.3-alpha.1+build.1"), { major: 1, minor: 2, patch: 3, prerelease: ["alpha", 1], build: ["build", "1"] });
+ * assertEquals(tryParse(" invalid "), undefined);
+ * ```
+ *
+ * @param version The version string to parse
+ * @returns A valid SemVer or `undefined`
+ */
+export function tryParse(version?: string): SemVer | undefined {
+  if (version === undefined) {
+    return undefined;
+  }
+  try {
+    return parse(version);
+  } catch {
+    return undefined;
+  }
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d288ce3992-IAD","x-robots-tag":"noindex","content-type":"text/typescript","vary":"Origin","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"29cb4caa0e454f77ef0d10dcb9eb93bd\"","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","content-length":"1208","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=f04FM4UsIgGkkxm7qVvgV24DVmK5m%2BdmUzWHaC11qIRq%2Bz6xQqBAnjUAFUgr1vM63ad%2BIK4hZdqhUikSIfkQ6Fv5Rfu%2BubSFRABfWlIio7d4K%2FFMcA03TjM%3D\"}]}"},"url":"https://jsr.io/@std/semver/0.224.3/try_parse.ts","time":1775728648}

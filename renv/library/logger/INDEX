@@ -1,0 +1,89 @@
+%except%                Try to evaluate an expressions and evaluate
+                        another expression on exception
+appender_async          Delays executing the actual appender function
+                        to the future in a background process to avoid
+                        blocking the main R session
+appender_console        Append log record to stderr
+appender_file           Append log messages to a file
+appender_kinesis        Send log messages to a Amazon Kinesis stream
+appender_ntfy           Send log messages to ntfy
+appender_pushbullet     Send log messages to Pushbullet
+appender_slack          Send log messages to a Slack channel
+appender_stdout         Append log record to stdout
+appender_syslog         Send log messages to the POSIX system log
+appender_syslognet      Send log messages to a network syslog server
+appender_tee            Append log messages to a file and stdout as
+                        well
+appender_telegram       Send log messages to a Telegram chat
+appender_void           Dummy appender not delivering the log record to
+                        anywhere
+as.loglevel             Convert R object into a logger log-level
+colorize_by_log_level   Color string by the related log level
+delete_logger_index     Delete an index from a logger namespace
+deparse_to_one_line     Deparse and join all lines into a single line
+fail_on_missing_package
+                        Check if R package can be loaded and fails
+                        loudly otherwise
+formatter_cli           Apply 'cli::cli_text()' to format string with
+                        cli syntax
+formatter_glue          Apply 'glue::glue()' to convert R objects into
+                        a character vector
+formatter_glue_or_sprintf
+                        Apply 'glue::glue()' and 'sprintf()'
+formatter_glue_safe     Apply 'glue::glue_safe()' to convert R objects
+                        into a character vector
+formatter_json          Transforms all passed R objects into a JSON
+                        list
+formatter_logging       Mimic the default formatter used in the
+                        'logging' package
+formatter_pander        Formats R objects with pander
+formatter_paste         Concatenate R objects into a character vector
+                        via 'paste'
+formatter_sprintf       Apply 'sprintf()' to convert R objects into a
+                        character vector
+get_logger_meta_variables
+                        Collect useful information about the logging
+                        environment to be used in log messages
+layout_blank            Format a log record by including the raw
+                        message without anything added or modified
+layout_gha              Format a log record for github actions
+layout_glue             Format a log message with 'glue::glue()'
+layout_glue_colors      Format a log message with 'glue::glue()' and
+                        ANSI escape codes to add colors
+layout_glue_generator   Generate log layout function using common
+                        variables available via glue syntax
+layout_json             Generate log layout function rendering JSON
+layout_json_parser      Generate log layout function rendering JSON
+                        after merging meta fields with parsed list from
+                        JSON message
+layout_logging          Format a log record as the logging package does
+                        by default
+layout_simple           Format a log record by concatenating the log
+                        level, timestamp and message
+layout_syslognet        Format a log record for syslognet
+log_appender            Get or set log record appender function
+log_chunk_time          Automatically log execution time of knitr
+                        chunks
+log_elapsed             Log cumulative running time
+log_errors              Injects a logger call to standard errors
+log_eval                Evaluate an expression and log results
+log_failure             Logs the error message to console before
+                        failing
+log_formatter           Get or set log message formatter
+log_indices             Returns number of currently active indices
+log_layout              Get or set log record layout
+log_level               Log a message with given log level
+log_levels              Log levels
+log_messages            Injects a logger call to standard messages
+log_namespaces          Looks up logger namespaces
+log_separator           Logs a long line to stand out from the console
+log_shiny_input_changes
+                        Auto logging input changes in Shiny app
+log_threshold           Get or set log level threshold
+log_tictoc              Tic-toc logging
+log_warnings            Injects a logger call to standard warnings
+log_with_separator      Logs a message in a very visible way
+logger                  Generate logging utility
+skip_formatter          Skip the formatter function
+with_log_threshold      Evaluate R expression with a temporarily
+                        updated log level threshold

@@ -1,0 +1,92 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import { repeat } from "./_utils.ts";
+
+export class Mark {
+  name: string;
+  buffer: string;
+  position: number;
+  line: number;
+  column: number;
+  constructor(
+    name: string,
+    buffer: string,
+    position: number,
+    line: number,
+    column: number,
+  ) {
+    this.name = name;
+    this.buffer = buffer;
+    this.position = position;
+    this.line = line;
+    this.column = column;
+  }
+
+  getSnippet(indent = 4, maxLength = 75): string | null {
+    if (!this.buffer) return null;
+
+    let head = "";
+    let start = this.position;
+
+    while (
+      start > 0 &&
+      "\x00\r\n\x85\u2028\u2029".indexOf(this.buffer.charAt(start - 1)) === -1
+    ) {
+      start -= 1;
+      if (this.position - start > maxLength / 2 - 1) {
+        head = " ... ";
+        start += 5;
+        break;
+      }
+    }
+
+    let tail = "";
+    let end = this.position;
+
+    while (
+      end < this.buffer.length &&
+      "\x00\r\n\x85\u2028\u2029".indexOf(this.buffer.charAt(end)) === -1
+    ) {
+      end += 1;
+      if (end - this.position > maxLength / 2 - 1) {
+        tail = " ... ";
+        end -= 5;
+        break;
+      }
+    }
+
+    const snippet = this.buffer.slice(start, end);
+    return `${repeat(" ", indent)}${head}${snippet}${tail}\n${
+      repeat(
+        " ",
+        indent + this.position - start + head.length,
+      )
+    }^`;
+  }
+
+  toString(compact?: boolean): string {
+    let snippet;
+    let where = "";
+
+    if (this.name) {
+      where += `in "${this.name}" `;
+    }
+
+    where += `at line ${this.line + 1}, column ${this.column + 1}`;
+
+    if (!compact) {
+      snippet = this.getSnippet();
+
+      if (snippet) {
+        where += `:\n${snippet}`;
+      }
+    }
+
+    return where;
+  }
+}
+
+// denoCacheMetadata={"headers":{"vary":"Origin","x-content-type-options":"nosniff","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qi5iuVCP%2BVR3a4XRaKIWvQpi4o361omovLOeVTdoCg5%2FypIVbNMqOpsO8%2FkGTSISpsYwl47F2gmsKL1Gc4JLHIXi7oe1YdIqAVJJhNfZR6o893813S1qXeY%3D\"}]}","cross-origin-resource-policy":"cross-origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-length":"1971","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-expose-headers":"*","cf-ray":"9e98a5d43aba3992-IAD","alt-svc":"h3=\":443\"; ma=86400","server":"cloudflare","etag":"\"dfee414241b12c6037cb089e033613a6\"","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/yaml/0.224.3/_mark.ts","time":1775728648}

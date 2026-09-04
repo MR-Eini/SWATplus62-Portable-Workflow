@@ -1,0 +1,74 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertPath } from "../_common/assert_path.ts";
+import { isPathSeparator } from "./_util.ts";
+import { normalize } from "./normalize.ts";
+
+/**
+ * Join all given a sequence of `paths`,then normalizes the resulting path.
+ *
+ * @example Usage
+ * ```ts
+ * import { join } from "@std/path/windows/join";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const joined = join("C:\\foo", "bar", "baz\\..");
+ * assertEquals(joined, "C:\\foo\\bar");
+ * ```
+ *
+ * @param paths The paths to join.
+ * @returns The joined path.
+ */
+export function join(...paths: string[]): string {
+  paths.forEach((path) => assertPath(path));
+  paths = paths.filter((path) => path.length > 0);
+  if (paths.length === 0) return ".";
+
+  // Make sure that the joined path doesn't start with two slashes, because
+  // normalize() will mistake it for an UNC path then.
+  //
+  // This step is skipped when it is very clear that the user actually
+  // intended to point at an UNC path. This is assumed when the first
+  // non-empty string arguments starts with exactly two slashes followed by
+  // at least one more non-slash character.
+  //
+  // Note that for normalize() to treat a path as an UNC path it needs to
+  // have at least 2 components, so we don't filter for that here.
+  // This means that the user can use join to construct UNC paths from
+  // a server name and a share name; for example:
+  //   path.join('//server', 'share') -> '\\\\server\\share\\'
+  let needsReplace = true;
+  let slashCount = 0;
+  const firstPart = paths[0]!;
+  if (isPathSeparator(firstPart.charCodeAt(0))) {
+    ++slashCount;
+    const firstLen = firstPart.length;
+    if (firstLen > 1) {
+      if (isPathSeparator(firstPart.charCodeAt(1))) {
+        ++slashCount;
+        if (firstLen > 2) {
+          if (isPathSeparator(firstPart.charCodeAt(2))) ++slashCount;
+          else {
+            // We matched a UNC path in the first part
+            needsReplace = false;
+          }
+        }
+      }
+    }
+  }
+  let joined = paths.join("\\");
+  if (needsReplace) {
+    // Find any more consecutive slashes we need to replace
+    for (; slashCount < joined.length; ++slashCount) {
+      if (!isPathSeparator(joined.charCodeAt(slashCount))) break;
+    }
+
+    // Replace the slashes if needed
+    if (slashCount >= 2) joined = `\\${joined.slice(slashCount)}`;
+  }
+
+  return normalize(joined);
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","content-length":"2483","access-control-allow-origin":"*","etag":"\"574728fa55318b173b7819b55bf5b02f\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=AaupmhYj%2BQ7w5HAKVfa0K6yDT3Csan8tgNkJD68QmEkoLyTpCtThuSPie27FM%2F%2BfdV22PutqrsjKuH0yTT1OfIz%2BFvHjv6nTkllUh6a8zA614cGeIgIg6cY%3D\"}]}","content-type":"text/typescript","access-control-expose-headers":"*","vary":"Origin","cf-ray":"9e98a5d4fba53992-IAD","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/windows/join.ts","time":1775728648}

@@ -1,0 +1,28 @@
+var ElementType;
+(function(ElementType2) {
+  ElementType2["Root"] = "root";
+  ElementType2["Text"] = "text";
+  ElementType2["Directive"] = "directive";
+  ElementType2["Comment"] = "comment";
+  ElementType2["Script"] = "script";
+  ElementType2["Style"] = "style";
+  ElementType2["Tag"] = "tag";
+  ElementType2["CDATA"] = "cdata";
+  ElementType2["Doctype"] = "doctype";
+})(ElementType || (ElementType = {}));
+function isTag(elem) {
+  return elem.type === ElementType.Tag || elem.type === ElementType.Script || elem.type === ElementType.Style;
+}
+const Root = ElementType.Root;
+const Text = ElementType.Text;
+const Directive = ElementType.Directive;
+const Comment = ElementType.Comment;
+const Script = ElementType.Script;
+const Style = ElementType.Style;
+const Tag = ElementType.Tag;
+const CDATA = ElementType.CDATA;
+const Doctype = ElementType.Doctype;
+export {CDATA, Comment, Directive, Doctype, ElementType, Root, Script, Style, Tag, Text, isTag};
+export default null;
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:27 GMT","content-type":"application/javascript; charset=utf-8","server":"cloudflare","cf-cache-status":"MISS","x-cache":"HIT","x-vercel-cache":"MISS","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-vercel-id":"sfo1::sfo1::jvp66-1775160762840-c449da3fb7a3","cache-control":"public, max-age=31536000, immutable","etag":"W/\"3c8-Tn/86NvAHnKnEMND7JqQFhTzawg\"","access-control-allow-origin":"*","strict-transport-security":"max-age=63072000","x-imports":"","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wSrnOKL5LLGsTkt7wSYh5BYe0QAOw1BACN2dz80Sn9lJMjB8WurZ%2FV1UpV47AKsr1ZKYrNbZmjTq%2Fng3MUWU%2FXZx%2BhAWd4sX4i6%2B2pc7eHBeqE83siSptC020JB0J2CDYQ%3D%3D\"}]}","age":"0","cf-ray":"9e98a5cb9a6dc9b7-IAD","access-control-expose-headers":"Content-Length, X-Imports"},"url":"https://cdn.skypack.dev/-/domelementtype@v2.3.0-PrmNUNoEHMqortEMiiky/dist=es2019,mode=imports/optimized/domelementtype.js","time":1775728647}

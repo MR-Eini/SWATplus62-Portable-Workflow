@@ -1,0 +1,24 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+// This `reason` comes from `AbortSignal` thus must be `any`.
+// deno-lint-ignore no-explicit-any
+export function createAbortError(reason?: any): DOMException {
+  return new DOMException(
+    reason ? `Aborted: ${reason}` : "Aborted",
+    "AbortError",
+  );
+}
+
+export function exponentialBackoffWithJitter(
+  cap: number,
+  base: number,
+  attempt: number,
+  multiplier: number,
+  jitter: number,
+) {
+  const exp = Math.min(cap, base * multiplier ** attempt);
+  return (1 - jitter * Math.random()) * exp;
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","server":"cloudflare","etag":"\"f4b4838b91afd320b9d228ff7b61df4c\"","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=UnJCuMJLE4OHzOKz9T1oJubKGM3NNpsAoRiSgu8KK%2BWl24yhIa5hXYYlTVEErR0u5SICFXuj2SBLyZQYoo9ixCIMK3fXkwlyuwXXUg0er80QI%2FX2I2x0RWg%3D\"}]}","content-type":"text/typescript","x-jsr-backend":"modules","vary":"Origin","x-robots-tag":"noindex","access-control-allow-origin":"*","cf-ray":"9e98a5d2f94a3992-IAD","content-length":"621","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/async/0.224.2/_util.ts","time":1775728648}

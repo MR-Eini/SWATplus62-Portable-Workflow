@@ -1,0 +1,54 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { DAY, WEEK } from "./constants.ts";
+
+const DAYS_PER_WEEK = 7;
+
+const Day = {
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
+} as const;
+
+/**
+ * Returns the ISO week number of the provided date (1-53).
+ *
+ * @param date Date to get the week number of.
+ * @returns The week number of the provided date.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { weekOfYear } from "@std/datetime/week-of-year";
+ * import { assertEquals } from "@std/assert";
+ *
+ * assertEquals(weekOfYear(new Date("2020-12-28T03:24:00")), 53);
+ *
+ * assertEquals(weekOfYear(new Date("2020-07-10T03:24:00")), 28);
+ * ```
+ */
+export function weekOfYear(date: Date): number {
+  const workingDate = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+  );
+
+  const day = workingDate.getUTCDay();
+
+  const nearestThursday = workingDate.getUTCDate() +
+    Day.Thu -
+    (day === Day.Sun ? DAYS_PER_WEEK : day);
+
+  workingDate.setUTCDate(nearestThursday);
+
+  // Get first day of year
+  const yearStart = new Date(Date.UTC(workingDate.getUTCFullYear(), 0, 1));
+
+  // return the calculated full weeks to nearest Thursday
+  return Math.ceil((workingDate.getTime() - yearStart.getTime() + DAY) / WEEK);
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"e7ddbe2875f2d9f91807fff373f77784\"","date":"Thu, 09 Apr 2026 09:57:27 GMT","vary":"Origin","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=86400","content-length":"1333","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ReuH4%2BWFPCR75G9G8WjS%2FwdlymPbvCrKIlBh30nnur%2FIL7uFW8RUusEQJ0zHb%2FLj0mFgfzZAoxBzY0lErnTI92WZnakWkdPKobm0vL8RYWT2BJi%2FcP%2FZYgI%3D\"}]}","x-robots-tag":"noindex","x-jsr-backend":"modules","cache-control":"public, max-age=31536000, immutable","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","cf-ray":"9e98a5d02e783992-IAD","server":"cloudflare"},"url":"https://jsr.io/@std/datetime/0.224.5/week_of_year.ts","time":1775728647}

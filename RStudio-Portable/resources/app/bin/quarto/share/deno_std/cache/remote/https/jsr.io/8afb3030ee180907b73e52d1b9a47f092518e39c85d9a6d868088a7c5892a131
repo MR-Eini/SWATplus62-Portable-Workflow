@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { LogRecord } from "./logger.ts";
+
+export function jsonFormatter(logRecord: LogRecord): string {
+  return JSON.stringify({
+    level: logRecord.levelName,
+    datetime: logRecord.datetime.getTime(),
+    message: logRecord.msg,
+    args: flattenArgs(logRecord.args),
+  });
+}
+
+function flattenArgs(args: unknown[]): unknown {
+  if (args.length === 1) {
+    return args[0];
+  } else if (args.length > 1) {
+    return args;
+  }
+}
+
+export const formatters: {
+  jsonFormatter(logRecord: LogRecord): string;
+} = {
+  jsonFormatter,
+};
+
+// denoCacheMetadata={"headers":{"vary":"Origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d208203992-IAD","access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","x-robots-tag":"noindex","content-type":"text/typescript","content-length":"652","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"53b9809060328d614885f5ad14964e5e\"","x-jsr-backend":"modules","cross-origin-resource-policy":"cross-origin","server":"cloudflare","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IKxFNj43rUyz0qcb6mKjHyelkVGYl90gE5jP3UM%2F0uGUew83OcGtnG3kpnVavFHbSVyy1tiXOe3LP9xAW7tVroNyNxg9LUF4JYwiOXtGVHF0RACsjbPrJLo%3D\"}]}"},"url":"https://jsr.io/@std/log/0.224.7/formatters.ts","time":1775728648}

@@ -1,0 +1,61 @@
+
+## exports
+export(CAT)         # the constructor of CAT
+
+# exportClasses(CAT)    # apparently only for S4 classes, Jan 2024
+
+
+## methods for class CAT
+S3method(adaptXYZ,CAT)
+S3method(adaptxyY,CAT)
+S3method(adaptLab,CAT)
+S3method(adaptLuv,CAT)
+
+#   export all the CAT methods
+export( adaptXYZ,
+        adaptxyY,
+        adaptLab,
+        adaptLuv )
+        
+# conversion functions
+export( xyYfromXYZ,
+        XYZfromxyY,
+        LabfromXYZ,
+        XYZfromLab,
+        LuvfromXYZ,
+        XYZfromLuv,
+        uvfromXYZ,
+        uvfromxy
+        )
+
+export( LabfromLCHab,
+        LCHabfromLab,
+        LuvfromLCHuv,
+        LCHuvfromLuv
+        )
+
+#   color difference functions       
+export( DeltaE,
+        DeltaE_CAM02
+        )
+
+#   color appearance models
+export( CIECAM02fromXYZ )
+
+#   CCT functions
+export( CCTfromXYZ,
+        CCTfromxy,
+        CCTfromuv,
+        planckLocus
+        )
+        
+#   misc
+export( daylightLocus )
+
+#   data functions
+export( standardXYZ,
+        standardxy )
+
+import( logger )
+importFrom( utils, read.table, str )
+importFrom( stats, splinefun, uniroot )

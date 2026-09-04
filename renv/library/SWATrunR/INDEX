@@ -1,0 +1,8 @@
+define_output           Define SWAT output variables
+load_demo               Loading SWAT demo data
+load_swat_run           Load saved SWAT simulations
+run_scenario            Run a set of scenarios for a SWAT+/SWAT2012
+                        project
+run_swat2012            Run simulations for a SWAT2012 project
+run_swatplus            Run simulations for a SWAT+ project
+scan_swat_run           Retrieve information on saved SWAT runs

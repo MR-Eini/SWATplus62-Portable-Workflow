@@ -1,0 +1,35 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { types } from "./_db.ts";
+
+/**
+ * Returns the media type associated with the file extension, or `undefined` if
+ * no media type is found.
+ *
+ * Values are normalized to lower case and matched irrespective of a leading
+ * `.`.
+ *
+ * @param extension The file extension to get the media type for.
+ *
+ * @returns The media type associated with the file extension, or `undefined` if
+ * no media type is found.
+ *
+ * @example Usage
+ * ```ts
+ * import { typeByExtension } from "@std/media-types/type-by-extension";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(typeByExtension("js"), "application/javascript");
+ * assertEquals(typeByExtension(".HTML"), "text/html");
+ * assertEquals(typeByExtension("foo"), undefined);
+ * assertEquals(typeByExtension("file.json"), undefined);
+ * ```
+ */
+export function typeByExtension(extension: string): string | undefined {
+  extension = extension.startsWith(".") ? extension.slice(1) : extension;
+  // @ts-ignore Work around https://github.com/denoland/dnt/issues/148
+  return types.get(extension.toLowerCase());
+}
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cf-ray":"9e98a5d228403992-IAD","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-robots-tag":"noindex","access-control-allow-origin":"*","access-control-expose-headers":"*","content-length":"1203","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TvkAkV8nCYSMfw%2FRJh4Ga972IW%2FBEKN3yAO5dnMmz5t43a0eIWhXOQFaXvIRb0n7h0jwJhFSiyBtf0NZAjLVVJHMAJRPWCFFmiRScLVu5a7sF5QcFfZyVTE%3D\"}]}","etag":"\"76263273d3ba1ae2cd7b6c427369593a\"","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","x-jsr-backend":"modules","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/media-types/0.224.1/type_by_extension.ts","time":1775728648}

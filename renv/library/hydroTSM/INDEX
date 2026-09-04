@@ -1,0 +1,58 @@
+Cauquenes7336001        Hydrometeorological time series for "Cauquenes
+                        en El Arrayan" catchment
+EbroPPtsMonthly         Ebro Monthly Precipitation Time Series
+KarameaAtGorgeQts       Karamea at Gorge, time series of hourly
+                        streamflows
+MaquehueTemuco          San Martino, ts of daily precipitation.
+OcaEnOnaQts             Oca in "Ona" (Q0931), time series of daily
+                        streamflows.
+SanMartinoPPts          San Martino, ts of daily precipitation.
+annualfunction          Annual Function
+baseflow                Baseflow
+calendarHeatmap         Calendar heatmap
+climograph              Climograph
+cmv                     Counting Missing Values
+daily2annual            (sub)Daily/Monthly -> Annual
+daily2monthly           (sub)Daily -> Monthly
+daily2weekly            Daily -> Weekly
+dip                     Days in Period
+diy                     Days in Year
+dm2seasonal             (sub)Daily/Monthly -> Seasonal Values
+drawTimeAxis            Customized Time Axis
+dwdays                  Amount of dry/wet days in a time series
+dwi                     Days with Information
+extract                 Extract from Zoo
+fdc                     Flow Duration Curve
+fdcu                    Flow Duration Curve with uncertainty bounds.
+hip                     Hours in Period
+hydroTSM-package        Management, analysis, and plot of hydrological
+                        time series, with focus on hydrological
+                        modelling
+hydropairs              Visual Correlation Matrix
+hydroplot               Hydrological time series plotting and
+                        extraction.
+infillxy                Infills NA values
+istdx                   Inverse Standarization
+izoo2rzoo               Irregular Zoo -> Regular Zoo
+ma                      Moving Average
+matrixplot              Matrixplot
+mip                     Months in Period
+monthlyfunction         Monthly Function
+plot_pq                 Plot precipitation and streamflow time series
+                        in the same figure.
+rm1stchar               Remove First Character(s)
+seasonalfunction        Seasonal Function
+sfreq                   Sampling Frequency
+si                      Seasonality Index
+smry                    Summary
+sname2ts                Station Name -> Time Series
+stdx                    Standarization
+subdaily2daily          Sub-daily -> Daily
+subdaily2weekly         Subdaily -> Weekly
+subhourly2hourly        Sub-hourly -> Hourly
+subhourly2nminutes      Sub-hourly -> n-minutes
+time2season             Date/DateTime character -> Seasonal character
+vector2zoo              Vector -> Zoo
+weeklyfunction          Weekly Function
+yip                     Years in Period
+zoo2RHtest              Zoo -> RHTest

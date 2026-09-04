@@ -1,0 +1,49 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import { Type } from "../type.ts";
+import type { Any } from "../_utils.ts";
+
+const _toString = Object.prototype.toString;
+
+function resolveYamlPairs(data: Any[][]): boolean {
+  const result = Array.from({ length: data.length });
+
+  for (const [index, pair] of data.entries()) {
+    if (_toString.call(pair) !== "[object Object]") return false;
+
+    const keys = Object.keys(pair);
+
+    if (keys.length !== 1) return false;
+
+    result[index] = [keys[0], pair[keys[0] as Any]];
+  }
+
+  return true;
+}
+
+function constructYamlPairs(data: string): Any[] {
+  if (data === null) return [];
+
+  const result = Array.from({ length: data.length });
+
+  for (let index = 0; index < data.length; index += 1) {
+    const pair = data[index]!;
+
+    const keys = Object.keys(pair);
+
+    result[index] = [keys[0], pair[keys[0] as Any]];
+  }
+
+  return result;
+}
+
+export const pairs = new Type("tag:yaml.org,2002:pairs", {
+  construct: constructYamlPairs,
+  kind: "sequence",
+  resolve: resolveYamlPairs,
+});
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d47b103992-IAD","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aoebP5B6pvPXTNNmtsroOw5jnG8JpQLtKDYR4WOJ5YSsdZY7JyazTD1%2B21YMAMONdBwptCLLs0pIytqqfcjUfaQK5c44AUfQ73%2FkJLHwaGjfqWr9pm3KNGs%3D\"}]}","vary":"Origin","etag":"\"d8f85be77daddf727e73b1be8cc7ecba\"","content-length":"1256","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/yaml/0.224.3/_type/pairs.ts","time":1775728648}

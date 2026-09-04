@@ -1,0 +1,197 @@
+{
+  "manifest": {
+    "/parse.ts": {
+      "size": 820,
+      "checksum": "sha256-4c1b320cf2fd2105a1c6d73b8e984b21970f9fbd33bc9c82fb5f842bf034a766"
+    },
+    "/testdata/error-open-string.toml": {
+      "size": 37,
+      "checksum": "sha256-f88d3fe23f16cd8feace0e7cd70a75859c44b5095a429d93e74b96fa27e5c0a0"
+    },
+    "/testdata/table.toml": {
+      "size": 332,
+      "checksum": "sha256-d80293f6e2d30c5b3b3d0ab9d7d60cd3e6e53066c7afe77eb83e45e8b3c45485"
+    },
+    "/testdata/error-invalid-whitespace2.toml": {
+      "size": 14,
+      "checksum": "sha256-6c88c68c2b21876eab2d5c8e76d4d87eb6f857eb84bde01350c982fc6c857755"
+    },
+    "/testdata/inlineArrayOfInlineTable.toml": {
+      "size": 264,
+      "checksum": "sha256-e88de2856831f5c3157ebc5678131e6dc01b49e0eb80b81311e65d79a1899971"
+    },
+    "/testdata/CRLF.toml": {
+      "size": 36,
+      "checksum": "sha256-e1a17160f11ea80019539595e42a997ea2042d8ec35c7da4773ba7b18afc753e"
+    },
+    "/testdata/inlineTable.toml": {
+      "size": 471,
+      "checksum": "sha256-7cf749489b8e21b89ed260f32c9b0fc58d4471736b7b4b19c2976144c25438cf"
+    },
+    "/testdata/arrays.toml": {
+      "size": 305,
+      "checksum": "sha256-caaf463073518d01a7708af4c17e9f86ee994a6d542b755b7954be248a04b9e2"
+    },
+    "/testdata/comment.toml": {
+      "size": 975,
+      "checksum": "sha256-06c995fe1efc3059849b50834a5cc9e4094717c79bc7dbcc7425546a4d80f628"
+    },
+    "/LICENSE": {
+      "size": 1075,
+      "checksum": "sha256-0961f97da6619d5fe9ddb98649191d5ca6e958856ea5252f4cce7c9b85513819"
+    },
+    "/testdata/float.toml": {
+      "size": 516,
+      "checksum": "sha256-13d15cbd3c1635957e40a3b01cc96cf0a69a690a390539d384cdf49df386fde4"
+    },
+    "/testdata/boolean.toml": {
+      "size": 85,
+      "checksum": "sha256-c13f9a82e98c864b766b6004cd7b93df953244769c425a9e92f54d2f3542b6b6"
+    },
+    "/mod.ts": {
+      "size": 2934,
+      "checksum": "sha256-007615f84ae92dd3557616a7ad6b5f67eb42cc4342b5c636d52d08cd616e533f"
+    },
+    "/testdata/datetime.toml": {
+      "size": 264,
+      "checksum": "sha256-bb9a19ab08b342abdc28443deb36da2278804588f4e53168aa290090e97012c4"
+    },
+    "/deno.json": {
+      "size": 154,
+      "checksum": "sha256-d3c3b8a64e43d7c81cb1296911068eb443b23b99700be48a23884fbe42198d43"
+    },
+    "/testdata/error-invalid-whitespace1.toml": {
+      "size": 15,
+      "checksum": "sha256-2675fad0cedf7cd13cbf364ec4af60b0298db80d6fa3d8b07e6835d91d4b5403"
+    },
+    "/parse_test.ts": {
+      "size": 28731,
+      "checksum": "sha256-d3c0d671d9e346dd3815144b3166626e97ee9585f7088c69f4d62f8f60729e45"
+    },
+    "/testdata/arrayTable.toml": {
+      "size": 237,
+      "checksum": "sha256-8a4fc6f249f5e1e6cf6c97865745cdbc6ecb3ecf2e31e0ed506136cd213f718f"
+    },
+    "/testdata/cargo.toml": {
+      "size": 965,
+      "checksum": "sha256-2ca3b894c2c711ca0465e473c61c493b6fad2e796ca9fc1718d7249fef1a690f"
+    },
+    "/testdata/error-invalid-string.toml": {
+      "size": 27,
+      "checksum": "sha256-8074a6998a14097a990d257f2b47837d9ffa63667f7f4131ef1947f09b97c36a"
+    },
+    "/testdata/simple.toml": {
+      "size": 114,
+      "checksum": "sha256-0c33660017721be9a752319d87ff42b95eec9f04ef963fb17f0fe71026af5ea6"
+    },
+    "/testdata/integer.toml": {
+      "size": 349,
+      "checksum": "sha256-62c0141087c5b79f01d5e54471d399da2949a723c784959c6b666cdbc1332b10"
+    },
+    "/testdata/keys.toml": {
+      "size": 214,
+      "checksum": "sha256-92d41dbaf62e068587c21668cb43fbd6f56ff6f93c36b2c2557da46bc8a8107e"
+    },
+    "/testdata/string.toml": {
+      "size": 1585,
+      "checksum": "sha256-deae7bbd99cbf7890b902e7e2065cd592f065c2c066cb755a0d3c5dca0b8ec8c"
+    },
+    "/_parser.ts": {
+      "size": 20977,
+      "checksum": "sha256-1831d8b8e8260ad6761d05148e6c60a2b9a14c6fbfebe82669792787425f684a"
+    },
+    "/stringify_test.ts": {
+      "size": 1998,
+      "checksum": "sha256-2039dac7a291966821a81c8f9adb0720bb88529490edad94658f1d406265ce33"
+    },
+    "/testdata/cargoTest.toml": {
+      "size": 2611,
+      "checksum": "sha256-8f2b60eaf8c782f69ab97da8ed1d7cec2b7127fef98b18acecdd07bf180c12b6"
+    },
+    "/stringify.ts": {
+      "size": 9308,
+      "checksum": "sha256-0cadae50bdc6b0b8bec51ebe672e47398be37d1cb7c08220b747522382347196"
+    }
+  },
+  "moduleGraph2": {
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./stringify.ts",
+          "specifierRange": [
+            [
+              110,
+              14
+            ],
+            [
+              110,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./parse.ts",
+          "specifierRange": [
+            [
+              111,
+              14
+            ],
+            [
+              111,
+              26
+            ]
+          ]
+        }
+      ]
+    },
+    "/stringify.ts": {},
+    "/_parser.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:@std/collections@^1.0.5/deep-merge",
+          "specifierRange": [
+            [
+              3,
+              26
+            ],
+            [
+              3,
+              66
+            ]
+          ]
+        }
+      ]
+    },
+    "/parse.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_parser.ts",
+          "specifierRange": [
+            [
+              3,
+              36
+            ],
+            [
+              3,
+              50
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./parse": "./parse.ts",
+    "./stringify": "./stringify.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=86400","cf-ray":"9e98a5ceac393992-IAD","x-jsr-backend":"modules","x-robots-tag":"noindex","vary":"Origin","cache-control":"public, max-age=31536000, immutable","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","content-type":"application/json","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xfnP0hgdAVPGkwCpa3A20an%2B9xB9c6J21nQ2LedUWQHm9j8H9ZyywqeNfTXmh3SPVu%2FukDweAwZzU%2BxFrY3HVes4y8hZniOZdCUiE64C3Nf7lk9BpAsqiZc%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:27 GMT","etag":"W/\"5c963653ed4ff1b362da973fe06cf5b9\"","server":"cloudflare"},"url":"https://jsr.io/@std/toml/1.0.1_meta.json","time":1775728647}

@@ -1,0 +1,27 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Provides tools for working with JSONC (JSON with comments). Currently, this
+ * module only provides a means of parsing JSONC. JSONC serialization is not
+ * yet supported.
+ *
+ * ```ts
+ * import { parse } from "@std/jsonc";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(parse('{"foo": "bar", } // comment'), { foo: "bar" });
+ *
+ * assertEquals(parse('{"foo": "bar", } /* comment *\/'), { foo: "bar" });
+ *
+ * assertEquals(
+ *   parse('{"foo": "bar" } // comment', { allowTrailingComma: false }),
+ *   { foo: "bar" }
+ * );
+ * ```
+ *
+ * @module
+ */
+export * from "./parse.ts";
+
+// denoCacheMetadata={"headers":{"etag":"\"50384f251ebe42887fe50bb174441865\"","vary":"Origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:27 GMT","content-type":"text/typescript","content-length":"728","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","x-robots-tag":"noindex","access-control-allow-origin":"*","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3ui3QRoCsAsQ0NhqHMUdQnUGBsnH%2BX1eAMIolTuoDqNQmEZxVINB4pFljy6qI%2BYRwKcBW9tCjPSC9qm543KKVyJ66zKezGvbp7KNfjbdmlwQn79hfl1eY98%3D\"}]}","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","cf-ray":"9e98a5d02de73992-IAD","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/jsonc/0.224.3/mod.ts","time":1775728647}

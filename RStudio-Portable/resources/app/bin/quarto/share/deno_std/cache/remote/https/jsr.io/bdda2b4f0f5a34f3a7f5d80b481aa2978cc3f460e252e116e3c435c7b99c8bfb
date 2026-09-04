@@ -1,0 +1,124 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { decodeHex, encodeHex } from "jsr:/@std/encoding@1.0.0-rc.2/hex";
+
+const encoder = new TextEncoder();
+
+function splitByLast(value: string, separator: string): [string, string] {
+  const index = value.lastIndexOf(separator);
+  return index === -1
+    ? [value, ""]
+    : [value.slice(0, index), value.slice(index + 1)];
+}
+
+/**
+ * Returns a promise with the signed cookie value from the given cryptographic
+ * key.
+ *
+ * @example Usage
+ * ```ts no-eval no-assert
+ * import { signCookie } from "@std/http/unstable-signed-cookie";
+ * import { setCookie } from "@std/http/cookie";
+ *
+ * const key = await crypto.subtle.generateKey(
+ *   { name: "HMAC", hash: "SHA-256" },
+ *   true,
+ *   ["sign", "verify"],
+ * );
+ * const value = await signCookie("my-cookie-value", key);
+ *
+ * const headers = new Headers();
+ * setCookie(headers, {
+ *   name: "my-cookie-name",
+ *   value,
+ * });
+ *
+ * const cookieHeader = headers.get("set-cookie");
+ * ```
+ *
+ * @param value The cookie value to sign.
+ * @param key The cryptographic key to sign the cookie with.
+ * @returns The signed cookie.
+ */
+export async function signCookie(
+  value: string,
+  key: CryptoKey,
+): Promise<string> {
+  const data = encoder.encode(value);
+  const signature = await crypto.subtle.sign("HMAC", key, data);
+  const signatureHex = encodeHex(signature);
+  return `${value}.${signatureHex}`;
+}
+
+/**
+ * Returns a promise of a boolean indicating whether the signed cookie is valid.
+ *
+ * @example Usage
+ * ```ts no-eval no-assert
+ * import { verifyCookie } from "@std/http/unstable-signed-cookie";
+ * import { getCookies } from "@std/http/cookie";
+ *
+ * const key = await crypto.subtle.generateKey(
+ *   { name: "HMAC", hash: "SHA-256" },
+ *   true,
+ *   ["sign", "verify"],
+ * );
+ *
+ * const headers = new Headers({
+ *   Cookie: "location=tokyo.37f7481039762eef5cd46669f93c0a3214dfecba7d0cdc0b0dc40036063fb22e",
+ * });
+ * const signedCookie = getCookies(headers)["location"];
+ * if (signedCookie === undefined) throw new Error("Cookie not found");
+ * await verifyCookie(signedCookie, key);
+ * ```
+ *
+ * @param signedCookie The signed cookie to verify.
+ * @param key The cryptographic key to verify the cookie with.
+ * @returns Whether or not the cookie is valid.
+ */
+export async function verifyCookie(
+  signedCookie: string,
+  key: CryptoKey,
+): Promise<boolean> {
+  const [value, signatureHex] = splitByLast(signedCookie, ".");
+  if (!value || !signatureHex) return false;
+
+  const data = encoder.encode(value);
+  const signature = decodeHex(signatureHex);
+
+  return await crypto.subtle.verify("HMAC", key, signature, data);
+}
+
+/**
+ * Parses a signed cookie to get its value.
+ *
+ * Important: always verify the cookie using {@linkcode verifyCookie} first.
+ *
+ * @example Usage
+ * ```ts no-eval no-assert
+ * import { verifyCookie, parseSignedCookie } from "@std/http/unstable-signed-cookie";
+ * import { getCookies } from "@std/http/cookie";
+ *
+ * const key = await crypto.subtle.generateKey(
+ *   { name: "HMAC", hash: "SHA-256" },
+ *   true,
+ *   ["sign", "verify"],
+ * );
+ *
+ * const headers = new Headers({
+ *   Cookie: "location=tokyo.37f7481039762eef5cd46669f93c0a3214dfecba7d0cdc0b0dc40036063fb22e",
+ * });
+ * const signedCookie = getCookies(headers)["location"];
+ * if (signedCookie === undefined) throw new Error("Cookie not found");
+ * await verifyCookie(signedCookie, key);
+ * const cookie = parseSignedCookie(signedCookie);
+ * ```
+ *
+ * @param signedCookie The signed cookie to parse the value from.
+ * @returns The parsed cookie.
+ */
+export function parseSignedCookie(signedCookie: string): string {
+  return splitByLast(signedCookie, ".")[0];
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0tQIB2YapDcYoRMXFxl3mdXiQ04iuP1ue6oMGjquprxjRnaFElCnppt0g6wCDx%2B03gS4%2FL4WXzBL4ovtfckrlrjXjw7XzGyw61F1YVNjYRfErChM1Kn1y%2BM%3D\"}]}","cf-ray":"9e98a5d19f913992-IAD","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","x-robots-tag":"noindex","access-control-allow-origin":"*","etag":"\"f08f730f7d3b8e931099b1239dbe1386\"","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","content-length":"3743","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin"},"url":"https://jsr.io/@std/http/0.224.5/unstable_signed_cookie.ts","time":1775728648}

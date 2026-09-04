@@ -1,0 +1,78 @@
+Package: tmap
+Title: Thematic Maps
+Version: 4.3
+Authors@R: c(
+    person("Martijn", "Tennekes", , "mtennekes@gmail.com", role = c("aut", "cre")),
+    person("Jakub", "Nowosad", , "nowosad.jakub@gmail.com", role = "ctb"),
+    person("Joel", "Gombin", , "joel.gombin@gmail.com", role = "ctb"),
+    person("Sebastian", "Jeworutzki", , "Sebastian.Jeworutzki@rub.de", role = "ctb"),
+    person("Kent", "Russell", , "kent.russell@timelyportfolio.com", role = "ctb"),
+    person("Richard", "Zijdeman", , "richard.zijdeman@iisg.nl", role = "ctb"),
+    person("John", "Clouse", , "johnaclouse@gmail.com", role = "ctb"),
+    person("Robin", "Lovelace", , "rob00x@gmail.com", role = "ctb"),
+    person("Jannes", "Muenchow", , "jannes.muenchow@uni-jena.de", role = "ctb"),
+    person("Olivier", "Roy", role = "ctb"),
+    person("Edzer", "Pebesma", , "edzer.pebesma@uni-muenster.de", role = "ctb"),
+    person("Hugh", "Graham", , "hugh.a.graham@gmail.com", role = "ctb"),
+    person("Michael D.", "Sumner", , "mdsumner@gmail.com", role = "ctb"),
+    person("Tim", "Appelhans", , "tim.appelhans@gmail.com", role = "ctb"),
+    person("Nick", "Bearman", , "nick@nickbearman.com", role = "ctb"),
+    person("Pukar", "Bhandari", , "pukar.bhandari@outlook.com", role = "ctb"),
+    person("Stéphane", "Guillou", , "stephane.guillou@member.fsf.org", role = "ctb"),
+    person("Monika Anna", "Tomaszewska", , "monika.anna.tomaszewska@gmail.com", role = "ctb"),
+    person("Ajoke", "Onojeghuo", , "a.onojeghuo@gmail.com", role = "ctb"),
+    person("Jerome", "Guelat", , "jerome.guelat@vogelwarte.ch", role = "ctb"))
+Description: Thematic maps are geographical maps in which spatial data
+    distributions are visualized. This package offers a flexible,
+    layer-based, and easy to use approach to create thematic maps, such as
+    choropleths and bubble maps.
+License: GPL-3
+URL: https://github.com/r-tmap/tmap, https://r-tmap.github.io/tmap/
+BugReports: https://github.com/r-tmap/tmap/issues
+Depends: R (>= 4.1)
+Imports: classInt (>= 0.4-3), cli, cols4all (>= 0.8-1), data.table,
+        grid, htmltools, htmlwidgets, base64enc, leafem (>= 0.2.4),
+        leafgl, leaflegend, leaflet (>= 2.0.2), leafsync, maptiles,
+        methods, rlang, sf (>= 0.9-3), stars (>= 0.4-2), stats, s2,
+        tmaptools (>= 3.1), units (>= 0.6-1), servr
+Suggests: av, transformr, colorspace, ggplot2, gifski, knitr, shiny,
+        terra, testthat (>= 3.2.0), widgetframe, lobstr, rsvg,
+        rstudioapi
+Config/Needs/check: Nowosad/spDataLarge, lwgeom, r-tmap/tmaptools,
+        r-tmap/tmap
+Config/Needs/coverage: Nowosad/spDataLarge, lwgeom, r-tmap/tmaptools,
+        r-tmap/tmap
+Config/Needs/website: bookdown, rmarkdown, sfnetworks,
+        r-tmap/tmaptools, r-tmap/tmap.glyphs, r-tmap/tmap.networks,
+        walkerke/mapgl, r-tmap/tmap.mapgl, geofacet, sits,
+        r-tmap/tmap.cartogram, mapsf, mapview
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.3
+NeedsCompilation: no
+Packaged: 2026-04-14 07:55:02 UTC; mtes
+Author: Martijn Tennekes [aut, cre],
+  Jakub Nowosad [ctb],
+  Joel Gombin [ctb],
+  Sebastian Jeworutzki [ctb],
+  Kent Russell [ctb],
+  Richard Zijdeman [ctb],
+  John Clouse [ctb],
+  Robin Lovelace [ctb],
+  Jannes Muenchow [ctb],
+  Olivier Roy [ctb],
+  Edzer Pebesma [ctb],
+  Hugh Graham [ctb],
+  Michael D. Sumner [ctb],
+  Tim Appelhans [ctb],
+  Nick Bearman [ctb],
+  Pukar Bhandari [ctb],
+  Stéphane Guillou [ctb],
+  Monika Anna Tomaszewska [ctb],
+  Ajoke Onojeghuo [ctb],
+  Jerome Guelat [ctb]
+Maintainer: Martijn Tennekes <mtennekes@gmail.com>
+Repository: CRAN
+Date/Publication: 2026-04-20 08:20:02 UTC
+Built: R 4.5.3; ; 2026-05-23 19:24:24 UTC; windows

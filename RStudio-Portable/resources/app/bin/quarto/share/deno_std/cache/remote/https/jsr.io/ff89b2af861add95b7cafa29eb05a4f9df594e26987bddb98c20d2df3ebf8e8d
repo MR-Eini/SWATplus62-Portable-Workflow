@@ -1,0 +1,40 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Calls the given reducer on each element of the given collection, passing its
+ * result as the accumulator to the next respective call, starting with the
+ * given initialValue. Returns all intermediate accumulator results.
+ *
+ * @template T The type of the elements in the array.
+ * @template O The type of the accumulator.
+ *
+ * @param array The array to reduce.
+ * @param reducer The reducer function to apply to each element.
+ * @param initialValue The initial value of the accumulator.
+ *
+ * @returns An array of all intermediate accumulator results.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { runningReduce } from "@std/collections/running-reduce";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const numbers = [1, 2, 3, 4, 5];
+ * const sumSteps = runningReduce(numbers, (sum, current) => sum + current, 0);
+ *
+ * assertEquals(sumSteps, [1, 3, 6, 10, 15]);
+ * ```
+ */
+export function runningReduce<T, O>(
+  array: readonly T[],
+  reducer: (accumulator: O, current: T, currentIndex: number) => O,
+  initialValue: O,
+): O[] {
+  let currentResult = initialValue;
+  return array.map((el, currentIndex) =>
+    currentResult = reducer(currentResult, el, currentIndex)
+  );
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","x-jsr-backend":"modules","server":"cloudflare","access-control-expose-headers":"*","content-length":"1320","cf-ray":"9e98a5d02e583992-IAD","etag":"\"4b27cff39af64eae76d57472ba106410\"","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","access-control-allow-origin":"*","content-type":"text/typescript","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rnG2u9qJnxWWfwGci1LfvpaMbuB8W0a3nX2xwnF7OPwsO31fR6TrbA7V%2FBYoUkz26HTYeefP9ddSn9TW7hqQa%2BxNvFlwEPClfP7H%2FzDbIHG7TRbSFNc9Jx0%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:27 GMT","vary":"Origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/collections/0.224.2/running_reduce.ts","time":1775728647}

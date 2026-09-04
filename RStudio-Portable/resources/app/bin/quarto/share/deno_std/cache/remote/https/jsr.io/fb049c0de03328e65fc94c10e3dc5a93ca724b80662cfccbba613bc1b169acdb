@@ -1,0 +1,46 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { DEFAULT_BUFFER_SIZE } from "./_constants.ts";
+import { writeAll } from "./write_all.ts";
+import type { Reader, Writer } from "./types.ts";
+
+/**
+ * Copies from `src` to `dst` until either EOF (`null`) is read from `src` or
+ * an error occurs. It resolves to the number of bytes copied or rejects with
+ * the first error encountered while copying.
+ *
+ * @example Usage
+ * ```ts no-eval
+ * import { copy } from "@std/io/copy";
+ *
+ * const source = await Deno.open("my_file.txt");
+ * const bytesCopied1 = await copy(source, Deno.stdout);
+ * const destination = await Deno.create("my_file_2.txt");
+ * const bytesCopied2 = await copy(source, destination);
+ * ```
+ *
+ * @param src The source to copy from
+ * @param dst The destination to copy to
+ * @param options Can be used to tune size of the buffer. Default size is 32kB
+ * @returns Number of bytes copied
+ */
+export async function copy(
+  src: Reader,
+  dst: Writer,
+  options?: {
+    bufSize?: number;
+  },
+): Promise<number> {
+  let n = 0;
+  const b = new Uint8Array(options?.bufSize ?? DEFAULT_BUFFER_SIZE);
+  while (true) {
+    const result = await src.read(b);
+    if (result === null) break;
+    await writeAll(dst, b.subarray(0, result));
+    n += result;
+  }
+  return n;
+}
+
+// denoCacheMetadata={"headers":{"server":"cloudflare","content-length":"1352","x-jsr-backend":"modules","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","vary":"Origin","x-content-type-options":"nosniff","x-robots-tag":"noindex","content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","cf-ray":"9e98a5d1afac3992-IAD","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","etag":"\"c719c7b76493f37ce48bdd04f6f4e157\"","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HSazETbLwpDwrcumpKn2a8sUjXFAeYFNaPHYoOCRzrn7gNfSR2VwdCb4ZZ2eXpptaUE5WARB7eXYf84PbynJ2zgRUASXsrsXmUzoLjittA8K1%2BRSRiY89RU%3D\"}]}"},"url":"https://jsr.io/@std/io/0.224.8/copy.ts","time":1775728648}

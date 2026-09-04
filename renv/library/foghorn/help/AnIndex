@@ -1,0 +1,15 @@
+foghorn-package	foghorn
+check_cran_results	check_cran_results
+cran_details	cran_details
+cran_incoming	cran_incoming
+cran_incoming_folders	cran_incoming
+cran_results	cran_results
+foghorn	foghorn
+n_cran_flavors	n_cran_flavors
+show_cran_results	summary_cran_results
+summary.cran_details	cran_details
+summary.cran_results	summary_cran_results
+summary_cran_details	cran_details
+summary_cran_results	summary_cran_results
+visit_cran_check	visit_cran_check
+winbuilder_queue	winbuilder_queue

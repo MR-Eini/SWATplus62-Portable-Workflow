@@ -1,0 +1,34 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Creates a new object by including the specified keys from the provided
+ * object.
+ *
+ * @template T The type of the object.
+ * @template K The type of the keys.
+ *
+ * @param obj The object to pick keys from.
+ * @param keys The keys to include in the new object.
+ *
+ * @returns A new object with the specified keys from the provided object.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { pick } from "@std/collections/pick";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const obj = { a: 5, b: 6, c: 7, d: 8 };
+ * const picked = pick(obj, ["a", "c"]);
+ *
+ * assertEquals(picked, { a: 5, c: 7 });
+ * ```
+ */
+export function pick<T extends object, K extends keyof T>(
+  obj: Readonly<T>,
+  keys: readonly K[],
+): Pick<T, K> {
+  return Object.fromEntries(keys.map((k) => [k, obj[k]])) as Pick<T, K>;
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d02e563992-IAD","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=86400","etag":"\"862d1d3fe91b3d9bcd8f9d2f1276b4de\"","content-type":"text/typescript","date":"Thu, 09 Apr 2026 09:57:27 GMT","access-control-expose-headers":"*","x-content-type-options":"nosniff","server":"cloudflare","content-length":"941","vary":"Origin","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9pYjRbJVjGdTAvl3MDeKJ8txOWQ0vMrVAfQfD%2BfSaA2smwkOS6ZCxbeyD2R%2Bq6AZhfh02H%2FcHG2aNug3uPdHVmrEMRSZ7k7T4W6G%2BF675ogo3cOKmpfpqEU%3D\"}]}","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/collections/0.224.2/pick.ts","time":1775728647}

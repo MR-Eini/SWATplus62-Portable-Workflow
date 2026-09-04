@@ -1,0 +1,324 @@
+{
+  "manifest": {
+    "/v4.ts": {
+      "size": 777,
+      "checksum": "sha256-72c0505c43493c7256c1c7a91b0d8e441976bb5e1c35dbe5b678b4100364cd1d"
+    },
+    "/deno.json": {
+      "size": 250,
+      "checksum": "sha256-ddeb45311a0ef4f16d5fcdcaa131bfc3e6ff0841b9f060e16a7adcd71d569bf0"
+    },
+    "/v4_test.ts": {
+      "size": 531,
+      "checksum": "sha256-fee31055b02e25e3a25194ef7a4de7876f703c46a9c953cf166d264dbd5534c6"
+    },
+    "/common_test.ts": {
+      "size": 1314,
+      "checksum": "sha256-de0f9ddbf9640b10857c9a2c51d3c1e0caa6ebdb07b9c59e0141ce71bc8a203c"
+    },
+    "/mod.ts": {
+      "size": 2863,
+      "checksum": "sha256-bf9eddf64ba55235ff2cca3a1d2e60c7c59db47d39ba49da345f2a7f185f997b"
+    },
+    "/common.ts": {
+      "size": 1839,
+      "checksum": "sha256-859071f944898023d593682146853de79c8fa846798709181843a9264ea435f1"
+    },
+    "/v5_test.ts": {
+      "size": 1852,
+      "checksum": "sha256-e9ad46f6c4d847658f804eb673e1902d672dfaabfb190e64a181f09dc33cf758"
+    },
+    "/constants_test.ts": {
+      "size": 535,
+      "checksum": "sha256-0e755d5dd604fe8cc4d4eb2bb280a145300a86c7faeb88335805ecb550ee70d5"
+    },
+    "/_common.ts": {
+      "size": 935,
+      "checksum": "sha256-05c787c5735776c4e48e30294878332c39cb7738f50b209df4eb9f2b0facce4d"
+    },
+    "/constants.ts": {
+      "size": 1654,
+      "checksum": "sha256-965ce468b42cc18aa89d989bceca1a49931db7ae5bf9c06c85442244a3a6cef5"
+    },
+    "/v3_test.ts": {
+      "size": 1850,
+      "checksum": "sha256-1e13d823c87104c4f2672e14d6134ea04d947a51853ed34acbd19b357c342276"
+    },
+    "/v3.ts": {
+      "size": 2157,
+      "checksum": "sha256-a5c19f6d8d45a27db3014c55c269c8557f2f7cd6d3d2473cb3e04913ca609863"
+    },
+    "/v5.ts": {
+      "size": 2102,
+      "checksum": "sha256-6a90c3f526d63a5d20fcb1420514e03247d5e39bf8e2e8bbbbb73b239eeeb1e6"
+    },
+    "/v1.ts": {
+      "size": 6167,
+      "checksum": "sha256-a1a7697009d352c5d34f275e6a7b89d045f7481528bd07e85f22aa8f024defcb"
+    },
+    "/v1_test.ts": {
+      "size": 2724,
+      "checksum": "sha256-0be7b28436f58a99a84bc5bb2c4f8587da8f3a3491e03eab122ac5fbad148caa"
+    }
+  },
+  "moduleGraph2": {
+    "/_common.ts": {},
+    "/v3.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              3,
+              41
+            ],
+            [
+              3,
+              55
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/bytes@^1.0.0-rc.3/concat",
+          "specifierRange": [
+            [
+              4,
+              23
+            ],
+            [
+              4,
+              59
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/crypto@^0.224.0/crypto",
+          "specifierRange": [
+            [
+              5,
+              23
+            ],
+            [
+              5,
+              57
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./common.ts",
+          "specifierRange": [
+            [
+              6,
+              43
+            ],
+            [
+              6,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    "/v1.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              3,
+              28
+            ],
+            [
+              3,
+              42
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./common.ts",
+          "specifierRange": [
+            [
+              28,
+              14
+            ],
+            [
+              28,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./constants.ts",
+          "specifierRange": [
+            [
+              29,
+              14
+            ],
+            [
+              29,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./v1.ts",
+          "specifierRange": [
+            [
+              31,
+              63
+            ],
+            [
+              31,
+              72
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./v3.ts",
+          "specifierRange": [
+            [
+              32,
+              63
+            ],
+            [
+              32,
+              72
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./v4.ts",
+          "specifierRange": [
+            [
+              33,
+              39
+            ],
+            [
+              33,
+              48
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./v5.ts",
+          "specifierRange": [
+            [
+              34,
+              63
+            ],
+            [
+              34,
+              72
+            ]
+          ]
+        }
+      ]
+    },
+    "/v5.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              3,
+              41
+            ],
+            [
+              3,
+              55
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/bytes@^1.0.0-rc.3/concat",
+          "specifierRange": [
+            [
+              4,
+              23
+            ],
+            [
+              4,
+              59
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./common.ts",
+          "specifierRange": [
+            [
+              5,
+              43
+            ],
+            [
+              5,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    "/common.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./constants.ts",
+          "specifierRange": [
+            [
+              3,
+              25
+            ],
+            [
+              3,
+              41
+            ]
+          ]
+        }
+      ]
+    },
+    "/v4.ts": {},
+    "/constants.ts": {}
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./common": "./common.ts",
+    "./constants": "./constants.ts",
+    "./v1": "./v1.ts",
+    "./v3": "./v3.ts",
+    "./v4": "./v4.ts",
+    "./v5": "./v5.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"content-type":"application/json","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable","vary":"Origin","x-content-type-options":"nosniff","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kPk%2F14z1rQQLZ82SlOBiyct6igx4MFE7gku%2B%2BcKSo8PXBtKJc%2FjIYPdWmJy2dQsiUsE%2ByUWfClLruTqxGEWKMzUw71QNgZ8x4anEPC%2BMUuquw1uK2zF2S38%3D\"}]}","cf-ray":"9e98a5ccaa623992-IAD","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:27 GMT","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","etag":"W/\"dcc6d02578fcc728e18f4b63c1046d88\"","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/uuid/0.224.3_meta.json","time":1775728647}

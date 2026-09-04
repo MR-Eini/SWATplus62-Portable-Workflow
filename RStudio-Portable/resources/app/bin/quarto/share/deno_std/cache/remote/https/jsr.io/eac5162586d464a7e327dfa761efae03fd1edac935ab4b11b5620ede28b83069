@@ -1,0 +1,54 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { DateTimeFormatter } from "./_date_time_formatter.ts";
+
+/**
+ * Parses a date string using the specified format string.
+ *
+ * The following symbols from
+ * {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table | unicode LDML}
+ * are supported:
+ * - `yyyy` - numeric year
+ * - `yy` - 2-digit year
+ * - `M` - numeric month
+ * - `MM` - 2-digit month
+ * - `d` - numeric day
+ * - `dd` - 2-digit day
+ * - `H` - numeric hour (0-23 hours)
+ * - `HH` - 2-digit hour (00-23 hours)
+ * - `h` - numeric hour (1-12 hours)
+ * - `hh` - 2-digit hour (01-12 hours)
+ * - `m` - numeric minute
+ * - `mm` - 2-digit minute
+ * - `s` - numeric second
+ * - `ss` - 2-digit second
+ * - `S` - 1-digit fractional second
+ * - `SS` - 2-digit fractional second
+ * - `SSS` - 3-digit fractional second
+ * - `a` - dayPeriod, either `AM` or `PM`
+ * - `'foo'` - quoted literal
+ * - `./-` - unquoted literal
+ *
+ * @param dateString The date string to parse.
+ * @param formatString The date time string format.
+ * @return The parsed date.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { parse } from "@std/datetime/parse";
+ * import { assertEquals } from "@std/assert";
+ *
+ * assertEquals(parse("01-03-2019 16:30", "MM-dd-yyyy HH:mm"), new Date(2019, 0, 3, 16, 30));
+ *
+ * assertEquals(parse("01-03-2019 16:33:23.123", "MM-dd-yyyy HH:mm:ss.SSS"), new Date(2019, 0, 3, 16, 33, 23, 123));
+ * ```
+ */
+export function parse(dateString: string, formatString: string): Date {
+  const formatter = new DateTimeFormatter(formatString);
+  const parts = formatter.parseToParts(dateString);
+  const sortParts = formatter.sortDateTimeFormatPart(parts);
+  return formatter.partsToDate(sortParts);
+}
+
+// denoCacheMetadata={"headers":{"content-length":"1795","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=i7UJ%2FKP4lfpHw%2BYini6ryhrgO0byKDJ6Kduy1nBc4XdBxM7YrGw4aWs4PKU6MSarXuJbCYxLLSo4LZW%2BwMVXZ8pEmd2%2B3dBkO9%2Fz1eNEUYFf2zHnjxwAFTk%3D\"}]}","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","x-content-type-options":"nosniff","vary":"Origin","server":"cloudflare","x-jsr-backend":"modules","cf-ray":"9e98a5d02e763992-IAD","date":"Thu, 09 Apr 2026 09:57:27 GMT","access-control-allow-origin":"*","etag":"\"5ea131d9b8c25ecf2bc5920b68f89f44\"","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/datetime/0.224.5/parse.ts","time":1775728648}

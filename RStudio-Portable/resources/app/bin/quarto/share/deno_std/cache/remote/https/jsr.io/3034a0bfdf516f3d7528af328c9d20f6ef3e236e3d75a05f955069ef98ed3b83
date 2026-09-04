@@ -1,0 +1,127 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import { copy as copyBytes } from "jsr:@std/bytes@^1.0.2/copy";
+import type { Reader, ReaderSync, Seeker, SeekerSync } from "./types.ts";
+
+const DEFAULT_BUFFER_SIZE = 32 * 1024;
+
+/**
+ * The range of bytes to read from a file or other resource that is readable.
+ *
+ * @deprecated This will be removed in 1.0.0. Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Web Streams API} instead.
+ */
+export interface ByteRange {
+  /** The 0 based index of the start byte for a range. */
+  start: number;
+
+  /** The 0 based index of the end byte for a range, which is inclusive. */
+  end: number;
+}
+
+/**
+ * Read a range of bytes from a file or other resource that is readable and
+ * seekable.  The range start and end are inclusive of the bytes within that
+ * range.
+ *
+ * @example Usage
+ * ```ts no-eval
+ * import { assertEquals } from "@std/assert";
+ * import { readRange } from "@std/io/read-range";
+ *
+ * // Read the first 10 bytes of a file
+ * const file = await Deno.open("example.txt", { read: true });
+ * const bytes = await readRange(file, { start: 0, end: 9 });
+ * assertEquals(bytes.length, 10);
+ * ```
+ *
+ * @param r The reader to read from
+ * @param range The range of bytes to read
+ * @returns The bytes read
+ *
+ * @deprecated This will be removed in 1.0.0. Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Web Streams API} instead.
+ */
+export async function readRange(
+  r: Reader & Seeker,
+  range: ByteRange,
+): Promise<Uint8Array> {
+  // byte ranges are inclusive, so we have to add one to the end
+  let length = range.end - range.start + 1;
+  if (length <= 0) {
+    throw new RangeError("Byte range start cannot be larger than end");
+  }
+  await r.seek(range.start, Deno.SeekMode.Start);
+  const result = new Uint8Array(length);
+  let off = 0;
+  while (length) {
+    const p = new Uint8Array(Math.min(length, DEFAULT_BUFFER_SIZE));
+    const nread = await r.read(p);
+    if (nread === null) {
+      throw new Error("Unexpected EOF reach while reading a range");
+    }
+    if (nread === 0) {
+      throw new Error("Unexpected read of 0 bytes while reading a range");
+    }
+    copyBytes(p, result, off);
+    off += nread;
+    length -= nread;
+    if (length < 0) {
+      throw new Error("Unexpected length remaining after reading range");
+    }
+  }
+  return result;
+}
+
+/**
+ * Read a range of bytes synchronously from a file or other resource that is
+ * readable and seekable.  The range start and end are inclusive of the bytes
+ * within that range.
+ *
+ * @example Usage
+ * ```ts no-eval
+ * import { assertEquals } from "@std/assert";
+ * import { readRangeSync } from "@std/io/read-range";
+ *
+ * // Read the first 10 bytes of a file
+ * const file = Deno.openSync("example.txt", { read: true });
+ * const bytes = readRangeSync(file, { start: 0, end: 9 });
+ * assertEquals(bytes.length, 10);
+ * ```
+ *
+ * @param r The reader to read from
+ * @param range The range of bytes to read
+ * @returns The bytes read
+ *
+ * @deprecated This will be removed in 1.0.0. Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Web Streams API} instead.
+ */
+export function readRangeSync(
+  r: ReaderSync & SeekerSync,
+  range: ByteRange,
+): Uint8Array {
+  // byte ranges are inclusive, so we have to add one to the end
+  let length = range.end - range.start + 1;
+  if (length <= 0) {
+    throw new RangeError("Byte range start cannot be larger than end");
+  }
+  r.seekSync(range.start, Deno.SeekMode.Start);
+  const result = new Uint8Array(length);
+  let off = 0;
+  while (length) {
+    const p = new Uint8Array(Math.min(length, DEFAULT_BUFFER_SIZE));
+    const nread = r.readSync(p);
+    if (nread === null) {
+      throw new Error("Unexpected EOF reach while reading a range");
+    }
+    if (nread === 0) {
+      throw new Error("Unexpected read of 0 bytes while reading a range");
+    }
+    copyBytes(p, result, off);
+    off += nread;
+    length -= nread;
+    if (length < 0) {
+      throw new Error("Unexpected length remaining after reading range");
+    }
+  }
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"vary":"Origin","content-type":"text/typescript","content-length":"4131","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d1cfce3992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT","alt-svc":"h3=\":443\"; ma=86400","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","access-control-expose-headers":"*","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=dumNxvOfWNUg4YSUprcCIa0BBZ4pu2OoF1FJRwWQyreRTSfwxOdkjHzTKs%2B1dBHaCW1bhaYAl7b5p06EGMixjvuSgjW75T0Hg2v6%2BGHPoxPfLojE1o5Rn%2FM%3D\"}]}","etag":"\"eee32fa621d1e90a485ea2425db96499\"","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/io/0.224.8/read_range.ts","time":1775728648}

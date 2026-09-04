@@ -1,0 +1,44 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+/**
+ * Utilities for working with Deno's readers, writers, and web streams.
+ *
+ * `Reader` and `Writer` interfaces are deprecated in Deno, and so many of these
+ * utilities are also deprecated. Consider using web streams instead.
+ *
+ * ```ts no-assert
+ * import { toReadableStream, toWritableStream } from "@std/io";
+ *
+ * await toReadableStream(Deno.stdin)
+ *   .pipeTo(toWritableStream(Deno.stdout));
+ * ```
+ *
+ * @module
+ */
+
+export * from "./buf_reader.ts";
+export * from "./buf_writer.ts";
+export * from "./buffer.ts";
+export * from "./copy.ts";
+export * from "./copy_n.ts";
+export * from "./iterate_reader.ts";
+export * from "./limited_reader.ts";
+export * from "./multi_reader.ts";
+export * from "./read_all.ts";
+export * from "./read_delim.ts";
+export * from "./read_int.ts";
+export * from "./read_lines.ts";
+export * from "./read_long.ts";
+export * from "./read_range.ts";
+export * from "./read_short.ts";
+export * from "./read_string_delim.ts";
+export * from "./reader_from_stream_reader.ts";
+export * from "./slice_long_to_bytes.ts";
+export * from "./string_reader.ts";
+export * from "./string_writer.ts";
+export * from "./to_readable_stream.ts";
+export * from "./to_writable_stream.ts";
+export * from "./types.ts";
+export * from "./write_all.ts";
+
+// denoCacheMetadata={"headers":{"etag":"\"40a8742624a5e7301a3f0e5c0459c538\"","cf-ray":"9e98a5d02df33992-IAD","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","x-content-type-options":"nosniff","x-jsr-backend":"modules","content-length":"1335","cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","vary":"Origin","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QylNQ5ghHVJNJ3QlwQ6DuH7mATiuU767Q5rZINLxQpDG7mZwAF5AvZxAQ2sThZGxrXYjT6luD9LE%2Fwc6Vo8g6kqZk%2BFJDd5hObZuxX39j4%2F3nXDZWla5Zrg%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/io/0.224.8/mod.ts","time":1775728648}

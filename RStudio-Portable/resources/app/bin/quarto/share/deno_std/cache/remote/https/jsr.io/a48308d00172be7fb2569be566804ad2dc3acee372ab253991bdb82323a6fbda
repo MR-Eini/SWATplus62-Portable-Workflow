@@ -1,0 +1,271 @@
+{
+  "manifest": {
+    "/mux_async_iterator_test.ts": {
+      "size": 2570,
+      "checksum": "sha256-91e54a94ff2277785c31baa620c514a82366e8ed2f24119e6b9b4441760224ac"
+    },
+    "/delay.ts": {
+      "size": 2039,
+      "checksum": "sha256-28955691337700ac5fbc577262f70ac13901da0a273890b12c1f37080d53f650"
+    },
+    "/debounce.ts": {
+      "size": 2307,
+      "checksum": "sha256-e194840ffd8b535ee26940a847d6f5b17c0453b25b7b8832a9582027a3ba765d"
+    },
+    "/pool.ts": {
+      "size": 3924,
+      "checksum": "sha256-7eea923feda5150f22ebc61abf302135370e1806753286f1329495fc75909fd5"
+    },
+    "/LICENSE": {
+      "size": 1075,
+      "checksum": "sha256-0961f97da6619d5fe9ddb98649191d5ca6e958856ea5252f4cce7c9b85513819"
+    },
+    "/deadline_test.ts": {
+      "size": 2767,
+      "checksum": "sha256-dd3e972e4daf41fc1df6b865bb031215425f555631d3fa97cc6fc1baca929902"
+    },
+    "/pool_test.ts": {
+      "size": 2340,
+      "checksum": "sha256-9a79398f7d78bf9d6d2feb7b7f5b664e3979ed3781d70deffb3df685a49ef5d6"
+    },
+    "/abortable.ts": {
+      "size": 4814,
+      "checksum": "sha256-afd61e5c47f6d7d37701f9ebd2ad553f70063f1ff52cce833b71050717ec30eb"
+    },
+    "/deadline.ts": {
+      "size": 1790,
+      "checksum": "sha256-6533a6192f46cdaa2ff4c081377f64193b5e50a595eb9cf57fdfa4d6b5d91251"
+    },
+    "/delay_test.ts": {
+      "size": 4422,
+      "checksum": "sha256-19e64dae1e14f487752c812fe345e59d95446be2fa0d29b1933599d0d1f302df"
+    },
+    "/tee.ts": {
+      "size": 2621,
+      "checksum": "sha256-90629518c6cf1ea3b98b03097ced2669639db546c76620738798d51b16b3d5f6"
+    },
+    "/tee_test.ts": {
+      "size": 1627,
+      "checksum": "sha256-482a42cecf66875cb2b5402eca21ef23bbe6470ce83696c19a7d56c0b55fb66e"
+    },
+    "/debounce_test.ts": {
+      "size": 2271,
+      "checksum": "sha256-ef089e88407d3b45816ba3e206e68c3d952e85563745f126b989ab93e247ee4e"
+    },
+    "/_util.ts": {
+      "size": 360,
+      "checksum": "sha256-64f8d0da48f908c651736317a36e97890ea9ea22a5e281c8acf9ee6cafbb6de9"
+    },
+    "/mux_async_iterator.ts": {
+      "size": 4297,
+      "checksum": "sha256-296bded290827d9218852607e36456b0535141eb814747542e0a44f8d950513d"
+    },
+    "/mod.ts": {
+      "size": 692,
+      "checksum": "sha256-c614701190163fc8c79408a93181680a9c6a4b0551497cc33b74ec4e9015bbed"
+    },
+    "/retry_test.ts": {
+      "size": 3958,
+      "checksum": "sha256-58a4fa441cbc1938429c16b24e339e633dfbc3ea5e2b4950d3228d4f9dc6824d"
+    },
+    "/_util_test.ts": {
+      "size": 1886,
+      "checksum": "sha256-3ab1e7e8688c791ed092427dfe0a34d32f398d8f273871f8b545e1f9759d6fe9"
+    },
+    "/retry.ts": {
+      "size": 4577,
+      "checksum": "sha256-3ee072227253a4580b72f0ff2db95861e05438461eb21ab7c6415d3717fce797"
+    },
+    "/deno.json": {
+      "size": 361,
+      "checksum": "sha256-27ec9a35370d708f0599c66f17c738a979af8fb5de7d6d118243ae8804fb63cd"
+    },
+    "/abortable_test.ts": {
+      "size": 6524,
+      "checksum": "sha256-e0fbbb3f521e9a5cb549663eaffba437d2a41d50aaece3e4ba16daac36f8e0cd"
+    }
+  },
+  "moduleGraph2": {
+    "/delay.ts": {},
+    "/deadline.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./abortable.ts",
+          "specifierRange": [
+            [
+              3,
+              26
+            ],
+            [
+              3,
+              42
+            ]
+          ]
+        }
+      ]
+    },
+    "/mux_async_iterator.ts": {},
+    "/debounce.ts": {},
+    "/_util.ts": {},
+    "/tee.ts": {},
+    "/abortable.ts": {},
+    "/retry.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_util.ts",
+          "specifierRange": [
+            [
+              3,
+              45
+            ],
+            [
+              3,
+              57
+            ]
+          ]
+        }
+      ]
+    },
+    "/pool.ts": {},
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./abortable.ts",
+          "specifierRange": [
+            [
+              17,
+              14
+            ],
+            [
+              17,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./deadline.ts",
+          "specifierRange": [
+            [
+              18,
+              14
+            ],
+            [
+              18,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./debounce.ts",
+          "specifierRange": [
+            [
+              19,
+              14
+            ],
+            [
+              19,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./delay.ts",
+          "specifierRange": [
+            [
+              20,
+              14
+            ],
+            [
+              20,
+              26
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./mux_async_iterator.ts",
+          "specifierRange": [
+            [
+              21,
+              14
+            ],
+            [
+              21,
+              39
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./pool.ts",
+          "specifierRange": [
+            [
+              22,
+              14
+            ],
+            [
+              22,
+              25
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./tee.ts",
+          "specifierRange": [
+            [
+              23,
+              14
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./retry.ts",
+          "specifierRange": [
+            [
+              24,
+              14
+            ],
+            [
+              24,
+              26
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./abortable": "./abortable.ts",
+    "./deadline": "./deadline.ts",
+    "./debounce": "./debounce.ts",
+    "./delay": "./delay.ts",
+    "./mux-async-iterator": "./mux_async_iterator.ts",
+    "./pool": "./pool.ts",
+    "./retry": "./retry.ts",
+    "./tee": "./tee.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","etag":"W/\"bd5b80c39436b781466c6c2b26c573c7\"","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cf-ray":"9e98a5ceac403992-IAD","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","vary":"Origin","x-jsr-backend":"modules","content-type":"application/json","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:27 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pscyYCKdRfouTtL0lU4lbty37VnuJ5E7fDhNCu7U7y0cIkiBSbBQDTDy%2B16iEdENgBTog7QF8jdVOEENN%2B8l8m6DR4QGXMPbt681ANQmBWdIGwepb9uklYc%3D\"}]}","server":"cloudflare"},"url":"https://jsr.io/@std/async/1.0.5_meta.json","time":1775728647}

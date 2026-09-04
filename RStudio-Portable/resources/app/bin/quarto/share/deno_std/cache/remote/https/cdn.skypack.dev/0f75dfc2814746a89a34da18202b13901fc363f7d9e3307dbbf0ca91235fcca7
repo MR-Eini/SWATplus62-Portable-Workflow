@@ -1,0 +1,44 @@
+import {cloneNode, Document} from "/-/domhandler@v5.0.3-oHQ1zBLd64RIysV9PvVR/dist=es2019,mode=imports/optimized/domhandler.js";
+export {isTag} from "/-/domhandler@v5.0.3-oHQ1zBLd64RIysV9PvVR/dist=es2019,mode=imports/optimized/domhandler.js";
+function isCheerio(maybeCheerio) {
+  return maybeCheerio.cheerio != null;
+}
+function camelCase(str) {
+  return str.replace(/[_.-](\w|$)/g, (_, x) => x.toUpperCase());
+}
+function cssCase(str) {
+  return str.replace(/[A-Z]/g, "-$&").toLowerCase();
+}
+function domEach(array, fn) {
+  const len = array.length;
+  for (let i = 0; i < len; i++)
+    fn(array[i], i);
+  return array;
+}
+function cloneDom(dom) {
+  const clone = "length" in dom ? Array.prototype.map.call(dom, (el) => cloneNode(el, true)) : [cloneNode(dom, true)];
+  const root = new Document(clone);
+  clone.forEach((node) => {
+    node.parent = root;
+  });
+  return clone;
+}
+var CharacterCodes;
+(function(CharacterCodes2) {
+  CharacterCodes2[CharacterCodes2["LowerA"] = 97] = "LowerA";
+  CharacterCodes2[CharacterCodes2["LowerZ"] = 122] = "LowerZ";
+  CharacterCodes2[CharacterCodes2["UpperA"] = 65] = "UpperA";
+  CharacterCodes2[CharacterCodes2["UpperZ"] = 90] = "UpperZ";
+  CharacterCodes2[CharacterCodes2["Exclamation"] = 33] = "Exclamation";
+})(CharacterCodes || (CharacterCodes = {}));
+function isHtml(str) {
+  const tagStart = str.indexOf("<");
+  if (tagStart < 0 || tagStart > str.length - 3)
+    return false;
+  const tagChar = str.charCodeAt(tagStart + 1);
+  return (tagChar >= CharacterCodes.LowerA && tagChar <= CharacterCodes.LowerZ || tagChar >= CharacterCodes.UpperA && tagChar <= CharacterCodes.UpperZ || tagChar === CharacterCodes.Exclamation) && str.includes(">", tagStart + 2);
+}
+export {camelCase, cloneDom, cssCase, domEach, isCheerio, isHtml};
+export default null;
+
+// denoCacheMetadata={"headers":{"strict-transport-security":"max-age=63072000","access-control-expose-headers":"Content-Length, X-Imports","access-control-allow-origin":"*","cf-cache-status":"MISS","vary":"accept-encoding","etag":"W/\"6f9-kTPSWXxWrt199JCi1GFprMqOIc0\"","x-imports":"/-/domhandler@v5.0.3-oHQ1zBLd64RIysV9PvVR/dist=es2019,mode=imports/optimized/domhandler.js, /-/domhandler@v5.0.3-oHQ1zBLd64RIysV9PvVR/dist=es2019,mode=imports/optimized/domhandler.js","x-vercel-id":"pdx1::sfo1::mtx2v-1775164360843-2743778079ee","server":"cloudflare","x-vercel-cache":"MISS","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5YLo%2BV6xkz4p%2Bppo%2BxV6K%2Bmqf09G8JCj%2Bx8ajbHGWRSjtU6b11Kf5ImlG%2FwWhIa14YuhdHILI9c85WScYnOhtuX7hiMblgVGTQmLAOamRIfVUNlhE%2BBib4%2BIF%2F%2FgS0lQGQ%3D%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","content-type":"application/javascript; charset=utf-8","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:26 GMT","x-cache":"HIT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5cb1911c9b7-IAD","age":"0"},"url":"https://cdn.skypack.dev/-/cheerio@v1.0.0-rc.12-d2orEfV7mEyxhcmv8Jbn/dist=es2019,mode=imports/optimized/cheerio/lib/utils.js","time":1775728646}

@@ -1,0 +1,39 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns all elements in the given array after the last element that does not
+ * match the given predicate.
+ *
+ * @template T The type of the array elements.
+ *
+ * @param array The array to take elements from.
+ * @param predicate The predicate function to determine if an element should be
+ * included.
+ *
+ * @returns A new array containing all elements after the last element that does
+ * not match the predicate.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { takeLastWhile } from "@std/collections/take-last-while";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const numbers = [1, 2, 3, 4, 5, 6];
+ *
+ * const result = takeLastWhile(numbers, (number) => number > 4);
+ *
+ * assertEquals(result, [5, 6]);
+ * ```
+ */
+export function takeLastWhile<T>(
+  array: readonly T[],
+  predicate: (el: T) => boolean,
+): T[] {
+  let offset = array.length;
+  while (0 < offset && predicate(array[offset - 1] as T)) offset--;
+
+  return array.slice(offset, array.length);
+}
+
+// denoCacheMetadata={"headers":{"nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xWgBS7ykF2YoWdvRbFF9qvxF7uDRwPyGYw9PIVdtWs1DwJ29565OcqGZ6DhpIp64GLUM51dFldIuxOhD8uDkff1trRqESXPhu5rbikaio4ikJzTtNBMszqs%3D\"}]}","content-type":"text/typescript","content-length":"1102","vary":"Origin","x-content-type-options":"nosniff","access-control-allow-origin":"*","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","date":"Thu, 09 Apr 2026 09:57:27 GMT","etag":"\"c2710105ff9523edeee765e18c9a1aab\"","x-jsr-backend":"modules","cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d02e613992-IAD","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/collections/0.224.2/take_last_while.ts","time":1775728647}

@@ -1,0 +1,35 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+export type KindType = "sequence" | "scalar" | "mapping";
+/**
+ * The style variation for `styles` option of {@linkcode stringify}
+ */
+export type StyleVariant =
+  | "lowercase"
+  | "uppercase"
+  | "camelcase"
+  | "decimal"
+  | "binary"
+  | "octal"
+  | "hexadecimal";
+
+export type RepresentFn<D> = (data: D, style?: StyleVariant) => string;
+
+// deno-lint-ignore no-explicit-any
+export interface Type<K extends KindType, D = any> {
+  tag: string;
+  kind: K;
+  predicate?: (data: unknown) => data is D;
+  represent?: RepresentFn<D> | Record<string, RepresentFn<D>>;
+  defaultStyle?: StyleVariant;
+  // deno-lint-ignore no-explicit-any
+  resolve: (data: any) => boolean;
+  // deno-lint-ignore no-explicit-any
+  construct: (data: any) => D;
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=O%2FrV0Y5L84mjUTmeh%2FyQzJ1xbIPeK9%2Bws3v7TE34UuK9q9M%2F%2BeGff0XSnoKZTYRIeiCRWpU7vxs2D36NkR%2BBRHBl4FXhRu1%2BNTAkgpIOLP56bCeyAqaf1EM%3D\"}]}","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"243c373f1b78bf9cda22c8b82ac6b91c\"","vary":"Origin","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d53be93992-IAD","content-type":"text/typescript","server":"cloudflare","content-length":"1044","access-control-expose-headers":"*","x-robots-tag":"noindex"},"url":"https://jsr.io/@std/yaml/1.0.5/_type.ts","time":1775728648}

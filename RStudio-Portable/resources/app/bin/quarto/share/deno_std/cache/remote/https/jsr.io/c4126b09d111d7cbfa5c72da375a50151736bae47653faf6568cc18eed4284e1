@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { SemVer } from "./types.ts";
+import { compare } from "./compare.ts";
+
+/**
+ * Less than comparison
+ *
+ * This is equal to `compare(s0, s1) < 0`.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse, lessThan } from "@std/semver";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const s0 = parse("1.2.3");
+ * const s1 = parse("1.2.4");
+ * assert(lessThan(s0, s1));
+ * assertFalse(lessThan(s1, s0));
+ * assertFalse(lessThan(s0, s0));
+ * ```
+ *
+ * @param s0 the first version to compare
+ * @param s1 the second version to compare
+ * @returns `true` if `s0` is less than `s1`, `false` otherwise
+ */
+export function lessThan(s0: SemVer, s1: SemVer): boolean {
+  return compare(s0, s1) < 0;
+}
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","x-content-type-options":"nosniff","server":"cloudflare","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GEWHP34ZvMfSxkHd7HfDu7rOkgTkk4sPkBoA75BghFy9zEepo%2FqdbU1xJ3Wz5Viu1JB2nMAuRY%2FyGWZnJFm9DrD2j5zzVLtnvxE2gM8sIUYnD2k59UK%2FxeA%3D\"}]}","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","content-length":"819","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-allow-origin":"*","etag":"\"e5f32f7f4a5b70f9efd37e7417f688e3\"","date":"Thu, 09 Apr 2026 09:57:28 GMT","cf-ray":"9e98a5d298e23992-IAD","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","vary":"Origin"},"url":"https://jsr.io/@std/semver/0.224.3/less_than.ts","time":1775728648}

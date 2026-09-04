@@ -1,0 +1,12 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+export function assertPath(path?: string) {
+  if (typeof path !== "string") {
+    throw new TypeError(
+      `Path must be a string. Received ${JSON.stringify(path)}`,
+    );
+  }
+}
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","vary":"Origin","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"307","x-jsr-backend":"modules","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"9a29f51620a38baa22138ef689ca93ae\"","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zFeu%2Blv6wLZHSD6UwQdbWpOKeISwFzuKhTcueXR2daFmwiFVlnDUsde5t0f4B2V%2B3h9SqByLQlsDFX%2F4G7%2Fb7v38zmRULQl2uylVneZLIe4goMlsF81ej5g%3D\"}]}","cf-ray":"9e98a5d45ae33992-IAD","server":"cloudflare","access-control-expose-headers":"*","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/path/0.224.0/_common/assert_path.ts","time":1775728648}

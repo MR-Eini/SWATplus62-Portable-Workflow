@@ -1,0 +1,35 @@
+// Ported and adapted from js-yaml-js-types v1.0.0:
+// https://github.com/nodeca/js-yaml-js-types/tree/ac537e7bbdd3c2cbbd9882ca3919c520c2dc022b
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import type { Type } from "../_type.ts";
+
+const REGEXP = /^\/(?<regexp>[\s\S]+)\/(?<modifiers>[gismuy]*)$/;
+
+export const regexp: Type<"scalar", RegExp> = {
+  tag: "tag:yaml.org,2002:js/regexp",
+  kind: "scalar",
+  resolve(data: string | null): boolean {
+    if (data === null || !data.length) return false;
+
+    if (data.charAt(0) === "/") {
+      // Ensure regex is properly terminated
+      const groups = data.match(REGEXP)?.groups;
+      if (!groups) return false;
+      // Check no duplicate modifiers
+      const modifiers = groups.modifiers ?? "";
+      if (new Set(modifiers).size < modifiers.length) return false;
+    }
+
+    return true;
+  },
+  construct(data: string): RegExp {
+    const { regexp = data, modifiers = "" } = data.match(REGEXP)?.groups ?? {};
+    return new RegExp(regexp, modifiers);
+  },
+  predicate: (object: unknown): object is RegExp => object instanceof RegExp,
+  represent: (object: RegExp): string => object.toString(),
+};
+
+// denoCacheMetadata={"headers":{"vary":"Origin","server":"cloudflare","content-length":"1252","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","cf-ray":"9e98a5d54c0f3992-IAD","x-robots-tag":"noindex","access-control-allow-origin":"*","access-control-expose-headers":"*","etag":"\"853c14aea04447085332229d26ec246f\"","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BiT9wgpdxI8D6IM01qurUQmc2X9%2BFXOpxT%2FjSzi8fl3FNrAcjRQlR8R%2BepccYoUikD4go7EYpDByBDXFFIetUcAapuNREr3ByfDKymGC8j%2BOJjoKa4rfOHQ%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/yaml/1.0.5/_type/regexp.ts","time":1775728648}

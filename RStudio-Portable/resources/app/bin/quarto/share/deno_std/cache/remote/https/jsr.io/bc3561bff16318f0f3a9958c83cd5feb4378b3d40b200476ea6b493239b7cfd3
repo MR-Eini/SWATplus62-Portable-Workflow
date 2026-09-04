@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { toFileUrl as posixToFileUrl } from "./posix/to_file_url.ts";
+import { toFileUrl as windowsToFileUrl } from "./windows/to_file_url.ts";
+
+/**
+ * Converts a path string to a file URL.
+ *
+ * ```ts
+ * import { toFileUrl } from "@std/path/to-file-url";
+ *
+ * // posix
+ * toFileUrl("/home/foo"); // new URL("file:///home/foo")
+ *
+ * // win32
+ * toFileUrl("\\home\\foo"); // new URL("file:///home/foo")
+ * toFileUrl("C:\\Users\\foo"); // new URL("file:///C:/Users/foo")
+ * toFileUrl("\\\\127.0.0.1\\home\\foo"); // new URL("file://127.0.0.1/home/foo")
+ * ```
+ * @param path to convert to file URL
+ */
+export function toFileUrl(path: string): URL {
+  return isWindows ? windowsToFileUrl(path) : posixToFileUrl(path);
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","etag":"\"2419f80bf2e75c78103e54b824f081a3\"","vary":"Origin","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","x-jsr-backend":"modules","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Rfl0Tv3ZxHCsIqcG4MlDbO0vhyEAO2ck22cZm83Uz6EokrlId2xrJtWfFmMadB7f60rb32P3IHMONQXTAPEQRSX4ZxJIHAL6SbpbuQ%2BSilY%2Fk43XZZAN4hg%3D\"}]}","cf-ray":"9e98a5d2587f3992-IAD","cross-origin-resource-policy":"cross-origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-length":"871"},"url":"https://jsr.io/@std/path/0.224.0/to_file_url.ts","time":1775728648}

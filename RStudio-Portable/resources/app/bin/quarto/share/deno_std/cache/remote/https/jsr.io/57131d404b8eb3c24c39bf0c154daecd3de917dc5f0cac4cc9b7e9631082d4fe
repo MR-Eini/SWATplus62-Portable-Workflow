@@ -1,0 +1,82 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { Comparator, SemVer } from "./types.ts";
+
+/**
+ * MAX is a sentinel value used by some range calculations.
+ * It is equivalent to `∞.∞.∞`.
+ */
+export const MAX: SemVer = {
+  major: Number.POSITIVE_INFINITY,
+  minor: Number.POSITIVE_INFINITY,
+  patch: Number.POSITIVE_INFINITY,
+  prerelease: [],
+  build: [],
+};
+
+/**
+ * The minimum valid SemVer object. Equivalent to `0.0.0`.
+ */
+export const MIN: SemVer = {
+  major: 0,
+  minor: 0,
+  patch: 0,
+  prerelease: [],
+  build: [],
+};
+
+/**
+ * A sentinel value used to denote an invalid SemVer object
+ * which may be the result of impossible ranges or comparator operations.
+ * @example
+ * ```ts
+ * import { equals } from "@std/semver/equals";
+ * import { parse } from "@std/semver/parse";
+ * import { INVALID } from "@std/semver/constants"
+ * equals(parse("1.2.3"), INVALID);
+ * ```
+ */
+export const INVALID: SemVer = {
+  major: Number.NEGATIVE_INFINITY,
+  minor: Number.POSITIVE_INFINITY,
+  patch: Number.POSITIVE_INFINITY,
+  prerelease: [],
+  build: [],
+};
+
+/**
+ * ANY is a sentinel value used by some range calculations. It is not a valid
+ * SemVer object and should not be used directly.
+ * @example
+ * ```ts
+ * import { equals } from "@std/semver/equals";
+ * import { parse } from "@std/semver/parse";
+ * import { ANY } from "@std/semver/constants"
+ * equals(parse("1.2.3"), ANY); // false
+ * ```
+ */
+export const ANY: SemVer = {
+  major: Number.NaN,
+  minor: Number.NaN,
+  patch: Number.NaN,
+  prerelease: [],
+  build: [],
+};
+
+/**
+ * A comparator which will span all valid semantic versions
+ */
+export const ALL: Comparator = {
+  operator: undefined,
+  ...ANY,
+};
+
+/**
+ * A comparator which will not span any semantic versions
+ */
+export const NONE: Comparator = {
+  operator: "<",
+  ...MIN,
+};
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","x-robots-tag":"noindex","x-content-type-options":"nosniff","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lbBfamkyoJP4ikswQG%2BlC2Kes3miATTiTBYNmyPkIj%2BKPF9JLJlGH8b4u%2Fn0x8R%2F%2FHOPsvrkat3bgxHuOHHXjAuhwMLk50yWh2IyQtd%2F3RvA3Iy%2BSjAOOjI%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=86400","cf-ray":"9e98a5d268963992-IAD","content-length":"1875","access-control-allow-origin":"*","etag":"\"737513b0898610164cf853090f0ee4c0\"","vary":"Origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/semver/0.224.3/constants.ts","time":1775728648}

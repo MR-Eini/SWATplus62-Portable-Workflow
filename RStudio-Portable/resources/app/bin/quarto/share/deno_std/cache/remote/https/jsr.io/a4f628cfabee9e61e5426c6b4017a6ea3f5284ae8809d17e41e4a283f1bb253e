@@ -1,0 +1,16 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright the Browserify authors. MIT License.
+
+import { fromFileUrl } from "jsr:/@std/path@^0.224.0/from-file-url";
+
+/**
+ * Convert a URL or string to a path
+ * @param pathUrl A URL or string to be converted
+ */
+export function toPathString(
+  pathUrl: string | URL,
+): string {
+  return pathUrl instanceof URL ? fromFileUrl(pathUrl) : pathUrl;
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=Owl57kLQ0Yk5T0zOkRDzWF9mTIQlHuWI5dMRqabMRp2oFG4Row0xA%2F3PXnw4pIGJf9Z22uSsoZvZiAdMB%2BvbKeqVqXMidaZ2LGy6sozCCYzthYLWr6xnu2A%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}","etag":"\"84ea00f4f30fae79c59644b18e400445\"","content-type":"text/typescript","cf-ray":"9e98a5d349ab3992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","content-length":"426","date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","x-jsr-backend":"modules","x-robots-tag":"noindex","nel":"{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","server":"cloudflare","vary":"Origin, Accept-Encoding","server-timing":"cfL4;desc=\"?proto=TCP&rtt=2274&min_rtt=2006&rtt_var=227&sent=1851&recv=827&lost=0&retrans=0&sent_bytes=1354208&recv_bytes=28327&delivery_rate=35038167&cwnd=276&unsent_bytes=0&cid=83ce3e0e521535a5&ts=2687&x=0\""},"url":"https://jsr.io/@std/fs/0.224.0/_to_path_string.ts","time":1775728648}

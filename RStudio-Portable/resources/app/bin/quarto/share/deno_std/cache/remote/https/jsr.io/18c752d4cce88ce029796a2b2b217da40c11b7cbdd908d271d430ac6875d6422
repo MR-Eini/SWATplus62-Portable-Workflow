@@ -1,0 +1,24 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { getLogger } from "./get_logger.ts";
+import type { GenericFunction } from "./logger.ts";
+
+/** Log with info level, using default logger. */
+export function info<T>(msg: () => T, ...args: unknown[]): T | undefined;
+export function info<T>(
+  msg: T extends GenericFunction ? never : T,
+  ...args: unknown[]
+): T;
+export function info<T>(
+  msg: (T extends GenericFunction ? never : T) | (() => T),
+  ...args: unknown[]
+): T | undefined {
+  // Assist TS compiler with pass-through generic type
+  if (msg instanceof Function) {
+    return getLogger("default").info(msg, ...args);
+  }
+  return getLogger("default").info(msg, ...args);
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-type":"text/typescript","access-control-expose-headers":"*","x-jsr-backend":"modules","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=dXN1jVXEIy1hTz4bMnVqZIpWxUpif1wZtMypiGzICk%2FalSJAxd4n3gs8hG9wQFQ19C%2FrXlOSporFyRt6GGye67F%2FV4H2CLsfdRRi%2BbBDx5GtEJCEqIcEiuQ%3D\"}]}","cf-ray":"9e98a5d2182a3992-IAD","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","vary":"Origin","content-length":"755","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"89cad8db10932ea0489080758e76a803\""},"url":"https://jsr.io/@std/log/0.224.7/info.ts","time":1775728648}

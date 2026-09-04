@@ -1,0 +1,7 @@
+maptiles-package	maptiles
+create_provider	create_provider
+get_credit	get_credit
+get_providers	get_providers
+get_tiles	get_tiles
+maptiles	maptiles
+plot_tiles	plot_tiles

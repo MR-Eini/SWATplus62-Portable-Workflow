@@ -1,0 +1,35 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { readerFromStreamReader as _readerFromStreamReader } from "jsr:/@std/io@^0.224.1/reader-from-stream-reader";
+import type { Reader } from "jsr:/@std/io@^0.224.1/types";
+
+/**
+ * Create a {@linkcode https://jsr.io/@std/io/doc/types/~/Reader | Reader} from a {@linkcode ReadableStreamDefaultReader}.
+ *
+ * @param streamReader A `ReadableStreamDefaultReader` to convert into a `Reader`.
+ * @returns A `Reader` that reads from the `streamReader`.
+ *
+ * @example Copy the response body of a fetch request to the blackhole
+ * ```ts no-eval no-assert
+ * import { copy } from "@std/io/copy";
+ * import { readerFromStreamReader } from "@std/streams/reader-from-stream-reader";
+ * import { devNull } from "node:os";
+ *
+ * const res = await fetch("https://deno.land");
+ * using blackhole = await Deno.open(devNull, { write: true });
+ *
+ * const reader = readerFromStreamReader(res.body!.getReader());
+ * await copy(reader, blackhole);
+ * ```
+ *
+ * @deprecated This will be removed in 1.0.0. Import from
+ * {@link https://jsr.io/@std/io | @std/io} instead.
+ */
+export function readerFromStreamReader(
+  streamReader: ReadableStreamDefaultReader<Uint8Array>,
+): Reader {
+  return _readerFromStreamReader(streamReader);
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FxSzKTA%2F3SjcAKB9d0QLqUW5wXfosbguZMUu7bW3kDJ2HsYnoJkamrqGboSELBk%2BtiwrO3gb1RpCCu6g85X7ywHzJw1wpTNmxAdcbzCHiE1oqwcpCkEqJnY%3D\"}]}","server":"cloudflare","x-content-type-options":"nosniff","x-robots-tag":"noindex","content-length":"1328","etag":"\"b8b116e5784336a844f40f5ad7fa182d\"","x-jsr-backend":"modules","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","vary":"Origin","access-control-expose-headers":"*","cf-ray":"9e98a5d2b9133992-IAD","cache-control":"public, max-age=31536000, immutable","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/streams/0.224.5/reader_from_stream_reader.ts","time":1775728648}

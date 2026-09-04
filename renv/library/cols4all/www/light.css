@@ -1,0 +1,88 @@
+.tab-content  {
+    margin-top: 12px;
+}
+
+.modal-title {
+	color: #000000;
+}
+
+body {
+    padding-top: 1em;
+    line-height: 1em;
+    font-size: 12px !important;
+}
+
+
+
+.radio {
+	margin-bottom: 5px;
+}
+
+
+input[type="checkbox"], input[type="radio"] {
+	margin: 0px;
+}
+
+
+.action-button {
+	font-size: 12px !important;
+	padding: 5px;
+	vertical-align: middle;
+	margin-bottom: 5px;
+}
+
+.btn-default {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+.btn-default:hover {
+    background: #FFFFFF;
+    color: #666666;
+}
+
+.selectize-control {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+    margin-bottom: 0px !important;
+
+	font-size: 12px !important;
+}
+
+div.checkbox { padding: 0px; margin: 0px;}
+
+
+.control-label {
+	margin-top: 0px !important;
+	font-size: 120% !important;
+	line-height: 1.1 !important;
+	font-weight: 700 !important;
+}
+
+.control-label2 {
+	margin-bottom: 5px !important;
+	font-size: 120% !important;
+	line-height: 1.1 !important;
+	font-weight: 700 !important;
+}
+
+.control-label3 {
+	margin-top: 10px !important;
+	font-size: 120% !important;
+	line-height: 1.1 !important;
+	font-weight: 700 !important;
+}
+
+#series .shiny-options-group {
+	margin-top: -12px;
+}
+
+div.form-group.shiny-input-container { margin: 0 0 0 0; }
+
+.multicol {
+
+	-webkit-column-count: 3; /* Chrome, Safari, Opera */
+		-moz-column-count: 3;    /* Firefox */
+		column-count: 3;
+	-moz-column-fill: auto;
+	-column-fill: auto;
+}

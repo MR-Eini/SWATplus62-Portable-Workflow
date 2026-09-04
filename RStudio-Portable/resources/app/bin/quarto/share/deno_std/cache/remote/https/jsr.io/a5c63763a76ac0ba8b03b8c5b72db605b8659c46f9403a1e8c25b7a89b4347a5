@@ -1,0 +1,102 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+type LineParseResult = {
+  key: string;
+  unquoted: string;
+  interpolated: string;
+  notInterpolated: string;
+};
+
+type CharactersMap = { [key: string]: string };
+
+const RE_KEY_VALUE =
+  /^\s*(?:export\s+)?(?<key>[a-zA-Z_]+[a-zA-Z0-9_]*?)\s*=[\ \t]*('\n?(?<notInterpolated>(.|\n)*?)\n?'|"\n?(?<interpolated>(.|\n)*?)\n?"|(?<unquoted>[^\n#]*)) *#*.*$/gm;
+
+const RE_EXPAND_VALUE =
+  /(\${(?<inBrackets>.+?)(\:-(?<inBracketsDefault>.+))?}|(?<!\\)\$(?<notInBrackets>\w+)(\:-(?<notInBracketsDefault>.+))?)/g;
+
+function expandCharacters(str: string): string {
+  const charactersMap: CharactersMap = {
+    "\\n": "\n",
+    "\\r": "\r",
+    "\\t": "\t",
+  };
+
+  return str.replace(
+    /\\([nrt])/g,
+    ($1: keyof CharactersMap): string => charactersMap[$1] || "",
+  );
+}
+
+function expand(str: string, variablesMap: { [key: string]: string }): string {
+  if (RE_EXPAND_VALUE.test(str)) {
+    return expand(
+      str.replace(RE_EXPAND_VALUE, function (...params) {
+        const {
+          inBrackets,
+          inBracketsDefault,
+          notInBrackets,
+          notInBracketsDefault,
+        } = params[params.length - 1];
+        const expandValue = inBrackets || notInBrackets;
+        const defaultValue = inBracketsDefault || notInBracketsDefault;
+
+        let value: string | undefined = variablesMap[expandValue];
+        if (value === undefined) {
+          value = Deno.env.get(expandValue);
+        }
+        return value === undefined ? expand(defaultValue, variablesMap) : value;
+      }),
+      variablesMap,
+    );
+  } else {
+    return str;
+  }
+}
+
+/**
+ * Parse `.env` file output in an object.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse } from "@std/dotenv/parse";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const env = parse("GREETING=hello world");
+ * assertEquals(env, { GREETING: "hello world" });
+ * ```
+ *
+ * @param text The text to parse.
+ * @returns The parsed object.
+ */
+export function parse(text: string): Record<string, string> {
+  const env: Record<string, string> = {};
+
+  let match;
+  const keysForExpandCheck = [];
+
+  while ((match = RE_KEY_VALUE.exec(text)) !== null) {
+    const { key, interpolated, notInterpolated, unquoted } = match
+      ?.groups as LineParseResult;
+
+    if (unquoted) {
+      keysForExpandCheck.push(key);
+    }
+
+    env[key] = typeof notInterpolated === "string"
+      ? notInterpolated
+      : typeof interpolated === "string"
+      ? expandCharacters(interpolated)
+      : unquoted.trim();
+  }
+
+  //https://github.com/motdotla/dotenv-expand/blob/ed5fea5bf517a09fd743ce2c63150e88c8a5f6d1/lib/main.js#L23
+  const variablesMap = { ...env };
+  keysForExpandCheck.forEach((key) => {
+    env[key] = expand(env[key]!, variablesMap);
+  });
+
+  return env;
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"540a6080d76a970d157d08e50a727823\"","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Yv9KeV4bgWeFICrD20VN%2FF0H%2BFkdzxs%2F45BEHzTBV5fuUuaqrrn2sxjmIDc4zVRHZ%2Bj0IQt3l6FIVBgRqEwV55WDUFyBtS8yZQ0bZzVhSikJPS%2BDiknHeyA%3D\"}]}","content-length":"2796","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","server":"cloudflare","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","cf-ray":"9e98a5d02e7a3992-IAD","access-control-allow-origin":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:27 GMT"},"url":"https://jsr.io/@std/dotenv/0.224.2/parse.ts","time":1775728647}

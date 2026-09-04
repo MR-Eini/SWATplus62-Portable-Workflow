@@ -1,0 +1,108 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Utility for representing n-tuple. Used in {@linkcode tee}. */
+export type Tuple<T, N extends number> = N extends N
+  ? number extends N ? T[] : TupleOf<T, N, []>
+  : never;
+
+/** Utility for representing n-tuple of. Used in {@linkcode Tuple}. */
+export type TupleOf<T, N extends number, R extends unknown[]> =
+  R["length"] extends N ? R
+    : TupleOf<T, N, [T, ...R]>;
+
+interface QueueNode<T> {
+  value: T;
+  next: QueueNode<T> | undefined;
+}
+
+class Queue<T> {
+  #source: AsyncIterator<T>;
+  #queue: QueueNode<T>;
+  head: QueueNode<T>;
+
+  done: boolean;
+
+  constructor(iterable: AsyncIterable<T>) {
+    this.#source = iterable[Symbol.asyncIterator]();
+    this.#queue = {
+      value: undefined!,
+      next: undefined,
+    };
+    this.head = this.#queue;
+    this.done = false;
+  }
+
+  async next() {
+    const result = await this.#source.next();
+    if (!result.done) {
+      const nextNode: QueueNode<T> = {
+        value: result.value,
+        next: undefined,
+      };
+      this.#queue.next = nextNode;
+      this.#queue = nextNode;
+    } else {
+      this.done = true;
+    }
+  }
+}
+
+/**
+ * Branches the given async iterable into the `n` branches.
+ *
+ * @example Usage
+ * ```ts
+ * import { tee } from "@std/async/tee";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const gen = async function* gen() {
+ *   yield 1;
+ *   yield 2;
+ *   yield 3;
+ * };
+ *
+ * const [branch1, branch2] = tee(gen());
+ *
+ * const result1 = await Array.fromAsync(branch1);
+ * assertEquals(result1, [1, 2, 3]);
+ *
+ * const result2 = await Array.fromAsync(branch2);
+ * assertEquals(result2, [1, 2, 3]);
+ * ```
+ *
+ * @typeParam T The type of the provided async iterable and the returned async iterables.
+ * @typeParam N The amount of branches to tee into.
+ * @param iterable The iterable to tee.
+ * @param n The amount of branches to tee into.
+ * @returns The tuple where each element is an async iterable.
+ */
+export function tee<T, N extends number = 2>(
+  iterable: AsyncIterable<T>,
+  n: N = 2 as N,
+): Tuple<AsyncIterable<T>, N> {
+  const queue = new Queue<T>(iterable);
+
+  async function* generator(): AsyncGenerator<T> {
+    let buffer = queue.head;
+    while (true) {
+      if (buffer.next) {
+        buffer = buffer.next;
+        yield buffer.value;
+      } else if (queue.done) {
+        return;
+      } else {
+        await queue.next();
+      }
+    }
+  }
+
+  return Array.from({ length: n }).map(
+    () => generator(),
+  ) as Tuple<
+    AsyncIterable<T>,
+    N
+  >;
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gFJzlE4rFJStTPmJg3briGwSQpYRmcej2%2B6uJL7OZuS2g2niML%2BBjU91SkCjMzfLa7wD4Y766qfrBL3gbucDFR%2BQyfMZfCH5Vu7gIZBKVr2HwhzZrzp9Nto%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","cf-ray":"9e98a5d02e113992-IAD","access-control-allow-origin":"*","server":"cloudflare","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin","etag":"\"4785edbdb117eccddc2024ff19422f04\"","content-length":"2595","x-jsr-backend":"modules","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/async/0.224.2/tee.ts","time":1775728648}

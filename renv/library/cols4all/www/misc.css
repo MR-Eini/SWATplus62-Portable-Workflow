@@ -1,0 +1,120 @@
+.crosshair {
+	cursor: default;
+}
+
+#table.crosshair {
+	cursor: pointer;
+}
+
+#cbfSimi.crosshair {
+	cursor: pointer;
+}
+#cbfPSimi1.crosshair {
+	cursor: pointer;
+}
+#cbfPSimi2.crosshair {
+	cursor: pointer;
+}
+#cbfPSimi3.crosshair {
+	cursor: pointer;
+}
+
+#chart-label {
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+#cbfSimu {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfHL {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfCL1 {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfCL2 {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfCL3 {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfSimi {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfPSimi1 {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfPSimi2 {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#cbfPSimi3 {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+
+#anaHUE {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#anaCL {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#anaFair {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#anaName {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#table {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#blues {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+.hide {
+	display: none;
+}

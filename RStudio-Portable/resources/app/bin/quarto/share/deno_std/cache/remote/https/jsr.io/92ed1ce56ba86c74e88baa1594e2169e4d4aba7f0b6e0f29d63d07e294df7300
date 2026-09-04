@@ -1,0 +1,29 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertPath } from "../_common/assert_path.ts";
+import { normalize } from "./normalize.ts";
+
+/**
+ * Join all given a sequence of `paths`,then normalizes the resulting path.
+ *
+ * @example Usage
+ * ```ts
+ * import { join } from "@std/path/posix/join";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const path = join("/foo", "bar", "baz/asdf", "quux", "..");
+ * assertEquals(path, "/foo/bar/baz/asdf");
+ * ```
+ *
+ * @param paths The paths to join.
+ * @returns The joined path.
+ */
+export function join(...paths: string[]): string {
+  if (paths.length === 0) return ".";
+  paths.forEach((path) => assertPath(path));
+  const joined = paths.filter((path) => path.length > 0).join("/");
+  return joined === "" ? "." : normalize(joined);
+}
+
+// denoCacheMetadata={"headers":{"vary":"Origin","x-jsr-backend":"modules","etag":"\"5578fe74b5a8aa31c59314ab3c73438b\"","access-control-expose-headers":"*","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","date":"Thu, 09 Apr 2026 09:57:28 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-length":"876","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cgZ1DQDj12iWXEFDch9SYZrCStNWdM4I4dt4YO6nZHJ5l%2FtyjiMJgGZLQ8o%2BLA8TAboClp3Bsu1azF%2FvFf94ta9xJaX6FsNH8hVDAIOtulF0SA4TU5ou7m8%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","cf-ray":"9e98a5d4ab3d3992-IAD","server":"cloudflare","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/posix/join.ts","time":1775728648}

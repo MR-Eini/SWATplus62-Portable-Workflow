@@ -1,0 +1,1815 @@
+\documentclass[10pt]{article}
+\usepackage{graphicx}
+\usepackage{Sweave}
+\usepackage{bm}
+\usepackage[bottom=0.5cm, right=1.5cm, left=1.5cm, top=1.5cm]{geometry} 
+
+% \VignetteIndexEntry{Guide to Function Objects in Spatstat}
+
+% $Revision: 1.5 $ $Date: 2024/07/25 01:50:47 $
+
+\newcommand{\pkg}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\link}[1]{#1}
+\newcommand{\R}{{\sf R}}
+\newcommand{\spst}{\pkg{spatstat}}
+\newcommand{\Spst}{\pkg{Spatstat}}
+
+\newcommand{\fv}{\texttt{"fv"}}
+\newcommand{\env}{\texttt{"envelope"}}
+\newcommand{\rat}{\texttt{"rat"}}
+\newcommand{\obj}[1]{object of class {#1}}
+\newcommand{\objs}[1]{objects of class {#1}}
+\newcommand{\objsfvenv}{\objs\fv{} and \env}
+
+\newcommand{\fun}[1]{\texttt{#1}}
+\newcommand{\class}[1]{\texttt{"{#1}"}}
+
+\newcommand{\Kfun}{$K$-function}
+\newcommand{\Lfun}{$L$-function}
+\newcommand{\pois}[1]{{#1}_{\mbox{\scriptsize pois}}}
+\newcommand{\isoest}[1]{\widehat{#1}_{\mbox{\scriptsize iso}}}
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\eqref}[1]{(\ref{#1})}
+
+\begin{document}
+\bibliographystyle{plain}
+
+<<echo=FALSE,results=hide>>=
+library(spatstat)
+x <- read.dcf(file = system.file("DESCRIPTION", package = "spatstat"),
+              fields = c("Version", "Date"))
+sversion <- as.character(x[,"Version"])
+sdate    <- as.character(x[,"Date"])
+options(useFancyQuotes=FALSE)
+setmargins <- function(...) {
+  options(SweaveHooks=list(fig=function() par(mar=c(...)+0.1)))
+}
+@ 
+<<echo=FALSE,results=hide,fig=FALSE>>=
+options(SweaveHooks=list(fig=function() par(mar=c(5,4,2,4)+0.1)))
+options(width=100)
+@ 
+\SweaveOpts{eps=TRUE}
+\setkeys{Gin}{width=0.5\textwidth}
+
+\title{A guide to function objects (class \fv\ and \env) in \spst}
+\author{Adrian Baddeley, Rolf Turner and Ege Rubak}
+\date{For \spst\ version \texttt{\Sexpr{sversion}}}
+\maketitle
+
+\thispagestyle{empty}
+
+\begin{abstract}
+  This vignette explains how to use and manipulate 
+  function objects (\objs{}\fv) and envelope objects (\objs{}\env)
+  in the \spst\ package.
+\end{abstract}
+
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\newpage
+\section{Introduction}
+
+\subsection{Functional summary statistics}
+
+An \obj\fv\ (`function value table') is a
+convenient way of storing several different
+estimates of the same function. 
+
+It is common practice to summarise a spatial point pattern dataset
+using a summary function, such as Ripley's \Kfun\ $K(r)$, rather than a 
+single numerical summary value. 
+Typically, an empirical estimate of the function, obtained from the data,
+will be compared with the `theoretical' version of the function
+that would be expected if the point pattern was completely random.
+There may be several different empirical estimates of the function,
+based on different estimation techniques, and we also want to compare
+these estimates with one another.
+
+The \spst{} family of packages makes it very easy to
+compute and handle multiple versions of a summary function.
+Taking the Finnish Pines data \texttt{finpines} as an example,
+we can compute and plot estimates of Ripley's \Kfun\ by typing
+
+<<>>=
+K <- Kest(finpines)
+@ 
+
+<<K,fig=TRUE>>=
+plot(K)
+@ 
+
+The plot shows several curves, which
+represent the different empirical estimates of the \Kfun\
+(namely the 
+isotropic correction $\widehat K_{\mbox{\scriptsize iso}}(r)$,
+translation correction $\widehat K_{\mbox{\scriptsize trans}}(r)$,
+and border correction $\widehat K_{\mbox{\scriptsize bord}}(r)$)
+and also the theoretical value $K_{\mbox{\scriptsize pois}}(r)$
+that would be expected if the point pattern was completely random. 
+All these functions are plotted against the distance argument $r$.
+
+The object \texttt{K} 
+belongs to class \fv{} (``function value table'').
+It is a data frame
+(that is, it also belongs to the class \class{data.frame})
+with attributes giving extra information such as the 
+recommended way of plotting the function.
+One column of the data frame contains evenly spaced values of
+the distance argument $r$, while the other columns contain 
+estimates of the value of the function, or the theoretical value
+of the function under CSR, corresponding to these distance values.
+
+More information is given by the print method \texttt{print.fv}, 
+which can be invoked just by typing the name of the object:
+<<>>=
+  K
+@ 
+The output indicates that the columns in the
+data frame are named \texttt{r}, \texttt{theo}, \texttt{border},
+\texttt{trans}, and \texttt{iso}, and explains their contents. 
+For example, 
+the column \texttt{iso} contains estimates of the \Kfun{} using the 
+isotropic edge correction.
+This column is labelled in the plot by the \R\ expression
+\texttt{hat(K)[iso](r)} which is rendered 
+as the mathematical notation $\widehat K_{\mbox{\scriptsize iso}}(r)$.
+
+The function argument in an \class{fv} object is usually,
+but not always, called \texttt{r}. (Counterexamples include
+\fun{transect.im} which returns an \fv\ object with 
+function argument \texttt{t}, and \fun{roc} which returns an \fv\ object 
+with function argument \texttt{p}.)
+
+The command \texttt{plot(K)} is dispatched to the method
+\texttt{plot.fv} to generate the graphic shown above. The plot method
+uses the auxiliary information contained in \texttt{K} to 
+attach meaningful labels to the graphic. 
+
+Stripping off the auxiliary information we can inspect the
+data frame itself:
+<<>>=
+head(as.data.frame(K))
+@ 
+
+
+This vignette explains how to plot, manipulate and create objects of 
+class \fv.
+
+\subsection{Simulation envelopes}
+
+Simulation envelopes of summary functions
+are often used to assess statistical significance
+in early stages of analysis. The \spst{} command \texttt{envelope}
+generates simulation envelopes of a summary function:
+<<results=hide>>=
+E <- envelope(finpines, Kest, nsim=39)
+@ 
+<<E,fig=TRUE>>=
+plot(E)
+@ 
+
+In this example, the command \verb!E <- envelope(finpines, Kest, nsim=39)!
+generates 39 simulated point patterns according to a completely random process,
+computes the estimated \Kfun{} for each simulated pattern, 
+and finds the simulation envelopes
+by identifying the pointwise minimum and maximum of the 39 simulated functions.
+The result \texttt{E} is again an \obj\fv, but additionally belongs to the 
+class \env, and contains additional information about how the
+envelopes were computed. 
+
+In the resulting plot, generated by the method \texttt{plot.envelope},
+the region between the upper and lower
+simulation envelopes is filled in grey shading. The solid black line
+is the estimated \Kfun{} for the original \texttt{finpines} dataset,
+and the dashed red line is the theoretical \Kfun{} for a completely
+random pattern.
+
+There is a lot of auxiliary information, displayed by \texttt{print.envelope}:
+<<>>=
+E
+@ 
+
+This vignette also explains how to plot, manipulate and create \objs\env.
+Since envelope objects also belong to class \fv, the vignette first focuses
+on the capabilities of class \fv.
+
+\subsection{Why bother?}
+\label{S:whybother}
+
+Any self-respecting programmer would regard it as a 
+trivial task to organise data in a data frame
+and plot each column of data as a curve in a graph.
+Although the task is trivial, it can be time-consuming,
+it is prone to error, and it can take many attempts to get it 
+exactly right. The authors of \spst\ developed the class \fv\ 
+to make this job easier.
+
+The class \fv{} is designed to
+\begin{itemize}
+\item 
+  support \emph{multiple versions of a function},
+  such as the different estimates of the \Kfun{} obtained using
+  different edge corrections, the theoretical version of the \Kfun{}
+  for a completely random process, the upper and lower simulation envelopes
+  of the \Kfun, and so on. 
+\item 
+  do the \emph{``book-keeping''} about the different versions
+  of the function, such as the names of the different columns.
+\item 
+  perform automatic \emph{plotting} of the function, handling all the details
+  of layout and labelling, including generating the mathematical labels
+  for each curve.
+\item 
+  support \emph{calculations} that will be applied automatically
+  to all the versions of the function.
+\item 
+  support \emph{conversion} to other data types in base \R,
+  such as data frames and functions.
+\end{itemize}
+
+For example, Besag's $L$ function is defined as 
+$L(r) = \sqrt{K(r)/\pi}$. Since we have already computed the 
+\Kfun{} in the example above, we can compute and plot the $L$-function
+just by typing
+
+<<>>=
+L <- sqrt(K/pi)
+@ 
+<<L,fig=TRUE>>=
+plot(L)
+@ 
+
+Several kinds of magic have happened here:
+\begin{itemize}
+\item The expression \texttt{sqrt(K/pi)}, 
+  where \texttt{K} is an \obj\fv, has been evaluated
+  automatically by calculating $\sqrt{K(r)/\pi}$ for each of the versions of the
+  function stored in \texttt{K};
+\item The internal data in the object \texttt{K}, which 
+  provide mathematical labels for each version of the \Kfun,
+  have been modified according to the algebraic operation 
+  that was just performed;
+\item The result has been saved as a new \obj\fv{} named \texttt{L};
+\item The \texttt{plot} method has correctly displayed each version
+  of the modified function using the modified mathematical labels, both
+  on the vertical axis and in the legend box;
+\item The \texttt{plot} method has \textbf{automatically computed the position
+    of the legend box} to prevent it from overlapping the plotted curves;
+\item The unit of length for the function argument has been
+  correctly saved in the object \texttt{L} and 
+  correctly reported on the horizontal axis label.
+\end{itemize}
+
+The class \env{} extends the class \fv{} to handle additional information
+about how the envelopes were computed. The code supporting the class \env{}
+performs many of the ``trivial'' but error-prone calculations involving
+envelopes. An \obj\env{} can also contain the simulated data (the point patterns
+and/or the summary functions) that were used to compute the envelopes, 
+which makes it possible to re-use the simulated data to compute a different
+version of the envelope. 
+
+\newpage
+\section{Plotting}
+\label{S:plot.fv}
+
+\subsection{Default plot}
+
+If \texttt{f} is an object of class \class{fv},
+the command \texttt{plot(f)} is dispatched to the method \fun{plot.fv}.
+The default behaviour of \texttt{plot(f)} is to generate a plot
+containing several curves, each representing a different
+version of the same target function,
+plotted against the distance argument $r$. 
+
+<<eval=FALSE>>=
+plot(Gest(finpines))
+@ 
+<<Gplot,fig=TRUE,echo=FALSE,results=hide>>=
+aa <- plot(Gest(finpines))
+@ 
+
+Here \texttt{Gest} computes estimates of the nearest-neighbour
+distance distribution function $G(r)$. The plot shows three
+empirical estimates of $G(r)$ for the \texttt{finpines}
+dataset, together with the `theoretical' 
+curve $\pois G(r)$ expected for a completely random pattern,
+all plotted against the distance argument $r$. 
+The legend indicates the meaning of each curve. 
+The main title identifies the object in \R\ that was plotted. 
+
+The return value from \fun{plot.fv} is a data frame containing
+more detailed information about the meaning of the curves. 
+For the plot generated above, the return value is
+<<eval=FALSE>>=
+aa <- plot(Gest(finpines))
+aa
+@ 
+<<echo=FALSE>>=
+aa
+@ 
+Here \texttt{lty} and \texttt{col} are the graphics parameters
+controlling the line type and line colour, and \texttt{label} is 
+the mathematical notation for each edge-corrected estimate,
+in the syntax recognised by \R{} graphics functions. 
+
+The plot generated by \texttt{plot.fv} uses the base \R\ graphics system
+(not \texttt{lattice} or \texttt{ggplot}). 
+and is affected by graphics parameters
+specified by \texttt{par()}.
+
+\subsection{Modifying parameters of the default plot}
+
+The default plot can easily be modified:
+\begin{description}
+\item[margin space:]
+  To change the amount of white space around the plot,
+  use \texttt{par('mar')}.
+\item[main title:]
+  use \texttt{main=""} to suppress the main title.
+\item[legend:] 
+  Set \texttt{legend=FALSE} to suppress the legend.
+  Use the argument \texttt{legendargs} to modify the legend.
+  The legend position is 
+  automatically computed to avoid overlap with the plotted curves,
+  but this can be overridden by \texttt{legendpos}. 
+\item[range of values:] 
+  Use \texttt{xlim} and \texttt{ylim} to specify the ranges
+  of values on the $x$ and $y$ axes.
+  \textbf{See the note below about the ``recommended range''.}
+  Use \texttt{ylim.covers} to specify a numerical value or values that
+  must be covered by the $y$ axis. For example, \texttt{ylim.covers=0}
+  means that the $y$ axis will always include the origin.
+\end{description}
+For further information, see \texttt{help(plot.fv)}.
+
+\subsection{Recommended range and recommended columns}
+
+The default plot of an \fv\ object does not necessarily display
+all the data that is contained in the object:
+\begin{description}
+\item[shorter range of distances:]
+  the range of values of the distance argument $r$ 
+  displayed in the default plot may be shorter than the 
+  range of values actually contained in the data frame. 
+\item[not all columns of data:] 
+  the plot may not display all the columns of data contained in the data frame.
+\end{description}
+
+This happens because an \obj\fv\ contains ``recommendations'' 
+about the range of distances that should be displayed,
+and about the columns of data that should be shown.
+These recommendations are based on standard statistical practice.
+The recommendations are followed when the default plot is generated,
+unless they are specifically overridden.
+
+Consider this example:
+<<>>=
+G <- Gest(finpines)
+G
+@ 
+
+The printout shows the range of values of \texttt{r} that are present 
+in the table as the `\texttt{available range}'. It also gives a 
+`\texttt{recommended range}' which is generally shorter than the
+available range. \emph{The default plot of the object will only show the 
+function values over the recommended range} and not over the full range of
+values available. This is done so that the interesting detail
+is clearly visible in the default plot. Values outside the recommended range 
+may be unreliable due to increased variance or bias, depending on the
+edge correction. To prevent this behaviour and use the full range
+of function values available, set \texttt{clip.xlim=FALSE} in the 
+plot command. Alternatively, specify the desired range of \texttt{r} values
+using the argument \texttt{xlim} in the plot command.
+
+The printout also says that the default plot formula is \verb! . ~ r !
+where ``\verb!.!'' stands for \texttt{"km", "rs", "han", "theo"}.
+This means that the default plot will display only the columns 
+named \texttt{"km", "rs", "han"} and \texttt{"theo"} and will \textbf{not}
+display the columns named \texttt{"hazard"} and \texttt{"theohaz"} which
+are mentioned in the printout. This is consistent with the graphic shown
+above. 
+
+In this example, the column named \texttt{"hazard"} is an estimate
+of the \emph{hazard rate} $h(r) = G'(r)/(1-G(r))$ of the nearest neighbour
+distance function, rather than an estimate of $G(r)$ itself. 
+The column named \texttt{"theohaz"} is the corresponding 
+theoretical value of the hazard rate, expected 
+if the point pattern is completely random.
+It makes sense that the hazard rate $h(r)$ and distribution function $G(r)$
+should not normally be plotted together.
+Therefore when \texttt{Gest} is executed, it designates
+\texttt{"km", "rs", "han", "theo"} as the ``recommended columns''
+that should be displayed by default, and it stores this information
+in the resulting object \texttt{G}. When \texttt{plot(G)} 
+is executed, \texttt{plot.fv} uses this information to determine which
+columns are to be plotted.
+
+\subsection{Plot specified by a formula}
+\label{S:plot.formula}
+
+Different kinds of plots can be specified using a \texttt{formula}
+as the second argument to \texttt{plot.fv}.
+The left side of the formula represents what variables will
+be plotted on the vertical ($y$) axis, and the right side determines the 
+variable on the horizontal ($x$) axis.
+For example, in the object
+\texttt{K <- Kest(finpines)}, the column named \texttt{iso}
+contains the values of the isotropic correction estimate. 
+To plot the isotropic correction estimate against $r$, simply do
+<<Kiso,fig=TRUE>>=
+plot(K,  iso ~ r)
+@ 
+
+In \fun{plot.fv}, both sides of the plot formula are interpreted
+as mathematical expressions, so that operators like
+`\verb!+!', `\verb!-!', `\verb!*!', `\verb!/!'
+have their usual meaning in arithmetic. 
+The right-hand side of the formula can be any expression
+that, when evaluated, yields a numeric vector, and the left-hand side is any
+expression that evaluates to a vector or matrix of compatible
+dimensions. 
+
+If the left-hand side of the formula, when evaluated, yields a matrix, 
+then each column of that
+matrix is plotted against the specified $x$ variable as a separate curve.  
+In particular the left-hand side of the formula may invoke the
+function \fun{cbind} to indicate that several different curves
+should be plotted. For example, to plot only the 
+isotropic correction estimator and the theoretical curve:
+<<Kit,fig=TRUE>>=
+plot(K, cbind(iso, theo) ~ r)
+@ 
+
+Notice that, in this example, \texttt{plot.fv} is clever enough to recognise
+that \texttt{iso} and \texttt{theo} are both versions of the \Kfun\ $K(r)$, 
+and to decide that the appropriate label for the vertical axis is just $K(r)$.
+
+The plot formula may also involve the names of constants like \texttt{pi},
+standard functions like \texttt{sqrt}, and some special abbreviations listed
+in Table~\ref{tab:fvnames}. 
+
+\begin{table}[!h]
+  \begin{tabular}{ll}
+    \verb!.x! & argument of function \\
+    \verb!.y! & best estimate of function \\
+    \verb!.! & all recommended estimates of function \\
+    \verb!.a! & all columns of function values \\
+    \verb!.s! & upper and lower limits of shading
+  \end{tabular}
+    \caption{
+      Recognised abbreviations for columns of an \class{fv} object.
+    }
+    \label{tab:fvnames}
+\end{table}
+
+The symbol \verb!.x! represents the function argument, usually \texttt{"r"}. 
+The symbol \verb!.y! represents one of the columns of function values
+which has been designated as the `best' estimate, for use by some other
+commands in \spst.  
+The symbol `\verb!.!' represents the `recommended' estimates.
+The default plotting formula is \verb!. ~ .x!  indicating that
+each of the recommended estimates will be plotted against
+the function argument. The formula \verb!.y ~ .x! means that the
+best estimate of the function will be plotted against the function argument.
+
+To expand these abbreviations for a particular \fv\ object, 
+use the function \texttt{fvnames}.
+<<>>=
+fvnames(K, ".y")
+fvnames(K, ".")
+@ 
+
+A plot formula can be used to specify a transformation
+that should be applied to the function values before they are displayed.
+For example, to subtract the theoretical Poisson value
+from each of the function estimates:
+<<Ksubtheo,fig=TRUE>>=
+plot(K, . - theo  ~ r)
+@ 
+
+Alternatively one could plot the function estimates \emph{against} the
+Poisson value:
+<<Ktheo,fig=TRUE>>=
+plot(K, . ~ theo)
+@ 
+
+This plot has some theoretical support. 
+In the discussion of Ripley's paper, Cox \cite{cox77discuss}
+proposed that $\widehat K(r)$ should be plotted against $r^2$,
+which is almost equivalent. We can follow Cox's recommendation
+exactly:
+<<Kcox,fig=TRUE>>=
+plot(K, . ~ r^2)
+@ 
+
+The mathematical labels for the plot axes, and for the individual curves,
+are constructed automatically by \spst\ from the plot formula. 
+If the plot formula involves the names of external variables,
+these will be rendered in Greek where possible. For example, to 
+plot the average number of trees surrounding a typical tree in the
+Swedish Pines data, 
+<<Kswed,fig=TRUE>>=
+lambda <- intensity(swedishpines)
+plot(K, lambda * . ~ r)
+@ 
+
+Here we use the name \texttt{lambda} 
+so that it will be rendered as the Greek letter $\lambda$ in
+the graphics: the $y$-axis will be labelled $\lambda K(r)$. 
+
+\section{Calculating with an \fv\ object}
+
+This section explains how to do calculations involving a single \obj\fv.
+The next section covers calculations involving several \objs\fv.
+
+\subsection{Arithmetic and mathematical operators}
+
+Arithmetic and mathematical operations on an \obj\fv\ 
+can be performed by simply writing the arithmetic expression
+involving the name of the object. The following are valid:
+<<eval=FALSE>>=
+K <- Kest(cells)
+K/pi
+sqrt(K/pi)
+@ 
+
+These inline calculations are performed by the operators 
+\texttt{Ops.fv} and \texttt{Math.fv}.
+The operation is applied to each column of \emph{function values};
+the function argument \texttt{r} will not be affected.
+The result is another \obj\fv\ with the same number of columns,
+with the same column names, but with appropriately adjusted 
+auxiliary information.
+
+The expression can involve a command which returns an \obj\fv:
+<<eval=FALSE>>=
+sqrt(Kest(cells)/pi)
+@ 
+The auxiliary information contained in the resulting object
+will be slightly less elegant in this case.
+
+These arithmetic and mathematical operations are applied only to the 
+\emph{recommended} columns of function values
+identified by \texttt{fvnames(, ".")}. 
+
+\subsection{Other vectorised operations}
+
+Functions such as \texttt{pmax} and \texttt{cumsum} apply to vector data,
+but are not recognised as arithmetic or mathematical operators 
+by the \R\ parser,
+so they are not covered by \texttt{Ops.fv} and \texttt{Math.fv}. 
+
+For expressions involving \texttt{pmax} and \texttt{cumsum} (or indeed
+any algebraic expression whatsoever), 
+use the command \texttt{eval.fv} to perform the
+calculation simultaneously for each column of function values:
+<<eval=FALSE>>=
+Kpos <- eval.fv(pmax(0, K))
+@ 
+The result \texttt{Kpos} is another \obj\fv\
+in which the function values are all non-negative.
+
+The first argument of \texttt{eval.fv} should be an expression
+involving the \textbf{name} of the \obj\fv.
+
+By default, the calculation is only applied to the 
+\emph{recommended} columns of function values
+identified by \texttt{fvnames(, ".")}.
+This may be overridden by setting \texttt{dotonly=FALSE} in the call
+to \texttt{eval.fv}.
+
+The computations of \texttt{Ops.fv} and \texttt{Math.fv} are implemented
+using \texttt{eval.fv} but there may be slight 
+differences in the handling of the
+auxiliary information. 
+
+\subsection{Calculations involving specific columns}
+\label{p:with.fv}
+
+To manipulate or combine one or more columns of data in an \class{fv} object,
+it is typically easiest to use \fun{with.fv}, 
+a method for the generic \fun{with}. 
+This behaves in a very similar way to \texttt{with.data.frame}.
+For example:
+<<>>= 
+Kr <- Kest(redwood)
+z <- with(Kr, iso - theo)
+x <- with(Kr, r)
+@ 
+The results \texttt{x} and \texttt{z} are numeric
+vectors, where \texttt{x} contains the values of the distance
+argument $r$, and \texttt{z} contains the difference between
+the columns \texttt{iso} (isotropic correction estimate) and
+\texttt{theo} (theoretical value for CSR) for the \Kfun{}
+estimate of the redwood seedlings data.  For this to work, we
+have to know that \texttt{Kr} contains columns named \texttt{r},
+\texttt{iso} and \texttt{theo}.  Printing
+the object will reveal this information, as would typing
+\texttt{names(Kr)} or \texttt{colnames(Kr)}. 
+
+The general syntax is \texttt{with(X, expr)} where \texttt{X}
+is an \class{fv} object and \texttt{expr} can be any expression
+involving the names of columns of \texttt{X}. The expression
+can include functions, so long as they are capable of operating
+on numeric vectors.  The expression can also involve the abbreviations
+listed in Table~\ref{tab:fvnames}:
+<<>>=
+Kcen <- with(Kr, . - theo)
+@ 
+subtracts the
+`theoretical' value from all the available edge correction
+estimates.  The result \texttt{Kcen} is another \class{fv} object.   
+
+You can also get a result which is a vector or single number:
+<<>>=
+with(Kr, max(abs(iso-theo)))
+@ 
+
+\subsection{Extracting data}
+
+An \obj\fv\ is essentially a data frame with additional attributes.
+It contains the values of the desired function (such as $K(r)$) 
+at a finely spaced grid of values of the function argument $r$.
+
+The data frame can be extracted (and the additional attributes
+removed) using \texttt{as.data.frame.fv}:
+<<>>=
+df <- as.data.frame(K)
+@ 
+
+A single column of values can be extracted using the \verb!$! 
+operator in the usual way: \verb!K$iso! %$
+would extract a vector containing the isotropic correction estimates of $K(r)$. 
+
+The subset extraction operator `\verb![!' has a method  %]
+for \class{fv} objects. This always returns another 
+\class{fv} object, so it will refuse to remove the column 
+containing values of the function argument \texttt{r}, for example.
+To override this refusal, 
+convert the object to a data frame using \fun{as.data.frame} 
+and then use `\verb![!': % ]
+the result will be a data frame or a vector.
+
+Commands designed for data frames often work for \class{fv} objects as well. 
+The functions \texttt{head} and \texttt{tail} extract the top (first few rows)
+and bottom (last few rows) of a data frame. They also work on \class{fv}
+objects: the result is a new \class{fv} object containing the 
+function values for a short interval of $r$ values 
+at the beginning or end of the range. The function \texttt{subset} 
+selects designated subsets of a data frame using an elegant syntax
+and this also works on \class{fv} objects. To restrict \texttt{K}
+to the range $r \le 0.1$ and remove the border correction,
+<<>>=
+Ko <- subset(K, r < 0.1, select= -border)
+@ 
+
+\subsection{Converting to a true function}
+
+An \obj\fv\ is meant to represent a function, but it contains only sample values
+of the function at a grid of values of the function argument. 
+The table of function values can also be converted to a true function
+in the \R{} language using \fun{as.function}. This makes it easy
+to evaluate the function at any desired distance $r$.
+<<>>=
+Ks <- Kest(swedishpines)
+kfun <- as.function(Ks)
+kfun(9)
+@ 
+By default, the result \texttt{kfun} is a function in \R, 
+with a single argument 
+\texttt{r} (or whatever the original function argument was called).
+The new function accepts numeric values or numeric vectors of distance values, 
+and returns the values of the `best' estimate of the function, 
+interpolated linearly between entries in the table. 
+
+If one of the other function estimates is required, 
+use the argument \texttt{value} to \fun{as.function} to select it. 
+<<>>=
+kt <- as.function(Ks, value="trans")
+kt(9)
+@ 
+To retain the option to select any one of the function estimates, type
+<<>>=
+kf <- as.function(Ks, value=".")
+kf(9, "trans")
+@ 
+
+\subsection{Special operations}
+\label{S:manip.fv}
+
+An \class{fv} object can be manipulated using the operations
+listed in Table~\ref{tab:fvmethods}. 
+
+\begin{table}[!h]
+\begin{tabular}[c]{ll}
+  \texttt{f} & print a description \\
+  \texttt{print(f)} & print a description \\
+  \texttt{plot(f)} & plot the function estimates \\
+  \texttt{as.data.frame(f)} & strip extra information (returns a data frame) \\
+  \verb!f$iso! & extract column named \texttt{iso} (returns a numeric vector) \\
+  \verb!f[i,j]! & extract subset (returns an \class{fv} object) \\
+  \verb!subset(f, ...)! & extract subset (returns an \class{fv} object) \\
+  \texttt{with(f, expr)} & perform calculations with columns of data frame\\
+  \texttt{eval.fv(expr)} & perform calculations with several \class{fv} objects \\
+  \texttt{bind.fv(f, d)} & combine an \class{fv} object \texttt{f} and data frame \texttt{d} \\
+  \texttt{min(f)}, \texttt{max(f)}, \texttt{range(f)} & 
+                range of function values \\
+  \texttt{Smooth(f)} & apply smoothing to function values \\
+  \texttt{deriv(f)} & derivative of function\\
+  \texttt{stieltjes(g,f)} & compute Stieltjes integral with respect to \texttt{f} \\
+  \texttt{as.function(f)} & convert to a function
+\end{tabular}
+\caption{Operations for manipulating an \class{fv} object \code{f}.}
+\label{tab:fvmethods}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Calculating with several \fv\ objects}
+
+\subsection{Arithmetic and mathematical operators}
+
+Arithmetic and mathematical operations involving several \objs\fv\ 
+can be performed by simply writing the arithmetic expression
+involving the objects:
+<<eval=FALSE>>=
+Kcel <- Kest(cells)
+Kred <- Kest(redwood)
+Kdif <- Kcel - Kred
+@ 
+These inline calculations are performed by the operators 
+\texttt{Ops.fv} and \texttt{Math.fv}.
+
+The operation is applied to each column of \emph{function values};
+the function argument \texttt{r} will not be affected.
+The result is another \obj\fv\ with the same number of columns,
+with the same column names, but with appropriately adjusted 
+auxiliary information.
+
+The \fv\ objects should be `compatible' 
+in the sense that they have the same column names, 
+and the same vector of $r$ values. However, \texttt{eval.fv} will
+attempt to reconcile incompatible objects. 
+(The \spst\ generic function \fun{compatible} determines whether two or more
+objects are compatible, and the generic function \fun{harmonise}
+makes them compatible, if possible.)
+
+The expression can involve sub-expressions which return \objs\fv:
+<<eval=FALSE>>=
+Kest(cells) - Kest(redwood)
+@ 
+The auxiliary information contained in the resulting object
+will be slightly less elegant in this case.
+
+\subsection{Other vectorised operations}
+
+For expressions involving \texttt{pmax} and \texttt{cumsum} (or indeed
+any algebraic expression whatsoever), 
+use the command \texttt{eval.fv} to perform the
+calculation simultaneously for each column of function values.
+<<eval=FALSE>>=
+Kcel <- Kest(cells)
+Kred <- Kest(redwood)
+Kmax <- eval.fv(pmax(Kcel, Kred))
+@ 
+The result \texttt{Kmax} is another \obj\fv.
+
+The first argument of \texttt{eval.fv} should be an expression
+involving the \textbf{names} of the \objs\fv.
+
+By default, the calculation is only applied to the 
+\emph{recommended} columns of function values
+identified by \texttt{fvnames(x, ".")} where \texttt{x} is the \obj\fv.
+This may be overridden by setting \texttt{dotonly=FALSE} in the call
+to \texttt{eval.fv}.
+
+The expression is not permitted to contain sub-expressions
+that evaluate to \objs\fv. However, you can use the argument \texttt{envir} to 
+supply such sub-expressions:
+<<eval=FALSE>>=
+  Kmax <- eval.fm(pmax(Kcel, Kred),
+                  envir=list(Kcel=Kest(cells), Kred=Kest(redwood)))
+@ 
+
+The computations of \texttt{Ops.fv} and \texttt{Math.fv} are implemented
+using \texttt{eval.fv} but there may be slight 
+differences in the handling of the auxiliary information. 
+
+\subsection{Combining objects}
+
+Several \class{fv} objects can be combined using the operations
+listed in Table~\ref{tab:fvmethods.multi}. 
+
+\begin{table}[!h]
+\begin{tabular}[c]{ll}
+  \texttt{eval.fv(expr)} & perform calculations with several \class{fv} objects \\
+  \verb!cbind(f1, f2, ...)! & combine \class{fv} objects \texttt{f1, f2, ...} \\
+  \texttt{bind.fv(f, d)} & combine an \class{fv} object \texttt{f} and data frame \texttt{d} \\
+  \verb!collapse.fv(f1, f2, ...)! & 
+      combine several redundant \class{fv} objects  \\
+  \verb!compatible(f1, f2, ...)! & 
+  check whether \class{fv} objects are compatible  \\
+  \verb!harmonise(f1, f2, ...)! & 
+  make \class{fv} objects compatible  
+\end{tabular}
+\caption{Operations for manipulating 
+  several \class{fv} objects \code{f1}, \code{f2}.}
+\label{tab:fvmethods.multi}
+\end{table}
+
+Use \code{\link{cbind.fv}} to combine several \code{"fv"} objects.
+Use \code{\link{bind.fv}} to glue additional columns onto an existing
+\code{"fv"} object.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Creating \fv\ objects from raw data}
+
+This section explains how to create \objs\fv\ from raw numerical data.
+This would be useful if you are implementing a completely new kind of
+summary function. 
+
+Subsection~\ref{S:creator} explains how to create an \obj\fv\ 
+by providing the numerical data and the required auxiliary information. 
+Section~\ref{S:as.fv} describes an easier way to convert a data frame
+(or similar object) to an \obj\fv\ without specifying the auxiliary
+information, using default rules for the auxiliary information.
+Section~\ref{S:compileK} describes special tools
+\texttt{compileK, compilepcf, compileCDF} for creating an
+\obj\fv\ from a numeric vector of distance values, using the rules that 
+apply to the \Kfun, or the pair correlation function,
+or the nearest-neighbour distance distribution function.
+
+\subsection{The creator function \fun{fv}}
+\label{S:creator}
+
+\subsubsection{The creator function}
+
+The low-level function \code{fv} is used to create an object of
+class \code{"fv"} from raw numerical data. It has the following syntax:
+\begin{verbatim}
+fv(x, argu = "r", ylab = NULL, valu, fmla = NULL, 
+   alim = NULL, labl = names(x), desc = NULL, 
+   unitname = NULL, fname = NULL, yexp = ylab)
+\end{verbatim}
+
+The arguments are as follows:
+\begin{itemize}
+\item 
+  \code{x} contains the numerical data. It should be a data frame,
+  in which one column gives the values of the function argument for which
+  the function has been evaluated, and at least one other column
+  contains the corresponding values of the function.
+
+  These other columns typically give the values of different versions
+  or estimates of the same function,
+  for example, different estimates of the \Kfun{}  
+  obtained using different edge corrections.
+  However they may also contain the values of related functions
+  such as the derivative or hazard rate.
+\item 
+  \code{argu} specifies the name of the column of
+  \code{x} that contains the values of the function argument
+  (typically \code{argu="r"} but this is not compulsory).
+\item 
+  \code{valu} specifies the name of another column
+  that contains the `recommended' estimate of the function.
+  It will be used to provide function values in those situations where
+  a single column of data is required. For example,
+  \code{envelope} computes its simulation envelopes
+  using the recommended value of the summary function.
+\item 
+  \code{fmla} specifies the default plotting behaviour.
+  It should be a formula, or a string that can be converted to a
+  formula. Variables in the formula are names of columns of \code{x}.
+  See \code{plot.fv} for the interpretation of this
+  formula.
+\item 
+  \code{alim} specifies the recommended range of the
+  function argument. This is used in situations where statistical
+  theory or statistical practice indicates that the computed
+  estimates of the function are not trustworthy outside a certain
+  range of values of the function argument. By default,
+  \code{plot.fv} will restrict the plot to this range.
+\item 
+  \code{fname} is a character string (or a vector of 2 character strings)
+  giving the name of the function itself.
+  For example, the \Kfun{}  would have \code{fname="K"},
+  while the inhomogeneous \Kfun\ has \code{fname=c("K", "inhom")}.
+\item 
+  \code{ylab} is a mathematical expression
+  for the function value, used when labelling an axis
+  of the plot, or when printing a description of the
+  function. It should be an \R{} language object. 
+  For example the \Kfun's mathematical name $K(r)$ is rendered
+  by \code{ylab=quote(K(r))}. 
+\item
+  \code{yexp} is another mathematical expression for the function value.
+  If \code{yexp} is present, then \code{ylab} will be
+  used only for printing, and \code{yexp} will be used for
+  annotating axes in a plot. 
+  (Otherwise \code{yexp} defaults to \code{ylab}).
+\item 
+  \code{labl} is a character vector specifying plot labels
+  for each column of \code{x}. These labels will appear on the
+  plot axes (in non-default plots), legends and printed output.
+  Entries in \code{labl}
+  may contain the string \code{"\%s"} which will be replaced
+  by \code{fname} when plotted or printed. 
+  For example the border-corrected estimate
+  of the \Kfun{}  has label \code{"\%s[bord](r)"} which
+  becomes \code{"K[bord](r)"} when it is used in \texttt{plot.fv} 
+  or \texttt{print.fv}.
+\item 
+  \code{desc} is a character vector containing intelligible
+  explanations of each column of \code{x}. Entries in
+  \code{desc} may contain the string \code{"\%s"} which will be replaced
+  by \code{ylab}. For example the border correction estimate of the
+  \Kfun{}  has description \code{"border correction estimate of \%s"}.
+  This will be replaced by 
+  \code{"border correction estimate of K(r)"} when it is used in 
+  \texttt{print.fv}.
+\item 
+  \code{unitname} is the name of the unit of length 
+  for the \underline{function argument}. Typically the function argument
+  \code{"r"} represents distance between points. The distance values are 
+  typically expressed in terms of a distance unit, such as metres or feet.
+  This unit will be printed on the horizontal axis. 
+  The argument \code{unitname} is an object of
+  class \class{unitname}, or \code{NULL} representing dimensionless values.
+\end{itemize}
+
+\subsubsection{Syntax for \texttt{ylab} and \texttt{yexp}}
+
+Mathematical symbols and notation are supported 
+in \R\ base graphics. The labels on the axes of a graph,
+in the body of the graph, and in graph legends, can all include
+mathematical notation. The notation has to be encoded as an 
+\R\ language expression. The decoding is slightly idiosyncratic,
+and this affects the programming of the class \fv.
+
+The arguments \code{ylab} and \code{yexp} are mathematical 
+expressions for the function value: \texttt{ylab} is used when
+printing a description of the function,
+and \texttt{yexp} is used when labelling an axis. 
+Usually \texttt{ylab} and \texttt{yexp} are the same.
+For example the \Kfun's mathematical name $K(r)$ is rendered
+by \code{ylab=quote(K(r))} and \code{yexp=ylab}.
+An example where they are different is the multitype \Kfun\ $K_{1,2}(r)$ 
+where we set  \code{ylab=quote(Kcross[1,2](r))}
+and 
+\code{yexp=quote(Kcross[list(1,2)](r))}
+to get the most satisfactory behaviour.
+
+A useful programming tip is to use \code{substitute} instead of
+\code{quote} to insert values of variables into an expression,
+e.g. \code{substitute(Kcross[i,j](r), list(i=42,j=97))}
+yields the same as \code{quote(Kcross[42, 97](r))}.)
+
+\subsubsection{Syntax for \texttt{labl}} 
+
+The argument \texttt{labl} is a character vector 
+specifying plot labels
+for each column of \code{x}. These labels will appear on the
+plot axes (in non-default plots), legends and printed output.
+
+Entries in \code{labl}
+may contain the string \code{"\%s"} which will be replaced
+by \code{fname} when plotted or printed. 
+For example the border-corrected estimate
+of the \Kfun{}  has label \code{"\%s[bord](r)"} which
+becomes \code{"K[bord](r)"} when it is used in \texttt{plot.fv} 
+or \texttt{print.fv}. This mechanism allows the code to adjust the
+labels when the object is changed --- for example, to produce the correct
+labels in \code{plot(sqrt(K/pi))} as shown in Section~\ref{S:whybother}.
+
+Things become more complicated if \texttt{fname} is a character vector
+of length 2. In that case the appropriate expression for the border-corrected
+estimate is \verb!"{hat(%s)[%s]^{bord}}(r)"! which becomes
+\verb!{hat(K)[inhom]^{bord}}(r)! when it is used in \texttt{plot.fv}
+or \texttt{print.fv}.
+
+We strongly recommend using the function \fun{makefvlabel} to create the
+appropriate labels. Its syntax is:
+\begin{verbatim}
+   makefvlabel(op=NULL, accent=NULL, fname, sub=NULL, argname="r")
+\end{verbatim}
+where the arguments are character strings:
+\begin{description}
+\item[op] is a prefix or operator such as \code{"var"} (rarely used);
+\item[accent] is an accent that should be applied to the main function symbol, usually \texttt{"hat"} for empirical estimates;
+\item[fname] is the name of the function (usually a single letter or
+  a character vector of length 2);
+\item[sub] is an optional subscript, typically used to discriminate 
+  between different estimates of the function, such as different edge corrections;
+\item[argname] is the name of the function argument.
+\end{description}
+
+Examples:
+<<>>=
+  makefvlabel(NULL, NULL, "K", "pois")
+  makefvlabel(NULL, "hat", "K", "bord")
+  makefvlabel(NULL, "hat", c("K", "inhom"), "bord")
+  makefvlabel("var", "hat", c("K", "inhom"), "bord")
+@ 
+
+\subsubsection{Syntax for \texttt{desc}}
+
+Each entry of \texttt{desc} is a single character string. It may 
+contain a \underline{single} instance of \code{"\%s"}, which will be replaced by
+the function name when required.
+
+
+\subsection{Conversion function \fun{as.fv}}
+\label{S:as.fv}
+
+The generic function \texttt{as.fv} converts other kinds of data to an \obj\fv. 
+
+The methods \fun{as.fv.matrix} and \fun{as.fv.data.frame} provide a lazy way
+to convert a table of function data to an \obj\fv. The auxiliary information
+is determined by applying default rules.
+
+Other methods apply to classes of objects which intrinsically contain
+an \obj\fv, and they simply extract the \fv\ object.
+For example, a fitted model of class \class{kppm} contains the 
+summary function (either the $K$ function or the pair correlation function)
+that was used to fit the model; so the method \fun{as.fun.kppm} simply extracts
+this summary function.
+
+\subsection{compileK, compilepcf, compileCDF}
+\label{S:compileK}
+
+A shortcut is provided for programmers wishing to implement 
+a summary function that is similar to 
+Ripley's $K$ function, the pair correlation function $g$,
+the empty space function $F$ or
+the nearest-neighbour distance distribution function $G$.
+
+\subsubsection{$K$ functions and pair correlation functions}
+
+Programmers who wish to implement a summary function similar to 
+Ripley's $K$ function or the pair correlation function
+can use the commands \texttt{compileK} or \texttt{compilepcf}.
+
+These low-level functions construct estimates of the $K$ function or
+pair correlation function, or any similar functions, given only
+the matrix of pairwise distances and optional weights associated
+with these distances.
+
+These functions are useful for code development and for teaching,
+because they perform a common task, and do the housekeeping
+required to make an object of class \fv\ that represents the
+estimated function. However, they are not very efficient.
+
+The basic syntax of \texttt{compileK} and \texttt{compilepcf} is:
+
+<<eval=FALSE>>=
+compileK(D, r, weights = NULL, denom = 1, ...)
+compilepcf(D, r, weights = NULL, denom = 1, ...)
+@ 
+
+where
+
+\begin{itemize}
+\item \texttt{D} is a square matrix giving the distances between all pairs of
+  points;
+\item \texttt{r} is a vector of distance values, equally spaced, at which 
+  the summary function should be calculated;
+\item \texttt{weights} is an optional matrix of numerical weights
+  for the pairwise distances;
+\item \texttt{denom} is the denominator for the estimator.
+  It may be a single number, or a numeric
+  vector with the same length as \texttt{r}.
+\end{itemize}
+
+The command \texttt{compileK} calculates the weighted estimate of the
+$K$ function,
+\[
+  K(r) = \frac{1}{v(r)} \sum_i \sum_{j \neq i} w_{i,j} \; 1\{ d_{i,j} \le r\}  
+\]
+and \texttt{compilepcf} calculates the weighted estimate of the pair
+correlation function,
+\[
+  g(r) = \frac{1}{v(r)} \sum_i \sum_{j \neq i} w_{i,j}\; \kappa ( d_{i,j} - r) 
+\]     
+where $d_{i,j}$ is the distance between spatial points $i$ and $j$, with
+corresponding weight $w_{i,j}$, and $v(r)$ is the specified denominator.
+Here $\kappa$ is a fixed-bandwidth smoothing kernel.
+
+For a point pattern in two dimensions, the usual denominator $v(r)$
+is constant for the $K$ function, and proportional to $r$ for the pair
+correlation function:
+
+<<>>=
+X <- japanesepines
+D <- pairdist(X)
+Wt <- edge.Ripley(X, D)
+lambda <- intensity(X)
+a <- (npoints(X)-1) * lambda
+r <- seq(0, 0.25, by=0.01)
+K <- compileK(D=D, r=r, weights=Wt, denom=a)
+g <- compilepcf(D=D, r=r, weights=Wt, denom= a * 2 * pi * r)
+@ 
+
+The result of \texttt{compileK} or \texttt{compilepcf} can then
+be edited (as explained in the next section)
+to change the function name and other information as desired.
+
+\subsubsection{Cumulative distribution functions}
+
+Programmers wishing to implement a summary function 
+which is a cumulative distribution function, similar to
+the functions \texttt{Gest} or \texttt{Fest},
+can use the command \texttt{compileCDF}.
+
+The basic syntax of \texttt{compileCDF} is:
+<<eval=FALSE>>=
+compileCDF(D, B, r, ..., han.denom = NULL)
+@ 
+where
+\begin{itemize}
+\item \texttt{D} is a numeric vector of observed distances (such as the distance
+  from each data point to its nearest neighbour);
+\item \texttt{B} is a numeric vector of censoring distances 
+  (such as the distance from each data point to the boundary of the window);
+\item \texttt{r} is a vector of distance values, equally spaced, at which 
+  the summary function should be calculated;
+\item \texttt{han.denom} is the denominator for the Hanisch estimator.
+  It is usually a numeric
+  vector with the same length as \texttt{r}.
+\end{itemize}
+
+An example for the nearest-neighbour distance distribution function $G(r)$:
+<<>>=
+X <- japanesepines
+D <- nndist(X)
+B <- bdist.points(X)
+r <- seq(0, 1, by=0.01)
+h <- eroded.areas(Window(X), r)
+G <- compileCDF(D=D, B=B, r=r, han.denom=h)
+## give it a better name
+G <- rebadge.fv(G, new.fname="G", new.ylab=quote(G(r)))
+@ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+
+\section{Editing the auxiliary information in \fv\ objects}
+
+The ``auxiliary information'' in an  \obj\fv\ consists of the 
+function name, a mathematical expression for the function,
+mathematical expressions for each version of the function contained in a 
+column of data, the choice of which columns will be plotted by default,
+and other information. 
+
+A programmer will often wish to create an \fv\ object first,
+perhaps using some existing code, and then edit the auxiliary information.
+
+The safe way to edit the auxiliary information 
+is to \textbf{use the internal functions in \spst} which support the \fv\ class:
+
+\begin{itemize}
+\item \texttt{rebadge.fv} is a low-level function which 
+  allows the user to change any of the entries in the auxiliary information
+  as desired.
+\item \texttt{rebadge.as.crossfun} and \texttt{rebadge.as.dotfun}
+  are wrappers for \texttt{rebadge.fv} which change the auxiliary information
+  into the form expected for a cross-type or dot-type summary function.
+\item \texttt{fvlabels} extracts the mathematical code for each
+  version of the summary function, and \verb!fvlabels<-! changes the codes.
+\item \texttt{makefvlabel} creates suitable mathematical code
+  for a version of the summary function.
+\item The functions \texttt{fvnames} and \verb!fvnames<-! manage the
+definition of the abbreviations listed in Table~\ref{tab:fvnames}.
+\item The methods \texttt{formula.fv} and \verb!formula<-.fv! manage the
+default plotting formula.
+\item \verb!names<-.fv! changes the names of the columns in the 
+  \fv\ object, and adjusts the internal data accordingly.
+\item \texttt{tweak.fv.entry} 
+  is a very low-level function that changes the auxiliary information
+  about one of the columns of data.
+\item \texttt{prefixfv} is another wrapper for \texttt{rebadge.fv}
+  that adds a prefix to the name of the function.
+\end{itemize}
+
+\subsection{Low-level editing}
+
+\texttt{rebadge.fv} is a low-level function which 
+allows the user to change any of the entries in the auxiliary information
+as desired. It has syntax
+<<eval=FALSE>>=
+rebadge.fv(x, new.ylab, new.fname,
+           tags, new.desc, new.labl,
+           new.yexp=new.ylab, new.dotnames,
+           new.preferred, new.formula, new.tags)
+@ 
+where \texttt{x} is the \obj\fv.
+
+The arguments \texttt{new.fname}, \texttt{new.ylab} and 
+\texttt{new.yexp} (if present) specify new values for the
+function name \texttt{fname} and the mathematical expressions
+for the function, \texttt{ylab} and \texttt{yexp}, described in
+Section~\ref{S:creator}.
+
+The argument \texttt{new.dotnames} specifies a new value for
+the selection of columns that are plotted by default.
+This is a character vector of column names of \texttt{x}
+and is associated with the abbreviation ``\verb!.!'' in 
+Table~\ref{tab:fvnames}.
+
+The argument \texttt{new.preferred} specifies a new value for
+the choice of column that is designated the ``preferred'' column
+and is used in calculations which require a single column of data,
+such as simulation envelopes. 
+This is a single character string which must be a column 
+name of \texttt{x}
+and is associated with the abbreviation ``\verb!.y!'' in 
+Table~\ref{tab:fvnames}.
+
+The argument \texttt{new.formula} specifies a new default plotting formula
+for the summary function. 
+
+The argument \texttt{new.desc} specifies new values for the string
+descriptions of the individual columns, replacing the argument \texttt{desc}
+described in Section~\ref{S:creator}. It should be a character vector 
+with one entry for every column of \texttt{x} (or see below).
+
+The argument \texttt{new.labl} specifies new values for the mathematical labels
+of the individual columns, replacing the argument \texttt{desc}
+described in Section~\ref{S:creator}. It should be a character vector 
+with one entry for every column of \texttt{x} (or see below).
+
+The argument \texttt{tags} can be used to select some of the columns of data
+so that only the auxiliary data for the selected columns will be changed.
+It should be a character vector with entries which match the names
+of columns of \texttt{x}. In that case, \texttt{new.desc} and \texttt{new.labl}
+should have the same length as \texttt{tags}, 
+and they will be taken as replacement values for the selected columns only.
+
+The optional argument \texttt{new.tags} changes the names of the
+columns of \texttt{x} (or the columns selected by \texttt{tags}) to new values.
+
+\subsection{Changing information about one column}
+
+The method \verb!names<-.fv! changes the names of the columns in the 
+\fv\ object, and adjusts the internal data accordingly.
+
+The function \texttt{tweak.fv.entry} 
+is a very low-level function that changes the auxiliary information
+about one of the columns of data. It has syntax
+<<eval=FALSE>>=
+tweak.fv.entry(x, current.tag, new.labl=NULL, new.desc=NULL, new.tag=NULL)
+@ 
+where \texttt{current.tag} is the current name of the column for which
+the information should be changed, \texttt{new.labl} is the new
+mathematical label for the column, \texttt{new.desc} is the 
+new text description of the column, and \texttt{new.tag} is the new 
+name of the column. All these arguments are single strings 
+or \texttt{NULL}. 
+
+\subsection{Special idioms}
+
+A few functions are available for performing special idioms.
+
+The function \texttt{prefixfv} is a wrapper for \texttt{rebadge.fv}
+that adds a prefix to the name of the function, and to all the 
+relevant auxiliary information. It has syntax
+<<eval=FALSE>>=
+prefixfv(x, tagprefix="", descprefix="", lablprefix=tagprefix,
+         whichtags=fvnames(x, "*"))
+@ 
+where \texttt{tagprefix}, \texttt{descprefix} and \texttt{lablprefix}
+are strings that should be added to the beginning
+of the column name, the text description, and the mathematical expression
+for each column of data. The argument \texttt{whichtags} specifies which
+columns of data should be changed; the default is to change all columns.
+
+The function \texttt{rebadge.as.crossfun} changes the auxiliary information
+into the form expected for a bivariate, cross-type summary function,
+analogous to the bivariate $K$-function $K_{i,j}(r)$ between two types of points
+labelled $i$ and $j$ that is computed by the \spst\ function \texttt{Kcross}.
+It has syntax
+<<eval=FALSE>>=
+rebadge.as.crossfun(x, main, sub=NULL, i, j)
+@ 
+where \texttt{main} is the main part of the function name,
+\texttt{sub} is the subscript part of the function name,
+and \texttt{i} and \texttt{j} are the type labels.
+For example
+<<eval=FALSE>>=
+rebadge.as.crossfun(x, "L", i="A", j="B")
+@ 
+would create a function $L_{A,B}(r)$, and
+<<eval=FALSE>>=
+rebadge.as.crossfun(x, "L", "inhom", "A", "B")
+@ 
+would create a function $L_{\mbox{\scriptsize inhom},A,B}(r)$.
+
+Similarly the function \texttt{rebadge.as.dotfun}
+changes the auxiliary information
+into the form expected for a ``one type-to-any type'' summary function,
+analogous to the function $K_{i \bullet}(r)$ 
+that is computed by the \spst\ function \texttt{Kdot}.
+It has syntax
+<<eval=FALSE>>=
+rebadge.as.dotfun(x, main, sub=NULL, i)
+@ 
+
+\subsection{Handling mathematical labels}
+
+The auxiliary information in an \fv\ object includes
+mathematical labels for the different versions of the function,
+which are displayed by \texttt{plot.fv}.
+
+The function \texttt{fvlabels} extracts the mathematical code for each
+version of the summary function from the \fv\ object, 
+and \verb!fvlabels<-! changes the codes.
+
+The mathematical codes are strings 
+which must be recognisable to the \texttt{plotmath}
+code in the \R\ base graphics system which is somewhat idiosyncratic. 
+The strings may also (and usually do)
+include the substring \verb!%s! (appearing once or twice)
+which will be replaced by the 
+function name. For example, if the function name is 
+\texttt{"K"} and the label is \verb!"hat(%s)[iso](r)"! this will be
+parsed as \verb!hat(K)[iso](r)! which is rendered 
+as $\widehat K_{\mbox{\scriptsize iso}}(r)$.
+
+The function \texttt{makefvlabel} creates suitable mathematical code
+for a version of the summary function. Programmers are strongly advised
+to use \texttt{makefvlabel}. 
+
+\subsection{Changing default behaviour}
+
+The default behaviour for plotting an \fv\ object depends
+on its default \texttt{plot formula} and typically on its
+\texttt{dot names}.
+
+The default plot formula is printed when the object is printed,
+and can be extracted using \texttt{formula.fv}.
+<<>>=
+K <- Kest(cells)
+formula(K)
+@ 
+The interpretation of the plot formula is explained 
+in Section~\ref{S:plot.formula}. In the example above, the left hand side
+of the formula uses the abbreviation ``\verb!.!'' which stands
+for ``the default list of columns to be plotted''. This abbreviation can
+be expanded using \texttt{fvnames}:
+<<>>=
+fvnames(K, ".")
+@ 
+which indicates that the columns named
+\texttt{"iso"},
+\texttt{"trans"},
+\texttt{"border"} and
+\texttt{"theo"} will be plotted.
+
+The choice of ``dot names'' can be changed using \verb!fvnames<-!:
+<<>>=
+fvnames(K, ".") <- c("iso", "theo")
+@ 
+
+In general the functions \texttt{fvnames} and \verb!fvnames<-! 
+manage the
+definition of all the abbreviations listed in Table~\ref{tab:fvnames}.
+
+
+\section{Pooling several function estimates}
+
+\subsection{Pooling}
+
+``Pooling'' or combining several datasets into a single dataset
+is a common statistical procedure. If we are only interested in a summary
+statistic of the data, then in some special circumstances, the 
+summary statistic of the pooled dataset can be calculated from the
+summary statistics of the original, separate datasets. For example,
+if we have a set of $n_1$ observations with sample mean $m_1$,
+and another set of $n_2$ observations with sample mean $m_2$,
+then the sample mean of the pooled set of $n_1+n_2$ observations has
+sample mean $(n_1 m_1 + n_2 m_2)/(n_1+n_2)$, a weighted average of the
+sample means of the original datasets. This procedure is loosely called
+``pooling'' the sample mean.
+
+If we have two point pattern datasets, observed in different windows,
+we can ``pool'' the patterns by simply
+treating them as a single point pattern observed in the combined window.
+If we pool two point pattern datasets, the estimated $K$-function of the 
+pooled pattern can be calculated from the estimated $K$-functions 
+$K_1(r)$ and $K_2(r)$ of the original point patterns, if we know the number of
+points in each of the two original patterns. 
+That is, Ripley's $K$-function can be ``pooled''. 
+
+The summary functions used in spatial statistics can be pooled, 
+provided they are able to be expressed as a ratio
+$f(r) = A(r)/B$ or $f(r) = A(r)/B(r)$ where $A(r)$ is the ``numerator''
+and $B$ or $B(r)$ is the ``denominator''. The pooled estimate is the
+ratio of the sum of numerators divided by the sum of denominators.
+For details, see section 16.8.1 of \cite{baddrubaturn15}.
+
+\subsection{Pooling summary functions}
+
+The generic function \texttt{pool} performs pooling of summary statistics
+(including summary functions like the $K$-function).
+In order for this to work correctly, we must know the numerator and 
+denominator for each of the individual summary statistics or summary functions. 
+For this purpose there is a special class \class{rat} (for ``ratio object'').
+An \obj\rat\ contains two attributes named
+\texttt{"numerator"} and \texttt{"denominator"} which contain the 
+numerator and denominator of the ratio. 
+
+For many of the summary functions provided in \spst, 
+if we set the argument \texttt{ratio=TRUE}, the numerator and 
+denominator will be calculated separately and saved in the resulting
+object, which will belong to the class \class{rat} (``ratio object'')
+as well as \fv. 
+<<>>=
+class(Kest(cells))
+class(Kest(cells, ratio=TRUE))
+@ 
+This capability is currently available for the functions 
+\texttt{compileK},
+\texttt{compilepcf},
+\texttt{Finhom},
+\texttt{Gcross.inhom},
+\texttt{Gdot.inhom},
+\texttt{Ginhom},
+\texttt{GmultiInhom},
+\texttt{Jcross.inhom},
+\texttt{Jdot.inhom},
+\texttt{Jinhom},
+\texttt{Jmulti.inhom},
+\texttt{K3est},
+\texttt{Kcross},
+\texttt{Kdot},
+\texttt{Kest},
+\texttt{Kinhom},
+\texttt{Kmulti},
+\texttt{Ksector},
+\texttt{linearKinhom},
+\texttt{linearK},
+\texttt{linearpcfinhom},
+\texttt{linearpcf},
+\texttt{nnorient},
+\texttt{pairorient},
+\texttt{pcfcross},
+\texttt{pcfdot},
+\texttt{pcfmulti},
+\texttt{pcf.ppp} and
+\texttt{Tstat}.
+
+The method \texttt{pool.rat} will pool several objects which all belong
+to the classes \class{fv} and \class{rat}:
+
+<<>>=
+X1 <- runifpoint(50)
+X2 <- runifpoint(50)
+K1 <- Kest(X1, ratio=TRUE)
+K2 <- Kest(X2, ratio=TRUE)
+K <- pool(K1, K2)
+@ 
+
+<<>>=
+Xlist <- runifpoint(50, nsim=6)
+Klist <- lapply(Xlist, Kest, ratio=TRUE)
+K <- do.call(pool, Klist)
+@ 
+
+There is also a fallback method \texttt{pool.fv} 
+which is used when some of the objects do not contain ratio information.
+This method effectively pretends that all the objects have the same
+denominator. 
+
+\subsection{Low level utilities}
+
+Programmers wishing to implement a summary function with 
+ratio information can use the following low-level utilities:
+
+\begin{itemize}
+\item \texttt{ratfv} is the creator function, analogous to \texttt{fv}.
+  Its syntax is
+<<eval=FALSE>>=
+ratfv(df, numer, denom, ..., ratio=TRUE)
+@ 
+where \texttt{df} is a data frame, \texttt{numer} and \texttt{denom}
+are \objs\fv, and additional arguments \verb!...! are passed to \texttt{fv}.
+It is sufficient to specify either \texttt{df} or \texttt{numer},
+in addition to \texttt{denom}.
+\item \texttt{bind.ratfv} glues extra columns onto an existing 
+  \obj\fv and \class{rat}.
+\item \texttt{conform.ratfv} forces the auxiliary information
+  in the numerator and denominator of an \obj\fv and \class{rat}
+  to agree with the auxiliary information of the main object.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Structure of \objs\fv}
+
+This section explains the information contained in \objs\fv.
+
+\subsection{Advice}
+
+We strongly discourage the user from unpacking the internal
+contents of \objs\fv{} and manipulating the contents directly.
+Instead, we recommend using the functions that are available in \spst{} 
+for handling these objects. 
+
+Although it is easy to extract the internal data contained in an object
+in \R, the structure of \objs\fv\ is idiosyncratic, and the internal format
+is variable. Looking at one example of an \obj\fv\ will not tell you how
+it all works. This is because there are many cases to handle,
+and many quirks in the formatting of algebraic expressions in \R.
+
+Using the functions provided in \spst\ is also more efficient 
+than extracting data yourself, because it avoids creating multiple 
+copies of the data.
+
+Most of all, \textbf{do not change the internal contents of \objs\fv}.
+This can easily violate the internal format and cause errors.
+Use the functions supplied for handling these objects.
+
+
+\subsection{Objects of class \fv}
+
+Objects of class \fv\ are returned by many commands in the 
+\spst\ packages. Usually these objects are obtained by
+analysing a spatial point pattern dataset.
+There are also functions to create such objects from raw data.
+
+An \obj\fv{} is essentially a data frame with
+additional attributes containing auxiliary information.
+
+\subsubsection*{Data frame structure}
+
+The first column of the data frame contains values of the 
+function argument. These values are arranged in increasing order,
+are usually evenly-spaced, and usually start from zero. The first
+column usually (but not always) has the column name \texttt{r}.
+
+Subsequent columns of the data frame contain the values of
+different versions of the summary function, corresponding to the
+values of the function argument. These columns may have any column names.
+These versions of the function may be referred to by their column names
+when plotting and manipulating the object.
+
+<<>>=
+G <- Gest(finpines)
+df <- as.data.frame(G)
+head(df)
+@ 
+
+In this example, the object \texttt{G} contains estimates of
+the nearest-neighbour distance distribution function $G(r)$
+for the \texttt{finpines} dataset. For the distance
+value $r = $ \Sexpr{round(df[6, "r"], 9)} metres, the estimate of $G(r)$ 
+using the \texttt{han} method is \Sexpr{round(df[6, "han"],8)}. 
+
+Columns of data can be extracted using the data frame structure.
+To extract the sequence of \texttt{r} values, 
+use \verb!df$r! or \verb!G$r! or \verb!df[, "r"]!. 
+To extract the corresponding values of
+\texttt{han}, use \verb!df$han! or \verb!G$han! or \verb!df[, "han"]!.
+
+\subsubsection*{Auxiliary information}
+
+In the example above,
+to find out what the column \texttt{han} means, we need the
+auxiliary information stored in the object \texttt{G}. 
+This can be printed out directly in readable form:
+<<>>=
+G
+@ 
+Thus, \texttt{han} refers to the estimate of $G(r)$ using Hanisch's method.
+
+The auxiliary information is stored in attributes
+of the object. The full list of attributes is as follows:
+
+\begin{tabular}{lll}
+\texttt{argu} & character(1) & Name of function argument (usually \texttt{"r"}) \\
+\texttt{valu} & character(1) & Name of preferred function value \\
+\texttt{ylab} & language  & Mathematical expression for function (for vertical axis of plot) \\
+\texttt{yexp} & language  & Mathematical expression for function (in algebra) \\
+\texttt{fmla} & character(1) & Default plotting formula \\
+\texttt{alim} & numeric(2) & Recommended range of function argument \\
+\texttt{labl} & character($m$) & Mathematical labels for each column\\
+\texttt{desc} & character($m$) & Text descriptions of each column\\
+\texttt{units} & unitname & Unit of length (for function argument) \\
+\texttt{fname} & character(1 or 2) & Symbol for function only \\
+\texttt{dotnames} & character($k \le m$) & Column names of all recommended versions \\
+\texttt{shade} & character(0 or 2) & Column names of limits of grey shading\\
+\end{tabular}
+
+\code{argu} is the name of the column of the data frame
+that contains the values of the function argument
+(typically \code{argu="r"} but this is not compulsory).
+
+\code{valu} specifies the name of another column
+that contains the `recommended' estimate of the function.
+It will be used to provide function values in those situations where
+a single column of data is required. For example,
+\code{envelope} computes its simulation envelopes
+using the recommended value of the summary function.
+
+\code{fmla} specifies the default plotting behaviour,
+as explained in Section~\ref{S:plot.fv}. It is a character string
+that can be converted to a \texttt{formula} in the \R\ language.
+
+\code{alim} specifies the recommended range of the
+function argument. It is a numeric vector of length 2.
+This is used in situations where statistical
+theory or statistical practice indicates that the computed
+estimates of the function are not trustworthy outside a certain
+range of values of the function argument. By default,
+\code{plot.fv} will restrict the plot to this range.
+
+\code{fname} gives the name of the function itself.
+For example, the \Kfun{}  would have \code{fname="K"}.
+It is either a character string, or a vector of two character strings,
+where the second element is interpreted as a subscript.
+For example, the inhomogeneous \Kfun{} computed by \code{Kinhom}
+has \code{fname=c("K", "inhom")}.
+  
+\code{ylab} is a mathematical expression
+for the function value, used when printing a description of the
+function. It is an \R{} language object. 
+For example the \Kfun's mathematical name $K(r)$ is rendered
+by \code{ylab=quote(K(r))}. 
+
+\code{yexp} is another mathematical expression
+for the function value, used for annotating axes in a plot. 
+
+\code{labl} is a character vector specifying plot labels
+for each column of the data frame. These labels will appear on the
+plot axes (in non-default plots), legends and printed output.
+Entries in \code{labl}
+may contain the string \code{"\%s"} which will be replaced
+by \code{fname}. 
+
+\code{desc} is a character vector containing intelligible
+explanations of each column of the data frame. Entries in
+\code{desc} may contain the string \code{"\%s"} which will be replaced
+by \code{ylab}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Structure of \objs\env}
+
+This section explains the information contained in \objs\env.
+
+\subsection{The \texttt{envelope} command}
+
+The \spst\ function \fun{envelope} performs the
+calculations required for envelopes. It computes the 
+summary function for a point pattern dataset, generates
+simulated point patterns, computes the summary functions for the
+simulated patterns, and computes the envelopes of these summary 
+functions. 
+
+<<eval=FALSE>>=
+E <- envelope(swp, Kest, nsim=39, fix.n=TRUE)
+@ 
+The result is an object of class \class{envelope} and \class{fv}
+which can be printed and plotted and manipulated
+using the tools for \class{fv} objects, and by additional tools
+provided for \class{envelope} objects.
+
+The print method gives a lot of detail:
+<<>>=
+E
+@ 
+
+\subsection{Re-using envelope data}
+
+The method \texttt{envelope.envelope} allows new \fun{envelope} commands to
+be applied to a previously computed \class{envelope} object,
+provided it contains the necessary data.
+
+In the original call to \fun{envelope}, if the argument
+\texttt{savepatterns=TRUE} was given, the resulting \class{envelope}
+object contains all the simulated point patterns.  Alternatively
+if the argument \texttt{savefuns=TRUE} was given, the resulting
+object contains the individual summary functions for each of the
+simulated patterns.  This information is not saved, by default,
+for efficiency's sake.
+
+Envelopes created with \texttt{savepatterns=TRUE} allow any kind of
+new envelopes to be computed using the same simulated point patterns:
+<<eval=FALSE>>=
+E1 <- envelope(redwood, Kest, savepatterns=TRUE)
+E2 <- envelope(E1, Gest, global=TRUE, 
+               transform=expression(fisher(.)))
+@ 
+
+Envelopes created with \texttt{savefuns=TRUE} allow 
+the user to switch between pointwise and global envelopes
+of the same summary function, to apply different transformations
+of the summary function, and to change some parameters:
+<<eval=FALSE>>=
+A1 <- envelope(redwood, Kest, nsim=39, savefuns=TRUE)
+A2 <- envelope(A1, global=TRUE, nsim=19, 
+               transform=expression(sqrt(./pi)))
+@ 
+
+\subsection{Pooling several envelopes}
+
+It is also possible to combine the simulation data
+from several envelope objects 
+and to compute envelopes based on the combined data.
+This is done using \fun{pool.envelope}, a method for
+the \spst\ generic \fun{pool}.
+The envelopes must be compatible,
+in that they are envelopes for the same function,
+and were computed using the same options. The
+individual summary functions must have been saved.
+<<eval=FALSE>>=
+E1 <- envelope(cells, Kest, nsim=10, savefuns=TRUE)
+E2 <- envelope(cells, Kest, nsim=20, savefuns=TRUE)
+E <- pool(E1, E2)
+@ 
+
+\subsection{Structure of envelope objects}
+
+An \obj\env{} is an \obj\fv{} with additional auxiliary information:
+\begin{itemize}
+\item 
+  the names of two of the columns of function values,
+  designated as the upper and lower simulation envelopes of the function,
+  saved in \texttt{attr(, "shade")} and retrievable as 
+  \texttt{fvnames(, .s)}
+\item 
+  details of how the envelopes were computed,
+  saved in \texttt{attr(, "einfo")}
+\item 
+  optionally, the simulated point patterns used to compute the envelopes,
+  saved in \texttt{attr(, "simpatterns")}
+\item 
+  optionally, the simulated summary functions
+  (the summary functions computed for the simulated point patterns)
+  used to compute the envelopes,
+  saved in \texttt{attr(, "simfuns")}
+\end{itemize}
+
+Objects of class \env\ inherit the class \fv, so they can be manipulated
+using methods for class \fv, but there are extra methods for the
+special class \env. 
+
+\subsection{The \texttt{einfo} list}
+
+Additional attribute \texttt{einfo} is a list of:
+
+\begin{tabular}{lll}
+  \texttt{call} & character(1) & original function call \\
+  \texttt{Yname} & character(1) & name of original dataset \\
+  \texttt{valname} & character(1) & column name of function values used\\
+  \texttt{csr} & logical(1) & \texttt{TRUE} if simulations based on CSR \\
+  \texttt{csr.theo} & logical (1) & see below\\
+  \texttt{use.theory} & logical (1) & see below\\
+  \texttt{pois} & logical(1) & \texttt{TRUE} if simulations 
+                               are Poisson process\\
+  \texttt{simtype} & character(1) & Type of simulation (see below) \\
+  \texttt{constraints} & character(1) & Additional information (see below) \\
+  \texttt{nrank} & integer(1) & Rank of envelopes \\
+  \texttt{nsim} & integer(1) & Number of simulations for envelope \\
+  \texttt{Nsim} & integer(1) & Total number of simulations\\
+  \texttt{global} & logical(1) & \texttt{TRUE} if global envelopes\\
+  \texttt{ginterval} & numeric(0 or 2) & Domain of function argument for global envelopes \\
+  \texttt{dual} & logical(1) & \texttt{TRUE} if two sets of simulations performed\\
+  \texttt{nsim2} & integer(1) & Number of simulations in second set \\
+  \texttt{VARIANCE} & logical(1) & \texttt{TRUE} if limits are based on standard deviation \\
+  \texttt{nSD} & numeric(1) & Number of standard deviations defining limits \\
+  \texttt{alternative} & character(1) & \texttt{two.sided}, \texttt{less} or \texttt{greater} \\
+  \texttt{scale} & \texttt{NULL} or function & Scaling function for function argument \\
+  \texttt{clamp} & logical(1) & \texttt{TRUE} if one-sided deviations must be positive \\
+  \texttt{use.weights} & logical(1) & \texttt{TRUE} if sample mean is weighted\\
+  \texttt{do.pwrong} & logical(1) & \texttt{TRUE} if ``wrong $p$-value'' should be calculated \\
+  \texttt{gaveup} &  logical(1) & \texttt{TRUE} if simulations terminated early
+\end{tabular}
+
+
+\begin{thebibliography}{1}
+\bibitem{baddrubaturn15}
+A. Baddeley, E. Rubak, and R. Turner.
+\newblock {\em Spatial Point Patterns: Methodology and Applications with {{R}}}.
+\newblock Chapman \& Hall/CRC Press, 2015.
+\bibitem{besa77d}
+J.E. Besag. 
+\newblock Contribution to the discussion of the paper by Ripley (1977).
+\newblock \emph{Journal of the Royal Statistical Society, Series B}
+\textbf{39} (1977) 193--195.
+\bibitem{cox77discuss}
+D.R. Cox.
+\newblock Contribution to the discussion of the paper by Ripley (1977).
+\newblock \emph{Journal of the Royal Statistical Society, Series B}
+\textbf{39} (1977) 206.
+\end{thebibliography}
+
+\end{document}

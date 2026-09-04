@@ -1,0 +1,47 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { Comparator, Range } from "./types.ts";
+import { OPERATORS } from "./_constants.ts";
+import { ALL, NONE } from "./constants.ts";
+import { isSemVer } from "./is_semver.ts";
+
+function isComparator(value: unknown): value is Comparator {
+  if (
+    value === null || value === undefined || Array.isArray(value) ||
+    typeof value !== "object"
+  ) return false;
+  if (value === NONE || value === ALL) return true;
+  const { operator } = value as Comparator;
+  return (
+    (operator === undefined ||
+      OPERATORS.includes(operator)) &&
+    isSemVer(value)
+  );
+}
+
+/**
+ * Does a deep check on the object to determine if its a valid range.
+ *
+ * Objects with extra fields are still considered valid if they have at
+ * least the correct fields.
+ *
+ * Adds a type assertion if true.
+ *
+ * @example Usage
+ * ```ts
+ * import { isRange } from "@std/semver/is-range";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const range = [[{ major: 1, minor: 2, patch: 3 }]];
+ * assert(isRange(range));
+ * assertFalse(isRange({}));
+ * ```
+ * @param value The value to check if its a valid Range
+ * @returns True if its a valid Range otherwise false.
+ */
+export function isRange(value: unknown): value is Range {
+  return Array.isArray(value) &&
+    value.every((r) => Array.isArray(r) && r.every((c) => isComparator(c)));
+}
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","cf-ray":"9e98a5d288c53992-IAD","etag":"\"302d99f67591f106984039a887bb446c\"","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=z6L7d94T45gbX3dWRtyni5a2J0sWT5aQ1xmsXpEfjA5fpZ4KI4zGjY%2FqBBJhm6BGMrpp65s86etVW9IFIHmKq6yrU9uqrR70XHvYO0Fz9deHdvipJpnxZP0%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","content-length":"1445","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/semver/0.224.3/is_range.ts","time":1775728648}

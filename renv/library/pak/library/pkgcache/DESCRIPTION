@@ -1,0 +1,37 @@
+Package: pkgcache
+Title: Cache 'CRAN'-Like Metadata and R Packages
+Version: 2.2.5.9000
+Authors@R: c(
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("aut", "cre")),
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
+  )
+Description: Metadata and package cache for CRAN-like repositories.  This
+    is a utility package to be used by package management tools that want
+    to take advantage of caching.
+License: MIT + file LICENSE
+URL: https://r-lib.github.io/pkgcache/,
+        https://github.com/r-lib/pkgcache
+BugReports: https://github.com/r-lib/pkgcache/issues
+Depends: R (>= 3.4)
+Imports: callr (>= 2.0.4.9000), cli (>= 3.2.0), curl (>= 3.2),
+        filelock, jsonlite, processx (>= 3.3.0.9001), R6, tools,
+        tsitter, tstoml, utils
+Suggests: covr, debugme, desc, fs, keyring, pillar, pingr, rprojroot,
+        sessioninfo, spelling, testthat (>= 3.2.0), webfakes (>=
+        1.1.5), withr, zip
+Remotes: r-lib/tsitter, gaborcsardi/tstoml
+Config/Needs/website: tidyverse/tidytemplate
+Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2025-04-30
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE, r6 = FALSE)
+Config/roxygen2/version: 8.0.0
+NeedsCompilation: yes
+Packaged: 2026-06-05 11:11:27 UTC; gaborcsardi
+Author: Gábor Csárdi [aut, cre],
+  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)
+Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
+Built: R 4.5.3; x86_64-w64-mingw32; 2026-06-10 01:22:29 UTC; windows
+Archs: x64

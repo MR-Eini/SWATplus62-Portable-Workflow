@@ -1,0 +1,31 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+const encoder = new TextEncoder();
+
+function getTypeName(value: unknown): string {
+  const type = typeof value;
+  if (type !== "object") {
+    return type;
+  } else if (value === null) {
+    return "null";
+  } else {
+    return value?.constructor?.name ?? "object";
+  }
+}
+
+export function validateBinaryLike(source: unknown): Uint8Array {
+  if (typeof source === "string") {
+    return encoder.encode(source);
+  } else if (source instanceof Uint8Array) {
+    return source;
+  } else if (source instanceof ArrayBuffer) {
+    return new Uint8Array(source);
+  }
+  throw new TypeError(
+    `The input must be a Uint8Array, a string, or an ArrayBuffer. Received a value of the type ${
+      getTypeName(source)
+    }.`,
+  );
+}
+
+// denoCacheMetadata={"headers":{"age":"6806556","cache-status":"deno; hit","alt-svc":"h3=\":443\"; ma=86400","content-type":"application/typescript; charset=utf-8","strict-transport-security":"max-age=63072000; includeSubDomains; preload","vary":"Accept-Encoding","x-content-type-options":"nosniff","x-amz-cf-id":"FfzZcX9enU3PfB_G9KBMICJSmdOkFjplgKQv5tzRW24G3NO5H3c-6A==","access-control-max-age":"0","cross-origin-resource-policy":"same-origin","etag":"\"d13b3b0dcf6d4f86b4aed186221caac0\"","cross-origin-opener-policy":"same-origin","content-security-policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox","last-modified":"Thu, 25 Apr 2024 03:01:09 GMT","x-amz-replication-status":"COMPLETED","cross-origin-embedder-policy":"same-origin","content-length":"798","x-amz-cf-pop":"ORD56-P16","server-timing":"fetchSource;dur=4","x-amz-server-side-encryption":"AES256","x-cache":"Hit from cloudfront","date":"Tue, 20 Jan 2026 15:14:51 GMT","referrer-policy":"strict-origin-when-cross-origin","via":"1.1 2901d5c3dd73b8266bb51b33068f7702.cloudfront.net (CloudFront),HTTP/2 ord.vultr.prod.deno-cluster.net","x-amz-version-id":"8jOB.Lq1pZdFojXtsQ2Dcv9jcjkatOqN","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","x-frame-options":"DENY","access-control-allow-methods":"GET, HEAD","server":"AmazonS3,deployd","x-deno-trace-id":"82e1ca0f31191af46847af61c9d499a9","accept-ranges":"bytes"},"url":"https://deno.land/std@0.224.0/encoding/_util.ts","time":1775728646}

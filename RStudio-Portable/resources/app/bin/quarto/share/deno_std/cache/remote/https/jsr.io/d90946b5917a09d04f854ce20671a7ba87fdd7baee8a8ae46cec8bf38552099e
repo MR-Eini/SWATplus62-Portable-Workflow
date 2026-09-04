@@ -1,0 +1,28 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { fromFileUrl as posixFromFileUrl } from "./posix/from_file_url.ts";
+import { fromFileUrl as windowsFromFileUrl } from "./windows/from_file_url.ts";
+
+/**
+ * Converts a file URL to a path string.
+ *
+ * ```ts
+ * import { fromFileUrl } from "@std/path/from-file-url";
+ *
+ * // posix
+ * fromFileUrl("file:///home/foo"); // "/home/foo"
+ *
+ * // win32
+ * fromFileUrl("file:///home/foo"); // "\\home\\foo"
+ * fromFileUrl("file:///C:/Users/foo"); // "C:\\Users\\foo"
+ * fromFileUrl("file://localhost/home/foo"); // "\\\\localhost\\home\\foo"
+ * ```
+ * @param url of a file URL
+ */
+export function fromFileUrl(url: string | URL): string {
+  return isWindows ? windowsFromFileUrl(url) : posixFromFileUrl(url);
+}
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","cf-ray":"9e98a5d2485e3992-IAD","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","vary":"Origin","content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=RTwP9pHEmwXxrVOGgCqg4k8qjrqGXmyqBxFmAi9icrCWAM7ybq68Pjb9V2XgcPmVf8BQ1rr7UtW%2FaglrFRSU8Dm3pAvoDLSwY1aXHX1LdUUpGVcnlZt73h4%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"861","etag":"\"745356b1101771903e15703834402d2b\"","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/path/0.224.0/from_file_url.ts","time":1775728648}

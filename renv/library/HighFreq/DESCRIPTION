@@ -1,0 +1,38 @@
+Package: HighFreq
+Type: Package
+Title: High Frequency Time Series Management
+Version: 0.1
+Date: 2018-09-12
+Author: Jerzy Pawlowski (algoquant)
+Maintainer: Jerzy Pawlowski <jp3900@nyu.edu>
+Description: Functions for chaining and joining time series, scrubbing bad data,
+    managing time zones and alligning time indices, converting TAQ data to OHLC
+    format, aggregating data to lower frequency, estimating volatility, skew, and
+    higher moments.
+License: MPL-2.0
+Depends: xts, quantmod, rutils
+Imports: xts, quantmod, rutils, Rcpp
+LinkingTo: Rcpp, RcppArmadillo
+SystemRequirements: GNU make, C++11
+Remotes: github::algoquant/rutils,
+VignetteBuilder: knitr
+LazyData: true
+ByteCompile: true
+Repository: GitHub
+URL: https://github.com/algoquant/HighFreq
+RoxygenNote: 7.3.3
+Encoding: UTF-8
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: HighFreq
+RemoteUsername: algoquant
+RemoteRef: HEAD
+RemoteSha: cf11b1f44e16da054ab4ef6ed89115f7ff47ad2e
+GithubRepo: HighFreq
+GithubUsername: algoquant
+GithubRef: HEAD
+GithubSHA1: cf11b1f44e16da054ab4ef6ed89115f7ff47ad2e
+NeedsCompilation: yes
+Packaged: 2026-02-24 14:26:07 UTC; Gram
+Built: R 4.5.1; x86_64-w64-mingw32; 2026-02-24 14:26:11 UTC; windows
+Archs: x64

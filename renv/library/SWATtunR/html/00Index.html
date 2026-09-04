@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Soft Calibration, Hard Calibration, and Validation for SWAT+
+Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Soft Calibration, Hard Calibration, and Validation for SWAT+
+Models
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;SWATtunR&rsquo; version 0.3.15</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="add_kill_op.html">add_kill_op</a></td>
+<td>Replace hvkl operations with harv + kill</td></tr>
+<tr><td style="width: 25%;"><a href="add_timestamp.html">add_timestamp</a></td>
+<td>Add a time stamp to the save name</td></tr>
+<tr><td style="width: 25%;"><a href="aggregate_time.html">aggregate_time</a></td>
+<td>Aggregate time series table</td></tr>
+<tr><td style="width: 25%;"><a href="calc_fdc.html">calc_fdc</a></td>
+<td>Calculate Flow Duration Curve (FDC)</td></tr>
+<tr><td style="width: 25%;"><a href="calc_fdc_rsr.html">calc_fdc_rsr</a></td>
+<td>Calculate RSR for Flow Duration Curve Segments</td></tr>
+<tr><td style="width: 25%;"><a href="calc_gof.html">calc_gof</a></td>
+<td>Calculate a goodness-of-fit table</td></tr>
+<tr><td style="width: 25%;"><a href="calc_wyr.html">calc_wyr</a></td>
+<td>Calculate water yield ratio</td></tr>
+<tr><td style="width: 25%;"><a href="conc_to_load.html">conc_to_load</a></td>
+<td>Convert concentration and discharge time series into a load time series.</td></tr>
+<tr><td style="width: 25%;"><a href="copy_file_version.html">copy_file_version</a></td>
+<td>Copy a file with an optional version suffix.</td></tr>
+<tr><td style="width: 25%;"><a href="failed_runs.html">failed_runs</a></td>
+<td>Identify and summarize failed SWAT+ runs</td></tr>
+<tr><td style="width: 25%;"><a href="filter_period.html">filter_period</a></td>
+<td>Filter a time period for a variable time series table.</td></tr>
+<tr><td style="width: 25%;"><a href="group_hydr_values.html">group_hydr_values</a></td>
+<td>Group the values of a parameter in the file hydrology.hyd.</td></tr>
+<tr><td style="width: 25%;"><a href="id_to_run.html">id_to_run</a></td>
+<td>Convert run ID values to run names</td></tr>
+<tr><td style="width: 25%;"><a href="id_to_unit.html">id_to_unit</a></td>
+<td>Generate 'unit' condition for parameter definition from ID vector</td></tr>
+<tr><td style="width: 25%;"><a href="initialize_hardcal.html">initialize_hardcal</a></td>
+<td>Initialize a hard calibration workflow</td></tr>
+<tr><td style="width: 25%;"><a href="initialize_softcal.html">initialize_softcal</a></td>
+<td>Initialize a soft calibration workflow</td></tr>
+<tr><td style="width: 25%;"><a href="load_to_conc.html">load_to_conc</a></td>
+<td>Convert load and discharge time series into a concentration time series.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_cal_val.html">plot_cal_val</a></td>
+<td>Plot Calibration and Validation Performance Indexes in Boxplots</td></tr>
+<tr><td style="width: 25%;"><a href="plot_dotty.html">plot_dotty</a></td>
+<td>Plot Dotty</td></tr>
+<tr><td style="width: 25%;"><a href="plot_dotty_yields.html">plot_dotty_yields</a></td>
+<td>Plot Dotty Yields</td></tr>
+<tr><td style="width: 25%;"><a href="plot_esco_epco.html">plot_esco_epco</a></td>
+<td>Plot esco (and epco) to identify appropriate parameter ranges.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_fdc.html">plot_fdc</a></td>
+<td>Plot Flow Duration Curve (FDC) for Observed and Simulated Data</td></tr>
+<tr><td style="width: 25%;"><a href="plot_gof.html">plot_gof</a></td>
+<td>Plot goodness of fit (GOF) tables</td></tr>
+<tr><td style="width: 25%;"><a href="plot_oat.html">plot_oat</a></td>
+<td>Function to plot OAT (One-At-A-Time) analysis results</td></tr>
+<tr><td style="width: 25%;"><a href="plot_parameter_identifiability.html">plot_parameter_identifiability</a></td>
+<td>Plot Parameter Identifiability</td></tr>
+<tr><td style="width: 25%;"><a href="plot_pcp_vs_flow.html">plot_pcp_vs_flow</a></td>
+<td>Plot Precipitation vs. Runoff</td></tr>
+<tr><td style="width: 25%;"><a href="plot_phu_yld_bms.html">plot_phu_yld_bms</a></td>
+<td>Plot PHU, yield, and biomass over days to maturity</td></tr>
+<tr><td style="width: 25%;"><a href="plot_timeseries.html">plot_timeseries</a></td>
+<td>Plot time series of simulation results and observations</td></tr>
+<tr><td style="width: 25%;"><a href="prepare_plant_parameter.html">prepare_plant_parameter</a></td>
+<td>Rearrange parameter change tables to SWATrunR format</td></tr>
+<tr><td style="width: 25%;"><a href="rank_gof.html">rank_gof</a></td>
+<td>Rank lines in a table of goodness-of-fit values.</td></tr>
+<tr><td style="width: 25%;"><a href="remove_unsuccesful_runs.html">remove_unsuccesful_runs</a></td>
+<td>Remove Unsuccessful Runs from Simulation</td></tr>
+<tr><td style="width: 25%;"><a href="run_to_id.html">run_to_id</a></td>
+<td>Convert run_names to integer ID values</td></tr>
+<tr><td style="width: 25%;"><a href="sample_days_mat.html">sample_days_mat</a></td>
+<td>Sample days to maturity values</td></tr>
+<tr><td style="width: 25%;"><a href="sample_lhs.html">sample_lhs</a></td>
+<td>Sample parameters with Latin Hypercube Sampling (LHS)</td></tr>
+<tr><td style="width: 25%;"><a href="sample_oat.html">sample_oat</a></td>
+<td>Sample parameter values one-at-a-time (OAT)</td></tr>
+<tr><td style="width: 25%;"><a href="sum_variables.html">sum_variables</a></td>
+<td>Sum values of simulated variables</td></tr>
+<tr><td style="width: 25%;"><a href="translate_to_boundaries.html">translate_to_boundaries</a></td>
+<td>Translate the normalized sampled values of a parameter to ranges of groups of that parameter (e.g. when perco should have different ranges based on the initial values of perco in all HRUs)</td></tr>
+<tr><td style="width: 25%;"><a href="update_par.html">update_par</a></td>
+<td>Update Parameters</td></tr>
+<tr><td style="width: 25%;"><a href="view_timeseries.html">view_timeseries</a></td>
+<td>View interactive time series of simulation results and observations</td></tr>
+<tr><td style="width: 25%;"><a href="write_cal_file.html">write_cal_file</a></td>
+<td>Write a SWAT+ Calibration File</td></tr>
+</table>
+</div></body></html>

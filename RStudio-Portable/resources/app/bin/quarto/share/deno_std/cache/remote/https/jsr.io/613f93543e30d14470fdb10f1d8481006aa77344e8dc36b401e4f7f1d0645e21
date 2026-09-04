@@ -1,0 +1,38 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Utility functions for media types (MIME types).
+ *
+ * This API is inspired by the GoLang {@linkcode https://pkg.go.dev/mime | mime}
+ * package and {@link https://github.com/jshttp/mime-types | jshttp/mime-types},
+ * and is designed to integrate and improve the APIs from
+ * {@link https://deno.land/x/media_types | x/media_types}.
+ *
+ * The `vendor` folder contains copy of the
+ * {@link https://github.com/jshttp/mime-types | jshttp/mime-db} `db.json` file,
+ * along with its license.
+ *
+ * ```ts
+ * import { contentType, extensionsByType, getCharset } from "@std/media-types";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(extensionsByType("application/json"), ["json", "map"]);
+ *
+ * assertEquals(contentType(".json"), "application/json; charset=UTF-8");
+ *
+ * assertEquals(getCharset("text/plain"), "UTF-8");
+ * ```
+ *
+ * @module
+ */
+
+export * from "./content_type.ts";
+export * from "./extension.ts";
+export * from "./extensions_by_type.ts";
+export * from "./format_media_type.ts";
+export * from "./get_charset.ts";
+export * from "./parse_media_type.ts";
+export * from "./type_by_extension.ts";
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","cf-ray":"9e98a5d02df83992-IAD","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","content-length":"1255","access-control-allow-origin":"*","access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","etag":"\"f3bb3c49b7b1c4414a8c0e845ccc4f5f\"","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=L3Nsg%2Bo7pZG1LCLkQ4yitDO0sJ9XmDhB5rFVa7WNilFXIosf6KzqCocTv7PA6mjeGJUsI8j0RwwYPidP%2BYEBtxZ%2BtuyL7UiSXYCWORIpknvfA3KNAMygTLM%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin"},"url":"https://jsr.io/@std/media-types/0.224.1/mod.ts","time":1775728648}

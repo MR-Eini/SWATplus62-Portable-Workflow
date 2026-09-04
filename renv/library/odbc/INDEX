@@ -1,0 +1,27 @@
+DBI-tables              Convenience functions for reading/writing DBMS
+                        tables
+databricks              Helper for Connecting to Databricks via ODBC
+dbListTables,OdbcConnection-method
+                        List remote tables and fields for an ODBC
+                        connection
+isTempTable             Helper method used to determine if a table
+                        identifier is that of a temporary table.
+odbc                    Connect to a database via an ODBC driver
+odbcConnectionColumns,Snowflake,character-method
+                        Connecting to Snowflake via ODBC
+odbcDataType            Return the corresponding ODBC data type for an
+                        R object
+odbcListColumns         List columns in an object.
+odbcListConfig          List locations of ODBC configuration files
+odbcListDataSources     List Configured Data Source Names
+odbcListDrivers         List Configured ODBC Drivers
+odbcListObjectTypes     Return the object hierarchy supported by a
+                        connection.
+odbcListObjects         List objects in a connection.
+odbcPreviewObject       Preview the data in an object.
+odbcSetTransactionIsolationLevel
+                        Set the Transaction Isolation Level for a
+                        Connection
+quote_value             Quote special character when connecting
+redshift                Helper for Connecting to Redshift via ODBC
+snowflake               Helper for connecting to Snowflake via ODBC

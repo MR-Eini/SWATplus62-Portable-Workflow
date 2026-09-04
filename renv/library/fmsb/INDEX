@@ -1,0 +1,85 @@
+CM                      Coale and McNeil's model nupitiality and its
+                        fitting
+CT                      Coale and Trussell's model marital fertility
+                        and its fitting
+CaretakerRatio          Caretaker Ratio
+CronbachAlpha           Calculate Cronbach's alpha coefficient.
+Denny                   Denny's model mortality for lx and its fitting
+GompertzMakeham         Gompertz-Makeham's model mortality for u(x) and
+                        its fitting
+H27MPJ                  Tentative model population of Japan in Heisei
+                        27 (2015)
+Hadwiger                Hadwiger's model fertility and its fitting
+IRCI                    Calculate a incidence rate with confidence
+                        interval
+IRCIPois                Calculate incidence rate with its confidence
+                        intervals by exact method
+IRDMH                   Calculate pooled incidence rate difference and
+                        its confidence intervals with Mantel-Haenszel's
+                        method
+IRRMH                   Calculate pooled incidence rate ratio and its
+                        confidence intervals with Mantel-Haenszel's
+                        method
+IndexOfDissimilarity    Index of dissimilarity (ID)
+JASM                    Japanese mortality data
+Jfert                   Age-specific fertility rates and age-specific
+                        marital fertility rates in Japan.
+Jlife                   Completed lifetables in Japan.
+Jpop                    Japanese population data
+Jpopl                   Japanese population data (unshrunken version)
+Jvital                  Longitudinal data of several vital statistics
+                        in Japan
+Jvital2013byPref        Cross sectional data of several vital
+                        statistics in Japan 2013 for each prefecture
+Kappa.test              Calculate Cohen's kappa statistics for
+                        agreement
+NagelkerkeR2            Calculate Nagelkerke's R squared.
+ORMH                    Calculate pooled odds ratio and its confidence
+                        intervals with Mantel-Haenszel's method
+PEI                     Population Expansion Index
+PrefYLL2010             Years of Life Lost by several causes in Japan
+                        2010 for each prefecture
+PrefYLL2015             Years of Life Lost by several causes in Japan
+                        2015 for each prefecture
+PrefYLL2020             Years of Life Lost by several causes in Japan
+                        2020 for each prefecture
+Prefe0                  Changes of life expectancy at birth for each
+                        prefecture in Japan since 1965
+RCI                     Calculate risk and its confidence interval
+RDMH                    Calculate pooled risk difference and its
+                        confidence intervals with Mantel-Haenszel's
+                        method
+RRMH                    Calculate pooled risk ratio and its confidence
+                        intervals with Mantel-Haenszel's method
+S60MPJ                  Model population of Japan in Showa 60 (1985)
+SIQR                    Calculate semi-interquartile range
+Siler                   Siler's model mortality for qx and its fitting
+VIF                     Calculate variance inflation factor (VIF) from
+                        the result of lm.
+WhipplesIndex           Whipple's Index
+geary.test              Geary's test for normality about kurtosis.
+gstem                   Draw the stem and leaf plot in a graphic
+                        device.
+lifetable               Lifetable functions with mutual conversions
+mhchart                 Draw maternity history charts.
+oddsratio               Calculate odds ratio and its confidence
+                        intervals
+pairwise.fisher.test    Exact version of pairwise.prop.test
+percentile              Convert numeric vector into its percentile
+pvalueplot              Drawing p-value function plot by a cross table
+pvpORMH                 Drawing p-value function plot by stratified or
+                        pooled cross tables
+radarchart              Drawing radar chart (a.k.a. spider plot)
+ratedifference          Calculate incidence rate difference and its
+                        confidence intervals
+rateratio               Calculate incidence rate ratio and its
+                        confidence intervals
+riskdifference          Calculate risk difference and its confidence
+                        intervals
+riskratio               Calculate risk ratio and its confidence
+                        intervals
+roc                     Calculate Receiver Operating Characteristic
+                        (ROC) curve
+spearman.ci.sas         Calculate Spearman's rank correlation with its
+                        confidence intervals by SAS method
+truemedian              Calculate true median for data with ties.

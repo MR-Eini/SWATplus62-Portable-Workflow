@@ -1,0 +1,159 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { isSubdir } from "./_is_subdir.ts";
+import { isSamePath } from "./_is_same_path.ts";
+
+const EXISTS_ERROR = new Deno.errors.AlreadyExists("dest already exists.");
+
+/**
+ * Error thrown in {@linkcode move} or {@linkcode moveSync} when the
+ * destination is a subdirectory of the source.
+ */
+export class SubdirectoryMoveError extends Error {
+  /** Constructs a new instance. */
+  constructor(src: string | URL, dest: string | URL) {
+    super(
+      `Cannot move '${src}' to a subdirectory of itself, '${dest}'.`,
+    );
+    this.name = this.constructor.name;
+  }
+}
+
+/** Options for {@linkcode move} and {@linkcode moveSync}. */
+export interface MoveOptions {
+  /**
+   * Whether the destination file should be overwritten if it already exists.
+   *
+   * @default {false}
+   */
+  overwrite?: boolean;
+}
+
+/**
+ * Asynchronously moves a file or directory.
+ *
+ * @param src The source file or directory as a string or URL.
+ * @param dest The destination file or directory as a string or URL.
+ * @param options Options for the move operation.
+ * @returns A void promise that resolves once the operation completes.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { move } from "@std/fs/move";
+ *
+ * await move("./foo", "./bar");
+ * ```
+ *
+ * This will move the file or directory at `./foo` to `./bar` without
+ * overwriting.
+ *
+ * @example Overwriting
+ * ```ts
+ * import { move } from "@std/fs/move";
+ *
+ * await move("./foo", "./bar", { overwrite: true });
+ * ```
+ *
+ * This will move the file or directory at `./foo` to `./bar`, overwriting
+ * `./bar` if it already exists.
+ */
+export async function move(
+  src: string | URL,
+  dest: string | URL,
+  { overwrite = false }: MoveOptions = {},
+): Promise<void> {
+  const srcStat = await Deno.stat(src);
+
+  if (
+    srcStat.isDirectory &&
+    (isSubdir(src, dest) || isSamePath(src, dest))
+  ) {
+    throw new SubdirectoryMoveError(src, dest);
+  }
+
+  if (overwrite) {
+    if (isSamePath(src, dest)) return;
+    try {
+      await Deno.remove(dest, { recursive: true });
+    } catch (error) {
+      if (!(error instanceof Deno.errors.NotFound)) {
+        throw error;
+      }
+    }
+  } else {
+    try {
+      await Deno.lstat(dest);
+      return Promise.reject(EXISTS_ERROR);
+    } catch {
+      // Do nothing...
+    }
+  }
+
+  await Deno.rename(src, dest);
+}
+
+/**
+ * Synchronously moves a file or directory.
+ *
+ * @param src The source file or directory as a string or URL.
+ * @param dest The destination file or directory as a string or URL.
+ * @param options Options for the move operation.
+ * @returns A void value that returns once the operation completes.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { moveSync } from "@std/fs/move";
+ *
+ * moveSync("./foo", "./bar");
+ * ```
+ *
+ * This will move the file or directory at `./foo` to `./bar` without
+ * overwriting.
+ *
+ * @example Overwriting
+ * ```ts
+ * import { moveSync } from "@std/fs/move";
+ *
+ * moveSync("./foo", "./bar", { overwrite: true });
+ * ```
+ *
+ * This will move the file or directory at `./foo` to `./bar`, overwriting
+ * `./bar` if it already exists.
+ */
+export function moveSync(
+  src: string | URL,
+  dest: string | URL,
+  { overwrite = false }: MoveOptions = {},
+): void {
+  const srcStat = Deno.statSync(src);
+
+  if (
+    srcStat.isDirectory &&
+    (isSubdir(src, dest) || isSamePath(src, dest))
+  ) {
+    throw new SubdirectoryMoveError(src, dest);
+  }
+
+  if (overwrite) {
+    if (isSamePath(src, dest)) return;
+    try {
+      Deno.removeSync(dest, { recursive: true });
+    } catch (error) {
+      if (!(error instanceof Deno.errors.NotFound)) {
+        throw error;
+      }
+    }
+  } else {
+    try {
+      Deno.lstatSync(dest);
+      throw EXISTS_ERROR;
+    } catch (error) {
+      if (error === EXISTS_ERROR) {
+        throw error;
+      }
+    }
+  }
+
+  Deno.renameSync(src, dest);
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","server":"cloudflare","x-robots-tag":"noindex","cache-control":"public, max-age=31536000, immutable","content-length":"3884","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","content-type":"text/typescript","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0r8RrdPGkt%2BNdiLfcdxOZYkpIGZZ7sWOphq%2B6u2NeNfZJFWr2Tic6lLtH1kLQHmOsSQYOUF1wR%2BQx0gE1BdZVqb4%2F81cV9Ai1VfHk%2BozT%2FOTCoiUH4B52YI%3D\"}]}","vary":"Origin","access-control-expose-headers":"*","access-control-allow-origin":"*","etag":"\"1c51a024ebd1d9350fe4c4771a79c065\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cf-ray":"9e98a5d16f673992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/fs/0.224.0/move.ts","time":1775728648}

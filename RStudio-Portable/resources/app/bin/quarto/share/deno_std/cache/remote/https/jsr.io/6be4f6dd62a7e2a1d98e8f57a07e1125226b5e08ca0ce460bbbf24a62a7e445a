@@ -1,0 +1,252 @@
+{
+  "manifest": {
+    "/testdata/with_link.tar": {
+      "size": 10240,
+      "checksum": "sha256-e774b5a2d3024cfbe34301927e45e3ba10014717bed62cb1220e3fa3b526f620"
+    },
+    "/tar.ts": {
+      "size": 12500,
+      "checksum": "sha256-2e81f3c6ed915c88d2883ea4e60efe1342dd67727152802c8a3b7ddfeef57ce4"
+    },
+    "/tar_test.ts": {
+      "size": 3588,
+      "checksum": "sha256-6cd794fc154c911e69a149276234fa60e2d9feef05f4c6bb17ab2aa89474e8b6"
+    },
+    "/_common.ts": {
+      "size": 3796,
+      "checksum": "sha256-6467fd08a4205a9ac345ba6e74b43a5594c735b856cc2cfe0024b67dfb830cba"
+    },
+    "/deno.json": {
+      "size": 147,
+      "checksum": "sha256-b243e7b7dcc08c225d5f9d4cef5a60c385fdff9c8baa0c412d7bf981b700dc1b"
+    },
+    "/untar_test.ts": {
+      "size": 10212,
+      "checksum": "sha256-3ee29d5588df306a51401c288c9600425590a0af7eecf2478021909cd7506266"
+    },
+    "/_test_utils.ts": {
+      "size": 327,
+      "checksum": "sha256-d6f89c87737834697304d33a5ace4406dcb384c9eb234fff4c14682feeef400f"
+    },
+    "/untar.ts": {
+      "size": 10555,
+      "checksum": "sha256-725cece2eff2ec21180bd3cad13ad17c93937b1b43bca2b2362a49f774eb8d18"
+    },
+    "/testdata/deno.tar": {
+      "size": 10240,
+      "checksum": "sha256-57c251418f5626905b24866524950d29a1af8387f472f27077085db34928ff48"
+    },
+    "/testdata/example.txt": {
+      "size": 13,
+      "checksum": "sha256-ecf701f727d9e2d77c4aa49ac6fbbcc997278aca010bddeeb961c10cf54d435a"
+    },
+    "/mod.ts": {
+      "size": 2575,
+      "checksum": "sha256-e1bf3c106bce342240ee8ba319210e80b29548101f0c0c7805a9151a98b079d3"
+    }
+  },
+  "moduleGraph2": {
+    "/_common.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/io@^0.224.3/buf-reader",
+          "specifierRange": [
+            [
+              2,
+              33
+            ],
+            [
+              2,
+              67
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "jsr:/@std/io@^0.224.3/types",
+          "specifierRange": [
+            [
+              3,
+              28
+            ],
+            [
+              3,
+              57
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./tar.ts",
+          "specifierRange": [
+            [
+              66,
+              14
+            ],
+            [
+              66,
+              24
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./untar.ts",
+          "specifierRange": [
+            [
+              67,
+              14
+            ],
+            [
+              67,
+              26
+            ]
+          ]
+        }
+      ]
+    },
+    "/untar.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              38,
+              7
+            ],
+            [
+              38,
+              21
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/io@^0.224.3/read-all",
+          "specifierRange": [
+            [
+              39,
+              24
+            ],
+            [
+              39,
+              56
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "jsr:/@std/io@^0.224.3/types",
+          "specifierRange": [
+            [
+              40,
+              28
+            ],
+            [
+              40,
+              57
+            ]
+          ]
+        }
+      ]
+    },
+    "/tar.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              35,
+              7
+            ],
+            [
+              35,
+              21
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "jsr:/@std/io@^0.224.3/types",
+          "specifierRange": [
+            [
+              36,
+              28
+            ],
+            [
+              36,
+              57
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/io@^0.224.3/multi-reader",
+          "specifierRange": [
+            [
+              37,
+              28
+            ],
+            [
+              37,
+              64
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/io@^0.224.3/buffer",
+          "specifierRange": [
+            [
+              38,
+              23
+            ],
+            [
+              38,
+              53
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              39,
+              30
+            ],
+            [
+              39,
+              44
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./tar": "./tar.ts",
+    "./untar": "./untar.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:27 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IaZ%2BiEKHvxayKPNGTg1BVm%2Bhig52fqrT%2FQAbUfUTvSth9ChPdSgCCUrTu79mrdCFWrnadNdfMKCjOCjw4lWM06yWUMCg8b2DRrHU0Af%2BugSp%2B1EibuabdIw%3D\"}]}","content-type":"application/json","etag":"W/\"d0becbb46173ae8c9115fd62f7a66eb4\"","x-content-type-options":"nosniff","access-control-expose-headers":"*","vary":"Origin","cf-ray":"9e98a5ccaa3c3992-IAD","cross-origin-resource-policy":"cross-origin","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=86400"},"url":"https://jsr.io/@std/archive/0.224.3_meta.json","time":1775728647}

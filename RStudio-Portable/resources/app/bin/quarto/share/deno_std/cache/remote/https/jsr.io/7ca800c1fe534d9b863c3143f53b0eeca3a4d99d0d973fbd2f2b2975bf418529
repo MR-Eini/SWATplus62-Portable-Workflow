@@ -1,0 +1,242 @@
+{
+  "manifest": {
+    "/testdata/test.json-seq": {
+      "size": 67,
+      "checksum": "sha256-fc2095edf418e448ec87fcd8c7175fc1fb00c0043b3c68b3a66ec8f3e029d999"
+    },
+    "/concatenated_json_parse_stream.ts": {
+      "size": 6098,
+      "checksum": "sha256-b9a170134588b74bf7db337334ba33377990c34da5ba83718f443179657c3a6e"
+    },
+    "/parse_stream.ts": {
+      "size": 2060,
+      "checksum": "sha256-70ea7bd723132ebac24791f90c73826114296d7b15f61efd279f18ee7f69e7da"
+    },
+    "/stringify_stream.ts": {
+      "size": 3128,
+      "checksum": "sha256-2e6c53af044bb2c00ead5ac8c162649637dbc68dd003ba3a4c4182c53eeabb97"
+    },
+    "/types.ts": {
+      "size": 290,
+      "checksum": "sha256-e4e713688666b9bb574234e154ad9603ae270c220930a6d836c22aacb50c633b"
+    },
+    "/mod.ts": {
+      "size": 641,
+      "checksum": "sha256-7cf30016e83775745f7e3341e12efdd9a1d3563295b24d633411732c60329486"
+    },
+    "/testdata/test.jsonl": {
+      "size": 61,
+      "checksum": "sha256-29bfec453652456b3a6383539e03329e98aaa24f3003bfd5d4dbb96d2a5b9cbf"
+    },
+    "/parse_stream_test.ts": {
+      "size": 3121,
+      "checksum": "sha256-a9b886938ce6c9b39f0b3da7c5868c4ea6930361daec7869c0cbb4fc8862b572"
+    },
+    "/_test_utils.ts": {
+      "size": 1036,
+      "checksum": "sha256-0e3211e87c229ea99f5521af327ee69261464dae12bbbf95a0076073b56d048c"
+    },
+    "/testdata/test.concatenated-json": {
+      "size": 77,
+      "checksum": "sha256-63a0ad16a52290aa82183e3c7ff04d4a0c4c3c604ae12dd61443510973e8a310"
+    },
+    "/deno.json": {
+      "size": 290,
+      "checksum": "sha256-1ab65064320cf65dbf22e575f36603e17df36e55f48ebffcb045ad541b194475"
+    },
+    "/testdata/test.ndjson": {
+      "size": 61,
+      "checksum": "sha256-29bfec453652456b3a6383539e03329e98aaa24f3003bfd5d4dbb96d2a5b9cbf"
+    },
+    "/stringify_stream_test.ts": {
+      "size": 1907,
+      "checksum": "sha256-73b6beed2d455ff9ec7ef07217ee1ff02b85f0aa7a75a0dcc34a3a3e3b6edaf6"
+    },
+    "/_common.ts": {
+      "size": 559,
+      "checksum": "sha256-ee545c24d446ae9665277c18502955fb202213e075d2ad6f1ed6f780043b0cc7"
+    },
+    "/concatenated_json_parse_stream_test.ts": {
+      "size": 8832,
+      "checksum": "sha256-1e43c47514a9d3456ba8f225235410693cb38faaece0c055d29a755621a76b40"
+    }
+  },
+  "moduleGraph2": {
+    "/stringify_stream.ts": {},
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./concatenated_json_parse_stream.ts",
+          "specifierRange": [
+            [
+              21,
+              14
+            ],
+            [
+              21,
+              51
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              22,
+              14
+            ],
+            [
+              22,
+              26
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./parse_stream.ts",
+          "specifierRange": [
+            [
+              23,
+              14
+            ],
+            [
+              23,
+              33
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./stringify_stream.ts",
+          "specifierRange": [
+            [
+              24,
+              14
+            ],
+            [
+              24,
+              37
+            ]
+          ]
+        }
+      ]
+    },
+    "/parse_stream.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              3,
+              31
+            ],
+            [
+              3,
+              43
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              4,
+              22
+            ],
+            [
+              4,
+              36
+            ]
+          ]
+        }
+      ]
+    },
+    "/_common.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              1,
+              31
+            ],
+            [
+              1,
+              43
+            ]
+          ]
+        }
+      ]
+    },
+    "/concatenated_json_parse_stream.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/streams@^1.0.0/to-transform-stream",
+          "specifierRange": [
+            [
+              1,
+              34
+            ],
+            [
+              1,
+              80
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              2,
+              31
+            ],
+            [
+              2,
+              43
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_common.ts",
+          "specifierRange": [
+            [
+              3,
+              22
+            ],
+            [
+              3,
+              36
+            ]
+          ]
+        }
+      ]
+    },
+    "/types.ts": {}
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./types": "./types.ts",
+    "./concatenated-json-parse-stream": "./concatenated_json_parse_stream.ts",
+    "./parse-stream": "./parse_stream.ts",
+    "./stringify-stream": "./stringify_stream.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","x-robots-tag":"noindex","content-type":"application/json","vary":"Origin","server":"cloudflare","cf-ray":"9e98a5ceac3d3992-IAD","date":"Thu, 09 Apr 2026 09:57:27 GMT","alt-svc":"h3=\":443\"; ma=86400","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0EspEfXrcpELRTAutMfWTmMxRJQeuYfcJL1xxDnl7g4v23gGuguGnpbuscQf0lbmrzrnxplQQNT7oy4K8wpPs%2BQsf3GtMxMl9pIZBNT%2FDKkXi5HrnHxWEQA%3D\"}]}","etag":"W/\"0d21dadb8c6a0b9276faf451a27e4f74\"","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-jsr-backend":"modules"},"url":"https://jsr.io/@std/json/1.0.0_meta.json","time":1775728647}

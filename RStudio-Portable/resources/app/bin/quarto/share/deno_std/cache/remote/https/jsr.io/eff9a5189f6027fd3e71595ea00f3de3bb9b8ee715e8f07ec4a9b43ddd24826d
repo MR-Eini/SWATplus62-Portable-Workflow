@@ -1,0 +1,83 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { Reader } from "./types.ts";
+
+/**
+ * Reader utility for combining multiple readers.
+ *
+ * @example Usage
+ * ```ts
+ * import { MultiReader } from "@std/io/multi-reader";
+ * import { StringReader } from "@std/io/string-reader";
+ * import { readAll } from "@std/io/read-all";
+ * import { assertEquals } from "@std/assert/equals";
+ *
+ * const r1 = new StringReader("hello");
+ * const r2 = new StringReader("world");
+ * const mr = new MultiReader([r1, r2]);
+ *
+ * const res = await readAll(mr);
+ *
+ * assertEquals(new TextDecoder().decode(res), "helloworld");
+ * ```
+ *
+ * @deprecated This will be removed in 1.0.0. Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Web Streams API} instead.
+ */
+export class MultiReader implements Reader {
+  readonly #readers: Reader[];
+  #currentIndex = 0;
+
+  /**
+   * Construct a new instance.
+   *
+   * @param readers The readers to combine.
+   */
+  constructor(readers: Reader[]) {
+    this.#readers = [...readers];
+  }
+
+  /**
+   * Reads data from the readers.
+   *
+   * @example Usage
+   * ```ts
+   * import { MultiReader } from "@std/io/multi-reader";
+   * import { StringReader } from "@std/io/string-reader";
+   * import { readAll } from "@std/io/read-all";
+   * import { assertEquals } from "@std/assert/equals";
+   *
+   * const r1 = new StringReader("hello");
+   * const r2 = new StringReader("world");
+   * const mr = new MultiReader([r1, r2]);
+   *
+   * const data = new Uint8Array(5);
+   * const res = await mr.read(data);
+   *
+   * assertEquals(res, 5);
+   * assertEquals(new TextDecoder().decode(data), "hello");
+   *
+   * const res2 = await mr.read(data);
+   * assertEquals(res2, 0);
+   *
+   * const res3 = await mr.read(data);
+   * assertEquals(res3, 5);
+   * assertEquals(new TextDecoder().decode(data), "world");
+   * ```
+   *
+   * @param p The buffer to read data into.
+   * @returns The number of bytes read.
+   */
+  async read(p: Uint8Array): Promise<number | null> {
+    const r = this.#readers[this.#currentIndex];
+    if (!r) return null;
+    const result = await r.read(p);
+    if (result === null) {
+      this.#currentIndex++;
+      return 0;
+    }
+    return result;
+  }
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","content-length":"2287","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cf-ray":"9e98a5d1bfb83992-IAD","vary":"Origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","etag":"\"a29c368b387e47229580a5c35c7ea4de\"","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Az7znVAQJtTt5FXmcfxbIXfOq0xrbKvUsp5x021p9Gb01eMLRaepfDlKghH%2Bqrt%2BtTqMDaYkllZ00hWHjJfi7wsYS9m3wdEPrreldcLRjlz62jBjg4eWhAo%3D\"}]}","server":"cloudflare","x-content-type-options":"nosniff","x-robots-tag":"noindex","x-jsr-backend":"modules","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/io/0.224.8/multi_reader.ts","time":1775728648}

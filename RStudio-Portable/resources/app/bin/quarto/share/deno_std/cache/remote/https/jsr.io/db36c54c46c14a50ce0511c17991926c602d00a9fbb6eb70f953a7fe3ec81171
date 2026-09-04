@@ -1,0 +1,39 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { parseMediaType } from "./parse_media_type.ts";
+import { extensions } from "./_db.ts";
+
+export { extensions };
+
+/**
+ * Returns the extensions known to be associated with the media type `type`, or
+ * `undefined` if no extensions are found.
+ *
+ * Extensions are returned without a leading `.`.
+ *
+ * @param type The media type to get the extensions for.
+ *
+ * @returns The extensions for the given media type, or `undefined` if no
+ * extensions are found.
+ *
+ * @example
+ * ```ts
+ * import { extensionsByType } from "@std/media-types/extensions-by-type";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * assertEquals(extensionsByType("application/json"), ["json", "map"]);
+ * assertEquals(extensionsByType("text/html; charset=UTF-8"), ["html", "htm", "shtml"]);
+ * assertEquals(extensionsByType("application/foo"), undefined);
+ * ```
+ */
+export function extensionsByType(type: string): string[] | undefined {
+  try {
+    const [mediaType] = parseMediaType(type);
+    return extensions.get(mediaType);
+  } catch {
+    // just swallow errors, returning undefined
+  }
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d228313992-IAD","content-length":"1205","etag":"\"3a20f5091281016f847457361106f068\"","x-content-type-options":"nosniff","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","access-control-expose-headers":"*","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WPgy7hUG3wmFm%2Br0nptlS1%2BX7ydbSYBbqa54QX3gYpCaNaIlYlaaLC4B5AkukbiiWQ%2By0KxjJm5ujnkeJtJ46OyhqO7vJS%2Fgz2bCjVmwo7DzPjccwWL9hxk%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","vary":"Origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare"},"url":"https://jsr.io/@std/media-types/0.224.1/extensions_by_type.ts","time":1775728648}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' file:;">
+  <link rel="stylesheet" href="../whats-new-base.css">
+  <title>What's New in RStudio</title>
+</head>
+<body>
+  <div class="feature-section">
+    <h2>Enhancements</h2>
+    <ul>
+      <li><strong>Revamped Data Viewer:</strong> The data viewer is now faster and supports pinnable columns, a Summary sidebar with type-aware stats and sparkline histograms, keyboard navigation, and clipboard copy.</li>
+      <li><strong>Faster new sessions:</strong> RStudio Desktop's Session &gt; New Session now opens noticeably faster.</li>
+      <li><strong>Shiny test integration:</strong> The Shiny test commands (Record Test, Run Tests, Compare Results) now use the <code>shinytest2</code> package; <code>shinytest</code> has been deprecated.</li>
+      <li><strong>Hierarchical section folding:</strong> Section headers now fold hierarchically based on heading level, matching Positron's default behavior.</li>
+      <li><strong>Faster install.packages() hook:</strong> Reduced filesystem work performed by the <code>install.packages()</code> hook; the before/after scan is now scoped to the requested packages and their dependency closure rather than the entire library.</li>
+    </ul>
+  </div>
+
+  <div class="feature-section">
+    <h2>Bug Fixes</h2>
+    <ul>
+      <li>The spell-check context menu now shows the full set of correction suggestions; previously a stray loop increment caused every other suggestion to be skipped, capping the menu at 3 items instead of 5.</li>
+      <li>Pressing Escape to dismiss a ghost-text Next Edit Suggestion now also clears the NES gutter icon; previously the gutter icon remained visible after dismissal.</li>
+      <li>Fixed two debugger regressions: top-level breakpoints (e.g. via <code>debugSource()</code>) no longer fail to show the debug highlight or call stack, and multi-line input at the <code>Browse[N]&gt;</code> prompt no longer clears the captured browser context.</li>
+      <li>The Files pane delete confirmation now reflects whether the file will be moved to the system Trash/Recycle Bin or permanently deleted, based on the "Delete files to Trash/Recycle Bin" preference.</li>
+      <li>The Windows installer's File Version now matches its Product Version; previously the installer concatenated the major and minor version components into a single value that exceeded NSIS's 16-bit-per-component limit and was truncated to an unrelated number.</li>
+    </ul>
+    <p>
+      For a full list of bug fixes and enhancements in this release, see the
+      <a href="https://www.rstudio.org/links/release_notes#rstudio-2026.05.0">release notes</a>.
+    </p>
+  </div>
+</body>
+</html>

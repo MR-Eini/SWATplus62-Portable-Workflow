@@ -1,0 +1,55 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { assertArg } from "../_common/dirname.ts";
+import { stripTrailingSeparators } from "../_common/strip_trailing_separators.ts";
+import { isPosixPathSeparator } from "./_util.ts";
+
+/**
+ * Return the directory path of a `path`.
+ *
+ * @example
+ * ```ts
+ * import { dirname } from "@std/path/dirname";
+ *
+ * console.log(dirname("/home/user/Documents/")); // "/home/user"
+ * console.log(dirname("/home/user/Documents/image.png")); // "/home/user/Documents"
+ * ```
+ *
+ * @param path - path to extract the directory from.
+ */
+export function dirname(path: string): string {
+  assertArg(path);
+
+  let end = -1;
+  let matchedNonSeparator = false;
+
+  for (let i = path.length - 1; i >= 1; --i) {
+    if (isPosixPathSeparator(path.charCodeAt(i))) {
+      if (matchedNonSeparator) {
+        end = i;
+        break;
+      }
+    } else {
+      matchedNonSeparator = true;
+    }
+  }
+
+  // No matches. Fallback based on provided path:
+  //
+  // - leading slashes paths
+  //     "/foo" => "/"
+  //     "///foo" => "/"
+  // - no slash path
+  //     "foo" => "."
+  if (end === -1) {
+    return isPosixPathSeparator(path.charCodeAt(0)) ? "/" : ".";
+  }
+
+  return stripTrailingSeparators(
+    path.slice(0, end),
+    isPosixPathSeparator,
+  );
+}
+
+// denoCacheMetadata={"headers":{"x-jsr-backend":"modules","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","content-length":"1345","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"e1ea5a2278029b2612883ffe3b594545\"","x-content-type-options":"nosniff","content-type":"text/typescript","vary":"Origin","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NccvFwBmLAIDsP6Dp42P10i18SIvueHMhUTGQE9gN564%2FwoM1dAxjX6nKxxt5nEg2ykAbocDZDqLJfAeSw0xJrIVmX%2Bpc%2FKHWdTB2ppJk6Kiak3YU9%2FWyb8%3D\"}]}","cf-ray":"9e98a5d3aa0d3992-IAD"},"url":"https://jsr.io/@std/path/0.224.0/posix/dirname.ts","time":1775728648}

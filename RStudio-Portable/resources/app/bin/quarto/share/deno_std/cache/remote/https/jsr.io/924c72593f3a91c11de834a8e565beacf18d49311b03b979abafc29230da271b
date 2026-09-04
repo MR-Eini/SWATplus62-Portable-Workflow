@@ -1,0 +1,27 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { Logger } from "./logger.ts";
+import { state } from "./_state.ts";
+
+/** Get a logger instance. If not specified `name`, get the default logger. */
+export function getLogger(name?: string): Logger {
+  if (!name) {
+    const d = state.loggers.get("default");
+    if (d === undefined) {
+      throw new Error(
+        `"default" logger must be set for getting logger without name`,
+      );
+    }
+    return d;
+  }
+  const result = state.loggers.get(name);
+  if (!result) {
+    const logger = new Logger(name, "NOTSET", { handlers: [] });
+    state.loggers.set(name, logger);
+    return logger;
+  }
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","x-jsr-backend":"modules","etag":"\"62cd32c10d557f5d3503b32de744b663\"","x-robots-tag":"noindex","x-content-type-options":"nosniff","cf-ray":"9e98a5d218273992-IAD","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=m%2FFelysCl6kNPEENAgeQEjGcSPnnoO8d4YFXI8GomlMkdt6U1V2kAbSFGSJ2pVh7N9mbiLFJtIfoF5Ga2wXcUX0XfYKlMSMhI%2F%2FGmvzS9w97lxwzufKbi%2FY%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","server":"cloudflare","content-length":"737","cache-control":"public, max-age=31536000, immutable","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","vary":"Origin","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/log/0.224.7/get_logger.ts","time":1775728648}

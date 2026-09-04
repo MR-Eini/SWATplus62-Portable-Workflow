@@ -1,0 +1,44 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { Writer } from "jsr:/@std/io@^0.224.1/types";
+
+export type { Writer };
+
+/**
+ * Create a {@linkcode https://jsr.io/@std/io/doc/types/~/Writer | Writer} from a {@linkcode WritableStreamDefaultWriter}.
+ *
+ * @param streamWriter A `WritableStreamDefaultWriter` to convert into a `Writer`.
+ * @returns A `Writer` that writes to the `WritableStreamDefaultWriter`.
+ *
+ * @example Read from a file and write to stdout using a writable stream
+ * ```ts no-eval no-assert
+ * import { copy } from "@std/io/copy";
+ * import { writerFromStreamWriter } from "@std/streams/writer-from-stream-writer";
+ *
+ * using file = await Deno.open("./README.md", { read: true });
+ *
+ * const writableStream = new WritableStream({
+ *   write(chunk): void {
+ *     console.log(chunk);
+ *   },
+ * });
+ * const writer = writerFromStreamWriter(writableStream.getWriter());
+ * await copy(file, writer);
+ * ```
+ *
+ * @deprecated This will be removed in 1.0.0. Use {@linkcode WritableStreamDefaultWriter} directly.
+ */
+export function writerFromStreamWriter(
+  streamWriter: WritableStreamDefaultWriter<Uint8Array>,
+): Writer {
+  return {
+    async write(p: Uint8Array): Promise<number> {
+      await streamWriter.ready;
+      await streamWriter.write(p);
+      return p.length;
+    },
+  };
+}
+
+// denoCacheMetadata={"headers":{"cf-ray":"9e98a5d2d9263992-IAD","content-type":"text/typescript","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","etag":"\"495694507c00cc2672309ee70fe49ae1\"","x-jsr-backend":"modules","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","content-length":"1384","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qR5emB8eG%2F0LEYpKK1wp34pE2pNzFDuBzZyH%2F0y3eLAM1pWvOMeiZIJYTz3hEzaxBzqsv0F%2BMt0nxfMOji4B4nIeRkve%2FEgoe44hpYVbZ5HUW94soEd0TPg%3D\"}]}","vary":"Origin","cross-origin-resource-policy":"cross-origin","server":"cloudflare","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';"},"url":"https://jsr.io/@std/streams/0.224.5/writer_from_stream_writer.ts","time":1775728648}

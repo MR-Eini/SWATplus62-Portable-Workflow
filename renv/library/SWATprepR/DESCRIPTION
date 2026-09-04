@@ -1,0 +1,28 @@
+Package: SWATprepR
+Type: Package
+Title: SWAT+ input data preparation tool
+Version: 1.0.15
+Date: 2025-11-13
+Author: c(person("Svajunas", "Plunge",
+             email = "svajunas.plunge@gmail.com",
+             role = c("aut", "cre"),
+             comment = c(ORCID = '0000-0001-8897-3349')))
+Maintainer: Svajunas Plunge <svajunas.plunge@gmail.com>
+Description: Tool to help with SWAT+ model users with input data preparation. 
+License: MIT + file LICENSE
+URL: https://github.com/MR-Eini/SWATprepR-swat62
+BugReports: https://github.com/MR-Eini/SWATprepR-swat62/issues
+Depends: R (>= 4.2.0)
+Imports: SWATreadR (>= 0.1.0.9013), DBI, dplyr, ggplot2, leaflet,
+        lubridate, methods, plotly, purrr, RColorBrewer, readr, readxl,
+        RSQLite, sf, stringr, tibble, tidyr, utils, vroom, zoo
+Suggests: devtools, diffr, elevatr, euptf2, ggpmisc, gstat, knitr,
+        leafpop, mapview, openxlsx, raster, rmarkdown, RNetCDF, sp,
+        stars, tidyverse
+VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+NeedsCompilation: no
+Packaged: 2026-09-03 22:07:45 UTC; p101727
+Built: R 4.5.1; ; 2026-09-04 15:21:46 UTC; windows

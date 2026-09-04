@@ -1,0 +1,63 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import { ANY, INVALID } from "./constants.ts";
+import type { SemVer } from "./types.ts";
+import { isValidNumber, isValidString } from "./_shared.ts";
+
+/**
+ * Checks to see if value is a valid SemVer object. It does a check
+ * into each field including prerelease and build.
+ *
+ * Some invalid SemVer sentinels can still return true such as ANY and INVALID.
+ * An object which has the same value as a sentinel but isn't reference equal
+ * will still fail.
+ *
+ * Objects which are valid SemVer objects but have _extra_ fields are still
+ * considered SemVer objects and this will return true.
+ *
+ * A type assertion is added to the value.
+ *
+ * @example Usage
+ * ```ts
+ * import { isSemVer } from "@std/semver/is-semver";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const value = {
+ *   major: 1,
+ *   minor: 2,
+ *   patch: 3,
+ * };
+ *
+ * assert(isSemVer(value));
+ * assertFalse(isSemVer({ major: 1, minor: 2 }));
+ * ```
+ *
+ * @param value The value to check to see if its a valid SemVer object
+ * @returns True if value is a valid SemVer otherwise false
+ */
+export function isSemVer(value: unknown): value is SemVer {
+  if (value === null || value === undefined) return false;
+  if (Array.isArray(value)) return false;
+  if (typeof value !== "object") return false;
+  if (value === INVALID) return true;
+  if (value === ANY) return true;
+
+  const {
+    major,
+    minor,
+    patch,
+    build = [],
+    prerelease = [],
+  } = value as Record<string, unknown>;
+  return (
+    isValidNumber(major) &&
+    isValidNumber(minor) &&
+    isValidNumber(patch) &&
+    Array.isArray(prerelease) &&
+    prerelease.every((v) => isValidString(v) || isValidNumber(v)) &&
+    Array.isArray(build) &&
+    build.every(isValidString)
+  );
+}
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Y2kUUapzmLQrxMQK7NfdncPyEm8Xpk5KTaCq94U2U2lTWN%2FBnQ9sMXbpcOY9aH7BbN6FbfAf3k0pYtzoivMqrWPfOJ7LZHKvWlu4x7PnW6kvbn76QEd9bXg%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d278b13992-IAD","access-control-allow-origin":"*","access-control-expose-headers":"*","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","cross-origin-resource-policy":"cross-origin","content-length":"1849","server":"cloudflare","etag":"\"7429c302ceb38d9e2971f4f16277c1ed\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-type":"text/typescript","vary":"Origin"},"url":"https://jsr.io/@std/semver/0.224.3/is_semver.ts","time":1775728648}

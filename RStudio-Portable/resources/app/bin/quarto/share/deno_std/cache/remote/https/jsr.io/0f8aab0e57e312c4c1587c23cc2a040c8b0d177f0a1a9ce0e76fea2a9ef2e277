@@ -1,0 +1,132 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// Copyright (c) Jason Campbell. MIT license
+
+/**
+ * Extracts
+ * {@link https://daily-dev-tips.com/posts/what-exactly-is-frontmatter/ | front matter}
+ * from strings. Adapted from
+ * {@link https://github.com/jxson/front-matter/blob/36f139ef797bd9e5196a9ede03ef481d7fbca18e/index.js | jxson/front-matter}.
+ *
+ * ## Supported formats
+ *
+ * ### JSON
+ *
+ * ```ts
+ * import { test, extractJson } from "@std/front-matter";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const str = "---json\n{\"and\": \"this\"}\n---\ndeno is awesome";
+ *
+ * assertEquals(test(str), true);
+ * assertEquals(extractJson(str), {
+ *   frontMatter: "{\"and\": \"this\"}",
+ *   body: "deno is awesome",
+ *   attrs: { and: "this" }
+ * });
+ * ```
+ *
+ * {@linkcode extractJson | extract} and {@linkcode test} support the following
+ * delimiters.
+ *
+ * ```markdown
+ * ---json
+ * {
+ *   "and": "this"
+ * }
+ * ---
+ * ```
+ *
+ * ```markdown
+ * {
+ *   "is": "JSON"
+ * }
+ * ```
+ *
+ * ### TOML
+ *
+ * ```ts
+ * import { test, extractToml } from "@std/front-matter";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const str = "---toml\nmodule = 'front_matter'\n---\ndeno is awesome";
+ *
+ * assertEquals(test(str), true);
+ * assertEquals(extractToml(str), {
+ *   frontMatter: "module = 'front_matter'",
+ *   body: "deno is awesome",
+ *   attrs: { module: "front_matter" }
+ * });
+ * ```
+ *
+ * {@linkcode extractToml | extract} and {@linkcode test} support the following
+ * delimiters.
+ *
+ * ```markdown
+ * ---toml
+ * this = 'is'
+ * ---
+ * ```
+ *
+ * ```markdown
+ * = toml =
+ * parsed = 'as'
+ * toml = 'data'
+ * = toml =
+ * ```
+ *
+ * ```markdown
+ * +++
+ * is = 'that'
+ * not = 'cool?'
+ * +++
+ * ```
+ *
+ * ### YAML
+ *
+ * ```ts
+ * import { test, extractYaml } from "@std/front-matter";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const str = "---yaml\nmodule: front_matter\n---\ndeno is awesome";
+ *
+ * assertEquals(test(str), true);
+ * assertEquals(extractYaml(str), {
+ *   frontMatter: "module: front_matter",
+ *   body: "deno is awesome",
+ *   attrs: { module: "front_matter" }
+ * });
+ * ```
+ *
+ * {@linkcode extractYaml | extract} and {@linkcode test} support the following
+ * delimiters.
+ *
+ * ```front_matter
+ * ---
+ * these: are
+ * ---
+ * ```
+ *
+ * ```markdown
+ * ---yaml
+ * all: recognized
+ * ---
+ * ```
+ *
+ * ```markdown
+ * = yaml =
+ * as: yaml
+ * = yaml =
+ * ```
+ *
+ * @module
+ */
+import { extract as extractJson } from "./json.ts";
+import { extract as extractToml } from "./toml.ts";
+import { extract as extractYaml } from "./yaml.ts";
+
+export * from "./create_extractor.ts";
+export * from "./test.ts";
+
+export { extractJson, extractToml, extractYaml };
+
+// denoCacheMetadata={"headers":{"etag":"\"e720fc74c94f30ae838a073e10be7f2c\"","server":"cloudflare","cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2dGTKJ72kC%2BUzA4uS8EgMPcF%2B9jWGzxFkm9pNL%2FPs9R5BNicCGlOnYvh2gBpsJDWcsXmCpVaFKYFhjS8qo%2BJdvs9806vJtpx539KdGAMP3LhpMvNg2FI92s%3D\"}]}","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","content-length":"2713","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","x-jsr-backend":"modules","vary":"Origin","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d02de43992-IAD"},"url":"https://jsr.io/@std/front-matter/0.224.3/mod.ts","time":1775728648}

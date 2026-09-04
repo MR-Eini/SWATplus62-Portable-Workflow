@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Configuration Options for Parsing from JSON</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Configuration Options for Parsing from
+JSON</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">library</span>(yyjsonr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>})</span></code></pre></div>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>This vignette:</p>
+<ul>
+<li>introduces the <code>opts</code> argument for reading JSON with the
+<code>read_json_X()</code> family of functions.</li>
+<li>outlines the creation of default options with
+<code>opts_read_json()</code></li>
+<li>provides extended examples of how these options control parsing of
+JSON</li>
+</ul>
+</div>
+<div id="the-opts-argument---specifying-options-when-reading-json" class="section level2">
+<h2>The <code>opts</code> argument - Specifying options when reading
+JSON</h2>
+<p>All <code>read_json_x()</code> functions have an <code>opts</code>
+argument. <code>opts</code> takes a named list of options used to
+configure the way <code>yyjsonr</code> parses JSON into R objects.</p>
+<p>The default argument for <code>opts</code> is an empty list, which
+internally sets the default options for parsing.</p>
+<p>The default options for parsing can also be viewed by running
+<code>opts_read_json()</code>.</p>
+<p>The following three function calls are all equivalent ways of calling
+<code>read_json_str()</code> using the default options:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">opts =</span> <span class="fu">list</span>())</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">opts =</span> <span class="fu">opts_read_json</span>())</span></code></pre></div>
+</div>
+<div id="setting-arguments-to-override-the-default-options" class="section level2">
+<h2>Setting arguments to override the default options</h2>
+<p>Setting a single option (and keeping all other options at their
+default value) can be done in a number of ways.</p>
+<p>The following three function calls are all equivalent:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">opts =</span> <span class="fu">list</span>(<span class="at">str_specials =</span> <span class="st">&#39;string&#39;</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">opts =</span> <span class="fu">opts_read_json</span>(<span class="at">str_specials =</span> <span class="st">&#39;string&#39;</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">str_specials =</span> <span class="st">&#39;string&#39;</span>)</span></code></pre></div>
+</div>
+<div id="option-promote_num_to_string---mixtures-of-numeric-and-string-types" class="section level2">
+<h2>Option <code>promote_num_to_string</code> - mixtures of numeric and
+string types</h2>
+<p>By default, <code>yyjsonr</code> does not promote string values to
+numerica values i.e. <code>promote_num_to_string = FALSE</code>.</p>
+<p>If an array contains mixed types, then an R <em>list</em> will be
+returned, so that all JSON values retain their original type.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>json <span class="ot">&lt;-</span> <span class="st">&#39;[1,2,3.1,&quot;apple&quot;, null]&#39;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">read_json_str</span>(json)</span></code></pre></div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 3.1
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] &quot;apple&quot;
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL</code></pre>
+<p>If <code>promote_num_to_string</code> is set to <code>TRUE</code>,
+then <code>yyjsonr</code> will promote numeric types to strings if the
+following conditions are met:</p>
+<ul>
+<li>values are stored in a JSON array</li>
+<li>the JSON array only contains numerics, strings or the JSON
+<code>null</code> value</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>yyjsonr<span class="sc">::</span><span class="fu">read_json_str</span>(json, <span class="at">promote_num_to_string =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>#&gt; [1] &quot;1&quot;        &quot;2&quot;        &quot;3.100000&quot; &quot;apple&quot;    NA</code></pre>
+</div>
+<div id="option-df_missing_list_elem---missing-list-elements-when-parsing-data.frames" class="section level2">
+<h2>Option <code>df_missing_list_elem</code> - Missing list elements
+(when parsing data.frames)</h2>
+<p>When JSON data is being parsed into an R data.frame some columns
+become <em>list-columns</em> if there are mixed types in the original
+JSON.</p>
+<p>It is possible that some values are completely missing in the JSON
+representation, and the <code>df_missing_list_elem</code> specifies the
+replacement for this missing value in the R data.frame. The default
+value is <code>df_missing_list_elem = NULL</code>.</p>
+<div id="json-to-data.frame-no-list-columns-needed" class="section level3">
+<h3>JSON to data.frame (no <em>list columns</em> needed)</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;:1, &quot;b&quot;:2}, {&quot;a&quot;:3, &quot;b&quot;:4}]&#39;</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span></code></pre></div>
+<pre><code>#&gt;   a b
+#&gt; 1 1 2
+#&gt; 2 3 4</code></pre>
+</div>
+<div id="json-to-data.frame---list-columns-required" class="section level3">
+<h3>JSON to data.frame - <em>list-columns</em> required</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;:1, &quot;b&quot;:[1,2]}, {&quot;a&quot;:3, &quot;b&quot;:2}]&#39;</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span></code></pre></div>
+<pre><code>#&gt;   a    b
+#&gt; 1 1 1, 2
+#&gt; 2 3    2</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;:1, &quot;b&quot;:[1,2]}, {&quot;a&quot;:2}]&#39;</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span></code></pre></div>
+<pre><code>#&gt;   a    b
+#&gt; 1 1 1, 2
+#&gt; 2 2 NULL</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">df_missing_list_elem =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>#&gt;   a    b
+#&gt; 1 1 1, 2
+#&gt; 2 2   NA</code></pre>
+</div>
+</div>
+<div id="option-obj_of_arrs_to_df---reading-json-as-a-data.frame" class="section level2">
+<h2>Option <code>obj_of_arrs_to_df</code> - Reading JSON as a
+data.frame</h2>
+<p>By default, if JSON looks like it represents a data.frame it will be
+loaded as such. That is, a JSON <code>{}</code> object which contains
+only <code>[]</code> arrays (all of equal length) will be treated as
+data.frame. This is the default i.e.
+<code>obj_of_arrs_to_df = TRUE</code>.</p>
+<p>If <code>obj_of_arrs_to_df = FALSE</code> then this data will be read
+in as a named list. In addition, if the <code>[]</code> arrays are not
+all the same length, then the data will also be read in as a named list
+as no inference of missing values will be done.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;a&quot;:[1,2],&quot;b&quot;:[&quot;apple&quot;, &quot;banana&quot;]}&#39;</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span></code></pre></div>
+<pre><code>#&gt;   a      b
+#&gt; 1 1  apple
+#&gt; 2 2 banana</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">obj_of_arrs_to_df =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>#&gt; $a
+#&gt; [1] 1 2
+#&gt; 
+#&gt; $b
+#&gt; [1] &quot;apple&quot;  &quot;banana&quot;</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>str_unequal <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;a&quot;:[1,2],&quot;b&quot;:[&quot;apple&quot;, &quot;banana&quot;, &quot;carrot&quot;]}&#39;</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str_unequal)</span></code></pre></div>
+<pre><code>#&gt; $a
+#&gt; [1] 1 2
+#&gt; 
+#&gt; $b
+#&gt; [1] &quot;apple&quot;  &quot;banana&quot; &quot;carrot&quot;</code></pre>
+</div>
+<div id="option-arr_of_objs_to_df---reading-json-as-a-data.frame" class="section level2">
+<h2>Option <code>arr_of_objs_to_df</code> - Reading JSON as a
+data.frame</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;:1, &quot;b&quot;:2}, {&quot;a&quot;:3, &quot;b&quot;:4}]&#39;</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span></code></pre></div>
+<pre><code>#&gt;   a b
+#&gt; 1 1 2
+#&gt; 2 3 4</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">arr_of_objs_to_df =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>#&gt; [[1]]
+#&gt; [[1]]$a
+#&gt; [1] 1
+#&gt; 
+#&gt; [[1]]$b
+#&gt; [1] 2
+#&gt; 
+#&gt; 
+#&gt; [[2]]
+#&gt; [[2]]$a
+#&gt; [1] 3
+#&gt; 
+#&gt; [[2]]$b
+#&gt; [1] 4</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[{&quot;a&quot;:1, &quot;b&quot;:2}, {&quot;a&quot;:3, &quot;b&quot;:4, &quot;c&quot;:99}]&#39;</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str)</span></code></pre></div>
+<pre><code>#&gt;   a b  c
+#&gt; 1 1 2 NA
+#&gt; 2 3 4 99</code></pre>
+</div>
+<div id="option-str_specials---reading-string-na-from-json" class="section level2">
+<h2>Option <code>str_specials</code> - Reading string <code>&quot;NA&quot;</code>
+from JSON</h2>
+<p>JSON only really has the value <code>null</code> for representing
+special missing values, and this is converted to an R
+<code>NA_character_</code> value when it is encountered in a string-ish
+context.</p>
+<p>When <code>yyjsonr</code> encounters a literal <code>&quot;NA&quot;</code>
+value in a string-ish context, its conversion to an R value is
+controlled by the <code>str_specials</code> options</p>
+<p>The possible values for the <code>str_specials</code> argument
+are:</p>
+<ul>
+<li><code>string</code> read in as the literal character string
+<code>&quot;NA&quot;</code> (the default behaviour)</li>
+<li><code>special</code> read in as <code>NA_character_</code></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[&quot;hello&quot;, &quot;NA&quot;, null]&#39;</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str) <span class="co"># default: str_specials = &#39;string&#39;</span></span></code></pre></div>
+<pre><code>#&gt; [1] &quot;hello&quot; &quot;NA&quot;    NA</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">str_specials =</span> <span class="st">&#39;special&#39;</span>)</span></code></pre></div>
+<pre><code>#&gt; [1] &quot;hello&quot; NA      NA</code></pre>
+</div>
+<div id="option-num_specials---reading-numeric-na-nan-and-inf" class="section level2">
+<h2>Option <code>num_specials</code> - Reading numeric
+<code>&quot;NA&quot;</code>, <code>&quot;NaN&quot;</code> and <code>&quot;Inf&quot;</code></h2>
+<p>JSON only really has the value <code>null</code> for representing
+special missing values, and this is converted to an R
+<code>NA_integer_</code> or <code>NA_real_</code> value when it is
+encountered in a number-ish context.</p>
+<p>When <code>yyjsonr</code> encounters a literal <code>&quot;NA&quot;</code>,
+<code>&quot;NaN&quot;</code> or <code>&quot;Inf&quot;</code> value in a number-ish context,
+its conversion to an R value is controlled by the
+<code>num_specials</code> options.</p>
+<p>The possible values for the <code>num_specials</code> argument
+are:</p>
+<ul>
+<li><code>special</code> read in as an actual numeric <code>NA</code>,
+<code>NaN</code> or <code>Inf</code> value (the default behaviour)</li>
+<li><code>string</code> read in as the literal character string
+<code>&quot;NA&quot;</code> etc</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[1.23, &quot;NA&quot;, &quot;NaN&quot;, &quot;Inf&quot;, &quot;-Inf&quot;, null]&#39;</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str) <span class="co"># default: num_specials = &#39;special&#39;</span></span></code></pre></div>
+<pre><code>#&gt; [1] 1.23   NA  NaN  Inf -Inf   NA</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">num_specials =</span> <span class="st">&#39;string&#39;</span>)</span></code></pre></div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] 1.23
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] &quot;NA&quot;
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] &quot;NaN&quot;
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] &quot;Inf&quot;
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] &quot;-Inf&quot;
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL</code></pre>
+</div>
+<div id="option-int64---large-integer-support" class="section level2">
+<h2>Option <code>int64</code> - large integer support</h2>
+<p>JSON supports large integers outside the range of R’s 32-bit integer
+type.</p>
+<p>When such a large value is encountered in JSON, the
+<code>int64</code> option controls the value’s representation in R.</p>
+<p>The possible values for the <code>int64</code> option are:</p>
+<ul>
+<li><code>string</code> store JSON integer as a string in R</li>
+<li><code>double</code> will store the JSON integer as a double
+precisision numeric. If the integer is outside the range +/- 2^53, then
+it may not be stored perfectly in the double.</li>
+<li><code>bit64</code> convert to a 64-bit integer supported by the <a href="https://cran.r-project.org/package=bit64"><code>{bit64}</code></a>
+package.</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;[1, 274877906944]&#39;</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="co"># default: int64 = &#39;string&#39;</span></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a><span class="co"># Since result is a mix of types, a list is returned</span></span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="fu">read_json_str</span>(str) </span></code></pre></div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] &quot;274877906944&quot;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Read large integer as double</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>robj <span class="ot">&lt;-</span> <span class="fu">read_json_str</span>(str, <span class="at">int64 =</span> <span class="st">&#39;double&#39;</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">class</span>(robj)</span></code></pre></div>
+<pre><code>#&gt; [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>robj</span></code></pre></div>
+<pre><code>#&gt; [1]            1 274877906944</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># Read large integer as &#39;bit64::integer64&#39; type</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">library</span>(bit64)</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">int64 =</span> <span class="st">&#39;bit64&#39;</span>)</span></code></pre></div>
+<pre><code>#&gt; integer64
+#&gt; [1] 1            274877906944</code></pre>
+</div>
+<div id="option-length1_array_asis---distinguishing-scalars-from-length-1-vectors" class="section level2">
+<h2>Option <code>length1_array_asis</code> - distinguishing scalars from
+length-1 vectors</h2>
+<p>JSON supports the concept of both scalar and vector values i.e. in
+JSON scalar <code>67</code> is different from an array of length 1
+<code>[67]</code>. The <code>length1_array_asis</code> option is for
+situations where it is important to distinguish these value types in
+R.</p>
+<p>However, R does not make this distinction between scalars and vectors
+of length 1.</p>
+<p>To assist in translating objects from JSON to R and back to JSON,
+setting <code>length1_array_asis = TRUE</code> will mark JSON arrays of
+length 1 with the class <code>AsIs</code>. This option defaults to
+<code>FALSE</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">read_json_str</span>(<span class="st">&#39;67&#39;</span>)   <span class="sc">|&gt;</span> <span class="fu">str</span>()</span></code></pre></div>
+<pre><code>#&gt;  int 67</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">read_json_str</span>(<span class="st">&#39;[67]&#39;</span>) <span class="sc">|&gt;</span> <span class="fu">str</span>()</span></code></pre></div>
+<pre><code>#&gt;  int 67</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">read_json_str</span>(<span class="st">&#39;67&#39;</span>  , <span class="at">length1_array_asis =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">str</span>()</span></code></pre></div>
+<pre><code>#&gt;  int 67</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">read_json_str</span>(<span class="st">&#39;[67]&#39;</span>, <span class="at">length1_array_asis =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">str</span>() <span class="co"># Has &#39;AsIs&#39; class</span></span></code></pre></div>
+<pre><code>#&gt;  &#39;AsIs&#39; int 67</code></pre>
+<p>This option is then used with the option <code>auto_unbox</code> when
+writing JSON in order to control how length-1 R vectors are written.
+Shown below, if the length-1 vector is marked with <code>AsIs</code>
+class when reading, then when writing out to JSON with
+<code>auto_unbox = TRUE</code> it becomes a JSON vector value.</p>
+<p>In the following example, only the second value (<code>[67]</code>)
+is affected by the option <code>length1_array_asis</code>. When the
+option is <code>TRUE</code> the value is tagged with a class of
+<code>AsIs</code>. Then when the created R object is subsequently
+written out to a JSON string, its structure is determined by
+<code>auto_unbox</code> which understands how to handle this class.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="st">&#39;{&quot;a&quot;:67, &quot;b&quot;:[67], &quot;c&quot;:[1,2]}&#39;</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a><span class="co"># Length-1 vectors output as JSON arrays</span></span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a><span class="fu">read_json_str</span>(str) <span class="sc">|&gt;</span></span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a>  <span class="fu">write_json_str</span>(<span class="at">auto_unbox =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a>  <span class="fu">cat</span>()</span></code></pre></div>
+<pre><code>#&gt; {&quot;a&quot;:[67],&quot;b&quot;:[67],&quot;c&quot;:[1,2]}</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># Length-1 vectors output as JSON scalars</span></span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str) <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  <span class="fu">write_json_str</span>(<span class="at">auto_unbox =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a>  <span class="fu">cat</span>()</span></code></pre></div>
+<pre><code>#&gt; {&quot;a&quot;:67,&quot;b&quot;:67,&quot;c&quot;:[1,2]}</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="co"># Length-1 vectors output as JSON arrays</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">length1_array_asis =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a>  <span class="fu">write_json_str</span>(<span class="at">auto_unbox =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a>  <span class="fu">cat</span>()</span></code></pre></div>
+<pre><code>#&gt; {&quot;a&quot;:[67],&quot;b&quot;:[67],&quot;c&quot;:[1,2]}</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="co"># !!!!</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="co"># Those values marked with &#39;AsIs&#39; class when reading are output</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a><span class="co"># as length-1 JSON arrays</span></span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a><span class="fu">read_json_str</span>(str, <span class="at">length1_array_asis =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>  <span class="fu">write_json_str</span>(<span class="at">auto_unbox =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a>  <span class="fu">cat</span>()</span></code></pre></div>
+<pre><code>#&gt; {&quot;a&quot;:67,&quot;b&quot;:[67],&quot;c&quot;:[1,2]}</code></pre>
+</div>
+<div id="option-yyjson_read_flag---internal-yyjson-c-library-options" class="section level2">
+<h2>Option <code>yyjson_read_flag</code> - internal <code>YYJSON</code>
+C library options</h2>
+<p>The <code>yyjson</code> C library supports a number of internal
+options for reading JSON.</p>
+<p>These options are considered advanced, and the user should read the
+original <code>yyjson</code> documentation for further explanation on
+what they control.</p>
+<p><strong>Warning</strong>: some of these advanced options do not make
+sense for interfacing with R, or otherwise conflict with how this
+package converts JSON to R objects.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="co"># A reference list of all the possible YYJSON options</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>yyjsonr<span class="sc">::</span>yyjson_read_flag</span></code></pre></div>
+<pre><code>#&gt; $YYJSON_READ_NOFLAG
+#&gt; [1] 0
+#&gt; 
+#&gt; $YYJSON_READ_INSITU
+#&gt; [1] 1
+#&gt; 
+#&gt; $YYJSON_READ_STOP_WHEN_DONE
+#&gt; [1] 2
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_TRAILING_COMMAS
+#&gt; [1] 4
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_COMMENTS
+#&gt; [1] 8
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_INF_AND_NAN
+#&gt; [1] 16
+#&gt; 
+#&gt; $YYJSON_READ_NUMBER_AS_RAW
+#&gt; [1] 32
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_INVALID_UNICODE
+#&gt; [1] 64
+#&gt; 
+#&gt; $YYJSON_READ_BIGNUM_AS_RAW
+#&gt; [1] 128
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_BOM
+#&gt; [1] 256
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_EXT_NUMBER
+#&gt; [1] 512
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_EXT_ESCAPE
+#&gt; [1] 1024
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_EXT_WHITESPACE
+#&gt; [1] 2048
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_SINGLE_QUOTED_STR
+#&gt; [1] 4096
+#&gt; 
+#&gt; $YYJSON_READ_ALLOW_UNQUOTED_KEY
+#&gt; [1] 8192
+#&gt; 
+#&gt; $YYJSON_READ_JSON5
+#&gt; [1] 15900</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="fu">read_json_str</span>(</span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>  <span class="st">&quot;[1, 2, 3, ] // A JSON comment not allowed by the standard&quot;</span>,</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a>  <span class="at">opts =</span> <span class="fu">opts_read_json</span>(<span class="at">yyjson_read_flag =</span> <span class="fu">c</span>(</span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a>    yyjson_read_flag<span class="sc">$</span>YYJSON_READ_ALLOW_TRAILING_COMMAS,</span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a>    yyjson_read_flag<span class="sc">$</span>YYJSON_READ_ALLOW_COMMENTS</span>
+<span id="cb62-6"><a href="#cb62-6" tabindex="-1"></a>  ))</span>
+<span id="cb62-7"><a href="#cb62-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>#&gt; [1] 1 2 3</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

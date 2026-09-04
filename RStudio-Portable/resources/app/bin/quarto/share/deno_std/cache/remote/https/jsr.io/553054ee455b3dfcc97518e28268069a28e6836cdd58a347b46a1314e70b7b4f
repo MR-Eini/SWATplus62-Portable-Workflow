@@ -1,0 +1,37 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { Buffer } from "./buffer.ts";
+
+/**
+ * Reader utility for strings.
+ *
+ * @example Usage
+ * ```ts
+ * import { StringReader } from "@std/io/string-reader";
+ * import { assertEquals } from "@std/assert/equals";
+ *
+ * const data = new Uint8Array(6);
+ * const r = new StringReader("abcdef");
+ * const res0 = await r.read(data);
+ * const res1 = await r.read(new Uint8Array(6));
+ *
+ * assertEquals(res0, 6);
+ * assertEquals(res1, null);
+ * assertEquals(new TextDecoder().decode(data), "abcdef");
+ * ```
+ *
+ * @deprecated This will be removed in 1.0.0. Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API | Web Streams API} instead.
+ */
+export class StringReader extends Buffer {
+  /**
+   * Construct a new instance.
+   *
+   * @param s The string to read.
+   */
+  constructor(s: string) {
+    super(new TextEncoder().encode(s).buffer);
+  }
+}
+
+// denoCacheMetadata={"headers":{"server":"cloudflare","cache-control":"public, max-age=31536000, immutable","etag":"\"feea4b2b08f5f3c0dc49ad125db58ca9\"","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","vary":"Origin","cross-origin-resource-policy":"cross-origin","access-control-allow-origin":"*","content-length":"979","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qzMT%2BjGhSODAFJTrDqbqr3O2j8U9Wi7imye63qeVc9xf%2FG3ZYY9s%2FHsydQqzPrbvvljO0qwUOb%2BkgyNdbI5nm0yzn1drUtbmRkn6HuePxHKXVmG%2Bjs7eV9A%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","cf-ray":"9e98a5d1dfe33992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","x-content-type-options":"nosniff","x-robots-tag":"noindex"},"url":"https://jsr.io/@std/io/0.224.8/string_reader.ts","time":1775728648}

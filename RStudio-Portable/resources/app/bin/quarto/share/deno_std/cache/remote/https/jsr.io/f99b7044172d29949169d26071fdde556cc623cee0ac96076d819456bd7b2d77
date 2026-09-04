@@ -1,0 +1,1253 @@
+{
+  "manifest": {
+    "/drop_while_test.ts": {
+      "size": 1536,
+      "checksum": "sha256-84aff123939fddeead68701272c970318973487958f303295654a945561591ec"
+    },
+    "/sort_by.ts": {
+      "size": 6316,
+      "checksum": "sha256-52a5d7eecc0cecf93bd0cc620ceb641a7bf02b50cfbf403bbb842636a577b64c"
+    },
+    "/min_with.ts": {
+      "size": 1174,
+      "checksum": "sha256-1a8df70416f422bcbe18dae77ce544143a79df6c71ec4fe531ad242c1d5471f7"
+    },
+    "/invert.ts": {
+      "size": 1191,
+      "checksum": "sha256-042fb3b57b0aa08d970a42da7202be0ecdb1ae351a96185b381e41ffa6a06daa"
+    },
+    "/_utils.ts": {
+      "size": 573,
+      "checksum": "sha256-324a7467e60a5f1d00e2a3bbc6f2275411e379188edf5171c2f082fb124e36ec"
+    },
+    "/deep_merge_test.ts": {
+      "size": 8127,
+      "checksum": "sha256-5305265f0fec8e7176eb3c061963c0fb35d00309d5f287072f71e5ddf3f071d2"
+    },
+    "/min_of.ts": {
+      "size": 2592,
+      "checksum": "sha256-e476a8e15b1a92cb8c119ffa36923bdc160483fa1e18a9f4669e929668c21aa9"
+    },
+    "/min_of_test.ts": {
+      "size": 2445,
+      "checksum": "sha256-f1d8cb27a58b1cc5e0fa5b51ed04cd2c2e4270665fadaeda32836f636a0dc51b"
+    },
+    "/filter_entries_test.ts": {
+      "size": 1922,
+      "checksum": "sha256-d38eb64f62f7a7067cbfc18c68f7c1d6119559074f13df156f32b6b7dbab91f8"
+    },
+    "/max_by_test.ts": {
+      "size": 3017,
+      "checksum": "sha256-f8149bdd6f5931ea267add33c3404372994e232638e036d3a184d61b122f94a7"
+    },
+    "/intersect.ts": {
+      "size": 1089,
+      "checksum": "sha256-0c82a84c647b23258ca31fa0ca34142f490b999dfb8f0c1446b632f13f787103"
+    },
+    "/map_keys.ts": {
+      "size": 1278,
+      "checksum": "sha256-dcc3fea16a414787f2379da03f7f54723bb6c30d026a17b8b0cb801da5e911e0"
+    },
+    "/sum_of_test.ts": {
+      "size": 2751,
+      "checksum": "sha256-d658678d027a45d774cf5c4cbbf661fe9c0a157b5e4c05d1ccc3da092e76bd0c"
+    },
+    "/map_values.ts": {
+      "size": 2800,
+      "checksum": "sha256-27bdda8caa3389d4c6d4b29f9d41070038940db39fd1d9fdfde6cddddcfd0508"
+    },
+    "/distinct_test.ts": {
+      "size": 1283,
+      "checksum": "sha256-e10f97550c96a2433df8fd995effe7b2a0a49d73fa245fe484276877d31d9d84"
+    },
+    "/max_by.ts": {
+      "size": 4471,
+      "checksum": "sha256-28429df00d37f2a38ab69ea8bd1ab59a43e3f805dd59528f2c59af04cf870497"
+    },
+    "/max_of_test.ts": {
+      "size": 2438,
+      "checksum": "sha256-2f245903fcf9de981ba119a59907969005c42d9a9f0323425f85aa87843b3f48"
+    },
+    "/unzip_test.ts": {
+      "size": 1450,
+      "checksum": "sha256-856fb92065b683a2201aac3330bf0dc323970f7e868f58364019912132f5f54f"
+    },
+    "/invert_by_test.ts": {
+      "size": 866,
+      "checksum": "sha256-7340309855aa12f360fff342bfd306ef26351a1546dfdfcf5f07f2982a798aee"
+    },
+    "/distinct.ts": {
+      "size": 801,
+      "checksum": "sha256-0e330d8d7b12e5e78431e62f5af1560fd244e52a41b79f45b4e72bafa7a9d9cd"
+    },
+    "/associate_with.ts": {
+      "size": 1313,
+      "checksum": "sha256-36bf1920a06f7f37fc453516042e891ac6c03d6c87956eb99227d23d259c6df1"
+    },
+    "/partition.ts": {
+      "size": 2680,
+      "checksum": "sha256-16f02d3200eb7eac325f60565b7c4284d7e036123b8adae24a878fce262cce6b"
+    },
+    "/without_all_test.ts": {
+      "size": 1392,
+      "checksum": "sha256-6956a98c0f1afb0d971087a767483ee1cf67ed8a250b2549c3990ae21574da95"
+    },
+    "/take_last_while_test.ts": {
+      "size": 1621,
+      "checksum": "sha256-6a8c50c3f5d77eb45ad8fc1b2fe2d3c60971a81c6be391a7e903ee22fdf2bd99"
+    },
+    "/sample.ts": {
+      "size": 1064,
+      "checksum": "sha256-61b987f428c77ac2e67eb0832274ce35f6961c29ab7c97fd5b5ac32bff23e610"
+    },
+    "/min_by_test.ts": {
+      "size": 3027,
+      "checksum": "sha256-0810234ca37ad4775d513bdaaaeb7fe1609b4f03bf22f463c9b7ef5b8cca4f99"
+    },
+    "/max_of.ts": {
+      "size": 2592,
+      "checksum": "sha256-ebf2052566e1ad4f06e18b8e8566231fcaedbc6dbf2c9ae34c39dbd98af47fc3"
+    },
+    "/distinct_by_test.ts": {
+      "size": 2326,
+      "checksum": "sha256-2d80493cb0ecae99910a4afd572e4164ea000c5479777fdf211f4f3e5c4f501a"
+    },
+    "/without_all.ts": {
+      "size": 870,
+      "checksum": "sha256-312196bb4ea43d94333eb01f150a8b89c33e197ea2ed771e464db8df467d4dd5"
+    },
+    "/zip.ts": {
+      "size": 1212,
+      "checksum": "sha256-3331fa45dcac31545be960add7a161b6ba6b9811d19ed1b1608ee52755bd531e"
+    },
+    "/sort_by_test.ts": {
+      "size": 4655,
+      "checksum": "sha256-f01bd9ac8a71d22218b4193a9ade1ae6358223430ee9cbaad9aedeec8f698e84"
+    },
+    "/omit.ts": {
+      "size": 990,
+      "checksum": "sha256-129df04939157425dab07944c3498bd1e14ae888fa011adb75d9a4cee2a3b528"
+    },
+    "/max_with.ts": {
+      "size": 1402,
+      "checksum": "sha256-dc9a19e06912f6572cb25fb2932c87832ea39e4816f76f1814e5959574a42cc4"
+    },
+    "/associate_by.ts": {
+      "size": 1419,
+      "checksum": "sha256-0fd08d062daefcbd29f288cf4ee0a981eceba7ea2d161101b97a0a8a7d70f787"
+    },
+    "/pick_test.ts": {
+      "size": 1430,
+      "checksum": "sha256-39a327c27268eb74d67619f3173896f0a1dc3be24d1b074649af965c4bd9f141"
+    },
+    "/mod.ts": {
+      "size": 2476,
+      "checksum": "sha256-ddfb199ccc3dcca009ff61ce7397b4aabf4cd75bef21d3b3e4e6c27800d3d079"
+    },
+    "/map_keys_test.ts": {
+      "size": 2896,
+      "checksum": "sha256-9193d9a46c97c4ce357b17deae495115705a7f4cd632bb84549a3c0aac80bc06"
+    },
+    "/map_not_nullish_test.ts": {
+      "size": 1955,
+      "checksum": "sha256-71acd6b72777eac79310b0bbc0a08bbe964ca7c49fb49237b4b1fc5fcf2ed74b"
+    },
+    "/map_not_nullish.ts": {
+      "size": 1541,
+      "checksum": "sha256-6003917ead796f86d81cce2cd9446134bb15f40cd3c36cf879532386986ae0fe"
+    },
+    "/permutations_test.ts": {
+      "size": 1598,
+      "checksum": "sha256-e98dab70805ede12a16c4c28a22028537df722539ca7af69bfcf02f863b10422"
+    },
+    "/includes_value.ts": {
+      "size": 1163,
+      "checksum": "sha256-563e56ebd4b99bfe17efbd64dbaab98d107db919098ca0da4a7f62610f5aece2"
+    },
+    "/aggregate_groups.ts": {
+      "size": 1906,
+      "checksum": "sha256-e1f829986178d9a2194dbfa6425fbce848c2e771ec2e4587a3285b960e651974"
+    },
+    "/take_while_test.ts": {
+      "size": 1584,
+      "checksum": "sha256-4c035e4dcf6f76206de4947071471eef09fa9cc5edce7d2e5a7f92955784222f"
+    },
+    "/partition_entries_test.ts": {
+      "size": 2243,
+      "checksum": "sha256-8d53ef0d8c5c2d10de223f9f7f7c14b55cc40a6986d029e5d56d39e01632a522"
+    },
+    "/filter_keys.ts": {
+      "size": 1250,
+      "checksum": "sha256-5046c3de4ae71bb5f8b9a5763d9d1f328f19728720d3084911516abb59ae25fa"
+    },
+    "/intersect_test.ts": {
+      "size": 2862,
+      "checksum": "sha256-52f7d06c6c01c199a9f49f8a302ef81b54860d228b96570da7019863780702bf"
+    },
+    "/invert_test.ts": {
+      "size": 1267,
+      "checksum": "sha256-7625e2cbfd4fc3a961bc8d3d98b0abb06d1b029a9a3aa10e4286e78043b999be"
+    },
+    "/deep_merge.ts": {
+      "size": 15448,
+      "checksum": "sha256-cb3376f50bc45fcdebf0e3c7629e0399ec25bbdf7533250b15ddfe1a958f0314"
+    },
+    "/chunk_test.ts": {
+      "size": 2340,
+      "checksum": "sha256-d566121e4173ace4ad430fe8ce6943d5331d19bb22cb63afa56fd99d3c6cd64c"
+    },
+    "/partition_test.ts": {
+      "size": 1524,
+      "checksum": "sha256-acb433db022349428a11efe6cc21bc7fbb60e01dd9bed93632347106164b72e7"
+    },
+    "/find_single_test.ts": {
+      "size": 2074,
+      "checksum": "sha256-76911a01a1b8f56baed007399c5636bf86876f5db2cd9e5ed439b18d8e5eaac5"
+    },
+    "/LICENSE": {
+      "size": 1075,
+      "checksum": "sha256-0961f97da6619d5fe9ddb98649191d5ca6e958856ea5252f4cce7c9b85513819"
+    },
+    "/min_by.ts": {
+      "size": 4364,
+      "checksum": "sha256-8311c35cf93c7cee72817e3ae0f144d325a24592f21ff67f57e3aedab6d206fc"
+    },
+    "/aggregate_groups_test.ts": {
+      "size": 1797,
+      "checksum": "sha256-83ae2f0714a2c42c518c581e9283fbcb9f37e4d2f4b4e7c9faf3a4f9a101292d"
+    },
+    "/chunk.ts": {
+      "size": 1291,
+      "checksum": "sha256-40a2657e543ebb7d41b5369947bd49b48519163f419f308bd102a883145f382c"
+    },
+    "/deno.json": {
+      "size": 1893,
+      "checksum": "sha256-17ec4df6013b6b8c244dd51e98400b779412224098e637a001d6a2c2efed8384"
+    },
+    "/reduce_groups.ts": {
+      "size": 1421,
+      "checksum": "sha256-f73593664d7dd41ad06ab236af0f75f5b0bf2f4494ac2904e2b102d45504b2c8"
+    },
+    "/find_single.ts": {
+      "size": 1513,
+      "checksum": "sha256-e39f6dad86ad4871de28f9689e2a9d62ece9f78e2522fcffd50c518d51c6be6a"
+    },
+    "/map_entries.ts": {
+      "size": 1438,
+      "checksum": "sha256-f697e516ab71ac32f02daa4ee5b154dcae51a986b49300a1c4f18c78022450d4"
+    },
+    "/map_values_test.ts": {
+      "size": 3034,
+      "checksum": "sha256-25e4dbd777149d776a76d8ea39123a11b56c1150aa9b0c67652b4285ab3739c5"
+    },
+    "/drop_last_while.ts": {
+      "size": 1132,
+      "checksum": "sha256-357ecd2990d9b90a0097e24d59889f6a9e7a42028a38c4b687c37b9b72d659f9"
+    },
+    "/min_with_test.ts": {
+      "size": 1902,
+      "checksum": "sha256-4a8007efbe864d89b97847d27e1b22ff817f9350618a82128bdda104d188c6f3"
+    },
+    "/invert_by.ts": {
+      "size": 1693,
+      "checksum": "sha256-f5d0f393de29da662ae1c11dc5ecbafc76f3cdf4b02d86a5ed4bafbddbaa0b31"
+    },
+    "/running_reduce_test.ts": {
+      "size": 3886,
+      "checksum": "sha256-d4f6b84b04266600d424eb42bb37e766455f05d938863a44dace2de2fa0e731d"
+    },
+    "/union.ts": {
+      "size": 1011,
+      "checksum": "sha256-22a6f7b2e801492646c0eff4799919e445ca975d79d033dc3839a9db40a5ff84"
+    },
+    "/drop_while.ts": {
+      "size": 1147,
+      "checksum": "sha256-8b7fe03d005d0dff21c3df79f2aa0d60a6a7b2dafac00eb519d82cf64e6f6a54"
+    },
+    "/omit_test.ts": {
+      "size": 1031,
+      "checksum": "sha256-e8815a270b2f3a83c09cbeaa80fe5581cb359b0e3ff364a5da3cc78cbe3953aa"
+    },
+    "/sliding_windows_test.ts": {
+      "size": 6942,
+      "checksum": "sha256-c281c615e31e6f0633e29ec3561c8bb15db99169d8cf1ce8926aa17d420a7d42"
+    },
+    "/reduce_groups_test.ts": {
+      "size": 2160,
+      "checksum": "sha256-d6d8feddfea8600ef3e455b0bf98139ddb2d413c07343830a36922c27d7f5b9c"
+    },
+    "/first_not_nullish_of.ts": {
+      "size": 1494,
+      "checksum": "sha256-dc45ce8bdd3601886fdd9f50267ac69ed1451b4c4ff07d536d17109ac9c0ad88"
+    },
+    "/zip_test.ts": {
+      "size": 2766,
+      "checksum": "sha256-259a5b1561fc3dc9626db90d3ef168b456057166a84d68f96d164872f7e64593"
+    },
+    "/sum_of.ts": {
+      "size": 1004,
+      "checksum": "sha256-bbd512fb73fbe88e61e691a0339cd81ec7693c61fa2ba598a43a40122eb80365"
+    },
+    "/running_reduce.ts": {
+      "size": 1308,
+      "checksum": "sha256-45ca5798514e960dc1ee5017a516c6a0eee0aa5b449c2c79823def77a40aac33"
+    },
+    "/max_with_test.ts": {
+      "size": 1966,
+      "checksum": "sha256-c98f4f847ce4f48b47c2f7a378811798f38ce1755c3ca81e8cde6d1975bca65b"
+    },
+    "/join_to_string.ts": {
+      "size": 2639,
+      "checksum": "sha256-438cc4085f561e479254f46c1949ea9de672db7a558eeb63592aac92579e2473"
+    },
+    "/drop_last_while_test.ts": {
+      "size": 1424,
+      "checksum": "sha256-6fccf69deb1f8c70de7e0671c54ba730341862943c56e6c2eb50b64881c79a19"
+    },
+    "/sample_test.ts": {
+      "size": 975,
+      "checksum": "sha256-2252a2fb7ec09303bb8726e2894910cca88be17964f7e384d99aced1eff3f814"
+    },
+    "/map_entries_test.ts": {
+      "size": 2769,
+      "checksum": "sha256-b64f59b734ef0f007da5833b7eb05645b2198d006504c100275de18739fcc6fa"
+    },
+    "/unzip.ts": {
+      "size": 1363,
+      "checksum": "sha256-67436d0d914aae59a4fae6f0e7bee5bb7ea631d6baf67ffbde6b1a879fcaa472"
+    },
+    "/filter_values_test.ts": {
+      "size": 1779,
+      "checksum": "sha256-df32fe6cf6559871431f3602ee983d5cbe802b2123d6216f4fe3b0334e3bffa2"
+    },
+    "/includes_value_test.ts": {
+      "size": 2465,
+      "checksum": "sha256-eda22742b243fb9097211f5c2a07d6b9f976d8532a42c7e4f61bd7d931e57cd7"
+    },
+    "/join_to_string_test.ts": {
+      "size": 3143,
+      "checksum": "sha256-6fc587782c99e97f87408af12dd5126ce05421801599babfe21cde8ffe020c3f"
+    },
+    "/partition_entries.ts": {
+      "size": 1577,
+      "checksum": "sha256-8284097a6d2825a450c133c011d8fbc41f4c14d1a02ffa60158add24d6912528"
+    },
+    "/take_while.ts": {
+      "size": 1103,
+      "checksum": "sha256-fb5d872c299e624e73699df26a665ba941cbab1e887be9ef9f17c04e84e53b08"
+    },
+    "/union_test.ts": {
+      "size": 2970,
+      "checksum": "sha256-699fdbd1b6f98855b03d898c5649e53564d03942ce0a0269f440142aa3854820"
+    },
+    "/pick.ts": {
+      "size": 974,
+      "checksum": "sha256-3a18f51b3923788296222923a90dd3f1ae02a02b6d8eb7e2a9f7aa1f31b4f4ce"
+    },
+    "/filter_keys_test.ts": {
+      "size": 1570,
+      "checksum": "sha256-d0d5fcadafa415a34e21fea06fa970229f6891a4658e55894193a6378fc8708c"
+    },
+    "/filter_values.ts": {
+      "size": 1272,
+      "checksum": "sha256-722b3378fae8d47326d78971f3769822aa67651fc427260062a45c4caf971b15"
+    },
+    "/distinct_by.ts": {
+      "size": 1328,
+      "checksum": "sha256-e021373885dc6c1a042cd6ae7fb1041f85dc841d1c331f254c099fc65c6c8f8a"
+    },
+    "/associate_by_test.ts": {
+      "size": 2466,
+      "checksum": "sha256-2a85dc4259ae3461a857ba0dd770ade108f88b7da7361cbc3bdee3a2977b8964"
+    },
+    "/filter_entries.ts": {
+      "size": 1249,
+      "checksum": "sha256-e52d7d6f13f5e4ca310cc46bc6c992037d758a5171c64c8a81ab65a8f5d5c515"
+    },
+    "/sliding_windows.ts": {
+      "size": 2436,
+      "checksum": "sha256-9d8f2df937b7eaae45203986b86144ab7e41a97400d1270c34fb692739c65daf"
+    },
+    "/permutations.ts": {
+      "size": 1467,
+      "checksum": "sha256-9d9ee90136d953e2aaa98f75e67df6f1801c461bed745ab88639e6d486adb4d0"
+    },
+    "/associate_with_test.ts": {
+      "size": 1994,
+      "checksum": "sha256-b016fc5c426f6cc4ec417349a89947761316193ed5e46a3a28a8a7bd7ca5e36c"
+    },
+    "/take_last_while.ts": {
+      "size": 1089,
+      "checksum": "sha256-3304d9e7c1498e703ea9c918de0c85627578bbf5f2f1a1a8c856c4bd4c587df6"
+    },
+    "/first_not_nullish_of_test.ts": {
+      "size": 2123,
+      "checksum": "sha256-96023fcacd056e98e6510c9200640b698c0620871cb76514f1e6c96b55e9c444"
+    }
+  },
+  "moduleGraph2": {
+    "/filter_values.ts": {},
+    "/reduce_groups.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./map_values.ts",
+          "specifierRange": [
+            [
+              3,
+              26
+            ],
+            [
+              3,
+              43
+            ]
+          ]
+        }
+      ]
+    },
+    "/sample.ts": {},
+    "/running_reduce.ts": {},
+    "/max_with.ts": {},
+    "/_utils.ts": {},
+    "/invert.ts": {},
+    "/find_single.ts": {},
+    "/take_last_while.ts": {},
+    "/union.ts": {},
+    "/drop_last_while.ts": {},
+    "/permutations.ts": {},
+    "/map_keys.ts": {},
+    "/associate_with.ts": {},
+    "/distinct_by.ts": {},
+    "/max_by.ts": {},
+    "/intersect.ts": {},
+    "/includes_value.ts": {},
+    "/filter_keys.ts": {},
+    "/min_with.ts": {},
+    "/distinct.ts": {},
+    "/chunk.ts": {},
+    "/map_entries.ts": {},
+    "/partition.ts": {},
+    "/invert_by.ts": {},
+    "/associate_by.ts": {},
+    "/sort_by.ts": {},
+    "/take_while.ts": {},
+    "/drop_while.ts": {},
+    "/min_of.ts": {},
+    "/sliding_windows.ts": {},
+    "/zip.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./min_of.ts",
+          "specifierRange": [
+            [
+              3,
+              22
+            ],
+            [
+              3,
+              35
+            ]
+          ]
+        }
+      ]
+    },
+    "/filter_entries.ts": {},
+    "/map_not_nullish.ts": {},
+    "/aggregate_groups.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./map_entries.ts",
+          "specifierRange": [
+            [
+              3,
+              27
+            ],
+            [
+              3,
+              45
+            ]
+          ]
+        }
+      ]
+    },
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./aggregate_groups.ts",
+          "specifierRange": [
+            [
+              30,
+              14
+            ],
+            [
+              30,
+              37
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./associate_by.ts",
+          "specifierRange": [
+            [
+              31,
+              14
+            ],
+            [
+              31,
+              33
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./associate_with.ts",
+          "specifierRange": [
+            [
+              32,
+              14
+            ],
+            [
+              32,
+              35
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./chunk.ts",
+          "specifierRange": [
+            [
+              33,
+              14
+            ],
+            [
+              33,
+              26
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./deep_merge.ts",
+          "specifierRange": [
+            [
+              34,
+              14
+            ],
+            [
+              34,
+              31
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./distinct.ts",
+          "specifierRange": [
+            [
+              35,
+              14
+            ],
+            [
+              35,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./distinct_by.ts",
+          "specifierRange": [
+            [
+              36,
+              14
+            ],
+            [
+              36,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./drop_last_while.ts",
+          "specifierRange": [
+            [
+              37,
+              14
+            ],
+            [
+              37,
+              36
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./drop_while.ts",
+          "specifierRange": [
+            [
+              38,
+              14
+            ],
+            [
+              38,
+              31
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./filter_entries.ts",
+          "specifierRange": [
+            [
+              39,
+              14
+            ],
+            [
+              39,
+              35
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./filter_keys.ts",
+          "specifierRange": [
+            [
+              40,
+              14
+            ],
+            [
+              40,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./filter_values.ts",
+          "specifierRange": [
+            [
+              41,
+              14
+            ],
+            [
+              41,
+              34
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./find_single.ts",
+          "specifierRange": [
+            [
+              42,
+              14
+            ],
+            [
+              42,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./first_not_nullish_of.ts",
+          "specifierRange": [
+            [
+              43,
+              14
+            ],
+            [
+              43,
+              41
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./includes_value.ts",
+          "specifierRange": [
+            [
+              44,
+              14
+            ],
+            [
+              44,
+              35
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./intersect.ts",
+          "specifierRange": [
+            [
+              45,
+              14
+            ],
+            [
+              45,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./invert_by.ts",
+          "specifierRange": [
+            [
+              46,
+              14
+            ],
+            [
+              46,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./invert.ts",
+          "specifierRange": [
+            [
+              47,
+              14
+            ],
+            [
+              47,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./join_to_string.ts",
+          "specifierRange": [
+            [
+              48,
+              14
+            ],
+            [
+              48,
+              35
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./map_entries.ts",
+          "specifierRange": [
+            [
+              49,
+              14
+            ],
+            [
+              49,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./map_keys.ts",
+          "specifierRange": [
+            [
+              50,
+              14
+            ],
+            [
+              50,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./map_not_nullish.ts",
+          "specifierRange": [
+            [
+              51,
+              14
+            ],
+            [
+              51,
+              36
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./map_values.ts",
+          "specifierRange": [
+            [
+              52,
+              14
+            ],
+            [
+              52,
+              31
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./max_by.ts",
+          "specifierRange": [
+            [
+              53,
+              14
+            ],
+            [
+              53,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./max_of.ts",
+          "specifierRange": [
+            [
+              54,
+              14
+            ],
+            [
+              54,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./max_with.ts",
+          "specifierRange": [
+            [
+              55,
+              14
+            ],
+            [
+              55,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./min_by.ts",
+          "specifierRange": [
+            [
+              56,
+              14
+            ],
+            [
+              56,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./min_of.ts",
+          "specifierRange": [
+            [
+              57,
+              14
+            ],
+            [
+              57,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./min_with.ts",
+          "specifierRange": [
+            [
+              58,
+              14
+            ],
+            [
+              58,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./omit.ts",
+          "specifierRange": [
+            [
+              59,
+              14
+            ],
+            [
+              59,
+              25
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./partition.ts",
+          "specifierRange": [
+            [
+              60,
+              14
+            ],
+            [
+              60,
+              30
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./partition_entries.ts",
+          "specifierRange": [
+            [
+              61,
+              14
+            ],
+            [
+              61,
+              38
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./permutations.ts",
+          "specifierRange": [
+            [
+              62,
+              14
+            ],
+            [
+              62,
+              33
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./pick.ts",
+          "specifierRange": [
+            [
+              63,
+              14
+            ],
+            [
+              63,
+              25
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./reduce_groups.ts",
+          "specifierRange": [
+            [
+              64,
+              14
+            ],
+            [
+              64,
+              34
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./running_reduce.ts",
+          "specifierRange": [
+            [
+              65,
+              14
+            ],
+            [
+              65,
+              35
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./sample.ts",
+          "specifierRange": [
+            [
+              66,
+              14
+            ],
+            [
+              66,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./sliding_windows.ts",
+          "specifierRange": [
+            [
+              67,
+              14
+            ],
+            [
+              67,
+              36
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./sort_by.ts",
+          "specifierRange": [
+            [
+              68,
+              14
+            ],
+            [
+              68,
+              28
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./sum_of.ts",
+          "specifierRange": [
+            [
+              69,
+              14
+            ],
+            [
+              69,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./take_last_while.ts",
+          "specifierRange": [
+            [
+              70,
+              14
+            ],
+            [
+              70,
+              36
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./take_while.ts",
+          "specifierRange": [
+            [
+              71,
+              14
+            ],
+            [
+              71,
+              31
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./union.ts",
+          "specifierRange": [
+            [
+              72,
+              14
+            ],
+            [
+              72,
+              26
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./unzip.ts",
+          "specifierRange": [
+            [
+              73,
+              14
+            ],
+            [
+              73,
+              26
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./without_all.ts",
+          "specifierRange": [
+            [
+              74,
+              14
+            ],
+            [
+              74,
+              32
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./zip.ts",
+          "specifierRange": [
+            [
+              75,
+              14
+            ],
+            [
+              75,
+              24
+            ]
+          ]
+        }
+      ]
+    },
+    "/join_to_string.ts": {},
+    "/omit.ts": {},
+    "/min_by.ts": {},
+    "/sum_of.ts": {},
+    "/deep_merge.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./_utils.ts",
+          "specifierRange": [
+            [
+              3,
+              30
+            ],
+            [
+              3,
+              43
+            ]
+          ]
+        }
+      ]
+    },
+    "/partition_entries.ts": {},
+    "/without_all.ts": {},
+    "/pick.ts": {},
+    "/first_not_nullish_of.ts": {},
+    "/unzip.ts": {},
+    "/map_values.ts": {},
+    "/max_of.ts": {}
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./aggregate-groups": "./aggregate_groups.ts",
+    "./associate-by": "./associate_by.ts",
+    "./associate-with": "./associate_with.ts",
+    "./chunk": "./chunk.ts",
+    "./deep-merge": "./deep_merge.ts",
+    "./distinct": "./distinct.ts",
+    "./distinct-by": "./distinct_by.ts",
+    "./drop-last-while": "./drop_last_while.ts",
+    "./drop-while": "./drop_while.ts",
+    "./filter-entries": "./filter_entries.ts",
+    "./filter-keys": "./filter_keys.ts",
+    "./filter-values": "./filter_values.ts",
+    "./find-single": "./find_single.ts",
+    "./first-not-nullish-of": "./first_not_nullish_of.ts",
+    "./includes-value": "./includes_value.ts",
+    "./intersect": "./intersect.ts",
+    "./invert-by": "./invert_by.ts",
+    "./invert": "./invert.ts",
+    "./join-to-string": "./join_to_string.ts",
+    "./map-entries": "./map_entries.ts",
+    "./map-keys": "./map_keys.ts",
+    "./map-not-nullish": "./map_not_nullish.ts",
+    "./map-values": "./map_values.ts",
+    "./max-by": "./max_by.ts",
+    "./max-of": "./max_of.ts",
+    "./max-with": "./max_with.ts",
+    "./min-by": "./min_by.ts",
+    "./min-of": "./min_of.ts",
+    "./min-with": "./min_with.ts",
+    "./omit": "./omit.ts",
+    "./partition": "./partition.ts",
+    "./partition-entries": "./partition_entries.ts",
+    "./permutations": "./permutations.ts",
+    "./pick": "./pick.ts",
+    "./reduce-groups": "./reduce_groups.ts",
+    "./running-reduce": "./running_reduce.ts",
+    "./sample": "./sample.ts",
+    "./sliding-windows": "./sliding_windows.ts",
+    "./sort-by": "./sort_by.ts",
+    "./sum-of": "./sum_of.ts",
+    "./take-last-while": "./take_last_while.ts",
+    "./take-while": "./take_while.ts",
+    "./union": "./union.ts",
+    "./unzip": "./unzip.ts",
+    "./without-all": "./without_all.ts",
+    "./zip": "./zip.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","cf-ray":"9e98a5cf5cee3992-IAD","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:27 GMT","x-jsr-backend":"modules","cross-origin-resource-policy":"cross-origin","content-type":"application/json","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=XEIcpIInUJ%2BNekdirkcu5ahyFthS3eMMbhjnUaL0ou%2FxaX6IYMRD8ib5w8f1BcQmnETAH6aFmWZ0IXzjEyMs9kVgSrO3L1gdQvw2wDj7xZBzD5UTa88mcqc%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","access-control-allow-origin":"*","vary":"Origin","x-content-type-options":"nosniff","etag":"W/\"136209479ee0cfcdd573d7f88ced8763\""},"url":"https://jsr.io/@std/collections/1.0.6_meta.json","time":1775728647}

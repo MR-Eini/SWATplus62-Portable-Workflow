@@ -1,0 +1,12 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+export const OPERATORS = [
+  undefined,
+  "=",
+  "!=",
+  ">",
+  ">=",
+  "<",
+  "<="
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvc2VtdmVyLzAuMjI0LjMvX2NvbnN0YW50cy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBDb3B5cmlnaHQgMjAxOC0yMDI0IHRoZSBEZW5vIGF1dGhvcnMuIEFsbCByaWdodHMgcmVzZXJ2ZWQuIE1JVCBsaWNlbnNlLlxuXG5leHBvcnQgY29uc3QgT1BFUkFUT1JTID0gW1xuICB1bmRlZmluZWQsXG4gIFwiPVwiLFxuICBcIiE9XCIsXG4gIFwiPlwiLFxuICBcIj49XCIsXG4gIFwiPFwiLFxuICBcIjw9XCIsXG5dIGFzIGNvbnN0O1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDBFQUEwRTtBQUUxRSxPQUFPLE1BQU0sWUFBWTtFQUN2QjtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtDQUNELENBQVUifQ==
+// denoCacheMetadata=4945789868821997848,2793981281282161395

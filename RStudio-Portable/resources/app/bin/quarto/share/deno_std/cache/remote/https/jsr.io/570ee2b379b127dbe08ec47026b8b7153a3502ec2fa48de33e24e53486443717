@@ -1,0 +1,36 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import {
+  createExtractor,
+  type Extractor,
+  type Parser,
+} from "./create_extractor.ts";
+import { parse } from "jsr:/@std/yaml@^1.0.0-rc.1/parse";
+
+/**
+ * Extracts and parses {@link https://yaml.org | YAML} from the metadata of
+ * front matter content.
+ *
+ * @example Extract YAML front matter
+ * ```ts
+ * import { extract } from "@std/front-matter/yaml";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const output = `---yaml
+ * title: Three dashes marks the spot
+ * ---
+ * Hello, world!`;
+ * const result = extract(output);
+ *
+ * assertEquals(result, {
+ *   frontMatter: "title: Three dashes marks the spot",
+ *   body: "Hello, world!",
+ *   attrs: { title: "Three dashes marks the spot" },
+ * });
+ * ```
+ */
+export const extract: Extractor = createExtractor({
+  ["yaml"]: parse as Parser,
+});
+
+// denoCacheMetadata={"headers":{"cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d10f0b3992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","server":"cloudflare","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ROTaHn1S2qhePqYdpeJ3VGJKCAB0ddzKx948DjdrXrfWdtzQuxgNtnynGmuhzZuAmNbyrf2t560FI0y4bDSKMi3dgK4iSGAXFFQTo03OeW2kp0x%2FUDVACt8%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","etag":"\"7842c3484308fcfa20eabced1f5862ac\"","access-control-allow-origin":"*","vary":"Origin","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","content-type":"text/typescript","content-length":"882","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","x-robots-tag":"noindex","access-control-expose-headers":"*"},"url":"https://jsr.io/@std/front-matter/0.224.3/yaml.ts","time":1775728648}

@@ -1,0 +1,32 @@
+Package: intervals
+Version: 0.15.5
+Type: Package
+Title: Tools for Working with Points and Intervals
+Authors@R: c(person(given = "Richard",
+                    family = "Bourgon",
+                    role = "aut",
+                    email = "bourgon.richard@gene.com"),
+             person(given = "Edzer",
+                    family = "Pebesma",
+                    role = "cre",
+                    email = "edzer.pebesma@uni-muenster.de"))
+Depends: R (>= 2.9.0)
+Imports: utils, graphics, methods
+Description: Tools for working with and comparing sets of points and intervals.
+License: Artistic-2.0
+LazyLoad: yes
+URL: https://github.com/edzer/intervals
+NeedsCompilation: yes
+Packaged: 2024-08-23 10:51:00 UTC; edzer
+Author: Richard Bourgon [aut],
+  Edzer Pebesma [cre]
+Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Repository: CRAN
+Date/Publication: 2024-08-23 12:10:01 UTC
+Built: R 4.5.2; x86_64-w64-mingw32; 2025-11-01 00:31:52 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: intervals
+RemoteRef: intervals
+RemoteRepos: https://cran.rstudio.com
+RemoteSha: 0.15.5

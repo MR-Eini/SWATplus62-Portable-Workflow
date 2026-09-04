@@ -1,0 +1,55 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Applies the given transformer to all entries in the given record and returns
+ * a new record containing the results.
+ *
+ * @template T The type of the values in the input record.
+ * @template O The type of the values in the output record.
+ *
+ * @param record The record to map entries from.
+ * @param transformer The function to transform each entry.
+ *
+ * @returns A new record with all entries transformed by the given transformer.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { mapEntries } from "@std/collections/map-entries";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const usersById = {
+ *   "a2e": { name: "Kim", age: 22 },
+ *   "dfe": { name: "Anna", age: 31 },
+ *   "34b": { name: "Tim", age: 58 },
+ * };
+ *
+ * const agesByNames = mapEntries(usersById, ([id, { name, age }]) => [name, age]);
+ *
+ * assertEquals(
+ *   agesByNames,
+ *   {
+ *     Kim: 22,
+ *     Anna: 31,
+ *     Tim: 58,
+ *   },
+ * );
+ * ```
+ */
+export function mapEntries<T, O>(
+  record: Readonly<Record<string, T>>,
+  transformer: (entry: [string, T]) => [string, O],
+): Record<string, O> {
+  const result: Record<string, O> = {};
+  const entries = Object.entries(record);
+
+  for (const entry of entries) {
+    const [mappedKey, mappedValue] = transformer(entry);
+
+    result[mappedKey] = mappedValue;
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"content-length":"1450","content-type":"text/typescript","x-robots-tag":"noindex","x-jsr-backend":"modules","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=acFEuxulWMnSXbOeGSr%2FjAzTGeTBT4NZwWEXSKaVopm86fu4zYnTmpFs1OhEnuyJNmupgfrwfCbu2liUyYKh1uSWplK%2FNFG5UTwatmQF%2BGRiCnyHnrfP6E0%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-content-type-options":"nosniff","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:27 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","cf-ray":"9e98a5d02e423992-IAD","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","etag":"\"5cfe73fedbeccf66cb0f067bbf50d9f5\"","access-control-expose-headers":"*","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/collections/0.224.2/map_entries.ts","time":1775728647}

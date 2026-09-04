@@ -1,0 +1,144 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Options for {@linkcode TextLineStream}. */
+export interface TextLineStreamOptions {
+  /**
+   * Allow splitting by `\r`.
+   *
+   * @default {false}
+   */
+  allowCR?: boolean;
+}
+
+/**
+ * Transform a stream into a stream where each chunk is divided by a newline,
+ * be it `\n` or `\r\n`. `\r` can be enabled via the `allowCR` option.
+ *
+ * If you want to split by a custom delimiter, consider using {@linkcode TextDelimiterStream}.
+ *
+ * @example JSON Lines
+ * ```ts
+ * import { TextLineStream } from "@std/streams/text-line-stream";
+ * import { toTransformStream } from "@std/streams/to-transform-stream";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream = ReadableStream.from([
+ *   '{"name": "Alice", "age": ',
+ *   '30}\n{"name": "Bob", "age"',
+ *   ": 25}\n",
+ * ]);
+ *
+ * type Person = { name: string; age: number };
+ *
+ * // Split the stream by newline and parse each line as a JSON object
+ * const jsonStream = stream.pipeThrough(new TextLineStream())
+ *   .pipeThrough(toTransformStream(async function* (src) {
+ *     for await (const chunk of src) {
+ *       if (chunk.trim().length === 0) {
+ *         continue;
+ *       }
+ *       yield JSON.parse(chunk) as Person;
+ *     }
+ *   }));
+ *
+ * assertEquals(
+ *   await Array.fromAsync(jsonStream),
+ *   [{ "name": "Alice", "age": 30 }, { "name": "Bob", "age": 25 }],
+ * );
+ * ```
+ *
+ * @example Allow splitting by `\r`
+ *
+ * ```ts
+ * import { TextLineStream } from "@std/streams/text-line-stream";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream = ReadableStream.from([
+ *  "CR\rLF",
+ *  "\nCRLF\r\ndone",
+ * ]).pipeThrough(new TextLineStream({ allowCR: true }));
+ *
+ * const lines = await Array.fromAsync(stream);
+ *
+ * assertEquals(lines, ["CR", "LF", "CRLF", "done"]);
+ * ```
+ */
+export class TextLineStream extends TransformStream<string, string> {
+  #currentLine = "";
+
+  /**
+   * Constructs a new instance.
+   *
+   * @param options Options for the stream.
+   *
+   * @example No parameters
+   * ```ts
+   * import { TextLineStream } from "@std/streams/text-line-stream";
+   * import { assertEquals } from "@std/assert/assert-equals";
+   *
+   * const stream = ReadableStream.from([
+   *  "Hello,\n",
+   *   "world!\n",
+   * ]).pipeThrough(new TextLineStream());
+   *
+   * const lines = await Array.fromAsync(stream);
+   *
+   * assertEquals(lines, ["Hello,", "world!"]);
+   * ```
+   *
+   * @example Allow splitting by `\r`
+   *
+   * ```ts
+   * import { TextLineStream } from "@std/streams/text-line-stream";
+   * import { assertEquals } from "@std/assert/assert-equals";
+   *
+   * const stream = ReadableStream.from([
+   *  "CR\rLF",
+   *  "\nCRLF\r\ndone",
+   * ]).pipeThrough(new TextLineStream({ allowCR: true }));
+   *
+   * const lines = await Array.fromAsync(stream);
+   *
+   * assertEquals(lines, ["CR", "LF", "CRLF", "done"]);
+   * ```
+   */
+  constructor(options: TextLineStreamOptions = { allowCR: false }) {
+    super({
+      transform: (chars, controller) => {
+        chars = this.#currentLine + chars;
+
+        while (true) {
+          const lfIndex = chars.indexOf("\n");
+          const crIndex = options.allowCR ? chars.indexOf("\r") : -1;
+
+          if (
+            crIndex !== -1 && crIndex !== (chars.length - 1) &&
+            (lfIndex === -1 || (lfIndex - 1) > crIndex)
+          ) {
+            controller.enqueue(chars.slice(0, crIndex));
+            chars = chars.slice(crIndex + 1);
+            continue;
+          }
+
+          if (lfIndex === -1) break;
+
+          const endIndex = chars[lfIndex - 1] === "\r" ? lfIndex - 1 : lfIndex;
+          controller.enqueue(chars.slice(0, endIndex));
+          chars = chars.slice(lfIndex + 1);
+        }
+
+        this.#currentLine = chars;
+      },
+      flush: (controller) => {
+        if (this.#currentLine === "") return;
+        const currentLine = options.allowCR && this.#currentLine.endsWith("\r")
+          ? this.#currentLine.slice(0, -1)
+          : this.#currentLine;
+        controller.enqueue(currentLine);
+      },
+    });
+  }
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=86400","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","access-control-expose-headers":"*","content-length":"4150","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wR057FHUwJIAZ81DL4Cq7b8c88xXi%2BTPmRucMREWWnR3e1Ry7YjLKF3W%2BQRzBiamS9tkVpI1%2B2zMN883f3%2Fj4WuHeRxzYPchantkO7wBERlyk1hlDVk9xVg%3D\"}]}","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","vary":"Origin","x-jsr-backend":"modules","cf-ray":"9e98a5d2c91a3992-IAD","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"161c3658d696c6ed35a5bf80723dde36\""},"url":"https://jsr.io/@std/streams/0.224.5/text_line_stream.ts","time":1775728648}

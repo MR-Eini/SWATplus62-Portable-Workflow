@@ -1,0 +1,41 @@
+Package: Epi
+Version: 2.65
+Date: 2026-04-20
+Title: Statistical Analysis in Epidemiology
+Authors@R: c(person("Bendix", "Carstensen", role = c("aut", "cre"),
+                    email = "b@bxc.dk"),
+             person("Martyn", "Plummer", role = "aut",
+                    email = "Martyn.Plummer@warwick.ac.uk"),
+             person("Esa", "Laara", role = "ctb"),
+             person("Michael", "Hills", role = "ctb"))
+Depends: R (>= 3.5.0), utils
+Imports: cmprsk, etm, splines, MASS, survival, plyr, dplyr, Matrix,
+        numDeriv, data.table, zoo, mgcv, magrittr
+Suggests: mstate, nlme, lme4, demography, popEpi, tidyr
+Description: Functions for demographic and epidemiological analysis in
+  the Lexis diagram, i.e. register and cohort follow-up data. In
+  particular representation, manipulation, rate estimation and
+  simulation for multistate data - the Lexis suite of functions, which
+  includes interfaces to 'mstate', 'etm' and 'cmprsk' packages.
+  Contains functions for Age-Period-Cohort and Lee-Carter modeling and
+  a function for interval censored data. Has functions for extracting
+  and manipulating parameter estimates and predicted values (ci.lin
+  and its cousins), as well as a number of epidemiological data sets.
+License: GPL-2
+URL: http://bendixcarstensen.com/Epi/
+NeedsCompilation: yes
+Packaged: 2026-04-14 14:32:55 UTC; BCAR0029
+Author: Bendix Carstensen [aut, cre],
+  Martyn Plummer [aut],
+  Esa Laara [ctb],
+  Michael Hills [ctb]
+Maintainer: Bendix Carstensen <b@bxc.dk>
+Repository: CRAN
+Date/Publication: 2026-04-15 08:40:14 UTC
+Built: R 4.5.3; x86_64-w64-mingw32; 2026-06-10 04:10:50 UTC; windows
+Archs: x64
+RemoteType: standard
+RemotePkgRef: Epi
+RemoteRef: Epi
+RemoteRepos: https://cran.rstudio.com
+RemoteSha.Version: 2.65

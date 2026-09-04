@@ -1,0 +1,58 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Use this to retrieve the numeric log level by it's associated name.
+ * Defaults to INFO.
+ */
+export const LogLevels = {
+  NOTSET: 0,
+  DEBUG: 10,
+  INFO: 20,
+  WARN: 30,
+  ERROR: 40,
+  CRITICAL: 50,
+} as const;
+
+/** Union of valid log levels */
+export type LogLevel = typeof LogLevels[LevelName];
+
+/** Union of valid log level names */
+export type LevelName = Exclude<keyof typeof LogLevels, number>;
+
+/** Permitted log level names */
+export const LogLevelNames: LevelName[] = Object.keys(LogLevels).filter((key) =>
+  isNaN(Number(key))
+) as LevelName[];
+
+const byLevel: Record<LogLevel, LevelName> = {
+  [LogLevels.NOTSET]: "NOTSET",
+  [LogLevels.DEBUG]: "DEBUG",
+  [LogLevels.INFO]: "INFO",
+  [LogLevels.WARN]: "WARN",
+  [LogLevels.ERROR]: "ERROR",
+  [LogLevels.CRITICAL]: "CRITICAL",
+};
+
+/**
+ * Returns the numeric log level associated with the passed,
+ * stringy log level name.
+ */
+export function getLevelByName(name: LevelName): LogLevel {
+  const level = LogLevels[name];
+  if (level !== undefined) {
+    return level;
+  }
+  throw new Error(`Cannot get log level: no level named ${name}`);
+}
+
+/** Returns the stringy log level name provided the numeric log level. */
+export function getLevelName(level: LogLevel): LevelName {
+  const levelName = byLevel[level as LogLevel];
+  if (levelName) {
+    return levelName;
+  }
+  throw new Error(`Cannot get log level: no name for level: ${level}`);
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rEZFwJrJleB5wuECKbOlKIAeXKmQp%2Fgv6RUu%2Br2XK56q5P7RO3GAFx9FuvvocIbJoULN9QbLGCrpu6FKaHqLSJEYQ874OHAHhFpeaKWw%2FCmvtUQHEu9BbhM%3D\"}]}","content-type":"text/typescript","content-length":"1522","access-control-allow-origin":"*","access-control-expose-headers":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","server":"cloudflare","x-robots-tag":"noindex","cf-ray":"9e98a5d2081e3992-IAD","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","etag":"\"f2a3dc1b834c3d3cc8ff74c2462ba369\""},"url":"https://jsr.io/@std/log/0.224.7/levels.ts","time":1775728648}

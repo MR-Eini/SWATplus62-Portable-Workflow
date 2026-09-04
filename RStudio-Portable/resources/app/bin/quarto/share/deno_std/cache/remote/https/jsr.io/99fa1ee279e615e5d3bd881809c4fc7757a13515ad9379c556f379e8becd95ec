@@ -1,0 +1,41 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Converts the byte array to a UUID string
+ * @param bytes Used to convert Byte to Hex
+ */
+export function bytesToUuid(bytes: number[] | Uint8Array): string {
+  const bits = [...bytes].map((bit) => {
+    const s = bit.toString(16);
+    return bit < 0x10 ? "0" + s : s;
+  });
+  return [
+    ...bits.slice(0, 4),
+    "-",
+    ...bits.slice(4, 6),
+    "-",
+    ...bits.slice(6, 8),
+    "-",
+    ...bits.slice(8, 10),
+    "-",
+    ...bits.slice(10, 16),
+  ].join("");
+}
+
+/**
+ * Converts a string to a byte array by converting the hex value to a number.
+ * @param uuid Value that gets converted.
+ */
+export function uuidToBytes(uuid: string): number[] {
+  const bytes: number[] = [];
+
+  uuid.replace(/[a-fA-F0-9]{2}/g, (hex: string): string => {
+    bytes.push(parseInt(hex, 16));
+    return "";
+  });
+
+  return bytes;
+}
+
+// denoCacheMetadata={"headers":{"content-length":"935","vary":"Origin","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","server":"cloudflare","etag":"\"f47d8d5671627d4a4934a15eab112d9c\"","cf-ray":"9e98a5d41aa63992-IAD","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=UPCwlP%2FM210vIjieXHrLpnwajnfBPAD6F4Jl2Aoa5Ecqyq9X6WdoMVYlvTnWGXk%2BUtFA3SWCQUgNKaENfi2irYaS%2BgLxobLSlyOabByuMZgjEs8k26%2BU0kw%3D\"}]}","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex"},"url":"https://jsr.io/@std/uuid/0.224.3/_common.ts","time":1775728648}

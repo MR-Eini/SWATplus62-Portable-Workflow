@@ -1,0 +1,53 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+/*!
+ * Adapted directly from negotiator at https://github.com/jshttp/negotiator/
+ * which is licensed as follows:
+ *
+ * (The MIT License)
+ *
+ * Copyright (c) 2012-2014 Federico Romero
+ * Copyright (c) 2012-2014 Isaac Z. Schlueter
+ * Copyright (c) 2014-2015 Douglas Christopher Wilson
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * 'Software'), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+export interface Specificity {
+  i: number;
+  o?: number;
+  q: number;
+  s?: number;
+}
+
+export function compareSpecs(a: Specificity, b: Specificity): number {
+  return (
+    b.q - a.q ||
+    (b.s ?? 0) - (a.s ?? 0) ||
+    (a.o ?? 0) - (b.o ?? 0) ||
+    a.i - b.i ||
+    0
+  );
+}
+
+export function isQuality(spec: Specificity): boolean {
+  return spec.q > 0;
+}
+
+// denoCacheMetadata={"headers":{"access-control-allow-origin":"*","content-length":"1801","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","x-content-type-options":"nosniff","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vZlERSlN5VxSDCBD651Q00c80G7F67PFIsiqMFdSzLmI%2FiUYtuXAEToBVSQv4hsiIxfAiK38KHEXZknBSkhTrSXR0ok1AiZAr7JbDoLeoljSNKH5KImhXRA%3D\"}]}","cross-origin-resource-policy":"cross-origin","vary":"Origin","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cf-ray":"9e98a5d43ac83992-IAD","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","server":"cloudflare","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","etag":"\"4e19b0298228ec5b21aad54216132a77\""},"url":"https://jsr.io/@std/http/0.224.5/_negotiation/common.ts","time":1775728648}

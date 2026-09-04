@@ -1,0 +1,50 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns a new record with all entries of the given record except the ones
+ * that do not match the given predicate.
+ *
+ * @template T The type of the values in the input record.
+ *
+ * @param record The record to filter entries from.
+ * @param predicate The function to test each entry for a condition.
+ *
+ * @returns A new record with all entries that match the given predicate.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { filterEntries } from "@std/collections/filter-entries";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const menu = {
+ *   Salad: 11,
+ *   Soup: 8,
+ *   Pasta: 13,
+ * };
+ *
+ * const myOptions = filterEntries(
+ *   menu,
+ *   ([item, price]) => item !== "Pasta" && price < 10,
+ * );
+ *
+ * assertEquals(myOptions, { Soup: 8 });
+ * ```
+ */
+export function filterEntries<T>(
+  record: Readonly<Record<string, T>>,
+  predicate: (entry: [string, T]) => boolean,
+): Record<string, T> {
+  const result: Record<string, T> = {};
+  const entries = Object.entries(record);
+
+  for (const [key, value] of entries) {
+    if (predicate([key, value])) {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","vary":"Origin","cf-ray":"9e98a5d02e353992-IAD","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2R90Mi6qmaHsTIVAB3JzF%2FqmjMaDnIx4hcroAuoc81X28BIzpEneoQ8d2REDAByDWTnU5Ejt63azzORPvA%2FBNT9XCxFDCG4asuPSR7KooAlKzEW4HH7JbZU%3D\"}]}","access-control-expose-headers":"*","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","content-length":"1262","date":"Thu, 09 Apr 2026 09:57:27 GMT","content-type":"text/typescript","x-robots-tag":"noindex","x-content-type-options":"nosniff","etag":"\"c78e83cb09d3f801383414bfd10692ec\""},"url":"https://jsr.io/@std/collections/0.224.2/filter_entries.ts","time":1775728647}

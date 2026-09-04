@@ -1,0 +1,45 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { concat } from "jsr:/@std/bytes@^1.0.0-rc.3/concat";
+
+/**
+ * Converts a {@linkcode ReadableStream} of {@linkcode Uint8Array}s to an
+ * {@linkcode ArrayBuffer}. Works the same as {@linkcode Response.arrayBuffer}.
+ *
+ * @param readableStream A `ReadableStream` of `Uint8Array`s to convert into an `ArrayBuffer`.
+ * @returns A promise that resolves with the `ArrayBuffer` containing all the data from the stream.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { toArrayBuffer } from "@std/streams/to-array-buffer";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const stream = ReadableStream.from([
+ *   new Uint8Array([1, 2]),
+ *   new Uint8Array([3, 4, 5]),
+ * ]);
+ * const buf = await toArrayBuffer(stream);
+ * assertEquals(buf.byteLength, 5);
+ * ```
+ */
+export async function toArrayBuffer(
+  readableStream: ReadableStream<Uint8Array>,
+): Promise<ArrayBuffer> {
+  const reader = readableStream.getReader();
+  const chunks: Uint8Array[] = [];
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    chunks.push(value);
+  }
+
+  return concat(chunks).buffer;
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","etag":"\"bfd4fd09269d7e7c414fd94ca135ba6c\"","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:28 GMT","alt-svc":"h3=\":443\"; ma=86400","x-jsr-backend":"modules","vary":"Origin","x-robots-tag":"noindex","x-content-type-options":"nosniff","access-control-expose-headers":"*","content-length":"1252","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mgIpCWJIuuQOb6MAKqn38OuBM33vd0XJtDeyZPFKLkiNDdEEFk%2B2Hbhr6SHtTqgyHF3gsQX%2FYg5VXANHGmRGjpfUJg2uN4ECThIEKkVjYOEcUfoXNhzGeKk%3D\"}]}","cf-ray":"9e98a5d2c91c3992-IAD"},"url":"https://jsr.io/@std/streams/0.224.5/to_array_buffer.ts","time":1775728648}

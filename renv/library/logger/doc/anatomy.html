@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>The Anatomy of a Log Request</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">The Anatomy of a Log Request</h1>
+
+
+
+<p><svg id="svg_2a242bd4cdc6fa86ba67" style="width: 100%;" title="The structure of a logger and the flow of a log record request" alt="The structure of a logger and the flow of a log record request" fill-opacity="1" color-rendering="auto" color-interpolation="auto" text-rendering="auto" stroke="black" stroke-linecap="square" width="924" stroke-miterlimit="10" shape-rendering="auto" stroke-opacity="1" fill="black" stroke-dasharray="none" font-weight="normal" stroke-width="1" height="455" font-family="&#39;Dialog&#39;" font-style="normal" stroke-linejoin="miter" font-size="12px" stroke-dashoffset="0" image-rendering="auto" viewBox="0 0 924 455">
+  <!--Generated by ySVG 2.5-->
+  <defs id="svg_2a242bd4cdc6fa86ba67_genericDefs"></defs>
+  <g>
+    <defs id="svg_2a242bd4cdc6fa86ba67_defs1">
+      <linearGradient x1="419.74" gradientUnits="userSpaceOnUse" x2="499.74" y1="100.96" y2="140.96" id="svg_2a242bd4cdc6fa86ba67_linearGradient1" spreadMethod="reflect">
+        <stop stop-opacity="1" stop-color="rgb(232,238,247)" offset="0%"></stop>
+        <stop stop-opacity="1" stop-color="rgb(183,201,227)" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="405.24" gradientUnits="userSpaceOnUse" x2="514.24" y1="279.0787" y2="360.11" id="svg_2a242bd4cdc6fa86ba67_linearGradient2" spreadMethod="reflect">
+        <stop stop-opacity="1" stop-color="rgb(232,238,247)" offset="0%"></stop>
+        <stop stop-opacity="1" stop-color="rgb(183,201,227)" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="554.3615" gradientUnits="userSpaceOnUse" x2="663.3615" y1="279.0787" y2="360.11" id="svg_2a242bd4cdc6fa86ba67_linearGradient3" spreadMethod="reflect">
+        <stop stop-opacity="1" stop-color="rgb(232,238,247)" offset="0%"></stop>
+        <stop stop-opacity="1" stop-color="rgb(183,201,227)" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="703.483" gradientUnits="userSpaceOnUse" x2="828.483" y1="279.0787" y2="360.11" id="svg_2a242bd4cdc6fa86ba67_linearGradient4" spreadMethod="reflect">
+        <stop stop-opacity="1" stop-color="rgb(232,238,247)" offset="0%"></stop>
+        <stop stop-opacity="1" stop-color="rgb(183,201,227)" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="868.6044" gradientUnits="userSpaceOnUse" x2="993.6044" y1="279.0787" y2="360.11" id="svg_2a242bd4cdc6fa86ba67_linearGradient5" spreadMethod="reflect">
+        <stop stop-opacity="1" stop-color="rgb(232,238,247)" offset="0%"></stop>
+        <stop stop-opacity="1" stop-color="rgb(183,201,227)" offset="100%"></stop>
+      </linearGradient>
+      <linearGradient x1="668.283" gradientUnits="userSpaceOnUse" x2="863.6829" y1="93.1087" y2="149.18" id="svg_2a242bd4cdc6fa86ba67_linearGradient6" spreadMethod="reflect">
+        <stop stop-opacity="1" stop-color="rgb(232,238,247)" offset="0%"></stop>
+        <stop stop-opacity="1" stop-color="rgb(183,201,227)" offset="100%"></stop>
+      </linearGradient>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath1">
+        <path d="M0 0 L924 0 L924 455 L0 455 L0 0 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath2">
+        <path d="M144 52 L1068 52 L1068 507 L144 507 L144 52 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath3">
+        <path d="M-7.8785 -239.991 L916.1215 -239.991 L916.1215 215.009 L-7.8785 215.009 L-7.8785 -239.991 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath4">
+        <path d="M-253.24 -193.11 L670.76 -193.11 L670.76 261.89 L-253.24 261.89 L-253.24 -193.11 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath5">
+        <path d="M144 279.0787 L144 507 L1068 507 L1068 279.0787 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath6">
+        <path d="M144 52 L144 279.0787 L1068 279.0787 L1068 52 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath7">
+        <path d="M-402.3615 -193.11 L521.6385 -193.11 L521.6385 261.89 L-402.3615 261.89 L-402.3615 -193.11 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath8">
+        <path d="M-551.483 -193.11 L372.5171 -193.11 L372.5171 261.89 L-551.483 261.89 L-551.483 -193.11 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath9">
+        <path d="M-716.6044 -193.11 L207.3956 -193.11 L207.3956 261.89 L-716.6044 261.89 L-716.6044 -193.11 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath10">
+        <path d="M-516.283 -7.14 L407.717 -7.14 L407.717 447.86 L-516.283 447.86 L-516.283 -7.14 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath11">
+        <path d="M144 93.1087 L144 507 L1068 507 L1068 93.1087 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath12">
+        <path d="M144 52 L144 93.1087 L1068 93.1087 L1068 52 Z" />
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="svg_2a242bd4cdc6fa86ba67_clipPath13">
+        <path d="M-320.2168 -324.5845 L450.2848 -324.5845 L450.2848 54.8292 L-320.2168 54.8292 L-320.2168 -324.5845 Z" />
+      </clipPath>
+    </defs>
+    <g fill="white" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="translate(-144,-52)" stroke="white">
+      <rect x="144" width="924" height="455" y="52" clip-path="url(#clipPath2)" stroke="none" />
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,7.8785,239.991)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath3)" width="226" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOIAAAA9CAYAAACweLUtAAAB+ElEQVR42u3d0U7j
+MBBA0ZCUQkmTBv7/YzcRY5iGLdpi78OuzpWuKhXJPN06dh6m6wAAAAAAAAAA9/MQ
+9iT/2NJNswi3RYfVQ/hI8qalkyEF2STCbfGn1efVU/KZ5If7Np6ineoY+yh7W3Rc
+nVbncCL5rWO0c4iWfrwbDlH1tuBl9TV5IXnlEuZGxmho+Omu+JB2wykWfovPxa8d
++cU5BVlamdKuWBXiKYVYKj87I5JfzocvsQPOqZc5/lYV4mMKcdlF6HaMvPaY7lPK
+zjinXpqEeIlFX+If5vckJN/PgaWZOTVTHWI5I55jwXN63gVw+4LznN4uNDkjChEQ
+IiBEIQJCBIQoRECIgBCFCAgREKIQASECQhQiIERAiEIEhAgIUYiAEAEhChEQIiBE
+IQJCBIQoRECIgBCFCAgREKIQASECQhQiIERAiEIE/tEQ92PZpq5yxBTwH9N311O2
+m41luzUfscwE70l+uEV47P7SfEQTg8n6icFNzohbiGUmeI7R7HTy3VM8LY4RX+ll
+bnlZU0J8i88lviP56Zx2wtJKk8uaIbbbstW+7nZGkp8uYW5kjIaGmgvOfAs07sr3
+C0h+75h2w772vUi+DSrPwidnRPK358TcxTFFWP26r8Q4xKIHt2PkTQ/JoVWE+yBJ
+3icAAAAAAAAA4G5+AYl+hEQBLQOzAAAAAElFTkSuQmCC" height="61" preserveAspectRatio="none"></image>
+      <path stroke-linecap="butt" transform="matrix(1,0,0,1,-151.8785,-291.991)" clip-path="url(#clipPath2)" fill="none" image-rendering="auto" d="M159.8785 299.991 L365.1185 299.991 L365.1185 339.991 L159.8785 339.991 Z" stroke-miterlimit="1.45" />
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="monospace" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="172.1909" xml:space="preserve" y="324.1453" clip-path="url(#clipPath2)" stroke="none">log_info(&#39;Hello, {name}&#39;)</text>
+    </g>
+    <g fill="url(#linearGradient1)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-144,-52)" stroke="url(#linearGradient1)">
+      <path d="M419.74 100.96 L499.74 100.96 L499.74 140.96 L419.74 140.96 Z" stroke="none" clip-path="url(#clipPath2)" />
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <path fill="none" d="M419.74 100.96 L499.74 100.96 L499.74 140.96 L419.74 140.96 Z" clip-path="url(#clipPath2)" />
+      <text x="433.7068" xml:space="preserve" y="125.1143" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">/dev/null</text>
+    </g>
+    <g fill="rgb(245,245,245)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-144,-52)" stroke="rgb(245,245,245)">
+      <rect x="381.28" y="161.8441" clip-path="url(#clipPath2)" width="633.0844" rx="4" ry="4" height="268.0709" stroke="none" />
+    </g>
+    <g fill="rgb(235,235,235)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-144,-52)" stroke="rgb(235,235,235)">
+      <rect x="381.28" width="633.0844" height="21.4609" y="161.8441" clip-path="url(#clipPath2)" stroke="none" />
+    </g>
+    <g font-size="15px" stroke-linecap="butt" transform="matrix(1,0,0,1,-144,-52)" text-rendering="geometricPrecision" font-family="monospace" shape-rendering="geometricPrecision" stroke-miterlimit="1.45">
+      <text x="958.1799" xml:space="preserve" y="177.7674" clip-path="url(#clipPath2)" stroke="none">logger</text>
+      <rect x="381.28" y="161.8441" clip-path="url(#clipPath2)" fill="none" width="633.0844" rx="4" ry="4" height="268.0709" />
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,253.24,193.11)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath4)" width="130" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACACAYAAADHy7H2AAADLUlEQVR42u3Ya08T
+QRiG4Z52S0sp5VRKKSipFiigopxFDiJa9P//H59Jnk0aE2PSXeKQ3G9yfe0mnXtn
+pi2VGIZhGIZhGIZhip6yVRClbH2eNYDwoJokklodUcjWI6xNdSqKZwkgPLAhLWnL
+IqIR1mNB5r1GqYMoLIYsgoYftiLr0pdNGSAKYS02pCvLflnrXrtyEbtBFkFHevJK
+3sq+HCAaY9mToWw7iLZjqBaxG9T9gT0/5FA+yblcIhoXcibHjmJH1rwzJHl2hWw3
+aMqqvJYjB3AjX+UBUbmTazl1DFuyJHN+qWcOIfEFJJw9u37ArTzKRJ4QlR8O4to7
+w9C7QjPP8ZAdCx2XFY6EKz8oPPQXovPTMdz5mBj5SG95d585hDlvLeGC+N6lPfqB
+fPFxhjDxsX3hy2Pfu3ruEJZ9P/ggXwjhRYWwTwiEQAiEQAiEQAggBBACCAGEAEIA
+IYAQQAggBBACCAH5TIcwngohIQRCIARCIARCIARCIAQQAggBhABCwL/+WRzzzyIh
+8BczIRACIRACCAGEAEIAIYAQQAggBBACCAGEAEIAIYAQQAggBBACCAGEAEIAIYAQ
+QAggBBACCAGEAEIAIYAQ+NIJgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAI
+gRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRBACCAEEAIIAYQAQgAh
+gBBACCAEEAIIAYQAQgAhgBDwokJYkm15J9fyjRCiD+FezmVPNooIoS6LMpADuXRt
+T8QQpbAu3+VWTmUk6zKfN4TUNfVkV07kxsfDBNEJETzIZzmWoaxJU6qzhlB2ReFD
+Vn1POPKWc+Od4QHRCOtx5+M7vLBj2ZKOd/ZKKcdU/SFt7wpDx3Diy0g4Kq4QhbAW
+Z/LREexIV1qS+MUu5d0VGi6r551h5IcdIhoH/pXwxpf7rl/gep5j4c+7Qs2/IMIH
+r/gC0vclcuAtCP9PWINNr0nXP/kXpiIolwqaLIbUu0PLUSwiGm0v/rxf2rToCKaP
+iYo/vOZzJ0VUEq9N1WtVeAR/CwPxYRiGYRiGYRiGeYb5DY/SiPyNKcC+AAAAAElF
+TkSuQmCC" height="128" preserveAspectRatio="none"></image>
+      <rect x="405.24" y="253.11" transform="matrix(1,0,0,1,-397.24,-245.11)" clip-path="url(#clipPath5)" fill="url(#linearGradient2)" width="109" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect x="405.24" y="253.11" transform="matrix(1,0,0,1,-397.24,-245.11)" clip-path="url(#clipPath6)" fill="rgb(183,201,227)" width="109" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect stroke-linecap="butt" x="405.24" y="253.11" transform="matrix(1,0,0,1,-397.24,-245.11)" clip-path="url(#clipPath2)" fill="none" width="109" image-rendering="auto" rx="4" ry="4" height="107" stroke-miterlimit="1.45" />
+      <line stroke-linecap="butt" transform="matrix(1,0,0,1,-397.24,-245.11)" clip-path="url(#clipPath2)" fill="none" x1="405.24" x2="514.24" y1="279.0788" image-rendering="auto" y2="279.0788" stroke-miterlimit="1.45"></line>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="monospace" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="412.78" xml:space="preserve" y="270.2487" clip-path="url(#clipPath2)" stroke="none">log_threshold</text>
+      <text x="409.24" xml:space="preserve" y="296.2174" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Throws away</text>
+      <text x="409.24" xml:space="preserve" y="310.1862" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">low level log</text>
+      <text x="409.24" xml:space="preserve" y="324.1549" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">requests</text>
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,402.3615,193.11)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath7)" width="130" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACACAYAAADHy7H2AAADLUlEQVR42u3Ya08T
+QRiG4Z52S0sp5VRKKSipFiigopxFDiJa9P//H59Jnk0aE2PSXeKQ3G9yfe0mnXtn
+pi2VGIZhGIZhGIZhip6yVRClbH2eNYDwoJokklodUcjWI6xNdSqKZwkgPLAhLWnL
+IqIR1mNB5r1GqYMoLIYsgoYftiLr0pdNGSAKYS02pCvLflnrXrtyEbtBFkFHevJK
+3sq+HCAaY9mToWw7iLZjqBaxG9T9gT0/5FA+yblcIhoXcibHjmJH1rwzJHl2hWw3
+aMqqvJYjB3AjX+UBUbmTazl1DFuyJHN+qWcOIfEFJJw9u37ArTzKRJ4QlR8O4to7
+w9C7QjPP8ZAdCx2XFY6EKz8oPPQXovPTMdz5mBj5SG95d585hDlvLeGC+N6lPfqB
+fPFxhjDxsX3hy2Pfu3ruEJZ9P/ggXwjhRYWwTwiEQAiEQAiEQAggBBACCAGEAEIA
+IYAQQAggBBACCAH5TIcwngohIQRCIARCIARCIARCIAQQAggBhABCwL/+WRzzzyIh
+8BczIRACIRACCAGEAEIAIYAQQAggBBACCAGEAEIAIYAQQAggBBACCAGEAEIAIYAQ
+QAggBBACCAGEAEIAIYAQ+NIJgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAI
+gRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRAIgRBACCAEEAIIAYQAQgAh
+gBBACCAEEAIIAYQAQgAhgBDwokJYkm15J9fyjRCiD+FezmVPNooIoS6LMpADuXRt
+T8QQpbAu3+VWTmUk6zKfN4TUNfVkV07kxsfDBNEJETzIZzmWoaxJU6qzhlB2ReFD
+Vn1POPKWc+Od4QHRCOtx5+M7vLBj2ZKOd/ZKKcdU/SFt7wpDx3Diy0g4Kq4QhbAW
+Z/LREexIV1qS+MUu5d0VGi6r551h5IcdIhoH/pXwxpf7rl/gep5j4c+7Qs2/IMIH
+r/gC0vclcuAtCP9PWINNr0nXP/kXpiIolwqaLIbUu0PLUSwiGm0v/rxf2rToCKaP
+iYo/vOZzJ0VUEq9N1WtVeAR/CwPxYRiGYRiGYRiGeYb5DY/SiPyNKcC+AAAAAElF
+TkSuQmCC" height="128" preserveAspectRatio="none"></image>
+      <rect x="554.3615" y="253.11" transform="matrix(1,0,0,1,-546.3615,-245.11)" clip-path="url(#clipPath5)" fill="url(#linearGradient3)" width="109" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect x="554.3615" y="253.11" transform="matrix(1,0,0,1,-546.3615,-245.11)" clip-path="url(#clipPath6)" fill="rgb(183,201,227)" width="109" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect stroke-linecap="butt" x="554.3615" y="253.11" transform="matrix(1,0,0,1,-546.3615,-245.11)" clip-path="url(#clipPath2)" fill="none" width="109" image-rendering="auto" rx="4" ry="4" height="107" stroke-miterlimit="1.45" />
+      <line stroke-linecap="butt" transform="matrix(1,0,0,1,-546.3615,-245.11)" clip-path="url(#clipPath2)" fill="none" x1="554.3615" x2="663.3615" y1="279.0788" image-rendering="auto" y2="279.0788" stroke-miterlimit="1.45"></line>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="monospace" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="561.9015" xml:space="preserve" y="270.2487" clip-path="url(#clipPath2)" stroke="none">log_formatter</text>
+      <text x="558.3615" xml:space="preserve" y="296.2174" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Converts the R </text>
+      <text x="558.3615" xml:space="preserve" y="310.1862" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">objects to be</text>
+      <text x="558.3615" xml:space="preserve" y="324.1549" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">logged into a </text>
+      <text x="558.3615" xml:space="preserve" y="338.1237" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">character vector</text>
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,551.4829,193.11)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath8)" width="146" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJIAAACACAYAAADgZTAeAAADJklEQVR42u3X205T
+QRiG4UJp2QgVNAhSVIxKcJuogFaNG9yh3v/9+K/ka8KJJ7YeMD5/8pyuSTpvZqa9
+njHGGGOMMcaYtmYhFmnSdH//aUDdQktlUIaxTBOm+9ntbf9CVP8koG7B1bJeRuUq
+zej2c6NcyR4PE9TcYppGtJrFrpedslfGZZ8mdHt5s9wo13JYLGfvF+ZxGnUfWimb
+ZbfcKQ/Kw/KYZjwqR+VeuZ2gRompP4/TaDkf3M0iT8rL8qpMaMbrclqeJ6q7ZTsn
+02CWU2l6Gq3lOjsoTxPQ+3JWPtOUj+VdOUlMt8pWbqTFWUIa5AHWnUaH5bh8KF/L
+eflBU74nqC6mF7mBtvMA789yrQ3zoh/nHp1koW7RXzTnZ2L6lJvnKA/wjdxOM72P
+NnPEddfa25xGP/3ozTrPYTHJ4THOG3kwj5C6V/wzIf1XIb3JH6v93EpCQkgICSEJ
+SUhCQkgICSEJCSEhJIQkJCEJCSEhJIQkJCEJCSEhJIQkJCEJCSEhJIQkJISEkBCS
+kIQkJISEkBCSkIQkJISEkBCSkBASQkJICElICAkhISQhCUlICAkhISQhCUlICAkh
+ISQhISSEhJAQkpAQEkJCSEISkpAQEkJCSEISkpAQEkJCSEJCSAgJISEkISEkhISQ
+hCQkISEkhISQhCQkISEkhISQhISQEBJC8oMLSUgICSEhJCEJSUgICSEhJCEJSUgI
+CSEhJCEhJC5XSLfK03z8i5CaD+msTMqjMi6jWUMa5iPjfPR1FjkXU5O6Pf1WPpbT
+clR2y3pZ+tuQFlLhej52WI7L+1xv5zTne661d+V5uV+2y1rpzxLSUj5yvRzkenuV
+mM6yKG3o9vNTIjrJDdQ9abbKSm6o3qzvpFFOpXuJ6TjX3CTvJi6/SQ6JF4nobrmR
+G2mQg6U366m0mkf3bk6mwyz2hGY8Lg9znd1ORKMcJP3eHGYxMa3kw901t1P28tdw
+P0cgl9d+/lDtJaBrZeNCRAu9Oc00pmFOp/VEdZVmjBLPlRwaw3lHdPGaW8zHl3Jv
+DmnKIHvbz17PPaI/hUV7jDHGGGOMMcY0N78BCJqDZOCjlbMAAAAASUVORK5CYII=" height="128" preserveAspectRatio="none"></image>
+      <rect x="703.4829" y="253.11" transform="matrix(1,0,0,1,-695.4829,-245.11)" clip-path="url(#clipPath5)" fill="url(#linearGradient4)" width="125" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect x="703.4829" y="253.11" transform="matrix(1,0,0,1,-695.4829,-245.11)" clip-path="url(#clipPath6)" fill="rgb(183,201,227)" width="125" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect stroke-linecap="butt" x="703.4829" y="253.11" transform="matrix(1,0,0,1,-695.4829,-245.11)" clip-path="url(#clipPath2)" fill="none" width="125" image-rendering="auto" rx="4" ry="4" height="107" stroke-miterlimit="1.45" />
+      <line stroke-linecap="butt" transform="matrix(1,0,0,1,-695.4829,-245.11)" clip-path="url(#clipPath2)" fill="none" x1="703.4829" x2="828.4829" y1="279.0788" image-rendering="auto" y2="279.0788" stroke-miterlimit="1.45"></line>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="735.1158" xml:space="preserve" y="270.2487" clip-path="url(#clipPath2)" stroke="none">log_layout</text>
+      <text x="707.483" xml:space="preserve" y="296.2174" clip-path="url(#clipPath2)" stroke="none">Render actual</text>
+      <text x="707.483" xml:space="preserve" y="310.1862" clip-path="url(#clipPath2)" stroke="none">log record(s)</text>
+      <text x="707.483" xml:space="preserve" y="324.1549" clip-path="url(#clipPath2)" stroke="none">from the message</text>
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,716.6044,193.11)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath9)" width="146" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJIAAACACAYAAADgZTAeAAADJklEQVR42u3X205T
+QRiG4UJp2QgVNAhSVIxKcJuogFaNG9yh3v/9+K/ka8KJJ7YeMD5/8pyuSTpvZqa9
+njHGGGOMMcaYtmYhFmnSdH//aUDdQktlUIaxTBOm+9ntbf9CVP8koG7B1bJeRuUq
+zej2c6NcyR4PE9TcYppGtJrFrpedslfGZZ8mdHt5s9wo13JYLGfvF+ZxGnUfWimb
+ZbfcKQ/Kw/KYZjwqR+VeuZ2gRompP4/TaDkf3M0iT8rL8qpMaMbrclqeJ6q7ZTsn
+02CWU2l6Gq3lOjsoTxPQ+3JWPtOUj+VdOUlMt8pWbqTFWUIa5AHWnUaH5bh8KF/L
+eflBU74nqC6mF7mBtvMA789yrQ3zoh/nHp1koW7RXzTnZ2L6lJvnKA/wjdxOM72P
+NnPEddfa25xGP/3ozTrPYTHJ4THOG3kwj5C6V/wzIf1XIb3JH6v93EpCQkgICSEJ
+SUhCQkgICSEJCSEhJIQkJCEJCSEhJIQkJCEJCSEhJIQkJCEJCSEhJIQkJISEkBCS
+kIQkJISEkBCSkIQkJISEkBCSkBASQkJICElICAkhISQhCUlICAkhISQhCUlICAkh
+ISQhISSEhJAQkpAQEkJCSEISkpAQEkJCSEISkpAQEkJCSEJCSAgJISEkISEkhISQ
+hCQkISEkhISQhCQkISEkhISQhISQEBJC8oMLSUgICSEhJCEJSUgICSEhJCEJSUgI
+CSEhJCEhJC5XSLfK03z8i5CaD+msTMqjMi6jWUMa5iPjfPR1FjkXU5O6Pf1WPpbT
+clR2y3pZ+tuQFlLhej52WI7L+1xv5zTne661d+V5uV+2y1rpzxLSUj5yvRzkenuV
+mM6yKG3o9vNTIjrJDdQ9abbKSm6o3qzvpFFOpXuJ6TjX3CTvJi6/SQ6JF4nobrmR
+G2mQg6U366m0mkf3bk6mwyz2hGY8Lg9znd1ORKMcJP3eHGYxMa3kw901t1P28tdw
+P0cgl9d+/lDtJaBrZeNCRAu9Oc00pmFOp/VEdZVmjBLPlRwaw3lHdPGaW8zHl3Jv
+DmnKIHvbz17PPaI/hUV7jDHGGGOMMcY0N78BCJqDZOCjlbMAAAAASUVORK5CYII=" height="128" preserveAspectRatio="none"></image>
+      <rect x="868.6044" y="253.11" transform="matrix(1,0,0,1,-860.6044,-245.11)" clip-path="url(#clipPath5)" fill="url(#linearGradient5)" width="125" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect x="868.6044" y="253.11" transform="matrix(1,0,0,1,-860.6044,-245.11)" clip-path="url(#clipPath6)" fill="rgb(183,201,227)" width="125" image-rendering="auto" rx="4" ry="4" height="107" stroke="none" />
+      <rect stroke-linecap="butt" x="868.6044" y="253.11" transform="matrix(1,0,0,1,-860.6044,-245.11)" clip-path="url(#clipPath2)" fill="none" width="125" image-rendering="auto" rx="4" ry="4" height="107" stroke-miterlimit="1.45" />
+      <line stroke-linecap="butt" transform="matrix(1,0,0,1,-860.6044,-245.11)" clip-path="url(#clipPath2)" fill="none" x1="868.6044" x2="993.6044" y1="279.0788" image-rendering="auto" y2="279.0788" stroke-miterlimit="1.45"></line>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="monospace" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="887.7568" xml:space="preserve" y="270.2487" clip-path="url(#clipPath2)" stroke="none">log_appender</text>
+      <text x="872.6044" xml:space="preserve" y="296.2174" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Deliver log record</text>
+      <text x="872.6044" xml:space="preserve" y="310.1862" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">to destination</text>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <rect fill="none" x="446.7707" width="175.06" height="18.48" y="396.435" clip-path="url(#clipPath2)" />
+      <text x="452.8613" xml:space="preserve" y="409.8293" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">message &lt;- &quot;Hello, world!&quot;</text>
+      <rect fill="none" x="466.12" width="306.84" height="18.48" y="198.305" clip-path="url(#clipPath2)" />
+      <text x="470.9345" xml:space="preserve" y="211.6993" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">line &lt;- &quot;INFO [2019-09-19 04:58:13] {message}&quot;</text>
+      <rect fill="none" x="773.0341" width="151.0193" height="18.48" y="396.435" clip-path="url(#clipPath2)" />
+      <text x="779.3181" xml:space="preserve" y="409.8293" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">cat(line, file = stderr())</text>
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,516.2829,7.14)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath10)" width="216" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANgAAABnCAYAAABivIxNAAADVUlEQVR42u3cb09T
+dxjH4bZCC3VA3ZiCiOCfuUVBjGJEMM6ALOLe//vxPtn3JM0eLW3JktPrTq6H9CTN
+75P7nJNqr2eMMcYYY4wxxhhjjDGLnn4M4g502GBKe/ZvLazmIitltQzLKNagg9rz
+PcyZX0l0/dsKq7nYuPxUtsok7kEHtee7OesbOfujtDBYVGhtXOtls/xSHpS9sl8e
+Q4ft56zvlO3ENs5GGyxie61kXU5ykcPyorwsR+U1dNhRznpz5p+U3Wy39bTRn3d7
+jbK5mrieleNyWs7KebmADjvPWT9NcL+Vh1k4a/NssXZ7jXNbeJi4mov9WS7L17iG
+DmrP91XO/MfyJovmfrmbRmYObDUPdztZkae50F/lJr5Dh7XnvDnzX8qH3DLu5Xls
+OOtt4iB/vJUPe5WCr3LBv2GJ3GSbfSon5SDPYqNZbxPb569J3qQc5570OmX70lkm
+37PFPpe35WkendYWEdjjPOAJjGUPrHlEepfnMIGBwEBgAkNgAgOBgcAEBgIDgYHA
+BAYCA4GBwAQGAgOBgcAEBgsIrPmX/c97//wvU+sCA4GBwASGwAQGAgOBCQwEBgID
+gQkM/usvObb9kgP8VAoEJjAEJjAQGAhMYCAwEBgITGAgMBAYCExgIDAQGAhMYCAw
+EJgvHYEJDAQGAhMYAhMYCAwEJjAQGAgMBCYwEBgIDAQmMBAYCAwEJjAQGAgMBCYw
+EBgITGAITGAgMBCYwEBgIDAQmMBAYCAwEJjA4P8PbL8cl/PyVWAsaWDNcvlc3pan
+5ed5AxuWrbJXXpWzclVufOEsWVzfslw+lZNyUO5lCc0c2GrZKDvl93KaFXmdC97A
+EviWM/+lfCgvs3Q2s4T6swTW/NFKGZft8iS3iWeJ7DJFQ9dd5sx/LG/y/HW/3E0j
+M8+drMCm1N3yPC873udiF1mZ0FUXOevvc2v4IttrMs/z17+32Ho+cDebrLldPEps
+J9Bhr3PW/8iLjYd5uTFOG/3enDOYimwzt4tNaI/y+r552DuEDjrIGX+UM/9rXvqN
+835i0FvQtJGN8uEbudAkb1KgqyY56xs5+6O0sLC4pm8X29BW8/ZkBEtgmDPfhtXv
+3fL0pwygw6bPujHGGGOMMcYYY4wxxix4fgDQ5KqqhYr/cAAAAABJRU5ErkJggg==" height="103" preserveAspectRatio="none"></image>
+      <rect x="668.2829" y="67.14" transform="matrix(1,0,0,1,-660.2829,-59.14)" clip-path="url(#clipPath11)" fill="url(#linearGradient6)" width="195.4" image-rendering="auto" rx="4" ry="4" height="82.04" stroke="none" />
+      <rect x="668.2829" y="67.14" transform="matrix(1,0,0,1,-660.2829,-59.14)" clip-path="url(#clipPath12)" fill="rgb(183,201,227)" width="195.4" image-rendering="auto" rx="4" ry="4" height="82.04" stroke="none" />
+      <rect stroke-linecap="butt" x="668.2829" y="67.14" transform="matrix(1,0,0,1,-660.2829,-59.14)" clip-path="url(#clipPath2)" fill="none" width="195.4" image-rendering="auto" rx="4" ry="4" height="82.04" stroke-miterlimit="1.45" />
+      <line stroke-linecap="butt" transform="matrix(1,0,0,1,-660.2829,-59.14)" clip-path="url(#clipPath2)" fill="none" x1="668.2829" x2="863.6829" y1="93.1088" image-rendering="auto" y2="93.1088" stroke-miterlimit="1.45"></line>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="685.1207" xml:space="preserve" y="84.2787" clip-path="url(#clipPath2)" stroke="none">get_logger_meta_variables</text>
+      <text x="672.283" xml:space="preserve" y="110.2474" clip-path="url(#clipPath2)" stroke="none">Collect useful information</text>
+      <text x="672.283" xml:space="preserve" y="124.2162" clip-path="url(#clipPath2)" stroke="none">about the environment of</text>
+      <text x="672.283" xml:space="preserve" y="138.1849" clip-path="url(#clipPath2)" stroke="none">the log record request.</text>
+    </g>
+    <g text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1.1992,0,0,1.1992,384.01,389.2478)" image-rendering="optimizeQuality">
+      <image x="0" y="0" clip-path="url(#clipPath13)" width="276" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAA2CAYAAAAGY2bwAAAB6ElEQVR42u3dzWrD
+MBAA4cTOn+3Yyfs/bW1Y0SXQS6xDkb+BoRCoetpBUgo6nQAAAAAAAAAAANA2Z5KH
+tlpIutU+vJA8lH004FwrJtuit9U7ycO5zf41wrIrKiUm26LD6rT6DCeSTZvnfIiw
+fB2Vc/zytsi4Oq++kjPJZl3CMu9bXB6xU9kVlHssti36jp+LXQrZ/O5kSXO/xMbi
+FieXr4JyiSo9P3YmU3xOsk3LFcecNhFTzaAssfiYtj5uwMk2vcWcT+n4M8WJpa8R
+lPnjHNX5Xp5s1nJ/OqT53x2UcodSzlRjuukF0PY/sl7+mP+vjzyCAgiKoAAQFACC
+AkBQBAWAoAAQFACCIiiAoAgKAEEBICgABEVQAAgKAEEBICiCAgiKoAAQFACCAkBQ
+BAWAoAAQFACCIiiAoAgKgH8QlM+HvsoTpB76Io/x0Nfn/Fd/OXBIu5SOZJOW3ckY
+s5+DUu1t4/K+aYkKyTa9n36fIc2zX+UOZVv0Fc7pPDWQbNIpxeQVP6teym4LvsPy
+B2aSTbqkTcQ7PhvS/elXdLFAvkdZxIQ8RFDyrJf7k0tsNk57dinXdKYaHXfI5s1z
+/kgx6fYEpUSl3PpeQ5dWZPtek32NmOSonH2VRh7WKiEBAAAAAAAAAADAf+QHNUyH
+MDwm55oAAAAASUVORK5CYII=" height="54" preserveAspectRatio="none"></image>
+      <path stroke-linecap="butt" transform="matrix(0.8339,0,0,0.8339,-440.295,-367.9461)" clip-path="url(#clipPath2)" fill="none" image-rendering="auto" d="M538.0022 451.24 L844.8422 451.24 L844.8422 491.24 L538.0022 491.24 Z" stroke-miterlimit="1.45" />
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="monospace" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <text x="546.9301" xml:space="preserve" y="475.3943" clip-path="url(#clipPath2)" stroke="none">INFO [2019-09-19 04:58:13] Hello, world!</text>
+    </g>
+    <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-144,-52)" stroke-linecap="butt">
+      <path fill="none" d="M215.36 300.0172 L215.36 266.11 L380.5 266.11 L397.2166 266.11" clip-path="url(#clipPath2)" />
+      <path d="M405.2166 266.11 L393.2166 261.11 L396.2166 266.11 L393.2166 271.11 Z" clip-path="url(#clipPath2)" stroke="none" />
+      <path fill="none" stroke-dasharray="6,2" d="M459.74 253.0815 L459.74 148.9911" clip-path="url(#clipPath2)" />
+      <path stroke-dasharray="6,2" d="M459.74 140.9911 L454.74 152.9911 L459.74 149.9911 L464.74 152.9911 Z" clip-path="url(#clipPath2)" stroke="none" />
+      <path fill="none" d="M461.5 360.1481 L461.5 381.11 L608.8615 381.11 L608.8615 376.11 L608.8615 368.1263" clip-path="url(#clipPath2)" />
+      <path d="M608.8615 360.1263 L603.8615 372.1263 L608.8615 369.1263 L613.8615 372.1263 Z" clip-path="url(#clipPath2)" stroke="none" />
+      <rect x="487.3884" y="372.1256" clip-path="url(#clipPath2)" fill="rgb(255,153,0)" width="105.1445" height="17.9688" stroke="none" />
+      <rect stroke-linecap="square" x="487.3884" y="372.1256" clip-path="url(#clipPath2)" fill="none" width="105.1445" height="17.9688" stroke-miterlimit="1.6" />
+      <text x="489.3884" xml:space="preserve" y="385.2643" clip-path="url(#clipPath2)" font-family="monospace" stroke="none">formatter_glue</text>
+      <path fill="none" d="M608.8615 253.0787 L608.8615 232.081 L747.2 232.081 L747.2 245.1363" clip-path="url(#clipPath2)" />
+      <path d="M747.2 253.1363 L752.2 241.1363 L747.2 244.1363 L742.2 241.1363 Z" clip-path="url(#clipPath2)" stroke="none" />
+      <rect x="629.0708" y="223.0966" clip-path="url(#clipPath2)" fill="rgb(255,153,0)" width="97.9199" height="17.9688" stroke="none" />
+      <rect stroke-linecap="square" x="629.0708" y="223.0966" clip-path="url(#clipPath2)" fill="none" width="97.9199" height="17.9688" stroke-miterlimit="1.6" />
+      <text x="631.0708" xml:space="preserve" y="236.2353" clip-path="url(#clipPath2)" font-family="monospace" stroke="none">layout_simple</text>
+      <path fill="none" d="M765.983 360.0872 L765.983 380.561 L931.1044 380.561 L931.1044 368.0872" clip-path="url(#clipPath2)" />
+      <path d="M931.1044 360.0872 L926.1044 372.0872 L931.1044 369.0872 L936.1044 372.0872 Z" clip-path="url(#clipPath2)" stroke="none" />
+      <rect x="788.7468" y="371.5766" clip-path="url(#clipPath2)" fill="rgb(255,153,0)" width="119.5938" height="17.9688" stroke="none" />
+      <rect stroke-linecap="square" x="788.7468" y="371.5766" clip-path="url(#clipPath2)" fill="none" width="119.5938" height="17.9688" stroke-miterlimit="1.6" />
+      <text x="790.7468" xml:space="preserve" y="384.7153" clip-path="url(#clipPath2)" font-family="monospace" stroke="none">appender_console</text>
+      <path fill="none" d="M781.76 149.1519 L781.76 245.1369" clip-path="url(#clipPath2)" />
+      <path d="M781.76 253.1369 L786.76 241.1369 L781.76 244.1369 L776.76 241.1369 Z" clip-path="url(#clipPath2)" stroke="none" />
+      <path fill="none" d="M993.5966 306.61 L1052.8199 306.61 L1052.8199 471.24 L852.8134 471.24" clip-path="url(#clipPath2)" />
+      <path d="M844.8134 471.24 L856.8134 476.24 L853.8134 471.24 L856.8134 466.24 Z" clip-path="url(#clipPath2)" stroke="none" />
+    </g>
+  </g>
+</svg></p>
+<p>To make a successful log record, <code>logger</code> requires the
+below components:</p>
+<ul>
+<li><p>a <strong>log request</strong>, eg</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">log_error</span>(<span class="st">&#39;Oops&#39;</span>)</span></code></pre></div>
+<ul>
+<li>including the log level (importance) of the record, which will be
+later used to decide if the log record is to be delivered or not:
+<code>ERROR</code> in this case</li>
+<li>R objects to be logged: a simple string in this case, although it
+could be a character vector or any R object(s) that can be converted
+into a character vector by the <code>formatter</code> function</li>
+</ul></li>
+<li><p>the <strong>environment</strong> and meta-information of the log
+request, eg actual timestamp, hostname of the computer, the name of the
+user running the R script, the pid of the R process, calling function
+and the actual call etc.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">get_logger_meta_variables</span>(<span class="at">log_level =</span> INFO)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">f</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; $ns</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; $ans</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;global&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; $topenv</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;R_GlobalEnv&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; $fn</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;f&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; [1] &quot;f()&quot;</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; $location</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; $location$path</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; [1] &quot;&lt;console&gt;&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; $time</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2026-05-08 22:57:14 CEST&quot;</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; $levelr</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; Log level: INFO</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; $level</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; [1] &quot;INFO&quot;</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; $pid</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; [1] 581761</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt; $r_version</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt; [1] &quot;4.5.0&quot;</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt; $ns_pkg_version</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; $node</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; [1] &quot;nevermind&quot;</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt; $arch</span></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">#&gt; [1] &quot;x86_64&quot;</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt; $os_name</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Linux&quot;</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; $os_release</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; [1] &quot;6.12.85+deb13-amd64&quot;</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; $os_version</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; [1] &quot;#1 SMP PREEMPT_DYNAMIC Debian 6.12.85-1 (2026-04-30)&quot;</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; $user</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; [1] &quot;daroczig&quot;</span></span></code></pre></div></li>
+<li><p>a <strong>logger definition</strong> to process the log request,
+including</p>
+<ul>
+<li><p>log level <code>threshold</code>, eg <code>INFO</code>, which
+defines the minimum log level required for actual logging – all log
+requests with lower log level will be thrown away</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">log_threshold</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; Log level: INFO</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>ERROR <span class="sc">&lt;=</span> INFO</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">log_error</span>(<span class="st">&quot;Oops&quot;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; ERROR [2026-05-08 22:57:14] Oops</span></span></code></pre></div></li>
+<li><p><code>formatter</code> function, which takes R objects and
+converts those into actual log message(s) to be then passed to the
+<code>layout</code> function for the log record rendering – such as
+<code>paste</code>, <code>sprintf</code>, <code>glue</code> or eg the
+below custom example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>formatter <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">paste</span>(..., <span class="at">collapse =</span> <span class="st">&quot; &quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">formatter</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1 foo 2 bar 3 foo&quot;</span></span></code></pre></div></li>
+<li><p><code>layout</code> function, which takes log message(s) and
+further information on the log request (such as timestamp, hostname,
+username, calling function etc) to render the actual log records eg
+human-readable text, JSON etc</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="cf">function</span>(level, msg) <span class="fu">toJSON</span>(<span class="at">level =</span> level, <span class="at">timestamp =</span> time, <span class="at">hostname =</span> node, <span class="at">message =</span> msg)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">layout</span>(INFO, <span class="st">&#39;Happy Thursday!&#39;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; {&#39;level&#39;: &#39;INFO&#39;, &#39;timestamp&#39;: &#39;1970-01-01 00:00:00&#39;, &#39;hostname&#39;: &#39;foobar&#39;, &#39;message&#39;: &#39;Happy Thursday!&#39;}</span></span></code></pre></div></li>
+<li><p><code>appender</code> function, which takes fully-rendered log
+record(s) and delivers to somewhere, eg <code>stdout</code>, a file or a
+streaming service, eg</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>appender <span class="ot">&lt;-</span> <span class="cf">function</span>(line) <span class="fu">cat</span>(line, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">appender</span>(<span class="st">&quot;INFO [now] I am a log message&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; INFO [now] I am a log message</span></span></code></pre></div></li>
+</ul></li>
+</ul>
+<p>Putting all these together (by explicitly setting the default config
+in the <code>global</code> namespace):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">log_threshold</span>(INFO)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">log_formatter</span>(formatter_glue)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">log_layout</span>(layout_simple)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">log_appender</span>(appender_stdout)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">log_debug</span>(<span class="st">&quot;I am a low level log message that will not be printed with a high log level threshold&quot;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">log_warn</span>(<span class="st">&quot;I am a higher level log message that is very likely to be printed&quot;</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; WARN [2026-05-08 22:57:14] I am a higher level log message that is very likely to be printed</span></span></code></pre></div>
+<p>Note, that all <code>logger</code> definitions and requests are tied
+to a logging namespace, and one log request might trigger multiple
+<code>logger</code> definitions as well (stacking). Find more
+information on these in the <a href="https://daroczig.github.io/logger/articles/customize_logger.html">Customizing
+the format and destination of log records</a> vignette.</p>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

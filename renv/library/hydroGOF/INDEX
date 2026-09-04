@@ -1,0 +1,51 @@
+APFB                    Annual Peak Flow Bias
+EgaEnEstellaQts         Ega in "Estella" (Q071), ts with daily
+                        streamflows.
+HFB                     High-flows bias
+KGE                     Kling-Gupta Efficiency
+KGEkm                   Kling-Gupta Efficiency with knowable-moments
+KGElf                   Kling-Gupta Efficiency for low values
+KGEnp                   Non-parametric version of the Kling-Gupta
+                        Efficiency
+NSE                     Nash-Sutcliffe Efficiency
+R2                      Coefficient of determination
+VE                      Volumetric Efficiency
+br2                     br2
+cp                      Coefficient of persistence
+d                       Index of Agreement
+dr                      Refined Index of Agreement
+ggof                    Graphical Goodness of Fit
+gof                     Numerical Goodness-of-fit measures
+hydroGOF-package        Goodness-of-fit (GoF) functions for numerical
+                        and graphical comparison of simulated and
+                        observed time series, mainly focused on
+                        hydrological modelling.
+mNSE                    Modified Nash-Sutcliffe efficiency
+mae                     Mean Absolute Error
+md                      Modified Index of Agreement
+me                      Mean Error
+mse                     Mean Squared Error
+nrmse                   Normalized Root Mean Square Error
+pbias                   Percent Bias
+pbiasfdc                Percent Bias in the Slope of the Midsegment of
+                        the Flow Duration Curve
+pfactor                 P-factor
+plot2                   Plotting 2 Time Series
+plotbands               Plot a ts with observed values and two
+                        confidence bounds
+plotbandsonly           Adds uncertainty bounds to an existing plot.
+rNSE                    Relative Nash-Sutcliffe efficiency
+rPearson                Pearson correlation coefficient
+rSD                     Ratio of Standard Deviations
+rSpearman               Spearman's rank correlation coefficient
+rd                      Relative Index of Agreement
+rfactor                 R-factor
+rmse                    Root Mean Square Error
+rsr                     Ratio of RMSE to the standard deviation of the
+                        observations
+sKGE                    Split Kling-Gupta Efficiency
+ssq                     Sum of the Squared Residuals
+ubRMSE                  Unbiased Root Mean Square Error
+valindex                Valid Indexes
+wNSE                    Weighted Nash-Sutcliffe efficiency
+wsNSE                   Weighted seasonal Nash-Sutcliffe Efficiency

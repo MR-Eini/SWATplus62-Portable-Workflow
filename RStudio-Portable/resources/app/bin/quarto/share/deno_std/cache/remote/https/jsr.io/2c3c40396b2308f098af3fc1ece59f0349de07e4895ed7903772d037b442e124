@@ -1,0 +1,37 @@
+{
+  "manifest": {
+    "/mod.ts": {
+      "size": 23011,
+      "checksum": "sha256-cd97b83d57378b01792a662edcb3a9f8d8bac6de65d0773a49daf367e17b2199"
+    },
+    "/deno.json": {
+      "size": 76,
+      "checksum": "sha256-d72c1ba95bdda737170715801a58de06bfda6e7056fcdd02c315af72a12dcc6b"
+    }
+  },
+  "moduleGraph1": {
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "jsr:/@std/assert@^0.224.0/assert-exists",
+          "specifierRange": [
+            [
+              23,
+              29
+            ],
+            [
+              23,
+              70
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "exports": {
+    ".": "./mod.ts"
+  }
+}
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff","x-robots-tag":"noindex","cf-ray":"9e98a5ccaa533992-IAD","access-control-expose-headers":"*","content-type":"application/json","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lhJT51B9u%2Bo49d%2BrWJA7lrqm54tKKk1V9oDX3fR203Bf11I%2BhWozq0SDPy1yV%2FGCsd4VjG%2BvnJHfVu8lZCbgiloqXN0LpFeuFBT0017euqfVLKLAS0GX8Xw%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-jsr-backend":"modules","date":"Thu, 09 Apr 2026 09:57:27 GMT","etag":"W/\"497164a07bd1c4a72babb6731ff46052\"","access-control-allow-origin":"*","vary":"Origin","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/flags/0.224.0_meta.json","time":1775728647}

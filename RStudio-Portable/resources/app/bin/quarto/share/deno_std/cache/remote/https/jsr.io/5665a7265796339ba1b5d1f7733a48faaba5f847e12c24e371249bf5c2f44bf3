@@ -1,0 +1,28 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { Schema } from "../schema.ts";
+import { JSON_SCHEMA } from "./json.ts";
+
+/**
+ * Standard YAML's core schema.
+ *
+ * @see {@link http://www.yaml.org/spec/1.2/spec.html#id2804923}
+ */
+export const CORE_SCHEMA: Schema = new Schema({
+  include: [JSON_SCHEMA],
+});
+
+/**
+ * Standard YAML's core schema.
+ *
+ * @see {@link http://www.yaml.org/spec/1.2/spec.html#id2804923}
+ *
+ * @deprecated This will be removed in 1.0.0. Use {@link CORE_SCHEMA} instead.
+ */
+export const core = CORE_SCHEMA;
+
+// denoCacheMetadata={"headers":{"content-length":"797","etag":"\"f8f8b087826e01f7e545f4b54c38752e\"","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-expose-headers":"*","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","x-jsr-backend":"modules","vary":"Origin","x-content-type-options":"nosniff","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","content-type":"text/typescript","cross-origin-resource-policy":"cross-origin","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pwd3yb4GT84%2FLt81xEMBAb2LmUFA89GgVqAyFoQPmqdxft86w%2Bq5ibmI0keLT1RcXzbM1UTrVXDb9hv%2FJNXG0zlPMi2m42%2Bdqw6G8mY0zp76M5d817giUc4%3D\"}]}","cf-ray":"9e98a5d349973992-IAD"},"url":"https://jsr.io/@std/yaml/0.224.3/schema/core.ts","time":1775728648}

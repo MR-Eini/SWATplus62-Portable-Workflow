@@ -1,0 +1,29 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { extname as posixExtname } from "./posix/extname.ts";
+import { extname as windowsExtname } from "./windows/extname.ts";
+/**
+ * Return the extension of the path with leading period (".").
+ *
+ * @example Usage
+ * ```ts
+ * import { extname } from "@std/path/extname";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * if (Deno.build.os === "windows") {
+ *   assertEquals(extname("C:\\home\\user\\Documents\\image.png"), ".png");
+ * } else {
+ *   assertEquals(extname("/home/user/Documents/image.png"), ".png");
+ * }
+ * ```
+ *
+ * @param path Path with extension.
+ * @returns The file extension. E.g. returns `.ts` for `file.ts`.
+ */
+export function extname(path: string): string {
+  return isWindows ? windowsExtname(path) : posixExtname(path);
+}
+
+// denoCacheMetadata={"headers":{"content-length":"920","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Aku324InEvD%2BXXFVQjiYasK%2FXo%2FIzqgSUfX%2FPatZDKyRFM5V8QaQKFXUq3GBi0X0a3u7%2BrlkyKQbHED7dABr5esX0echpr%2FnvsHp1SfIl7x92Q5sYuPiS48%3D\"}]}","cache-control":"public, max-age=31536000, immutable","access-control-expose-headers":"*","server":"cloudflare","access-control-allow-origin":"*","cf-ray":"9e98a5d4ab453992-IAD","etag":"\"ba7a217ab82ca1905724ff03803bd436\"","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","x-robots-tag":"noindex","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript"},"url":"https://jsr.io/@std/path/1.0.0-rc.2/extname.ts","time":1775728648}

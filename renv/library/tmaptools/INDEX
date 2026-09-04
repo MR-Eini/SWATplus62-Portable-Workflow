@@ -1,0 +1,17 @@
+approx_areas            Approximate area sizes of the shapes
+approx_distances        Approximate distances
+bb                      Bounding box generator
+bb_poly                 Convert bounding box to a spatial polygon
+calc_densities          Calculate densities
+crop_shape              Crop shape object
+geocode_OSM             Geocodes a location using OpenStreetMap
+                        Nominatim
+get_asp_ratio           Get aspect ratio
+get_neighbours          Get neighbours list from spatial objects
+map_coloring            Map coloring
+read_GPX                Read GPX file
+read_osm                Read Open Street Map data
+rev_geocode_OSM         Reverse geocodes a location using OpenStreetMap
+                        Nominatim
+simplify_shape          Simplify shape
+tmaptools-package       Thematic Map Tools

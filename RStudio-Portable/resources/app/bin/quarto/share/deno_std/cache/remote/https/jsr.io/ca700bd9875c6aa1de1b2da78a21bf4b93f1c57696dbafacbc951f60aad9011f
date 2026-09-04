@@ -1,0 +1,62 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * The possible release types are used as an operator for the
+ * increment function and as a result of the difference function.
+ */
+export type ReleaseType =
+  | "pre"
+  | "major"
+  | "premajor"
+  | "minor"
+  | "preminor"
+  | "patch"
+  | "prepatch"
+  | "prerelease";
+
+/**
+ * SemVer comparison operators.
+ */
+export type Operator =
+  | undefined
+  | "="
+  | "!="
+  | ">"
+  | ">="
+  | "<"
+  | "<=";
+
+/**
+ * The shape of a valid semantic version comparator
+ * @example >=0.0.0
+ */
+export interface Comparator extends SemVer {
+  /** The operator */
+  operator?: Operator;
+}
+
+/**
+ * A SemVer object parsed into its constituent parts.
+ */
+export interface SemVer {
+  /** The major version */
+  major: number;
+  /** The minor version */
+  minor: number;
+  /** The patch version */
+  patch: number;
+  /** The prerelease version */
+  prerelease?: (string | number)[];
+  /** The build metadata */
+  build?: string[];
+}
+
+/**
+ * A type representing a semantic version range. The ranges consist of
+ * a nested array, which represents a set of OR comparisons while the
+ * inner array represents AND comparisons.
+ */
+export type Range = Comparator[][];
+
+// denoCacheMetadata={"headers":{"alt-svc":"h3=\":443\"; ma=86400","x-jsr-backend":"modules","cf-ray":"9e98a5d278c13992-IAD","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ckKfPZ9UZTCo9mbCOWf9hx%2FEmXRKl532lmTPiRKPJc4%2BkeqiaVTvvjH%2B2ijhj0fK8mnDuzyW9pTYS1zToefFYwvB4R7FWwhB9fFfxmgmRGIgVZdvDLWpl%2Bs%3D\"}]}","server":"cloudflare","access-control-allow-origin":"*","content-type":"text/typescript","x-robots-tag":"noindex","access-control-expose-headers":"*","vary":"Origin","etag":"\"ed6185b2bc7998d9a101bdfb4f4deaa2\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","content-length":"1256","cache-control":"public, max-age=31536000, immutable","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/semver/0.224.3/types.ts","time":1775728648}

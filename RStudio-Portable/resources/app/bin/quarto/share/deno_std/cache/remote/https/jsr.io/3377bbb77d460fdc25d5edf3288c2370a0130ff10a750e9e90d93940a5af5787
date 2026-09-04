@@ -1,0 +1,49 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Stringify an object into a valid `.env` file format.
+ *
+ * @example Usage
+ * ```ts
+ * import { stringify } from "@std/dotenv/stringify";
+ * import { assertEquals } from "@std/assert";
+ *
+ * const object = { GREETING: "hello world" };
+ * assertEquals(stringify(object), "GREETING='hello world'");
+ * ```
+ *
+ * @param object object to be stringified
+ * @returns string of object
+ */
+export function stringify(object: Record<string, string>): string {
+  const lines: string[] = [];
+  for (const [key, value] of Object.entries(object)) {
+    let quote;
+
+    let escapedValue = value ?? "";
+    if (key.startsWith("#")) {
+      console.warn(
+        `key starts with a '#' indicates a comment and is ignored: '${key}'`,
+      );
+      continue;
+    } else if (escapedValue.includes("\n")) {
+      // escape inner new lines
+      escapedValue = escapedValue.replaceAll("\n", "\\n");
+      quote = `"`;
+    } else if (escapedValue.match(/\W/)) {
+      quote = "'";
+    }
+
+    if (quote) {
+      // escape inner quotes
+      escapedValue = escapedValue.replaceAll(quote, `\\${quote}`);
+      escapedValue = `${quote}${escapedValue}${quote}`;
+    }
+    const line = `${key}=${escapedValue}`;
+    lines.push(line);
+  }
+  return lines.join("\n");
+}
+
+// denoCacheMetadata={"headers":{"content-length":"1359","content-type":"text/typescript","etag":"\"67e50df9b57848466d9dcc46021d7d29\"","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7GdAZeOo9JYIXi7CIQt4OqGbcIgrSJ3Hr3T7G%2F7tV%2FJywTDsCgFPslgJMhJeomMdOFJ11PhcYwxJ8PW61hdOhpi4GdVGNILymUcFNIsgyAYuvOZTphvgLwo%3D\"}]}","cf-ray":"9e98a5d02e7b3992-IAD","date":"Thu, 09 Apr 2026 09:57:27 GMT","server":"cloudflare","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","access-control-allow-origin":"*","vary":"Origin"},"url":"https://jsr.io/@std/dotenv/0.224.2/stringify.ts","time":1775728647}

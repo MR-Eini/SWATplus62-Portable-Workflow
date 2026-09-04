@@ -1,0 +1,111 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/** Options for {@linkcode joinToString}. */
+export type JoinToStringOptions = {
+  /**
+   * The string to use as a separator between the elements.
+   *
+   * @default {","}
+   */
+  separator?: string;
+  /**
+   * The string to use as a prefix for the resulting string.
+   *
+   * @default {""}
+   */
+  prefix?: string;
+  /**
+   * The string to use as a suffix for the resulting string.
+   *
+   * @default {""}
+   */
+  suffix?: string;
+  /**
+   * The maximum number of elements to append. If the value is negative, all
+   * elements will be appended, which is the default.
+   *
+   * @default {-1}
+   */
+  limit?: number;
+  /**
+   * The string to use as a placeholder for the truncated elements.
+   *
+   * @default {"..."}
+   */
+  truncated?: string;
+};
+
+/**
+ * Transforms the elements in the given array to strings using the given
+ * selector. Joins the produced strings into one using the given `separator`
+ * and applying the given `prefix` and `suffix` to the whole string afterwards.
+ *
+ * If the array could be huge, you can specify a non-negative value of `limit`,
+ * in which case only the first `limit` elements will be appended, followed by
+ * the `truncated` string.
+ *
+ * @template T The type of the elements in the input array.
+ *
+ * @param array The array to join elements from.
+ * @param selector The function to transform elements to strings.
+ * @param options The options to configure the joining.
+ *
+ * @returns The resulting string.
+ *
+ * @example Usage with options
+ * ```ts
+ * import { joinToString } from "@std/collections/join-to-string";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const users = [
+ *   { name: "Kim" },
+ *   { name: "Anna" },
+ *   { name: "Tim" },
+ * ];
+ *
+ * const message = joinToString(users, (user) => user.name, {
+ *   suffix: " are winners",
+ *   prefix: "result: ",
+ *   separator: " and ",
+ *   limit: 1,
+ *   truncated: "others",
+ * });
+ *
+ * assertEquals(message, "result: Kim and others are winners");
+ * ```
+ */
+export function joinToString<T>(
+  array: Iterable<T>,
+  selector: (el: T) => string,
+  options: Readonly<JoinToStringOptions> = {},
+): string {
+  const {
+    separator = ",",
+    prefix = "",
+    suffix = "",
+    limit = -1,
+    truncated = "...",
+  } = options;
+
+  let result = "";
+
+  let index = 0;
+  for (const el of array) {
+    if (index > 0) {
+      result += separator;
+    }
+
+    if (limit >= 0 && index >= limit) {
+      result += truncated;
+      break;
+    }
+
+    result += selector(el);
+    index++;
+  }
+
+  return prefix + result + suffix;
+}
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","x-robots-tag":"noindex","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H8GRaG6nxtnER0qSz00mboRjU%2F1zDfK9y4Efsz%2BklRRt2brdb4VxGxNlSc6conHASpM0fvlJ%2FRqnsZdPlcQJsk07mH1kqWat7KZpX%2F5DTGffVKgyzNgxLqs%3D\"}]}","server":"cloudflare","cross-origin-resource-policy":"cross-origin","vary":"Origin","etag":"\"e5efc51b24cd60c0e2c829bf4a43c38c\"","content-length":"2652","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-jsr-backend":"modules","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-content-type-options":"nosniff","cf-ray":"9e98a5d02e413992-IAD"},"url":"https://jsr.io/@std/collections/0.224.2/join_to_string.ts","time":1775728648}

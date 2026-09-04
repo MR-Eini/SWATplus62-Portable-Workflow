@@ -1,0 +1,39 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+// deno-lint-ignore no-explicit-any
+export type Any = any;
+
+export function isBoolean(value: unknown): value is boolean {
+  return typeof value === "boolean" || value instanceof Boolean;
+}
+
+export function isNull(value: unknown): value is null {
+  return value === null;
+}
+
+export function isObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object";
+}
+
+export function repeat(str: string, count: number): string {
+  let result = "";
+
+  for (let cycle = 0; cycle < count; cycle++) {
+    result += str;
+  }
+
+  return result;
+}
+
+export function isNegativeZero(i: number): boolean {
+  return i === 0 && Number.NEGATIVE_INFINITY === 1 / i;
+}
+
+export interface ArrayObject<T = Any> {
+  [P: string]: T;
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=uduYTYRfJDGKJmcxqYUlpb%2B15wK0B9HJeMnTuU4zfaLLtH1fxV5Hql8Y%2BWrUUL%2F72eOmthniNZSiTUTAKqIdOS746FPteTs6%2B5VM7UsTht0CHQ%2F61AoJiEg%3D\"}]}","server":"cloudflare","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-allow-origin":"*","vary":"Origin","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d339943992-IAD","x-robots-tag":"noindex","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","content-type":"text/typescript","content-length":"1021","etag":"\"c8601a5cbf8b24bd148c4f42d34ed37c\"","access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT"},"url":"https://jsr.io/@std/yaml/0.224.3/_utils.ts","time":1775728648}

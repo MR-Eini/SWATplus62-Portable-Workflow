@@ -1,0 +1,33 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { randomInteger } from "./_utils.ts";
+
+/**
+ * Returns a random element from the given array.
+ *
+ * @template T The type of the elements in the array.
+ * @template O The type of the accumulator.
+ *
+ * @param array The array to sample from.
+ *
+ * @returns A random element from the given array, or `undefined` if the array
+ * is empty.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { sample } from "@std/collections/sample";
+ * import { assertArrayIncludes } from "@std/assert/assert-array-includes";
+ *
+ * const numbers = [1, 2, 3, 4];
+ * const random = sample(numbers);
+ *
+ * assertArrayIncludes(numbers, [random]);
+ * ```
+ */
+export function sample<T>(array: readonly T[]): T | undefined {
+  const length = array.length;
+  return length ? array[randomInteger(0, length - 1)] : undefined;
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","access-control-expose-headers":"*","x-robots-tag":"noindex","alt-svc":"h3=\":443\"; ma=86400","content-length":"912","etag":"\"ee4b9a0517dbc6fdfb218b15c51ccf9c\"","access-control-allow-origin":"*","x-jsr-backend":"modules","vary":"Origin","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable","cf-ray":"9e98a5d02e5a3992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Nddxn2SAh9eaks8VAb77XbkoNsviLFBNL%2ByOzAblVUTDwho6VUH9sfiP0qchOIp3DuqEPtrdIuYLbPmNpM1hLxXiy0edHQuLN7NWGvm1STpsSFIapFD0elw%3D\"}]}","server":"cloudflare","content-type":"text/typescript"},"url":"https://jsr.io/@std/collections/0.224.2/sample.ts","time":1775728648}

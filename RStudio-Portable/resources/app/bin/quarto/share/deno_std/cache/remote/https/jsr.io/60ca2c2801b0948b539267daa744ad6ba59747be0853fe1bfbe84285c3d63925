@@ -1,0 +1,29 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { GlobOptions } from "../_common/glob_to_reg_exp.ts";
+import { normalize } from "./normalize.ts";
+import { SEPARATOR_PATTERN } from "./constants.ts";
+
+export type { GlobOptions };
+
+/** Like normalize(), but doesn't collapse "**\/.." when `globstar` is true. */
+export function normalizeGlob(
+  glob: string,
+  { globstar = false }: GlobOptions = {},
+): string {
+  if (glob.match(/\0/g)) {
+    throw new Error(`Glob contains invalid characters: "${glob}"`);
+  }
+  if (!globstar) {
+    return normalize(glob);
+  }
+  const s = SEPARATOR_PATTERN.source;
+  const badParentPattern = new RegExp(
+    `(?<=(${s}|^)\\*\\*${s})\\.\\.(?=${s}|$)`,
+    "g",
+  );
+  return normalize(glob.replace(badParentPattern, "\0")).replace(/\0/g, "..");
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=43%2BEnoQ%2FY7CYAUURxldk330c5K1i5LwWQv1qtCl%2BvdXD0zegGu2QPDXUhyzv8uOSVxSLA41BH3R%2FdA3M2isbajoX4lR53Odg%2FcFbisHp0OhuJmyKr7Nf6xA%3D\"}]}","content-type":"text/typescript","x-jsr-backend":"modules","x-robots-tag":"noindex","etag":"\"868a526f9177f76b07667799c494758d\"","cf-ray":"9e98a5d41a953992-IAD","content-length":"857","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cross-origin-resource-policy":"cross-origin","access-control-allow-origin":"*","vary":"Origin","access-control-expose-headers":"*","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:28 GMT","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/path/0.224.0/posix/normalize_glob.ts","time":1775728648}

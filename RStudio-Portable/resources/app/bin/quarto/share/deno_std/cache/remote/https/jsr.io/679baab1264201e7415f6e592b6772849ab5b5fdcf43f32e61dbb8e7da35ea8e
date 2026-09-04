@@ -1,0 +1,41 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns a new array that drops all elements in the given collection until the
+ * first element that does not match the given predicate.
+ *
+ * @template T The type of the elements in the input array.
+ *
+ * @param array The array to drop elements from.
+ * @param predicate The function to test each element for a condition.
+ *
+ * @returns A new array that drops all elements until the first element that
+ * does not match the given predicate.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { dropWhile } from "@std/collections/drop-while";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const numbers = [3, 2, 5, 2, 5];
+ * const dropWhileNumbers = dropWhile(numbers, (number) => number !== 2);
+ *
+ * assertEquals(dropWhileNumbers, [2, 5, 2, 5]);
+ * ```
+ */
+export function dropWhile<T>(
+  array: readonly T[],
+  predicate: (el: T) => boolean,
+): T[] {
+  let offset = 0;
+  const length = array.length;
+
+  while (length > offset && predicate(array[offset] as T)) {
+    offset++;
+  }
+
+  return array.slice(offset, length);
+}
+
+// denoCacheMetadata={"headers":{"x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=4Tf5Vt9AdeIe1AvKRY30V3J8mb%2BKq1F4v5w%2BM5B%2F3UlcFceR5a2NOVCFU%2FBh94afAjIls4vuyEpb101YP5ZjK%2BhHnvsPZuVxxGBeBPE4QOEMf9sQPQE0iO8%3D\"}]}","vary":"Origin","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","server":"cloudflare","cf-ray":"9e98a5d02e343992-IAD","etag":"\"2dd8badfc9d71f8edb8e995313ed3b46\"","access-control-allow-origin":"*","cross-origin-resource-policy":"cross-origin","access-control-expose-headers":"*","x-robots-tag":"noindex","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","cache-control":"public, max-age=31536000, immutable","alt-svc":"h3=\":443\"; ma=86400","date":"Thu, 09 Apr 2026 09:57:27 GMT","content-type":"text/typescript","content-length":"1160"},"url":"https://jsr.io/@std/collections/0.224.2/drop_while.ts","time":1775728648}

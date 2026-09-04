@@ -1,0 +1,22 @@
+CAT                     Chromatic Adaptation Transforms (CATs)
+CCTfromXYZ              Compute Correlated Color Temperature (CCT) and
+                        Points on the Planckian Locus
+CIECAM02fromXYZ         Compute CIECAM02 Quantities from XYZ
+DeltaE                  Calculate the Color Difference between Two
+                        Colors
+DeltaE_CAM02            Calculate the Color Difference in CAM02-UCS
+                        between Two Colors
+LCHabfromLab            Convert CIE Lab and Luv to Polar Form
+LabfromLCHab            Convert CIE Lab and Luv from Polar Form to
+                        Rectangular Form
+RobertsonLocus          Planckian Loci - stored as Lookup Tables
+XYZfromxyY              Convert other Color Spaces to XYZ
+adaptxyY.CAT            Chromatic Adaptation Functions
+daylightLocus           Compute Points on the Daylight Locus, in
+                        multiple Chromaticity Spaces
+spacesXYZ-package       CIE XYZ and some of Its Derived Color Spaces
+standardXYZ             Query the Standardized XYZ and xy values of
+                        Standard Illuminants and Whitepoints
+uvfromXYZ               Convert from XYZ or xy to Uniform Chromaticity
+                        Spaces
+xyYfromXYZ              Convert from XYZ to other Color Spaces

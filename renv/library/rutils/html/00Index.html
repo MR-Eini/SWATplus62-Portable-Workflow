@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Utility Functions for Simplifying Financial Data Management and
+Modeling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Utility Functions for Simplifying Financial Data Management and
+Modeling
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;rutils&rsquo; version 0.2</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain">DESCRIPTION file</a>.</li>
+<li><a href="../demo">Code demos</a>.  Use <a href="../../utils/help/demo">demo()</a> to run them.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="adjust_ohlc.html">adjust_ohlc</a></td>
+<td>Adjust the first four columns of _OHLC_ data using the "adjusted" price column.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_endpoints.html">calc_endpoints</a></td>
+<td>Calculate a vector of equally spaced end points along the elements of a vector, matrix, or time series.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_sharpe.html">calc_sharpe</a></td>
+<td>Calculate the Sharpe and Sortino ratios of a time series of returns.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_skew.html">calc_skew</a></td>
+<td>Calculate the skewness or kurtosis of a time series of returns.</td></tr>
+<tr><td style="width: 25%;"><a href="chart_dygraph.html">chart_dygraph</a></td>
+<td>Plot an interactive _dygraphs_ candlestick plot with background shading for an _OHLC_ time series in _xts_ format.</td></tr>
+<tr><td style="width: 25%;"><a href="chart_dygraph2y.html">chart_dygraph2y</a></td>
+<td>Plot an interactive _dygraphs_ line plot for two _xts_ time series, with two _"y"_ axes.</td></tr>
+<tr><td style="width: 25%;"><a href="chart_xts.html">chart_xts</a></td>
+<td>Plot either a line plot or a candlestick plot of an _xts_ time series, with custom line colors, y-axis range, and with vertical background shading.</td></tr>
+<tr><td style="width: 25%;"><a href="chart_xts2y.html">chart_xts2y</a></td>
+<td>Plot two _xts_ time series with two y-axes in an x11 window.</td></tr>
+<tr><td style="width: 25%;"><a href="diffit.html">diffit</a></td>
+<td>Calculate the row differences of a _numeric_ or _Boolean_ vector, matrix, or _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="diffohlc.html">diffohlc</a></td>
+<td>Calculate the reduced form of an _OHLC_ time series, or calculate the standard form from the reduced form of an _OHLC_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="diffxts.html">diffxts</a></td>
+<td>Calculate the time differences of an _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="do_call.html">do_call</a></td>
+<td>Recursively apply a function to a list of objects, such as _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="do_call_assign.html">do_call_assign</a></td>
+<td>Apply a function to a list of objects, merge the outputs into a single object, and assign the object to the output environment.</td></tr>
+<tr><td style="width: 25%;"><a href="do_call_rbind.html">do_call_rbind</a></td>
+<td>Recursively "rbind" a list of objects, such as _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="etf_data.html">etfenv</a></td>
+<td>The etf_data dataset contains a single environment called etfenv, which includes daily 'OHLC' time series data for a portfolio of symbols.  All the prices are already adjusted.</td></tr>
+<tr><td style="width: 25%;"><a href="etf_data.html">etf_data</a></td>
+<td>The etf_data dataset contains a single environment called etfenv, which includes daily 'OHLC' time series data for a portfolio of symbols.  All the prices are already adjusted.</td></tr>
+<tr><td style="width: 25%;"><a href="getpoly.html">getpoly</a></td>
+<td>Download an _OHLC_ time series of prices from Polygon.</td></tr>
+<tr><td style="width: 25%;"><a href="get_col.html">get_col</a></td>
+<td>Extract columns of data from _OHLC_ time series using column field names.</td></tr>
+<tr><td style="width: 25%;"><a href="get_data.html">get_data</a></td>
+<td>Load _OHLC_ time series data into an environment, either from an external source (download from _YAHOO_), or from _CSV_ files in a local drive.</td></tr>
+<tr><td style="width: 25%;"><a href="get_name.html">get_name</a></td>
+<td>Extract symbol names (tickers) from a vector of _character_ strings.</td></tr>
+<tr><td style="width: 25%;"><a href="lagit.html">lagit</a></td>
+<td>Apply a lag to a _numeric_ or _Boolean_ vector, matrix, or _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="lagxts.html">lagxts</a></td>
+<td>Apply a time lag to an _xts_ time series.</td></tr>
+<tr><td style="width: 25%;"><a href="nalocf.html">nalocf</a></td>
+<td>Replace 'NA' values with the most recent non-'NA' values prior to them.</td></tr>
+<tr><td style="width: 25%;"><a href="optim_bfgs.html">optim_bfgs</a></td>
+<td>Perform multivariate optimization using the BFGS method.</td></tr>
+<tr><td style="width: 25%;"><a href="optim_coordescent.html">optim_coordescent</a></td>
+<td>Perform multivariate optimization using coordinate descent with quasi-Newton updates.</td></tr>
+<tr><td style="width: 25%;"><a href="optim_newton.html">optim_newton</a></td>
+<td>Perform one-dimensional optimization using the Newton-Raphson method.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_acf.html">plot_acf</a></td>
+<td>Calculate the autocorrelation function (ACF) of a time series of returns, and plot it.</td></tr>
+<tr><td style="width: 25%;"><a href="roll_max.html">roll_max</a></td>
+<td>Calculate the rolling maximum of an _xts_ time series over a sliding window (lookback period).</td></tr>
+<tr><td style="width: 25%;"><a href="roll_sum.html">roll_sum</a></td>
+<td>Calculate the rolling sum of a _numeric_ vector, matrix, or _xts_ time series over a sliding window (lookback period).</td></tr>
+<tr><td style="width: 25%;"><a href="sub_set.html">sub_set</a></td>
+<td>Subset an _xts_ time series (extract an _xts_ sub-series corresponding to the input dates).</td></tr>
+<tr><td style="width: 25%;"><a href="tdistr.html">tdistr</a></td>
+<td>Calculate the density of the non-standard Student's t-distribution.</td></tr>
+<tr><td style="width: 25%;"><a href="to_period.html">to_period</a></td>
+<td>Aggregate an _xts_ time series to a lower periodicity.</td></tr>
+</table>
+</div></body></html>

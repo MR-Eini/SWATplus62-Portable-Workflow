@@ -1,0 +1,52 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+import { dirname } from "jsr:/@std/path@^0.224.0/dirname";
+import { ensureDir, ensureDirSync } from "./ensure_dir.ts";
+import { toPathString } from "./_to_path_string.ts";
+
+/**
+ * Asynchronously ensures that the hard link exists. If the directory structure
+ * does not exist, it is created.
+ *
+ * @param src The source file path as a string or URL. Directory hard links are
+ * not allowed.
+ * @param dest The destination link path as a string or URL.
+ * @returns A void promise that resolves once the hard link exists.
+ *
+ * @example
+ * ```ts
+ * import { ensureLink } from "@std/fs/ensure-link";
+ *
+ * await ensureLink("./folder/targetFile.dat", "./folder/targetFile.link.dat");
+ * ```
+ */
+export async function ensureLink(src: string | URL, dest: string | URL) {
+  dest = toPathString(dest);
+  await ensureDir(dirname(dest));
+
+  await Deno.link(toPathString(src), dest);
+}
+
+/**
+ * Synchronously ensures that the hard link exists. If the directory structure
+ * does not exist, it is created.
+ *
+ * @param src The source file path as a string or URL. Directory hard links are
+ * not allowed.
+ * @param dest The destination link path as a string or URL.
+ * @returns A void value that returns once the hard link exists.
+ *
+ * @example
+ * ```ts
+ * import { ensureLinkSync } from "@std/fs/ensure-link";
+ *
+ * ensureLinkSync("./folder/targetFile.dat", "./folder/targetFile.link.dat");
+ * ```
+ */
+export function ensureLinkSync(src: string | URL, dest: string | URL) {
+  dest = toPathString(dest);
+  ensureDirSync(dirname(dest));
+
+  Deno.linkSync(toPathString(src), dest);
+}
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:27 GMT","cache-control":"public, max-age=31536000, immutable","content-length":"1643","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WRxkpzGeArZXxHFpgYn%2B69OaGRmd6l4lDvVmdwjjQKzDgJBI0TuSr12aHgmUq1wL2yVH22qgkEzQzSH%2FtQv0gLpLQ5OeBZ1Igwf2kZr%2FUg10jVuFqtnLWDU%3D\"}]}","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d14f513992-IAD","content-type":"text/typescript","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","access-control-allow-origin":"*","x-content-type-options":"nosniff","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","access-control-expose-headers":"*","vary":"Origin","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","etag":"\"1073fc87744d08eb174a2f66a2caa8f1\""},"url":"https://jsr.io/@std/fs/0.224.0/ensure_link.ts","time":1775728647}

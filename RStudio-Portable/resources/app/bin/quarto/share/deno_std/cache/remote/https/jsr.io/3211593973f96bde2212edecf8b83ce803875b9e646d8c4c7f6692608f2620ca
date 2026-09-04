@@ -1,0 +1,29 @@
+// Ported from js-yaml v3.13.1:
+// https://github.com/nodeca/js-yaml/commit/665aadda42349dcae869f12040d9b10ef18d12da
+// Copyright 2011-2015 by Vitaly Puzrin. All rights reserved. MIT license.
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+
+import type { Type } from "../_type.ts";
+
+export const nil: Type<"scalar", null> = {
+  tag: "tag:yaml.org,2002:null",
+  kind: "scalar",
+  defaultStyle: "lowercase",
+  predicate: (object: unknown): object is null => object === null,
+  construct: () => null,
+  resolve: (data: string): boolean => {
+    return (
+      data === "~" ||
+      data === "null" ||
+      data === "Null" ||
+      data === "NULL"
+    );
+  },
+  represent: {
+    lowercase: (): string => "null",
+    uppercase: (): string => "NULL",
+    camelcase: (): string => "Null",
+  },
+};
+
+// denoCacheMetadata={"headers":{"x-robots-tag":"noindex","x-content-type-options":"nosniff","content-length":"818","x-jsr-backend":"modules","date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"9803f56e8dc1c134dba3708722290025\"","access-control-allow-origin":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=yIH%2BIodsmyrmIQShsxPSi8XaGL7uJVGXKxMcRyZ1jTK4b%2BUF7TpQdGviyyOmff4xp6rGXCuQwzt%2BnBokmAkphRjgwq%2F5lbE5al2Af5itML4XKLrb%2BIv5OB0%3D\"}]}","content-type":"text/typescript","server":"cloudflare","vary":"Origin","cf-ray":"9e98a5d54c063992-IAD","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","access-control-expose-headers":"*"},"url":"https://jsr.io/@std/yaml/1.0.5/_type/nil.ts","time":1775728648}

@@ -1,0 +1,30 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+/**
+ * Determines whether a string is a valid
+ * {@link https://www.rfc-editor.org/rfc/rfc9562.html#section-5.4 | UUIDv4}.
+ *
+ * @param id UUID value.
+ *
+ * @returns `true` if the UUID is valid UUIDv4, otherwise `false`.
+ *
+ * @example Usage
+ * ```ts
+ * import { validate } from "@std/uuid/v4";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * assert(validate(crypto.randomUUID()));
+ * assertFalse(validate("this-is-not-a-uuid"));
+ * ```
+ */
+export function validate(
+  id: string,
+): id is ReturnType<typeof crypto.randomUUID> {
+  return UUID_RE.test(id);
+}
+
+// denoCacheMetadata={"headers":{"etag":"\"1337bc00d920119f0ae15378c8659779\"","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","date":"Thu, 09 Apr 2026 09:57:28 GMT","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","cross-origin-resource-policy":"cross-origin","x-robots-tag":"noindex","content-type":"text/typescript","cache-control":"public, max-age=31536000, immutable","x-jsr-backend":"modules","access-control-expose-headers":"*","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DFrpXH8OfZ1OQYSUMSBg1RNAtWPh%2FTWeZUO54W6Ca6oMfTMfVrYJZhKKOVtE%2BEXtBJ7xKKlPnaxU8Ff9AOrXyKS05C1LqIfNEeGKTo5E50Gy2YS9eIAiB7o%3D\"}]}","content-length":"777","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cf-ray":"9e98a5d2e93c3992-IAD","x-content-type-options":"nosniff"},"url":"https://jsr.io/@std/uuid/0.224.3/v4.ts","time":1775728648}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Object Pooling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container">
+<h1> Object Pooling
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]">
+</h1>
+<hr>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]"></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]"></a>
+</div><h2>Documentation for package &lsquo;pool&rsquo; version 1.0.5</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="tbl.Pool.html">copy_to.Pool</a></td>
+<td>Use pool with dbplyr</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbAppendTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbAppendTableArrow-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbBegin-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbCommit-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbCreateTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbCreateTableArrow-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbDataType-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbDisconnect-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbExecute-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbExistsTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbGetInfo-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbGetQuery-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbGetQueryArrow-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">DBI-custom</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">DBI-wrap</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbIsReadOnly-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbIsValid-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbListFields-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbListObjects-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbListTables-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="dbPool.html">dbPool</a></td>
+<td>Create a pool of database connections</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbQuoteIdentifier-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbQuoteLiteral-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbQuoteString-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbReadTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbReadTableArrow-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbRemoveTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbRollback-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbSendQuery-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbSendQueryArrow-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbSendStatement-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbUnquoteIdentifier-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-custom.html">dbWithTransaction-method</a></td>
+<td>Unsupported DBI methods</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbWriteTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">dbWriteTableArrow-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="poolCheckout.html">localCheckout</a></td>
+<td>Check out and return object from the pool</td></tr>
+<tr><td style="width: 25%;"><a href="Pool-class.html">Pool</a></td>
+<td>Create a pool of reusable objects</td></tr>
+<tr><td style="width: 25%;"><a href="Pool-class.html">Pool-class</a></td>
+<td>Create a pool of reusable objects</td></tr>
+<tr><td style="width: 25%;"><a href="poolCheckout.html">poolCheckout</a></td>
+<td>Check out and return object from the pool</td></tr>
+<tr><td style="width: 25%;"><a href="poolCheckout.html">poolCheckout-method</a></td>
+<td>Check out and return object from the pool</td></tr>
+<tr><td style="width: 25%;"><a href="Pool-class.html">poolClose</a></td>
+<td>Create a pool of reusable objects</td></tr>
+<tr><td style="width: 25%;"><a href="Pool-class.html">poolClose-method</a></td>
+<td>Create a pool of reusable objects</td></tr>
+<tr><td style="width: 25%;"><a href="Pool-class.html">poolCreate</a></td>
+<td>Create a pool of reusable objects</td></tr>
+<tr><td style="width: 25%;"><a href="poolCheckout.html">poolReturn</a></td>
+<td>Check out and return object from the pool</td></tr>
+<tr><td style="width: 25%;"><a href="poolCheckout.html">poolReturn-method</a></td>
+<td>Check out and return object from the pool</td></tr>
+<tr><td style="width: 25%;"><a href="poolWithTransaction.html">poolWithTransaction</a></td>
+<td>Self-contained database transactions using pool</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">sqlAppendTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">sqlCreateTable-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">sqlData-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">sqlInterpolate-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="DBI-wrap.html">sqlParseVariables-method</a></td>
+<td>DBI methods (simple wrappers)</td></tr>
+<tr><td style="width: 25%;"><a href="tbl.Pool.html">tbl.Pool</a></td>
+<td>Use pool with dbplyr</td></tr>
+</table>
+</div></body></html>

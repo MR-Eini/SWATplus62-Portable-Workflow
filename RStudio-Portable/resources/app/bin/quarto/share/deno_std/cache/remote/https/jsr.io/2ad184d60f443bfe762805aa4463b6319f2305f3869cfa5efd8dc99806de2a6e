@@ -1,0 +1,23 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import type { GlobOptions } from "./_common/glob_to_reg_exp.ts";
+import { isWindows } from "./_os.ts";
+import { normalizeGlob as posixNormalizeGlob } from "./posix/normalize_glob.ts";
+import {
+  normalizeGlob as windowsNormalizeGlob,
+} from "./windows/normalize_glob.ts";
+
+export type { GlobOptions };
+
+/** Like normalize(), but doesn't collapse "**\/.." when `globstar` is true. */
+export function normalizeGlob(
+  glob: string,
+  options: GlobOptions = {},
+): string {
+  return isWindows
+    ? windowsNormalizeGlob(glob, options)
+    : posixNormalizeGlob(glob, options);
+}
+
+// denoCacheMetadata={"headers":{"content-length":"689","access-control-expose-headers":"*","access-control-allow-origin":"*","x-jsr-backend":"modules","x-robots-tag":"noindex","vary":"Origin","etag":"\"8ea81a573f6d02862a04d81d673166fe\"","cache-control":"public, max-age=31536000, immutable","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VyVY3h3rDf4y21TxBX4nKGKQx1ztFCPVKaIogbBUPav5HZSWvC%2FkaYmrwoesVkZasi1fGzE0FX0tZ3PfgU%2FDjUD0L96YH0zF%2Fi5ug62PGVhwMJiBDjyDf3g%3D\"}]}","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","date":"Thu, 09 Apr 2026 09:57:28 GMT","cf-ray":"9e98a5d268933992-IAD","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=86400","content-type":"text/typescript"},"url":"https://jsr.io/@std/path/0.224.0/normalize_glob.ts","time":1775728648}

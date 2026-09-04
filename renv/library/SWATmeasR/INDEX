@@ -1,0 +1,9 @@
+load_measr              Load an existing SWATmeasR project
+measr_project           'measr_project' is an 'R6Class' to include
+                        NSWRMs in a SWAT+ model setup.
+new_measr               Initiate a new SWATmeasR project
+prepare_management_scenario_inputs
+                        Prepare the management input data from
+                        SWATfarmR project as inputs for the definition
+                        of management related NSWRMs with
+                        'measr_project$load_nswrm_definition()'.

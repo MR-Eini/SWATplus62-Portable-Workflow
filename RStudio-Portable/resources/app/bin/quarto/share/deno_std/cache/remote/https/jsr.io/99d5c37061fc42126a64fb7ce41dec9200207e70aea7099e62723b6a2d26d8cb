@@ -1,0 +1,19 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+import { isWindows } from "./_os.ts";
+import { format as posixFormat } from "./posix/format.ts";
+import { format as windowsFormat } from "./windows/format.ts";
+import type { FormatInputPathObject } from "./_interface.ts";
+
+/**
+ * Generate a path from `FormatInputPathObject` object. It does the opposite
+ * of `parse`.
+ *
+ * @param pathObject with path
+ */
+export function format(pathObject: FormatInputPathObject): string {
+  return isWindows ? windowsFormat(pathObject) : posixFormat(pathObject);
+}
+
+// denoCacheMetadata={"headers":{"date":"Thu, 09 Apr 2026 09:57:28 GMT","cross-origin-resource-policy":"cross-origin","content-length":"615","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","x-robots-tag":"noindex","content-type":"text/typescript","cf-ray":"9e98a5d238513992-IAD","server":"cloudflare","access-control-expose-headers":"*","x-content-type-options":"nosniff","etag":"\"fb4877f17305573a28477f09893100d8\"","vary":"Origin","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=k6waUd%2BGXSsuTnqsdJ6SLnEOEVDz1%2BWP2alxpIvClHgEFUv6fzp95QBMpxEHYoVATJkg7GG5KdxxIbqsH8HsEaRpVlxJGPaEyhSxli1YGEVG4JxkAEN9dSI%3D\"}]}","x-jsr-backend":"modules","access-control-allow-origin":"*","alt-svc":"h3=\":443\"; ma=86400","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/path/0.224.0/format.ts","time":1775728648}

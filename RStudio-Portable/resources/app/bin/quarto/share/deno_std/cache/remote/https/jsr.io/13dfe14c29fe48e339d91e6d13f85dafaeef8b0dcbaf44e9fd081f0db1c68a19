@@ -1,0 +1,47 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Returns true if the given value is part of the given object, otherwise it
+ * returns false.
+ *
+ * Note: this doesn't work with non-primitive values. For example,
+ * `includesValue({x: {}}, {})` returns false.
+ *
+ * @template T The type of the values in the input record.
+ *
+ * @param record The record to check for the given value.
+ * @param value The value to check for in the record.
+ *
+ * @returns `true` if the value is part of the record, otherwise `false`.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { includesValue } from "@std/collections/includes-value";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const input = {
+ *   first: 33,
+ *   second: 34,
+ * };
+ *
+ * assertEquals(includesValue(input, 34), true);
+ * ```
+ */
+export function includesValue<T>(
+  record: Readonly<Record<string, T>>,
+  value: T,
+): boolean {
+  for (const i in record) {
+    if (
+      Object.hasOwn(record, i) &&
+      (record[i] === value || Number.isNaN(value) && Number.isNaN(record[i]))
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// denoCacheMetadata={"headers":{"content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FSeQkBzPuhcFkZ5VJYI%2BBf1WvgWZm4gBBmgjpwcdOCU%2FsA%2FuVWliSMMRAk8gEGV9dpeGiWjhukaYxzZzzB0BQVZPrNNi7TNV%2Bnb6nuiD2EaFffizFwaW3cQ%3D\"}]}","alt-svc":"h3=\":443\"; ma=86400","access-control-expose-headers":"*","x-robots-tag":"noindex","server":"cloudflare","content-length":"1176","etag":"\"ce41b4063126d631c209cf4b92f36182\"","access-control-allow-origin":"*","content-type":"text/typescript","cf-ray":"9e98a5d02e3c3992-IAD","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cross-origin-resource-policy":"cross-origin","x-content-type-options":"nosniff","cache-control":"public, max-age=31536000, immutable","date":"Thu, 09 Apr 2026 09:57:27 GMT","vary":"Origin"},"url":"https://jsr.io/@std/collections/0.224.2/includes_value.ts","time":1775728647}

@@ -1,0 +1,44 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Applies the given selector to all elements in the given collection and
+ * calculates the sum of the results.
+ *
+ * @template T The type of the array elements.
+ *
+ * @param array The array to calculate the sum of.
+ * @param selector The selector function to get the value to sum.
+ *
+ * @returns The sum of all elements in the collection.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { sumOf } from "@std/collections/sum-of";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const people = [
+ *   { name: "Anna", age: 34 },
+ *   { name: "Kim", age: 42 },
+ *   { name: "John", age: 23 },
+ * ];
+ *
+ * const totalAge = sumOf(people, (person) => person.age);
+ *
+ * assertEquals(totalAge, 99);
+ * ```
+ */
+export function sumOf<T>(
+  array: Iterable<T>,
+  selector: (el: T) => number,
+): number {
+  let sum = 0;
+
+  for (const i of array) {
+    sum += selector(i);
+  }
+
+  return sum;
+}
+
+// denoCacheMetadata={"headers":{"content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","vary":"Origin","cf-ray":"9e98a5d02e5e3992-IAD","cross-origin-resource-policy":"cross-origin","access-control-allow-origin":"*","etag":"\"5b4f69b10d6eabcd59123d6142d758d1\"","access-control-expose-headers":"*","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=x52Bng3hRtbWMKwVORs0Xvz9QfQlvuEtmibhfBkgKyATg%2FPx4fOexoWHeDRi0pwzDNTP%2BFi3wMVDakcgGBxWyjY%2B6jaRfhBy5XC0S9d05dMVphfFNg606yw%3D\"}]}","content-length":"1017","x-robots-tag":"noindex","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-content-type-options":"nosniff","date":"Thu, 09 Apr 2026 09:57:27 GMT","server":"cloudflare"},"url":"https://jsr.io/@std/collections/0.224.2/sum_of.ts","time":1775728647}

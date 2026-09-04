@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: A Lightweight, Modern and Flexible Logging Utility</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container">
+<h1> A Lightweight, Modern and Flexible Logging Utility
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]">
+</h1>
+<hr>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]"></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]"></a>
+</div><h2>Documentation for package &lsquo;logger&rsquo; version 0.4.2</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="grapes-except-grapes.html">%except%</a></td>
+<td>Try to evaluate an expressions and evaluate another expression on exception</td></tr>
+<tr><td style="width: 25%;"><a href="appender_async.html">appender_async</a></td>
+<td>Delays executing the actual appender function to the future in a background process to avoid blocking the main R session</td></tr>
+<tr><td style="width: 25%;"><a href="appender_console.html">appender_console</a></td>
+<td>Append log record to stderr</td></tr>
+<tr><td style="width: 25%;"><a href="appender_file.html">appender_file</a></td>
+<td>Append log messages to a file</td></tr>
+<tr><td style="width: 25%;"><a href="appender_kinesis.html">appender_kinesis</a></td>
+<td>Send log messages to a Amazon Kinesis stream</td></tr>
+<tr><td style="width: 25%;"><a href="appender_ntfy.html">appender_ntfy</a></td>
+<td>Send log messages to ntfy</td></tr>
+<tr><td style="width: 25%;"><a href="appender_pushbullet.html">appender_pushbullet</a></td>
+<td>Send log messages to Pushbullet</td></tr>
+<tr><td style="width: 25%;"><a href="appender_slack.html">appender_slack</a></td>
+<td>Send log messages to a Slack channel</td></tr>
+<tr><td style="width: 25%;"><a href="appender_console.html">appender_stderr</a></td>
+<td>Append log record to stderr</td></tr>
+<tr><td style="width: 25%;"><a href="appender_stdout.html">appender_stdout</a></td>
+<td>Append log record to stdout</td></tr>
+<tr><td style="width: 25%;"><a href="appender_syslog.html">appender_syslog</a></td>
+<td>Send log messages to the POSIX system log</td></tr>
+<tr><td style="width: 25%;"><a href="appender_syslognet.html">appender_syslognet</a></td>
+<td>Send log messages to a network syslog server</td></tr>
+<tr><td style="width: 25%;"><a href="appender_tee.html">appender_tee</a></td>
+<td>Append log messages to a file and stdout as well</td></tr>
+<tr><td style="width: 25%;"><a href="appender_telegram.html">appender_telegram</a></td>
+<td>Send log messages to a Telegram chat</td></tr>
+<tr><td style="width: 25%;"><a href="appender_void.html">appender_void</a></td>
+<td>Dummy appender not delivering the log record to anywhere</td></tr>
+<tr><td style="width: 25%;"><a href="as.loglevel.html">as.loglevel</a></td>
+<td>Convert R object into a logger log-level</td></tr>
+<tr><td style="width: 25%;"><a href="colorize_by_log_level.html">colorize_by_log_level</a></td>
+<td>Color string by the related log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">DEBUG</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="delete_logger_index.html">delete_logger_index</a></td>
+<td>Delete an index from a logger namespace</td></tr>
+<tr><td style="width: 25%;"><a href="deparse_to_one_line.html">deparse_to_one_line</a></td>
+<td>Deparse and join all lines into a single line</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">ERROR</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="fail_on_missing_package.html">fail_on_missing_package</a></td>
+<td>Check if R package can be loaded and fails loudly otherwise</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">FATAL</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_cli.html">formatter_cli</a></td>
+<td>Apply 'cli::cli_text()' to format string with cli syntax</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_glue.html">formatter_glue</a></td>
+<td>Apply 'glue::glue()' to convert R objects into a character vector</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_glue_or_sprintf.html">formatter_glue_or_sprintf</a></td>
+<td>Apply 'glue::glue()' and 'sprintf()'</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_glue_safe.html">formatter_glue_safe</a></td>
+<td>Apply 'glue::glue_safe()' to convert R objects into a character vector</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_json.html">formatter_json</a></td>
+<td>Transforms all passed R objects into a JSON list</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_logging.html">formatter_logging</a></td>
+<td>Mimic the default formatter used in the 'logging' package</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_pander.html">formatter_pander</a></td>
+<td>Formats R objects with pander</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_paste.html">formatter_paste</a></td>
+<td>Concatenate R objects into a character vector via 'paste'</td></tr>
+<tr><td style="width: 25%;"><a href="formatter_sprintf.html">formatter_sprintf</a></td>
+<td>Apply 'sprintf()' to convert R objects into a character vector</td></tr>
+<tr><td style="width: 25%;"><a href="get_logger_meta_variables.html">get_logger_meta_variables</a></td>
+<td>Collect useful information about the logging environment to be used in log messages</td></tr>
+<tr><td style="width: 25%;"><a href="colorize_by_log_level.html">grayscale_by_log_level</a></td>
+<td>Color string by the related log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">INFO</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="layout_blank.html">layout_blank</a></td>
+<td>Format a log record by including the raw message without anything added or modified</td></tr>
+<tr><td style="width: 25%;"><a href="layout_gha.html">layout_gha</a></td>
+<td>Format a log record for github actions</td></tr>
+<tr><td style="width: 25%;"><a href="layout_glue.html">layout_glue</a></td>
+<td>Format a log message with 'glue::glue()'</td></tr>
+<tr><td style="width: 25%;"><a href="layout_glue_colors.html">layout_glue_colors</a></td>
+<td>Format a log message with 'glue::glue()' and ANSI escape codes to add colors</td></tr>
+<tr><td style="width: 25%;"><a href="layout_glue_generator.html">layout_glue_generator</a></td>
+<td>Generate log layout function using common variables available via glue syntax</td></tr>
+<tr><td style="width: 25%;"><a href="layout_json.html">layout_json</a></td>
+<td>Generate log layout function rendering JSON</td></tr>
+<tr><td style="width: 25%;"><a href="layout_json_parser.html">layout_json_parser</a></td>
+<td>Generate log layout function rendering JSON after merging meta fields with parsed list from JSON message</td></tr>
+<tr><td style="width: 25%;"><a href="layout_logging.html">layout_logging</a></td>
+<td>Format a log record as the logging package does by default</td></tr>
+<tr><td style="width: 25%;"><a href="layout_simple.html">layout_simple</a></td>
+<td>Format a log record by concatenating the log level, timestamp and message</td></tr>
+<tr><td style="width: 25%;"><a href="layout_syslognet.html">layout_syslognet</a></td>
+<td>Format a log record for syslognet</td></tr>
+<tr><td style="width: 25%;"><a href="logger.html">logger</a></td>
+<td>Generate logging utility</td></tr>
+<tr><td style="width: 25%;"><a href="log_appender.html">log_appender</a></td>
+<td>Get or set log record appender function</td></tr>
+<tr><td style="width: 25%;"><a href="log_chunk_time.html">log_chunk_time</a></td>
+<td>Automatically log execution time of knitr chunks</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_debug</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_elapsed.html">log_elapsed</a></td>
+<td>Log cumulative running time</td></tr>
+<tr><td style="width: 25%;"><a href="log_elapsed.html">log_elapsed_start</a></td>
+<td>Log cumulative running time</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_error</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_errors.html">log_errors</a></td>
+<td>Injects a logger call to standard errors</td></tr>
+<tr><td style="width: 25%;"><a href="log_eval.html">log_eval</a></td>
+<td>Evaluate an expression and log results</td></tr>
+<tr><td style="width: 25%;"><a href="log_failure.html">log_failure</a></td>
+<td>Logs the error message to console before failing</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_fatal</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_formatter.html">log_formatter</a></td>
+<td>Get or set log message formatter</td></tr>
+<tr><td style="width: 25%;"><a href="log_indices.html">log_indices</a></td>
+<td>Returns number of currently active indices</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_info</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_layout.html">log_layout</a></td>
+<td>Get or set log record layout</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_level</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">log_levels</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="log_messages.html">log_messages</a></td>
+<td>Injects a logger call to standard messages</td></tr>
+<tr><td style="width: 25%;"><a href="log_namespaces.html">log_namespaces</a></td>
+<td>Looks up logger namespaces</td></tr>
+<tr><td style="width: 25%;"><a href="log_separator.html">log_separator</a></td>
+<td>Logs a long line to stand out from the console</td></tr>
+<tr><td style="width: 25%;"><a href="log_shiny_input_changes.html">log_shiny_input_changes</a></td>
+<td>Auto logging input changes in Shiny app</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_success</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_threshold.html">log_threshold</a></td>
+<td>Get or set log level threshold</td></tr>
+<tr><td style="width: 25%;"><a href="log_tictoc.html">log_tictoc</a></td>
+<td>Tic-toc logging</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_trace</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_level.html">log_warn</a></td>
+<td>Log a message with given log level</td></tr>
+<tr><td style="width: 25%;"><a href="log_warnings.html">log_warnings</a></td>
+<td>Injects a logger call to standard warnings</td></tr>
+<tr><td style="width: 25%;"><a href="log_with_separator.html">log_with_separator</a></td>
+<td>Logs a message in a very visible way</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">OFF</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="skip_formatter.html">skip_formatter</a></td>
+<td>Skip the formatter function</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">SUCCESS</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">TRACE</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="log_levels.html">WARN</a></td>
+<td>Log levels</td></tr>
+<tr><td style="width: 25%;"><a href="with_log_threshold.html">with_log_threshold</a></td>
+<td>Evaluate R expression with a temporarily updated log level threshold</td></tr>
+</table>
+</div></body></html>

@@ -1,0 +1,59 @@
+# spatstat NAMESPACE file
+
+importFrom(utils, RShowDoc, news, page, read.table)
+
+import(spatstat.utils)
+import(spatstat.data)
+import(spatstat.univar)
+import(spatstat.geom)
+import(spatstat.random)
+import(spatstat.explore)
+import(spatstat.model)
+import(spatstat.linnet)
+
+# no dynamic library
+
+# Do not edit the following.
+# It is generated automatically.
+
+
+
+
+# .................................................. 
+#  load dynamic library
+#      (native routines are now registered in init.c)
+# .................................................. 
+
+# There is no dynamic library
+# useDynLib(spatstat, .registration=TRUE)
+
+# .................................................. 
+# Automatically-generated list of documented objects 
+# .................................................. 
+export("beginner")
+export("bugfixes")
+export("foo")
+export("latest.changes")
+export("latest.news")
+export("plot.foo")
+export("print.autoexec")    
+export("print.bugtable")
+export("print.changetable")
+export("spatstat.family")
+
+# .......  Special cases ........... 
+# .......  End of special cases  ... 
+
+# ......................................... 
+# Automatically generated list of S3 methods
+# ......................................... 
+S3method("plot", "foo")
+S3method("print", "autoexec")
+S3method("print", "bugtable")
+S3method("print", "changetable")
+# ......................................... 
+#      Assignment methods                   
+# ......................................... 
+# ......................................... 
+#      End of methods                       
+# ......................................... 

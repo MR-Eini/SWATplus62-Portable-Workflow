@@ -1,0 +1,92 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Applies the given selector to all elements of the provided collection and
+ * returns the max value of all elements. If an empty array is provided the
+ * function will return undefined.
+ *
+ * @template T The type of the elements in the array.
+ *
+ * @param array The array to find the maximum element in.
+ * @param selector The function to get the value to compare from each element.
+ *
+ * @returns The largest value of the given function or undefined if there are no
+ * elements.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { maxOf } from "@std/collections/max-of";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const inventory = [
+ *   { name: "mustard", count: 2 },
+ *   { name: "soy", count: 4 },
+ *   { name: "tomato", count: 32 },
+ * ];
+ *
+ * const maxCount = maxOf(inventory, (item) => item.count);
+ *
+ * assertEquals(maxCount, 32);
+ * ```
+ */
+export function maxOf<T>(
+  array: Iterable<T>,
+  selector: (el: T) => number,
+): number | undefined;
+/**
+ * Applies the given selector to all elements of the provided collection and
+ * returns the max value of all elements. If an empty array is provided the
+ * function will return undefined.
+ *
+ * @template T The type of the elements in the array.
+ *
+ * @param array The array to find the maximum element in.
+ * @param selector The function to get the value to compare from each element.
+ *
+ * @returns The first element that is the largest value of the given function or
+ * undefined if there are no elements.
+ *
+ * @example Basic usage
+ * ```ts
+ * import { maxOf } from "@std/collections/max-of";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const inventory = [
+ *   { name: "mustard", count: 2n },
+ *   { name: "soy", count: 4n },
+ *   { name: "tomato", count: 32n },
+ * ];
+ *
+ * const maxCount = maxOf(inventory, (i) => i.count);
+ *
+ * assertEquals(maxCount, 32n);
+ * ```
+ */
+export function maxOf<T>(
+  array: Iterable<T>,
+  selector: (el: T) => bigint,
+): bigint | undefined;
+export function maxOf<T, S extends ((el: T) => number) | ((el: T) => bigint)>(
+  array: Iterable<T>,
+  selector: S,
+): ReturnType<S> | undefined {
+  let maximumValue: ReturnType<S> | undefined;
+
+  for (const element of array) {
+    const currentValue = selector(element) as ReturnType<S>;
+
+    if (maximumValue === undefined || currentValue > maximumValue) {
+      maximumValue = currentValue;
+      continue;
+    }
+
+    if (Number.isNaN(currentValue)) {
+      return currentValue;
+    }
+  }
+
+  return maximumValue;
+}
+
+// denoCacheMetadata={"headers":{"cross-origin-resource-policy":"cross-origin","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=k4F8NzoNV4GQetw1L1y3og8PnwjVze3ovv6TjierrbU1%2BXFIkGtmMAy18zKhisB%2F3DZkzAuIjAOTcfmKvCM%2FEn33GgKkJb6PPF05gutAT5%2FH502iHKpzwos%3D\"}]}","vary":"Origin","access-control-allow-origin":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"c79d8db542a560779be22aaf2a256402\"","cf-ray":"9e98a5d02e493992-IAD","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400","content-length":"2618","access-control-expose-headers":"*","x-robots-tag":"noindex","server":"cloudflare","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/collections/0.224.2/max_of.ts","time":1775728648}

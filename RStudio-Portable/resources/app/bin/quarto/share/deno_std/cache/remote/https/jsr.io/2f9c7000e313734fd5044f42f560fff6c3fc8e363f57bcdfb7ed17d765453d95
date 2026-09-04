@@ -1,0 +1,54 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+export {
+  instantiate as instantiateWasm,
+} from "./lib/deno_std_wasm_crypto.generated.mjs";
+
+/**
+ * All cryptographic hash/digest algorithms supported by std/crypto.
+ *
+ * For algorithms that are supported by WebCrypto, the name here will match the
+ * one used by WebCrypto. Otherwise we prefer the formatting used in the
+ * algorithm's official specification. All names are uppercase to facilitate
+ * case-insensitive comparisons required by the WebCrypto spec.
+ */
+export const DIGEST_ALGORITHM_NAMES = [
+  "BLAKE2B",
+  "BLAKE2B-128",
+  "BLAKE2B-160",
+  "BLAKE2B-224",
+  "BLAKE2B-256",
+  "BLAKE2B-384",
+  "BLAKE2S",
+  "BLAKE3",
+  "KECCAK-224",
+  "KECCAK-256",
+  "KECCAK-384",
+  "KECCAK-512",
+  "SHA-384",
+  "SHA3-224",
+  "SHA3-256",
+  "SHA3-384",
+  "SHA3-512",
+  "SHAKE128",
+  "SHAKE256",
+  "TIGER",
+  // insecure (length-extendable):
+  "RIPEMD-160",
+  "SHA-224",
+  "SHA-256",
+  "SHA-512",
+  // insecure (length-extendable and collidable):
+  "MD4",
+  "MD5",
+  "SHA-1",
+  // insecure (non-cryptographic)
+  "FNV32",
+  "FNV32A",
+  "FNV64",
+  "FNV64A",
+] as const;
+
+/** An algorithm name supported by std/crypto. */
+export type DigestAlgorithmName = typeof DIGEST_ALGORITHM_NAMES[number];
+
+// denoCacheMetadata={"headers":{"access-control-expose-headers":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","content-length":"1264","cf-ray":"9e98a5d309623992-IAD","x-robots-tag":"noindex","access-control-allow-origin":"*","cache-control":"public, max-age=31536000, immutable","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400","vary":"Origin","x-content-type-options":"nosniff","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GQTE%2FRMIkHoVxH5VDScC5%2BI2gpOBUnUzfl8gJzl1ZX8DDfRdUPo0yhdtZOSDyNsjKjsaIlxVI%2BG2ByIDmRZF0a7G8c6Va01cHa8YojTswVL2jrvtqjSzLCo%3D\"}]}","x-jsr-backend":"modules","content-type":"text/typescript","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","etag":"\"9b33f3dbc5585ada16cd5b4c5e4a97f0\"","cross-origin-resource-policy":"cross-origin"},"url":"https://jsr.io/@std/crypto/0.224.0/_wasm/mod.ts","time":1775728648}

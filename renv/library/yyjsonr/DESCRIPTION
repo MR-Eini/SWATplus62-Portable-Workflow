@@ -1,0 +1,44 @@
+Package: yyjsonr
+Type: Package
+Title: Fast 'JSON', 'NDJSON' and 'GeoJSON' Parser and Generator
+Version: 0.1.22
+Authors@R: c(
+    person("Mike", "Cheng", role = c("aut", "cre", 'cph'), 
+    email = "mikefc@coolbutuseless.com"),
+    person("Yao", "Yuan", role = c("aut", "cph"), email = "ibireme@gmail.com", 
+    comment="Author of bundled yyjson"),
+    person("Murat", "Tasan", role = c("ctb"), 
+    comment="'json_verbatim' handling")
+    )
+Maintainer: Mike Cheng <mikefc@coolbutuseless.com>
+Description: A fast 'JSON' parser, generator and validator which converts 'JSON', 
+    'NDJSON' (Newline Delimited 'JSON') and 'GeoJSON' (Geographic 'JSON') data 
+    to/from R objects.  The standard R data types are 
+    supported (e.g. logical, numeric, integer) with configurable handling of NULL 
+    and NA values. Data frames, atomic vectors and lists are all supported as data 
+    containers translated to/from 'JSON'.  'GeoJSON' data is read in as
+    'simple features' objects.
+    This implementation wraps the 'yyjson' 'C' library which 
+    is available from <https://github.com/ibireme/yyjson>.
+License: MIT + file LICENSE
+URL: https://github.com/coolbutuseless/yyjsonr,
+        https://coolbutuseless.github.io/package/yyjsonr/
+BugReports: https://github.com/coolbutuseless/yyjsonr/issues
+Encoding: UTF-8
+Language: en-AU
+RoxygenNote: 7.3.3
+Suggests: bit64, knitr, rmarkdown, jsonlite, testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Copyright: The included 'yyjson' code is Copyright (c) 2020 YaoYuan.
+        See 'COPYRIGHTS' for LICENSE for included code.
+Depends: R (>= 4.1.0)
+NeedsCompilation: yes
+Packaged: 2026-04-05 05:10:02 UTC; mike
+Author: Mike Cheng [aut, cre, cph],
+  Yao Yuan [aut, cph] (Author of bundled yyjson),
+  Murat Tasan [ctb] ('json_verbatim' handling)
+Repository: CRAN
+Date/Publication: 2026-04-05 06:40:02 UTC
+Built: R 4.5.3; x86_64-w64-mingw32; 2026-05-23 16:21:00 UTC; windows
+Archs: x64

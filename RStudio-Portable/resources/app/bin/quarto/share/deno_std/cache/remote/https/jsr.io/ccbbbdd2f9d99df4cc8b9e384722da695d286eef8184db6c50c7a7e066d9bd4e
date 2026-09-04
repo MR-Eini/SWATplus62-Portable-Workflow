@@ -1,0 +1,110 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Generators and validators for
+ * {@link https://www.rfc-editor.org/rfc/rfc9562.html | RFC 9562} UUIDs for
+ * versions v1, v3, v4 and v5.
+ *
+ * Use the built-in
+ * {@linkcode https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID | crypto.randomUUID()}
+ * function instead of this package, if you only need to generate v4 UUIDs.
+ *
+ * Based on {@linkcode https://www.npmjs.com/package/uuid | npm:uuid}.
+ *
+ * ```ts
+ * import { v5, NAMESPACE_DNS, NIL_UUID } from "@std/uuid";
+ * import { assert, assertFalse } from "@std/assert";
+ *
+ * const data = new TextEncoder().encode("deno.land");
+ * const uuid = await v5.generate(NAMESPACE_DNS, data);
+ *
+ * assert(v5.validate(uuid));
+ * assertFalse(v5.validate(NIL_UUID));
+ * ```
+ *
+ * @module
+ */
+
+export * from "./common.ts";
+export * from "./constants.ts";
+
+import { generate as generateV1, validate as validateV1 } from "./v1.ts";
+import { generate as generateV3, validate as validateV3 } from "./v3.ts";
+import { validate as validateV4 } from "./v4.ts";
+import { generate as generateV5, validate as validateV5 } from "./v5.ts";
+
+/**
+ * Generator and validator for
+ * {@link https://www.rfc-editor.org/rfc/rfc9562.html#section-5.1 | UUIDv1}.
+ *
+ * @example Usage
+ * ```ts
+ * import { v1 } from "@std/uuid";
+ * import { assert } from "@std/assert/assert";
+ *
+ * const uuid = v1.generate();
+ * assert(v1.validate(uuid as string));
+ * ```
+ */
+export const v1 = {
+  generate: generateV1,
+  validate: validateV1,
+};
+
+/**
+ * Generator and validator for
+ * {@link https://www.rfc-editor.org/rfc/rfc9562.html#section-5.3 | UUIDv3}.
+ *
+ * @example Usage
+ * ```ts
+ * import { v3, NAMESPACE_DNS } from "@std/uuid";
+ * import { assert } from "@std/assert/assert";
+ *
+ * const data = new TextEncoder().encode("deno.land");
+ * const uuid = await v3.generate(NAMESPACE_DNS, data);
+ * assert(v3.validate(uuid));
+ * ```
+ */
+export const v3 = {
+  generate: generateV3,
+  validate: validateV3,
+};
+
+/**
+ * Validator for
+ * {@link https://www.rfc-editor.org/rfc/rfc9562.html#section-5.4 | UUIDv4}.
+ *
+ * @example Usage
+ * ```ts
+ * import { v4 } from "@std/uuid";
+ * import { assert } from "@std/assert/assert";
+ *
+ * const uuid = crypto.randomUUID();
+ * assert(v4.validate(uuid));
+ * ```
+ */
+export const v4 = {
+  validate: validateV4,
+};
+
+/**
+ * Generator and validator for
+ * {@link https://www.rfc-editor.org/rfc/rfc9562.html#section-5.5 | UUIDv5}.
+ *
+ * @example Usage
+ * ```ts
+ * import { v5, NAMESPACE_DNS } from "@std/uuid";
+ * import { assert } from "@std/assert/assert";
+ *
+ * const data = new TextEncoder().encode("deno.land");
+ * const uuid = await v5.generate(NAMESPACE_DNS, data);
+ * assert(v5.validate(uuid));
+ * ```
+ */
+export const v5 = {
+  generate: generateV5,
+  validate: validateV5,
+};
+
+// denoCacheMetadata={"headers":{"x-content-type-options":"nosniff","vary":"Origin","x-jsr-backend":"modules","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hRYZClMQrj4Koy7VhPq0ugRcju28ueTEmSFTw0b2rFs%2BU4qJKlXp7kRgUeHMV6vxKQrAyCaGvwWu5L7OFsBR0N37Rp3gjL90QBXPTGT2A2%2Fpuc4Kpui%2BkBU%3D\"}]}","access-control-expose-headers":"*","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","content-type":"text/typescript","alt-svc":"h3=\":443\"; ma=86400","content-length":"2863","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","cross-origin-resource-policy":"cross-origin","cf-ray":"9e98a5d02e033992-IAD","access-control-allow-origin":"*","x-robots-tag":"noindex","etag":"\"19f156ae578e017808dff603d64e5c1c\"","date":"Thu, 09 Apr 2026 09:57:28 GMT","cache-control":"public, max-age=31536000, immutable"},"url":"https://jsr.io/@std/uuid/0.224.3/mod.ts","time":1775728648}

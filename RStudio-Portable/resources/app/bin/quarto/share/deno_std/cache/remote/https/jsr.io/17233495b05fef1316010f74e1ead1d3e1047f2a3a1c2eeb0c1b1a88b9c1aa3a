@@ -1,0 +1,65 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+import type { SemVer } from "./types.ts";
+import { parseBuild, parseNumber, parsePrerelease } from "./_shared.ts";
+import { FULL_REGEXP, MAX_LENGTH } from "./_shared.ts";
+
+/**
+ * Attempt to parse a string as a semantic version, returning either a `SemVer`
+ * object or throws a TypeError.
+ *
+ * @example Usage
+ * ```ts
+ * import { parse } from "@std/semver/parse";
+ * import { assertEquals } from "@std/assert/assert-equals";
+ *
+ * const version = parse("1.2.3");
+ * assertEquals(version, {
+ *   major: 1,
+ *   minor: 2,
+ *   patch: 3,
+ *   prerelease: [],
+ *   build: [],
+ * });
+ * ```
+ *
+ * @param version The version string to parse
+ * @returns A valid SemVer
+ */
+export function parse(version: string): SemVer {
+  if (typeof version !== "string") {
+    throw new TypeError(
+      `version must be a string`,
+    );
+  }
+
+  if (version.length > MAX_LENGTH) {
+    throw new TypeError(
+      `version is longer than ${MAX_LENGTH} characters`,
+    );
+  }
+
+  version = version.trim();
+
+  const groups = version.match(FULL_REGEXP)?.groups;
+  if (!groups) throw new TypeError(`Invalid Version: ${version}`);
+
+  const major = parseNumber(groups.major!, "Invalid major version");
+  const minor = parseNumber(groups.minor!, "Invalid minor version");
+  const patch = parseNumber(groups.patch!, "Invalid patch version");
+
+  const prerelease = groups.prerelease
+    ? parsePrerelease(groups.prerelease)
+    : [];
+  const build = groups.buildmetadata ? parseBuild(groups.buildmetadata) : [];
+
+  return {
+    major,
+    minor,
+    patch,
+    prerelease,
+    build,
+  };
+}
+
+// denoCacheMetadata={"headers":{"report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=uw7%2BDX2hdv1wAExg0AsjsB%2BGOf0BQH8xCEvtUS3kX%2BGKRhM0y8evKJ36mry40vF9OQBLKoUB7AbBG4uqwKaCsptNfWhqdClXvL4zGXkQpPjOtQbeDQ6xhKw%3D\"}]}","etag":"\"377b68fc650c5d1423ea1857bf867363\"","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-robots-tag":"noindex","content-type":"text/typescript","access-control-expose-headers":"*","access-control-allow-origin":"*","date":"Thu, 09 Apr 2026 09:57:28 GMT","vary":"Origin","content-length":"1673","cache-control":"public, max-age=31536000, immutable","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","server":"cloudflare","cross-origin-resource-policy":"cross-origin","alt-svc":"h3=\":443\"; ma=86400","x-content-type-options":"nosniff","cf-ray":"9e98a5d278b93992-IAD"},"url":"https://jsr.io/@std/semver/0.224.3/parse.ts","time":1775728648}

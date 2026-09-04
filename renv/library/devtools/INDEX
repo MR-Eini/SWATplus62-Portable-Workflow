@@ -1,0 +1,24 @@
+build                   Build package
+build_manual            Create package pdf manual
+build_readme            Build README
+build_site              Run 'pkgdown::build_site()'
+check                   Build and check a package
+check_doc_fields        Check for missing documentation fields
+check_mac_release       Check a package on macOS
+check_man               Check documentation, as R CMD check does
+check_win               Check a package on Windows
+dev_sitrep              Report package development situation
+document                Use roxygen to document a package
+install                 Install a local development package
+install_deps            Install package dependencies if needed
+lint                    Lint all source files in a package
+load_all                Load complete package
+release                 Release package to CRAN
+run_examples            Run all examples in a package
+save_all                Save all documents in an active IDE session
+source_gist             Run a script on gist
+source_url              Run a script through some protocols such as
+                        http, https, ftp, etc
+spell_check             Spell checking
+test                    Execute testthat tests in a package
+uninstall               Uninstall a local development package

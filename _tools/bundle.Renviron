@@ -1,0 +1,3 @@
+# Intentionally empty. The launchers point R_ENVIRON_USER here so that a
+# machine-specific user .Renviron cannot change this bundle's library paths.
+

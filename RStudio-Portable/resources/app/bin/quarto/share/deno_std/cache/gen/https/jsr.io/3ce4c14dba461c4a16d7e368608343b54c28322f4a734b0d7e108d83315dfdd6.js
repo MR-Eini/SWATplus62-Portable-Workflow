@@ -1,0 +1,7 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+/**
+ * Supported format for front matter. `"unknown"` is used when auto format
+ * detection logic fails.
+ */ 
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vanNyLmlvL0BzdGQvZnJvbnQtbWF0dGVyLzAuMjI0LjMvX3R5cGVzLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAyMDE4LTIwMjQgdGhlIERlbm8gYXV0aG9ycy4gQWxsIHJpZ2h0cyByZXNlcnZlZC4gTUlUIGxpY2Vuc2UuXG5cbi8qKlxuICogU3VwcG9ydGVkIGZvcm1hdCBmb3IgZnJvbnQgbWF0dGVyLiBgXCJ1bmtub3duXCJgIGlzIHVzZWQgd2hlbiBhdXRvIGZvcm1hdFxuICogZGV0ZWN0aW9uIGxvZ2ljIGZhaWxzLlxuICovXG5leHBvcnQgdHlwZSBGb3JtYXQgPSBcInlhbWxcIiB8IFwidG9tbFwiIHwgXCJqc29uXCIgfCBcInVua25vd25cIjtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSwwRUFBMEU7QUFFMUU7OztDQUdDLEdBQ0QifQ==
+// denoCacheMetadata=9088958968047399149,1738912589494115445

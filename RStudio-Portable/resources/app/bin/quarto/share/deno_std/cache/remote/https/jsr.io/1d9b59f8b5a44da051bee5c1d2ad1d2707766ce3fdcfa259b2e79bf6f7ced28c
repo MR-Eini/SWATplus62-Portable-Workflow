@@ -1,0 +1,26 @@
+// Copyright 2018-2024 the Deno authors. All rights reserved. MIT license.
+// This module is browser compatible.
+
+/**
+ * Provide help with asynchronous tasks like delays, debouncing, deferring, or
+ * pooling.
+ *
+ * ```ts no-assert
+ * import { delay } from "@std/async/delay";
+ *
+ * await delay(100); // waits for 100 milliseconds
+ * ```
+ *
+ * @module
+ */
+
+export * from "./abortable.ts";
+export * from "./deadline.ts";
+export * from "./debounce.ts";
+export * from "./delay.ts";
+export * from "./mux_async_iterator.ts";
+export * from "./pool.ts";
+export * from "./tee.ts";
+export * from "./retry.ts";
+
+// denoCacheMetadata={"headers":{"server":"cloudflare","content-length":"600","cross-origin-resource-policy":"cross-origin","content-type":"text/typescript","etag":"\"d52060a0459dd43e8a0c9ab9f7acedff\"","access-control-expose-headers":"*","content-security-policy":"default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; frame-ancestors 'none'; sandbox; form-action 'none';","alt-svc":"h3=\":443\"; ma=86400","x-robots-tag":"noindex","date":"Thu, 09 Apr 2026 09:57:28 GMT","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=W79qBV5i36bYBBYz8pmyijmFHThaKQJcvwZp1AXao%2FK3j0TXyFzEwAw%2Bp15Hiata6LEQl%2Bed%2FZHbZQuSNa8TW1GOVKXFloj9KPhnw2zin6fHTCjDQXqMKQU%3D\"}]}","cache-control":"public, max-age=31536000, immutable","vary":"Origin","x-content-type-options":"nosniff","cf-ray":"9e98a5d02dd43992-IAD","access-control-allow-origin":"*","x-jsr-backend":"modules","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"},"url":"https://jsr.io/@std/async/0.224.2/mod.ts","time":1775728648}

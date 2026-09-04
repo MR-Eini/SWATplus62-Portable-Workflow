@@ -1,0 +1,6 @@
+create_provider         Create a new tile provider
+get_credit              Get basemap tiles attribution
+get_providers           Providers
+get_tiles               Get basemap tiles from map servers
+maptiles                Download and Display Map Tiles
+plot_tiles              Plot map tiles
