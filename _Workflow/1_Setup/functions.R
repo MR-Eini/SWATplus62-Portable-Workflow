@@ -46,3 +46,56 @@ install_and_load_github <- function(pkg, repo) {
   }
   library(pkg, character.only = TRUE)
 }
+
+#' Configure catchment-specific atmospheric deposition
+#'
+#' Reads a prepared CSV or extracts EMEP NetCDF data, then writes the selected
+#' deposition series to the SWAT+ project. The disabled mode returns before any
+#' data are read or written.
+configure_atmo_dep <- function(mode, project_path, basin_path,
+                               start_year, end_year,
+                               atmo_file = "", netcdf_source = NULL,
+                               download_timestep = "year",
+                               model_timestep = "annual",
+                               read_csv_fn = readr::read_csv,
+                               get_atmo_dep_fn = SWATprepR::get_atmo_dep,
+                               add_atmo_dep_fn = SWATprepR::add_atmo_dep) {
+  if (!is.character(mode) || length(mode) != 1L || is.na(mode)) {
+    stop("atmo_dep_mode must be one of 'none', 'file', or 'emep'.")
+  }
+  mode <- tolower(trimws(mode))
+
+  if (identical(mode, "none")) {
+    message("Atmospheric deposition is not configured; leaving it disabled.")
+    return(invisible(NULL))
+  }
+
+  if (identical(mode, "file")) {
+    if (!is.character(atmo_file) || length(atmo_file) != 1L ||
+        is.na(atmo_file) || !nzchar(atmo_file) || !file.exists(atmo_file)) {
+      stop("Set atmo_dep_file or SWAT_ATMO_DEP_FILE to a catchment-specific CSV.")
+    }
+    atmo_data <- read_csv_fn(atmo_file, show_col_types = FALSE)
+  } else if (identical(mode, "emep")) {
+    source_missing <- is.null(netcdf_source) ||
+      (is.character(netcdf_source) &&
+       (length(netcdf_source) == 0L || anyNA(netcdf_source) ||
+        any(!nzchar(netcdf_source))))
+    if (source_missing) {
+      stop("Set atmo_dep_netcdf_source or SWAT_ATMO_DEP_NETCDF to a current ",
+           "EMEP NetCDF template or source list.")
+    }
+    atmo_data <- get_atmo_dep_fn(
+      basin_path,
+      t_ext = download_timestep,
+      start_year = start_year,
+      end_year = end_year,
+      netcdf_source = netcdf_source
+    )
+  } else {
+    stop("atmo_dep_mode must be one of 'none', 'file', or 'emep'.")
+  }
+
+  add_atmo_dep_fn(atmo_data, project_path, t_ext = model_timestep)
+  invisible(atmo_data)
+}

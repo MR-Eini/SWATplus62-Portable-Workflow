@@ -211,38 +211,25 @@ print(paste0("land_connections_as_lines.shp is prepared in ", dir_path,
 ## https://biopsichas.github.io/SWATprepR/articles/deposition.html
 
 ## Atmospheric deposition must be catchment-specific. No fixed values are
-## bundled with this reusable workflow.
-if (identical(atmo_dep_mode, 'file')) {
-  if (!nzchar(atmo_dep_file) || !file.exists(atmo_dep_file)) {
-    stop("Set atmo_dep_file or SWAT_ATMO_DEP_FILE to a catchment-specific CSV.")
-  }
-  df <- readr::read_csv(atmo_dep_file, show_col_types = FALSE)
-} else if (identical(atmo_dep_mode, 'emep')) {
-  if ((is.character(atmo_dep_netcdf_source) &&
-       (length(atmo_dep_netcdf_source) == 0L || !nzchar(atmo_dep_netcdf_source)))) {
-    stop("Set atmo_dep_netcdf_source or SWAT_ATMO_DEP_NETCDF to a current ",
-         "EMEP NetCDF template or source list.")
-  }
-  df <- get_atmo_dep(file.path(dir_path, 'data/vector/basin.shp'),
-                     t_ext = atmo_dep_download_timestep,
-                     start_year = st_year, end_year = end_year,
-                     netcdf_source = atmo_dep_netcdf_source)
-} else if (identical(atmo_dep_mode, 'none')) {
-  message('Atmospheric deposition is not configured; leaving it disabled.')
-} else {
-  stop("atmo_dep_mode must be 'none', 'file', or 'emep'.")
-}
+## bundled with this reusable workflow. configure_atmo_dep() reads and writes
+## data only for the selected mode, so disabled deposition never uses stale data.
+atmo_dep_data <- configure_atmo_dep(
+  mode = atmo_dep_mode,
+  project_path = dir_path,
+  basin_path = file.path(dir_path, 'data/vector/basin.shp'),
+  start_year = st_year,
+  end_year = end_year,
+  atmo_file = atmo_dep_file,
+  netcdf_source = atmo_dep_netcdf_source,
+  download_timestep = atmo_dep_download_timestep,
+  model_timestep = atmo_dep_model_timestep
+)
 
 # ##You can plot downloaded results with this code
-# ggplot(pivot_longer(df, !DATE, names_to = "par", values_to = "values"), aes(x = DATE, y = values))+ 
+# ggplot(pivot_longer(atmo_dep_data, !DATE, names_to = "par", values_to = "values"), aes(x = DATE, y = values))+
 #   geom_line()+ 
 #   facet_wrap(~par, scales = "free_y")+ 
 #   theme_bw()
-
-## Adding atmospheric deposition data to the model setup
-if (!identical(atmo_dep_mode, 'none')) {
-  add_atmo_dep(df, dir_path, t_ext = atmo_dep_model_timestep)
-}
 
 ## >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ## 9) Linking aquifers and channels with geomorphic flow -----

@@ -1,7 +1,7 @@
 # Validation record
 
 Validation date: 2026-09-04  
-Bundle version: 1.0.0-swat62  
+Bundle version: 1.0.1-swat62
 Platform: Windows 64-bit
 
 ## Environment verification
@@ -14,6 +14,7 @@ Platform: Windows 64-bit
 - all seven SWAT package versions and loadable namespaces;
 - all eight RStudio project paths;
 - all statically detected workflow dependencies and the absence of run-time package installers;
+- atmospheric-deposition routing for disabled, catchment CSV, and EMEP NetCDF modes;
 - SHA-256 checksums for the seven package archives and three primary executables;
 - PE executable headers and the absence of unresolved executable/DLL Git LFS pointers.
 
@@ -23,6 +24,18 @@ Result:
 OK: R 4.5.1; 274 pinned library packages; 7 SWAT packages; 8 workflow projects; SWAT+ revision 62.
 [SUCCESS] The portable SWAT+ revision 62 bundle is complete and internally consistent.
 ```
+
+The deposition regression test also reports:
+
+```text
+OK: atmospheric deposition none, file, and emep modes are routed correctly.
+```
+
+A separate integration check used the supplied catchment's historical deposition
+CSV as a temporary external fixture. The workflow called the real SWATprepR
+`add_atmo_dep()` function, wrote `atmodep.cli` in a copied model, and the pinned
+Intel revision 62 executable completed that model successfully. The temporary
+fixture is not included in this reusable repository.
 
 ## SWAT+ executable run
 

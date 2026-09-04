@@ -57,6 +57,8 @@ R-Portable\bin\x64\Rscript.exe --vanilla _tools\test_swat_run.R C:\path\to\swatp
 
 No catchment-specific `atmo_dep.csv` is embedded. Atmospheric deposition is disabled by default. To use it, choose the workflow's `file` mode and provide `SWAT_ATMO_DEP_FILE`, or choose `emep` mode and provide `SWAT_ATMO_DEP_NETCDF`. SWATprepR validates the supplied data before writing it into a setup.
 
+The setup routes all three modes through `configure_atmo_dep()`. The function returns immediately for `none`; for `file` and `emep`, it obtains catchment data and calls `add_atmo_dep()` exactly once. `verify_bundle.bat` tests this control flow without downloading external data.
+
 ## Compatibility evidence and limit
 
 The Intel SWAT+ revision 62 executable completed the supplied model and produced outputs. The updated workflow also produced SWATdoctR, calibration, validation, verification, farm-management, preparation, measurement, NBS-scenario, and indicator artifacts during compatibility testing.

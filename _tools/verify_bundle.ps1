@@ -9,6 +9,18 @@ function Assert-True([bool]$Condition, [string]$Message) {
     if (-not $Condition) { throw $Message }
 }
 
+function Get-Sha256([string]$Path) {
+    $stream = [System.IO.File]::OpenRead($Path)
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        return [System.BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-', '')
+    }
+    finally {
+        $sha.Dispose()
+        $stream.Dispose()
+    }
+}
+
 Assert-True (Test-Path -LiteralPath $rscript) "Missing portable Rscript: $rscript"
 Assert-True (Test-Path -LiteralPath $rstudio) "Missing portable RStudio: $rstudio"
 Assert-True ((Get-Item -LiteralPath $rscript).Length -gt 10000) 'Portable Rscript is a Git LFS pointer or is damaged.'
@@ -19,14 +31,14 @@ if (-not $SkipHashes) {
     foreach ($row in (Import-Csv (Join-Path $bundleRoot 'config\package-manifest.csv'))) {
         $path = Join-Path $bundleRoot ('packages\' + $row.Archive)
         Assert-True (Test-Path -LiteralPath $path) "Missing archive: $($row.Archive)"
-        $hash = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash
+        $hash = Get-Sha256 $path
         Assert-True ($hash -eq $row.SHA256) "Archive hash mismatch: $($row.Archive)"
     }
     foreach ($row in (Import-Csv (Join-Path $bundleRoot 'config\binary-manifest.csv'))) {
         $path = Join-Path $bundleRoot $row.RelativePath
         Assert-True (Test-Path -LiteralPath $path) "Missing binary: $($row.RelativePath)"
         Assert-True ((Get-Item -LiteralPath $path).Length -eq [int64]$row.Bytes) "Binary size mismatch: $($row.RelativePath)"
-        $hash = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash
+        $hash = Get-Sha256 $path
         Assert-True ($hash -eq $row.SHA256) "Binary hash mismatch: $($row.RelativePath)"
     }
 }
@@ -46,6 +58,8 @@ $env:LC_ALL = 'C'
 if ($LASTEXITCODE -ne 0) { throw 'R environment verification failed.' }
 & $rscript --vanilla (Join-Path $PSScriptRoot 'audit_workflow_dependencies.R')
 if ($LASTEXITCODE -ne 0) { throw 'Workflow dependency audit failed.' }
+& $rscript --vanilla (Join-Path $PSScriptRoot 'test_atmo_deposition_modes.R')
+if ($LASTEXITCODE -ne 0) { throw 'Atmospheric deposition mode test failed.' }
 
 $pointerCount = 0
 Get-ChildItem -LiteralPath $bundleRoot -File -Recurse -Include *.exe,*.dll | ForEach-Object {
