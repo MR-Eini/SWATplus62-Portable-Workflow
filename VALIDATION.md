@@ -1,7 +1,7 @@
 # Validation record
 
 Validation date: 2026-09-04  
-Bundle version: 1.0.2-swat62
+Bundle version: 1.0.3-swat62
 Platform: Windows 64-bit
 
 ## Environment verification
@@ -15,6 +15,7 @@ Platform: Windows 64-bit
 - all eight RStudio project paths;
 - all statically detected workflow dependencies and the absence of run-time package installers;
 - atmospheric-deposition routing for disabled, catchment CSV, and EMEP NetCDF modes;
+- online EMEP as the default when no atmospheric-deposition environment variables are set;
 - SHA-256 checksums for the seven package archives and three primary executables;
 - PE executable headers and the absence of unresolved executable/DLL Git LFS pointers.
 

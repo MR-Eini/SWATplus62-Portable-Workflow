@@ -4,6 +4,14 @@ script_dir <- dirname(normalizePath(sub("^--file=", "", script_arg[[1L]])))
 workflow_root <- normalizePath(file.path(script_dir, ".."))
 source(file.path(workflow_root, "_Workflow", "1_Setup", "functions.R"))
 
+Sys.unsetenv(c("SWAT_ATMO_DEP_MODE", "SWAT_ATMO_DEP_FILE", "SWAT_ATMO_DEP_NETCDF"))
+settings <- new.env(parent = baseenv())
+sys.source(file.path(workflow_root, "_Workflow", "1_Setup", "settings.R"),
+           envir = settings)
+stopifnot(identical(settings$atmo_dep_mode, "emep"),
+          identical(settings$atmo_dep_file, ""),
+          identical(settings$atmo_dep_netcdf_source, ""))
+
 fail_if_called <- function(...) stop("This function must not be called.")
 result <- configure_atmo_dep(
   mode = "none", project_path = "unused", basin_path = "unused",

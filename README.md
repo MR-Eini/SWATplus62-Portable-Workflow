@@ -55,7 +55,7 @@ R-Portable\bin\x64\Rscript.exe --vanilla _tools\test_swat_run.R C:\path\to\swatp
 
 ## Atmospheric deposition input
 
-No catchment-specific `atmo_dep.csv` is embedded. Atmospheric deposition is disabled by default. To use a CSV, choose `file` mode and provide `SWAT_ATMO_DEP_FILE`. To download catchment-specific data, change the mode to `emep`; the bundle uses the verified official EMEP 2025 Reporting source for 1990-2024. `SWAT_ATMO_DEP_NETCDF` can override that source for another reporting cycle.
+No catchment-specific `atmo_dep.csv` is embedded. Atmospheric deposition defaults to online `emep` mode and uses the verified official EMEP 2025 Reporting source for 1990-2024. To disable deposition, set `SWAT_ATMO_DEP_MODE=none`. To use a prepared CSV, set `SWAT_ATMO_DEP_MODE=file` and provide `SWAT_ATMO_DEP_FILE`. `SWAT_ATMO_DEP_NETCDF` can override the online source for another reporting cycle.
 
 The setup routes all three modes through `configure_atmo_dep()`. The function returns immediately for `none`; for `file` and `emep`, it obtains catchment data and calls `add_atmo_dep()` exactly once. `verify_bundle.bat` tests this control flow without downloading external data.
 
