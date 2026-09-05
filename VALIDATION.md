@@ -1,7 +1,7 @@
 # Validation record
 
-Validation date: 2026-09-04  
-Bundle version: 1.0.3-swat62
+Validation date: 2026-09-05
+Bundle version: 1.0.4-swat62
 Platform: Windows 64-bit
 
 ## Environment verification
@@ -18,6 +18,7 @@ Platform: Windows 64-bit
 - online EMEP as the default when no atmospheric-deposition environment variables are set;
 - SHA-256 checksums for the seven package archives and three primary executables;
 - PE executable headers and the absence of unresolved executable/DLL Git LFS pointers.
+- the revision 62 `plants.plt` schema and all 268 supplied custom/calibrated plant rows.
 
 Result:
 
@@ -57,6 +58,13 @@ Execution successfully completed
 ```
 
 The run wrote the requested SWAT+ result files, including `simulation.out`, `hydin_yr.txt`, `hydout_yr.txt`, and `hru_wb_yr.txt`.
+
+The original 53-column `plants.plt` produced unresolved-plant diagnostics for
+`csil`, `fesc_mgt`, `lupn`, `oats`, `rnge`, `rye`, and `trit`, which caused the
+engine to report `agrc`. After adding the three revision 62 lignin fields, the
+same 2004–2023 model completed with no unresolved plant diagnostics and
+`mgt_out.txt` retained the intended crop names. SWATdoctR now rejects any run
+that contains this diagnostic instead of generating a misleading PDF.
 
 ## SWATrunR integration run
 

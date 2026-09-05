@@ -19,6 +19,7 @@ sum_elements	sum_elements
 swat_cio_set	swat_cio_set
 swat_control_get	swat_control_get
 swat_control_set	swat_control_get
+swat_migrate_plants_rev62	swat_migrate_plants_rev62
 swat_print_objects	swat_print_objects
 swat_print_options	swat_print_options
 values_to_elements	values_to_elements

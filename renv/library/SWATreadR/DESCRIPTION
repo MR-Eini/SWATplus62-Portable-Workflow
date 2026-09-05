@@ -1,7 +1,7 @@
 Package: SWATreadR
 Type: Package
 Title: Read and write SWAT+ input and output files.
-Version: 0.1.0.9013
+Version: 0.1.0.9014
 Authors@R: 
     person("Christoph", "Schürz", , "c.schuerz@posteo.org", 
            role = c("aut", "cre"), 
@@ -12,15 +12,15 @@ Description: `SWATreadR` consists of two main functions; `read_swat` to read any
 License: GPL (>= 3)
 Encoding: UTF-8
 Imports: readr, data.table (>= 1.14.6), dplyr (>= 1.1.4), purrr (>=
-        1.0.2), stringr (>= 1.5.0), tibble (>= 3.2.1), tidyselect (>=
-        1.2.0)
+        1.0.2), stringr (>= 1.5.0), tibble (>= 3.2.1), tidyr,
+        tidyselect (>= 1.2.0)
 Config/roxygen2/version: 8.0.0
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://github.com/MR-Eini/SWATreadR-swat62
 BugReports: https://github.com/MR-Eini/SWATreadR-swat62/issues
 NeedsCompilation: no
-Packaged: 2026-09-03 21:25:10 UTC; p101727
+Packaged: 2026-09-05 19:33:55 UTC; p101727
 Author: Christoph Schürz [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-7204-5828>)
-Built: R 4.5.1; ; 2026-09-04 15:21:17 UTC; windows
+Built: R 4.5.1; ; 2026-09-05 19:37:29 UTC; windows

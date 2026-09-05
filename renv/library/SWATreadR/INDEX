@@ -16,6 +16,9 @@ read_swat_output        Read a standard SWAT+ text output without
                         discarding records
 swat_cio_set            Update entries in a named file.cio section
 swat_control_get        Read or update named SWAT+ control fields
+swat_migrate_plants_rev62
+                        Migrate a legacy plants.plt table for SWAT+
+                        revision 62
 swat_print_objects      Configure SWAT+ object output by name
 swat_print_options      Configure SWAT+ text output flags across legacy
                         and revision 62 headers

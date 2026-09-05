@@ -37,17 +37,17 @@ Run `install_or_repair_packages.bat` if the package verification fails. It reins
 | R | 4.5.1 |
 | RStudio | 2026.05.0+218 |
 | SWAT+ | revision 62 Intel Windows build |
-| SWATreadR | 0.1.0.9013 |
+| SWATreadR | 0.1.0.9014 |
 | SWATrunR | 1.1.0.9019 |
 | SWATtunR | 0.3.15 |
-| SWATdoctR | 0.1.29 |
+| SWATdoctR | 0.1.30 |
 | SWATfarmR | 4.0.5 |
 | SWATprepR | 1.0.16 |
 | SWATmeasR | 0.9.4 |
 
 `config/package-manifest.csv` records each source repository, commit, archive, and SHA-256 checksum. `config/library-manifest.csv` records every installed dependency in the private library. `config/binary-manifest.csv` records the executable sizes and checksums.
 
-The detailed test evidence is in [`VALIDATION.md`](VALIDATION.md). Maintainers can repeat the SWATrunR integration test with:
+The detailed test evidence is in [`VALIDATION.md`](VALIDATION.md). The cause and correction for revision 62 crop names becoming `agrc` are documented in [`PLANTS-SWAT62.md`](PLANTS-SWAT62.md). Maintainers can repeat the SWATrunR integration test with:
 
 ```bat
 R-Portable\bin\x64\Rscript.exe --vanilla _tools\test_swat_run.R C:\path\to\swatplus\text\setup

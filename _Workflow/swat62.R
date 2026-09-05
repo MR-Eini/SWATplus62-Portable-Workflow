@@ -10,8 +10,8 @@ swat_workflow_root <- function(path = getwd()) {
 }
 swat62_library <- Sys.getenv('SWAT_PACKAGE_LIBRARY', file.path(swat_workflow_root(), 'renv/library'))
 if (dir.exists(swat62_library)) .libPaths(c(normalizePath(swat62_library), .libPaths()))
-swat62_versions <- c(SWATreadR = '0.1.0.9013', SWATrunR = '1.1.0.9019',
-  SWATtunR = '0.3.15', SWATdoctR = '0.1.29', SWATfarmR = '4.0.5',
+swat62_versions <- c(SWATreadR = '0.1.0.9014', SWATrunR = '1.1.0.9019',
+  SWATtunR = '0.3.15', SWATdoctR = '0.1.30', SWATfarmR = '4.0.5',
   SWATprepR = '1.0.16', SWATmeasR = '0.9.4')
 swat62_require <- function(packages = names(swat62_versions)) {
   for (pkg in packages) {
@@ -45,6 +45,14 @@ swat_run_checked <- function(path, exe, log_name = 'swat62-run.log') {
   lines <- readLines(log_name, warn = FALSE)
   if (status != 0L || !any(grepl('Execution successfully completed', lines, fixed = TRUE))) {
     stop('SWAT+ failed (exit ', status, '). See ', file.path(path, log_name))
+  }
+  diagnostics_path <- file.path(path, 'diagnostics.out')
+  if (file.exists(diagnostics_path)) {
+    diagnostics <- readLines(diagnostics_path, warn = FALSE)
+    unresolved <- diagnostics[grepl('not found in plants.plt database', diagnostics, fixed = TRUE)]
+    if (length(unresolved)) {
+      stop('SWAT+ completed with unresolved plant names. See ', diagnostics_path)
+    }
   }
   invisible(status)
 }
@@ -82,6 +90,7 @@ swat62_migrate_inputs <- function(path) {
   writeLines(cio, cio_path)
   writeLines(prt, prt_path)
   SWATreadR::write_swat(plants, plants_path, overwrite = TRUE)
+  SWATreadR::swat_migrate_plants_rev62(plants_path)
   invisible(path)
 }
 swat62_scenario_outputs <- function(path, outflow_reach, calibration = FALSE) {

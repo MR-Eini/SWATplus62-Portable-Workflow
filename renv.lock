@@ -740,7 +740,7 @@
     },
     "SWATdoctR": {
       "Package": "SWATdoctR",
-      "Version": "0.1.29",
+      "Version": "0.1.30",
       "Source": "unknown",
       "Type": "Package",
       "Title": "Finding the right diagnoses and treatments for SWAT+ models",
@@ -754,7 +754,7 @@
         "R (>= 4.2.0)"
       ],
       "Imports": [
-        "SWATreadR (>= 0.1.0.9012)",
+        "SWATreadR (>= 0.1.0.9014)",
         "data.table",
         "dplyr",
         "ggplot2",
@@ -916,7 +916,7 @@
     },
     "SWATreadR": {
       "Package": "SWATreadR",
-      "Version": "0.1.0.9013",
+      "Version": "0.1.0.9014",
       "Source": "unknown",
       "Type": "Package",
       "Title": "Read and write SWAT+ input and output files.",
@@ -932,6 +932,7 @@
         "purrr (>= 1.0.2)",
         "stringr (>= 1.5.0)",
         "tibble (>= 3.2.1)",
+        "tidyr",
         "tidyselect (>= 1.2.0)"
       ],
       "Config/roxygen2/version": "8.0.0",

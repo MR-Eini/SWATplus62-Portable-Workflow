@@ -66,6 +66,39 @@ for (path in required_projects) {
   expect(file.exists(file.path(bundle_root, path)), paste0("Missing project: ", path))
 }
 
+plants_path <- file.path(
+  bundle_root, "_Workflow", "1_Setup", "Libraries",
+  "files_to_overwrite_at_the_end", "plants.plt"
+)
+expect(file.exists(plants_path), paste0("Missing plant database: ", plants_path))
+if (file.exists(plants_path)) {
+  plant_lines <- readLines(plants_path, warn = FALSE)
+  split_fields <- function(x) strsplit(trimws(x), "[[:space:]]+")[[1L]]
+  expect(length(plant_lines) >= 3L, "plants.plt is incomplete")
+  if (length(plant_lines) >= 3L) {
+    plant_header <- split_fields(plant_lines[[2L]])
+    plant_rows <- lapply(plant_lines[-c(1L, 2L)], split_fields)
+    required_fields <- c(
+      "rsd_pctcov", "rsd_covfac", "avg_lig_frac", "ab_lig_frac",
+      "bg_lig_frac"
+    )
+    required_crops <- c(
+      "csil", "fesc_mgt", "lupn", "oats", "rnge", "rye", "trit"
+    )
+    expect(length(plant_header) == 56L,
+           sprintf("plants.plt: expected 56 revision 62 fields, found %d", length(plant_header)))
+    expect(all(required_fields %in% plant_header),
+           "plants.plt is missing revision 62 residue or lignin fields")
+    expect(all(lengths(plant_rows) == length(plant_header)),
+           "plants.plt has rows that do not match its header width")
+    expect(length(plant_rows) == 268L,
+           sprintf("plants.plt: expected 268 supplied plant rows, found %d", length(plant_rows)))
+    plant_names <- vapply(plant_rows, `[[`, character(1), 1L)
+    expect(all(required_crops %in% plant_names),
+           "plants.plt is missing crops used by this workflow")
+  }
+}
+
 binary_manifest <- read.csv(file.path(bundle_root, "config", "binary-manifest.csv"), stringsAsFactors = FALSE)
 for (i in seq_len(nrow(binary_manifest))) {
   path <- file.path(bundle_root, binary_manifest$RelativePath[[i]])
@@ -80,7 +113,7 @@ for (i in seq_len(nrow(binary_manifest))) {
 
 if (length(failures)) stop(paste(failures, collapse = "\n"))
 cat(sprintf(
-  "OK: R %s; %d pinned library packages; 7 SWAT packages; 8 workflow projects; SWAT+ revision 62.\n",
+  "OK: R %s; %d pinned library packages; 7 SWAT packages; 8 workflow projects; revision 62 plant schema; SWAT+ revision 62.\n",
   getRversion(),
   nrow(installed.packages(lib.loc = bundle_library))
 ))

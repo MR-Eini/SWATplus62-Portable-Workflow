@@ -1,7 +1,7 @@
 Package: SWATdoctR
 Type: Package
 Title: Finding the right diagnoses and treatments for SWAT+ models
-Version: 0.1.29
+Version: 0.1.30
 Authors@R: c(
     person("Christoph", "Schuerz", , "christoph.schuerz@ufz.de", role = c("aut"),
         comment = c(ORCID = "0000-0002-7204-5828")),
@@ -13,7 +13,7 @@ License: MIT + file LICENSE
 URL: https://github.com/MR-Eini/SWATdoctR-swat62
 BugReports: https://github.com/MR-Eini/SWATdoctR-swat62/issues
 Depends: R (>= 4.2.0)
-Imports: SWATreadR (>= 0.1.0.9012), data.table, dplyr, ggplot2,
+Imports: SWATreadR (>= 0.1.0.9014), data.table, dplyr, ggplot2,
         ggrepel, grDevices, lubridate, patchwork, png, processx, purrr,
         readr, stats, stringr, tibble, tidyr, tidyselect, plotly
 Suggests: testthat (>= 3.0.0), datasets,
@@ -23,9 +23,9 @@ RoxygenNote: 7.3.3
 Remotes: MR-Eini/SWATreadR-swat62
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2026-09-03 21:25:18 UTC; p101727
+Packaged: 2026-09-05 19:32:32 UTC; p101727
 Author: Christoph Schuerz [aut] (ORCID:
     <https://orcid.org/0000-0002-7204-5828>),
   Svajunas Plunge [aut, cre] (ORCID:
     <https://orcid.org/0000-0001-8897-3349>)
-Built: R 4.5.1; ; 2026-09-04 15:21:34 UTC; windows
+Built: R 4.5.1; ; 2026-09-05 19:37:42 UTC; windows
