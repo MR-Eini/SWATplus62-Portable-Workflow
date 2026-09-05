@@ -34,7 +34,7 @@ The `1_Setup` folder is an end-to-end SWAT+ setup generation workflow. Its purpo
 | Base setup builder | `Libraries/buildr_script/swatbuildr.R` |
 | Management input preparation | `Libraries/farmR_input/write_SWATfarmR_input.R` |
 | Final output | `Temp/clean_setup/` by default, depending on `res_path` |
-| Model executable | Configured by `swat_exe` in `settings.R`, currently `SWATp_jan_sept.exe` |
+| Model executable | Tested Intel SWAT+ revision 62 executable resolved by `_Workflow/swat62.R` |
 | SWAT+ writer executable | `Libraries/write.exe` |
 
 ## 2. Files and folder structure
@@ -66,7 +66,6 @@ The relevant repository part is expected to have the following logical structure
 |       |-- mgt_generic.csv
 |-- Libraries/
 |   |-- write.exe
-|   |-- SWATp_jan_sept.exe
 |   |-- buildr_script/swatbuildr.R
 |   |-- create_connectivity_line_shape.R
 |   |-- read_and_modify_landuse_lum.R
@@ -122,7 +121,7 @@ settings.R centralizes the editable project paths, simulation years, SWATbuildR 
 
 | **Variable** | **Current value**                    | **Meaning / required action**                                                                                 |
 |--------------|--------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| swat_exe     | SWATp_jan_sept.exe                   | Name of the SWAT+ executable in Libraries. Change this if your executable has a different name.               |
+| swat_exe     | swatplus-62-ifo-win_amd64-Rel.exe    | Documented executable name. The shared runtime resolves the tested binary from the bundle and stages it in `Temp/clean_setup`. |
 | res_path     | Temp                                 | Output folder. The script deletes/recreates this folder after user confirmation.                              |
 | data_path    | Data                                 | Root folder for pre-processed inputs.                                                                         |
 | lib_path     | Libraries                            | Root folder for helper scripts and executables.                                                               |
@@ -203,7 +202,7 @@ The main script is organized into 21 numbered sections. The table below explains
 | 17       | Fix unconnected reservoirs               | reservoir.con, reservoir.res, hydrology.res                 | Backs up reservoir files and modifies reservoir connectivity and hydrology defaults for unconnected reservoirs or existing aquifer-rhg links.                              | Updated reservoir connection and hydrology files.                 | Contains a file.copy(grepl(...)) bug; see known issues.                                     |
 | 18       | Optional additional file edits           | None by default                                             | Template section for editing other SWAT+ files such as hydrology.hyd. Currently commented out.                                                                             | No output unless user enables it.                                 | Use only after deciding project-specific edits.                                             |
 | 19       | Run final SWAT+ setup                    | SWAT executable and modified inputs                         | Runs SWAT+ again after management, nutrient, landuse, reservoir, and other edits.                                                                                          | Final model run outputs.                                          | This is the validation run before extracting clean setup.                                   |
-| 20       | Export clean setup                       | dir_path text setup folder                                  | Creates Temp/clean_setup and copies input files while filtering out selected outputs, SQLite files, executables, backups, archives, and diagnostics.                       | Temp/clean_setup final input-only setup.                          | The filter pattern should be reviewed; it may not exclude every output extension.           |
+| 20       | Export clean setup                       | dir_path text setup folder                                  | Creates Temp/clean_setup, copies input files while filtering out selected outputs, SQLite files, old executables, backups, archives, and diagnostics, then stages exactly one tested Intel revision 62 executable.                       | Temp/clean_setup final runnable setup.                          | The executable is checksum-verified against the bundled binary. The filter pattern should still be reviewed for unlisted output extensions.           |
 | 21       | Optional calibration.cal                 | calibration_cal/calibration1.cal                            | Script intentionally stops first. If stop() is removed, copies calibration.cal into clean_setup and updates file.cio.                                                      | Calibrated setup with calibration.cal.                            | Leave disabled unless a valid calibration file is available.                                |
 
 ## 7. Helper scripts inside Libraries
@@ -266,4 +265,4 @@ This script prepares farmR_input.csv and supporting check files. It reads the cr
 | data/vector/land_connections_as_lines.shp          | Step 7 helper script | Visual inspection of land routing connectivity.                                                      |
 | Temp/farmR_input/                                  | Step 11              | Saved farmR_input.csv and related CSV outputs from management preparation.                           |
 | Modified SWAT+ files                               | Steps 12-17          | Files such as landuse.lum, nutrients.sol, hru-data.hru, time.sim, management files, reservoir files. |
-| Temp/clean_setup/                                  | Step 20              | Final clean input-only setup intended for calibration.                                               |
+| Temp/clean_setup/                                  | Step 20              | Final runnable setup for verification, calibration and scenarios, including exactly one tested revision 62 executable.                                               |

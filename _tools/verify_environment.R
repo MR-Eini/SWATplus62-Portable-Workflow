@@ -66,6 +66,30 @@ for (path in required_projects) {
   expect(file.exists(file.path(bundle_root, path)), paste0("Missing project: ", path))
 }
 
+runtime <- new.env(parent = globalenv())
+sys.source(file.path(bundle_root, "_Workflow", "swat62.R"), envir = runtime)
+stage_dir <- tempfile("swat62-stage-")
+dir.create(stage_dir)
+writeBin(charToRaw("obsolete executable"), file.path(stage_dir, "old-swat.exe"))
+staged_exe <- tryCatch(
+  runtime$swat62_stage_executable(stage_dir),
+  error = function(e) {
+    failures <<- c(failures, paste0("Executable staging failed: ", conditionMessage(e)))
+    ""
+  }
+)
+stage_exes <- list.files(stage_dir, pattern = "\\.exe$", full.names = TRUE,
+                         ignore.case = TRUE)
+expect(length(stage_exes) == 1L,
+       sprintf("Executable staging left %d executable(s), expected one", length(stage_exes)))
+if (nzchar(staged_exe) && length(stage_exes) == 1L) {
+  source_exe <- runtime$swat62_executable()
+  hashes <- unname(tools::md5sum(c(source_exe, staged_exe)))
+  expect(length(unique(hashes)) == 1L,
+         "The executable staged for clean_setup differs from the tested binary")
+}
+unlink(stage_dir, recursive = TRUE, force = TRUE)
+
 plants_path <- file.path(
   bundle_root, "_Workflow", "1_Setup", "Libraries",
   "files_to_overwrite_at_the_end", "plants.plt"
@@ -113,7 +137,7 @@ for (i in seq_len(nrow(binary_manifest))) {
 
 if (length(failures)) stop(paste(failures, collapse = "\n"))
 cat(sprintf(
-  "OK: R %s; %d pinned library packages; 7 SWAT packages; 8 workflow projects; revision 62 plant schema; SWAT+ revision 62.\n",
+  "OK: R %s; %d pinned library packages; 7 SWAT packages; 8 workflow projects; staged executable; revision 62 plant schema; SWAT+ revision 62.\n",
   getRversion(),
   nrow(installed.packages(lib.loc = bundle_library))
 ))

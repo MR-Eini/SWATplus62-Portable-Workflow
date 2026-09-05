@@ -486,6 +486,9 @@ file.copy(setdiff(list.files(path = dir_path, full.names = TRUE),
                              pattern = ".*.txt|.*.zip|.*success.fin|.*co2.out|.*write.exe|.*simulation.out|.*.bak|.*.mgts|.*.farm|.*area_calc.out|.*checker.out|.*sqlite|.*diagnostics.out|.*erosion.out|.*files_out.out|.*.swf", full.names = TRUE)), 
           clean_path)
 
+## Keep exactly one tested executable with the clean setup for all later steps.
+swat62_stage_executable(clean_path)
+
 cat("Congradulations!!! You have pre-calibrated model!!! \n
 Please continue to soft-calibration workflow (softcal_workflow.R)")
 print(paste0("Your setup is located in the ", getwd(), "/", clean_path))

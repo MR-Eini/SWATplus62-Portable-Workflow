@@ -11,7 +11,7 @@ swat_workflow_root <- function(path = getwd()) {
 swat62_library <- Sys.getenv('SWAT_PACKAGE_LIBRARY', file.path(swat_workflow_root(), 'renv/library'))
 if (dir.exists(swat62_library)) .libPaths(c(normalizePath(swat62_library), .libPaths()))
 swat62_versions <- c(SWATreadR = '0.1.0.9014', SWATrunR = '1.1.0.9019',
-  SWATtunR = '0.3.15', SWATdoctR = '0.1.30', SWATfarmR = '4.0.5',
+  SWATtunR = '0.3.15', SWATdoctR = '0.1.31', SWATfarmR = '4.0.5',
   SWATprepR = '1.0.16', SWATmeasR = '0.9.4')
 swat62_require <- function(packages = names(swat62_versions)) {
   for (pkg in packages) {
@@ -34,6 +34,28 @@ swat_check_binary <- function(path) {
   if (!file.exists(path)) stop('Missing executable: ', path)
   if (file.info(path)$size < 1024) stop('Executable is a placeholder or incomplete file: ', path)
   invisible(path)
+}
+swat62_stage_executable <- function(path) {
+  path <- normalizePath(path, winslash = '/', mustWork = TRUE)
+  exe <- swat62_executable()
+  target <- file.path(path, basename(exe))
+  existing <- list.files(path, pattern = '\\.exe$', full.names = TRUE,
+                         ignore.case = TRUE)
+  source_norm <- normalizePath(exe, winslash = '/', mustWork = TRUE)
+  existing_norm <- normalizePath(existing, winslash = '/', mustWork = FALSE)
+  remove <- existing[existing_norm != source_norm]
+  if (length(remove)) unlink(remove, force = TRUE)
+  if (any(file.exists(remove))) stop('Could not remove an older executable from ', path)
+
+  target_norm <- normalizePath(target, winslash = '/', mustWork = FALSE)
+  if (target_norm != source_norm &&
+      !file.copy(exe, target, overwrite = TRUE, copy.date = TRUE)) {
+    stop('Could not copy the revision 62 executable to ', path)
+  }
+  swat_check_binary(target)
+  hashes <- unname(tools::md5sum(c(exe, target)))
+  if (length(unique(hashes)) != 1L) stop('The staged SWAT+ executable differs from its source.')
+  invisible(normalizePath(target, winslash = '/', mustWork = TRUE))
 }
 swat_run_checked <- function(path, exe, log_name = 'swat62-run.log') {
   path <- normalizePath(path, winslash = '/')

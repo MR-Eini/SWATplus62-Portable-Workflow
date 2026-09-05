@@ -1,7 +1,7 @@
 Package: SWATdoctR
 Type: Package
 Title: Finding the right diagnoses and treatments for SWAT+ models
-Version: 0.1.30
+Version: 0.1.31
 Authors@R: c(
     person("Christoph", "Schuerz", , "christoph.schuerz@ufz.de", role = c("aut"),
         comment = c(ORCID = "0000-0002-7204-5828")),
@@ -23,9 +23,9 @@ RoxygenNote: 7.3.3
 Remotes: MR-Eini/SWATreadR-swat62
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2026-09-05 19:32:32 UTC; p101727
+Packaged: 2026-09-05 20:42:02 UTC; p101727
 Author: Christoph Schuerz [aut] (ORCID:
     <https://orcid.org/0000-0002-7204-5828>),
   Svajunas Plunge [aut, cre] (ORCID:
     <https://orcid.org/0000-0001-8897-3349>)
-Built: R 4.5.1; ; 2026-09-05 19:37:42 UTC; windows
+Built: R 4.5.1; ; 2026-09-05 20:44:01 UTC; windows

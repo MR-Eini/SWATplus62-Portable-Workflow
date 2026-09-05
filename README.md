@@ -30,6 +30,8 @@ After verification succeeds, double-click the launcher for the module you want:
 
 Run `install_or_repair_packages.bat` if the package verification fails. It reinstalls the exact archives in `packages/` without updating dependencies or using the user library.
 
+The setup stage puts exactly one tested Intel revision 62 executable in its generated `clean_setup`, so every later module can run the model from that folder. SWATdoctR removes each temporary verification run and the empty `.run_verify` parent after it returns. Set `keep_folder = TRUE` only when a run must be retained for debugging.
+
 ## Pinned environment
 
 | Component | Pinned version |
@@ -40,7 +42,7 @@ Run `install_or_repair_packages.bat` if the package verification fails. It reins
 | SWATreadR | 0.1.0.9014 |
 | SWATrunR | 1.1.0.9019 |
 | SWATtunR | 0.3.15 |
-| SWATdoctR | 0.1.30 |
+| SWATdoctR | 0.1.31 |
 | SWATfarmR | 4.0.5 |
 | SWATprepR | 1.0.16 |
 | SWATmeasR | 0.9.4 |
