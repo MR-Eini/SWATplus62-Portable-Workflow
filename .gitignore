@@ -9,3 +9,10 @@ _bundle-verify.txt
 
 _Workflow/1_Setup/Temp/
 .Rproj.user
+
+# Outputs created by verification, calibration, and scenario runs.
+_Workflow/**/.run_verify/
+_Workflow/**/.model_run/
+_Workflow/**/simulation/
+_Workflow/**/backup/
+_Workflow/**/plots.pdf

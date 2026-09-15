@@ -32,6 +32,8 @@ Run `install_or_repair_packages.bat` if the package verification fails. It reins
 
 The setup stage puts exactly one tested Intel revision 62 executable in its generated `clean_setup`, so every later module can run the model from that folder. SWATdoctR removes each temporary verification run and the empty `.run_verify` parent after it returns. Set `keep_folder = TRUE` only when a run must be retained for debugging.
 
+Generated simulation, backup, model-run, and verification-report folders are ignored by Git. Running the workflow therefore does not add those outputs to a future commit.
+
 ## Pinned environment
 
 | Component | Pinned version |

@@ -1,7 +1,7 @@
 # Validation record
 
 Validation date: 2026-09-05
-Bundle version: 1.0.5-swat62
+Bundle version: 1.0.6-swat62
 Platform: Windows 64-bit
 
 ## Environment verification
@@ -21,6 +21,7 @@ Platform: Windows 64-bit
 - PE executable headers and the absence of unresolved executable/DLL Git LFS pointers.
 - the revision 62 `plants.plt` schema and all 268 supplied custom/calibrated plant rows.
 - staging exactly one tested Intel revision 62 executable in a generated `clean_setup`.
+- repository-relative active workflow paths and ignore rules for generated verification, calibration, and scenario outputs.
 
 Result:
 
