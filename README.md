@@ -18,6 +18,8 @@ inputs are retained. Generated models belong under the ignored `1_Setup/Temp` pa
 
 # Portable SWAT+ revision 62 workflow
 
+**Project webpage:** [Explore the workflow, setup instructions, and pinned environment](https://mr-eini.github.io/SWATplus62-Portable-Workflow/).
+
 This repository is the complete Windows workflow bundle for preparing, checking, running, calibrating, validating, and evaluating SWAT+ models with the updated SWAT R packages. It preserves the original module structure and the familiar `st*_run.bat` launchers.
 
 The bundle is isolated from packages installed elsewhere on the computer. Every launcher uses the included R 4.5.1 runtime and the included `renv/library`; it refuses to open a module if one of the seven SWAT packages has the wrong version or resolves outside that library.

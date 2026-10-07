@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="560" viewBox="0 0 620 560">
+<defs>
+ <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#a5b3a0" opacity=".5"/></pattern>
+ <pattern id="field" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(-25)"><path d="M0 0v16" stroke="#758f63" opacity=".3"/></pattern>
+ <clipPath id="basin"><path d="M291 56C249 53 243 102 201 111S150 108 127 151 149 203 108 245 100 312 140 335 147 385 197 407 250 390 280 435 302 501 339 493 364 440 391 419 434 411 440 364 482 353 501 306 468 252 479 223 452 168 396 168 384 119 343 112 332 64 291 56Z"/></clipPath>
+ <path id="contour" d="M10 231C-12 128 76 57 160 78S221 137 281 131 350 68 412 113 410 209 468 230 553 249 552 329 474 424 429 426 362 509 291 480 226 421 150 417 63 411 63 353 20 320 10 231Z"/>
+</defs>
+<rect width="620" height="560" fill="url(#dots)"/>
+<g fill="none" stroke="#b8c4af" stroke-width=".9" opacity=".55">
+ <use href="#contour" transform="translate(10 -6)"/><use href="#contour" transform="translate(33 12) scale(.92)"/><use href="#contour" transform="translate(56 30) scale(.84)"/><use href="#contour" transform="translate(79 48) scale(.76)"/><use href="#contour" transform="translate(102 66) scale(.68)"/><use href="#contour" transform="translate(125 84) scale(.60)"/><use href="#contour" transform="translate(148 102) scale(.52)"/><use href="#contour" transform="translate(171 120) scale(.44)"/><use href="#contour" transform="translate(194 138) scale(.36)"/>
+</g>
+<path d="M291 56C249 53 243 102 201 111S150 108 127 151 149 203 108 245 100 312 140 335 147 385 197 407 250 390 280 435 302 501 339 493 364 440 391 419 434 411 440 364 482 353 501 306 468 252 479 223 452 168 396 168 384 119 343 112 332 64 291 56Z" fill="#e0e8d0" stroke="#668468" stroke-width="1.2"/>
+<g clip-path="url(#basin)">
+ <path d="M126 117 292 48 356 142 304 232 197 251 94 214Z" fill="#cad9b1"/>
+ <path d="m321 102 146 63 28 101-111 66-74-98Z" fill="#d6dfbc"/>
+ <path d="m93 241 104-45 112 40 23 124-144 75-99-126Z" fill="#e8e5c7"/>
+ <path d="m327 252 140-18 49 132-118 89-103-78Z" fill="#c8d8b5"/>
+ <path d="m270 386 77-38 67 92-89 102Z" fill="#e6e2c7"/>
+ <g fill="none" stroke="#7f9b70" stroke-width=".8" opacity=".6">
+  <use href="#contour" transform="translate(18 10)"/><use href="#contour" transform="translate(43 27) scale(.9)"/><use href="#contour" transform="translate(68 44) scale(.8)"/><use href="#contour" transform="translate(93 61) scale(.7)"/><use href="#contour" transform="translate(118 78) scale(.6)"/><use href="#contour" transform="translate(143 95) scale(.5)"/><use href="#contour" transform="translate(168 112) scale(.4)"/><use href="#contour" transform="translate(193 129) scale(.3)"/>
+  <path d="M175 125c-43 25-29 59 8 72s68-27 104-9 74 83 132 54M166 139c-33 21-21 42 15 43s69-17 111 1 77 78 121 49M183 136c-23 15-11 34 15 31s54-6 90 0M330 280c-65 22-126 12-158 34s-18 48 8 58 91-31 137-12M330 299c-73 16-128 15-147 35s1 32 23 25 77-15 105-13"/>
+ </g>
+ <g fill="url(#field)" stroke="#9da882" stroke-width="1"><path d="m170 267 52-16 20 47-58 19Z"/><path d="m183 322 63-22 24 35-68 28Z"/><path d="m371 309 47-24 27 37-59 24Z"/><path d="m355 354 34-9 37 30-53 18Z"/><path d="m232 363 38-15 20 33-37 15Z"/></g>
+ <g fill="none" stroke="#376959" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M289 83c-7 43 20 42 14 80s-43 54-26 85 49 48 43 82-28 65-10 97 19 51 19 63" stroke-width="3.8"/>
+  <path d="M176 158c40-12 56 24 62 44s19 16 39 29M386 163c-32 6-53 46-81 55s-14 15-27 28M130 282c23-7 32 20 71 28s67-17 103 3M437 278c-40 15-54 51-76 65s-40 8-48 22" stroke-width="2"/>
+  <path d="M192 387c31-7 37 29 71 29s35 10 48 14M221 113c-7 24 30 34 31 57s-7 37-5 43M364 123c-15 21 2 49-13 59M403 372c-35-2-50 27-61 52s-27 17-25 28" stroke-width="1.5"/>
+  <path d="m171 235 17 18 22 9 8 24 28 15M426 202l-19 20-13 27-39 26-33 26M149 347l21-4 11-23M280 145l18 18M380 236l-26 39M248 345l28 12 39 3" stroke-width="1" opacity=".65"/>
+ </g>
+ <g fill="#7c9362" opacity=".6"><circle cx="275" cy="112" r="2"/><circle cx="259" cy="117" r="2"/><circle cx="266" cy="99" r="2"/><circle cx="256" cy="107" r="2"/><circle cx="346" cy="194" r="2"/><circle cx="356" cy="197" r="2"/><circle cx="339" cy="184" r="2"/><circle cx="350" cy="180" r="2"/><circle cx="405" cy="351" r="2"/><circle cx="412" cy="344" r="2"/><circle cx="415" cy="355" r="2"/></g>
+</g>
+<g font-family="Consolas,monospace" font-size="10" fill="#516959" letter-spacing="1">
+ <path d="M177 158H101l-15-13" fill="none" stroke="#879d80" stroke-width=".8"/><circle cx="177" cy="158" r="3.5" fill="#f7f6ef" stroke="#376959"/><text x="42" y="137">UPLANDS</text>
+ <path d="M211 304h-89l-21 20" fill="none" stroke="#879d80" stroke-width=".8"/><text x="29" y="340">AGRICULTURE</text>
+ <path d="M370 334h114l17-16" fill="none" stroke="#879d80" stroke-width=".8"/><text x="485" y="307">SUBBASINS</text>
+ <circle cx="329" cy="490" r="12" fill="#cf643d" opacity=".14"/><circle cx="329" cy="490" r="5" fill="#b9502e"/><path d="M341 490h85" fill="none" stroke="#b9502e" stroke-width=".8"/><text x="438" y="494" fill="#9f4a2c">OUTLET</text>
+</g>
+<g transform="translate(544 56)" stroke="#45644f" fill="none"><path d="M0 24V0m-5 7 5-7 5 7" stroke-width="1"/><text x="-3" y="-9" fill="#45644f" stroke="none" font-family="Consolas,monospace" font-size="10">N</text></g>
+<g transform="translate(37 491)" fill="#7b8b76" font-family="Consolas,monospace" font-size="8"><path d="M0 0v5h60v-5m-30 0v5" fill="none" stroke="#7b8b76" stroke-width=".8"/><text y="19">SCHEMATIC / NOT TO SCALE</text></g>
+</svg>
