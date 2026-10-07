@@ -10,8 +10,8 @@ swat_workflow_root <- function(path = getwd()) {
 }
 swat62_library <- Sys.getenv('SWAT_PACKAGE_LIBRARY', file.path(swat_workflow_root(), 'renv/library'))
 if (dir.exists(swat62_library)) .libPaths(c(normalizePath(swat62_library), .libPaths()))
-swat62_versions <- c(SWATreadR = '0.1.0.9014', SWATrunR = '1.1.0.9019',
-  SWATtunR = '0.3.15', SWATdoctR = '0.1.31', SWATfarmR = '4.0.5',
+swat62_versions <- c(SWATreadR = '0.1.0.9015', SWATrunR = '1.1.0.9020',
+  SWATtunR = '0.3.15', SWATdoctR = '0.1.32', SWATfarmR = '4.0.5',
   SWATprepR = '1.0.16', SWATmeasR = '0.9.4')
 swat62_require <- function(packages = names(swat62_versions)) {
   for (pkg in packages) {

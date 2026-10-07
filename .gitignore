@@ -16,3 +16,26 @@ _Workflow/**/.model_run/
 _Workflow/**/simulation/
 _Workflow/**/backup/
 _Workflow/**/plots.pdf
+
+
+# Local models, runs, sessions and publication staging are never repository inputs.
+_Workflow/1_Setup/Temp/
+_Workflow/**/.run_verify/
+_Workflow/**/.model_run/
+_Workflow/**/simulation/
+_Workflow/**/backup/
+_Workflow/**/plots.pdf
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+.Renviron
+00LOCK*/
+package-updates/
+SWAT_Workflow_Clean*/
+Temp_GitHub*/
+Temp_LFS*/
+config/model-input-manifest.csv
+config/large-output-validation.json
+config/clean-copy-summary.json
+config/*-verification.log

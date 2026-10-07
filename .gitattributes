@@ -2,3 +2,6 @@
 *.exe filter=lfs diff=lfs merge=lfs -text
 *.R text eol=lf
 *.Rproj text eol=lf
+
+# Keep installed package resources byte-for-byte; source scripts above remain LF.
+renv/library/** -text

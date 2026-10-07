@@ -1,3 +1,5 @@
+source('../swat62.R')
+swat62_require(c('SWATreadR', 'SWATdoctR'))
 library(SWATdoctR)
 library(grid)
 library(gridExtra)

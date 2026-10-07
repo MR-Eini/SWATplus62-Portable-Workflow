@@ -1,3 +1,15 @@
+# SWATrunR 1.1.0.9020
+
+* Require SWATreadR 0.1.0.9015 so HRU/basin and management outputs use the bounded
+  readers, including outputs larger than R's single-string limit.
+* Parse other time-series outputs with explicit whitespace and disabled quotes;
+  reject parser warnings instead of returning a partial table.
+* Declare the DBI and tidyr namespace dependencies used by the existing code.
+* Make model-downloading/running examples opt-in; keep legacy vignettes in the
+  repository without executing or distributing them as built package articles.
+* Align argument documentation with current function signatures and refer to
+  the unchanged bundled GPL-3 license text explicitly.
+
 # SWATplusR 0.6.4
 
 ## Minor fix

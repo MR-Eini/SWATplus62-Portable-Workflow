@@ -34,6 +34,9 @@ plot_waterbalance       Plot the average annual water balance
 print_avannual_qtile    Print the average annual qtile for HRUs
 print_triggered_mgt     Print the triggered management operations from
                         the mgt outputs for a certain HRU
+read_swat_verification
+                        Read outputs from an existing SWAT+
+                        verification run
 report_mgt              Generate a report table that compares the
                         scheduled and triggered managements
 run_swat_verification   Run simulations for model verification

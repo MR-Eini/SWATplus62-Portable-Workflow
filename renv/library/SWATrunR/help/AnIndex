@@ -20,6 +20,7 @@ build_model_run	build_model_run
 build_scenario_run	build_scenario_run
 check_arg_names	check_arg_names
 check_dates	check_dates
+check_for_end_date	check_for_end_date
 check_parameter	check_parameter
 check_revision	check_revision
 check_run_index	check_run_index
@@ -118,7 +119,6 @@ truncate	truncate
 unit_output_to_wide	unit_output_to_wide
 update_par	update_par
 update_plant_par	update_plant_par
-update_sim_log	update_sim_log
 write_calibration	write_calibration
 write_chm	write_chm
 write_file_cio	write_file_cio

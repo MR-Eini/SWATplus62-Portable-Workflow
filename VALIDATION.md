@@ -1,5 +1,29 @@
 # Validation record
 
+## Release 1.0.7-swat62: 2026-10-07
+
+The public bundle's environment verifier passed with portable R 4.5.1,
+274 installed packages, seven SWAT packages, eight workflow projects,
+archive and executable SHA-256 checks, and the revision 62 reference plant
+schema. All 61 workflow scripts parsed, all 36 detected dependency packages
+loaded, and the atmospheric-deposition routing regression tests passed.
+
+All seven package source-test suites passed: 148 expectations, with no
+failures, errors, or warnings. `R CMD check --no-manual --no-build-vignettes`
+passed for SWATreadR 0.1.0.9015, SWATdoctR 0.1.32, and SWATrunR 1.1.0.9020.
+The first two packages reported no notes. SWATrunR reported two existing
+notes concerning static code analysis and an unused import; it reported no
+errors or warnings. These checks used synthetic fixtures and did not run
+a catchment simulation.
+
+The outgoing software changes were checked against an explicit file
+allowlist, private model-input fingerprints, private identifiers, and
+common secret signatures. No working-model files, generated outputs, or
+private validation records were included. Package archives were built
+from the source commits recorded in `config/package-manifest.csv`.
+
+## Historical validation: release 1.0.6-swat62
+
 Validation date: 2026-09-05
 Bundle version: 1.0.6-swat62
 Platform: Windows 64-bit

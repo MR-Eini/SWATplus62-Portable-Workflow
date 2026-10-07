@@ -35,6 +35,7 @@ print_triggered_mgt	print_triggered_mgt
 read_mgt	read_mgt
 read_plant_ini	read_plant_ini
 read_sch	read_sch
+read_swat_verification	read_swat_verification
 read_tbl	read_tbl
 read_wb_aa	read_wb_aa
 remove_consonants	remove_consonants

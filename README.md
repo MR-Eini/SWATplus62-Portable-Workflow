@@ -1,3 +1,21 @@
+## Large-output update, 7 October 2026
+
+SWATreadR 0.1.0.9015 reads standard and management outputs in bounded chunks.
+Files above 256 MiB use two passes and allocate the returned table once.
+SWATdoctR 0.1.32 adds `read_swat_verification()` to read retained outputs without
+executing SWAT+ again. SWATrunR 1.1.0.9020 requires the repaired reader and declares
+its complete namespace dependencies. The remaining four package versions are
+unchanged and their regression suites pass with this package set.
+
+The returned tables still require enough RAM for the complete output. Use the
+generic `recover_saved_run.R` template in Step 2 when a completed run was retained.
+Package regression checks cover synthetic fixtures and existing public examples.
+They establish software behavior, not scientific calibration quality.
+
+No current working model, current model inputs, simulation output, private path,
+or row-level validation data is included in this update. Existing public reference
+inputs are retained. Generated models belong under the ignored `1_Setup/Temp` path.
+
 # Portable SWAT+ revision 62 workflow
 
 This repository is the complete Windows workflow bundle for preparing, checking, running, calibrating, validating, and evaluating SWAT+ models with the updated SWAT R packages. It preserves the original module structure and the familiar `st*_run.bat` launchers.
@@ -41,10 +59,10 @@ Generated simulation, backup, model-run, and verification-report folders are ign
 | R | 4.5.1 |
 | RStudio | 2026.05.0+218 |
 | SWAT+ | revision 62 Intel Windows build |
-| SWATreadR | 0.1.0.9014 |
-| SWATrunR | 1.1.0.9019 |
+| SWATreadR | 0.1.0.9015 |
+| SWATrunR | 1.1.0.9020 |
 | SWATtunR | 0.3.15 |
-| SWATdoctR | 0.1.31 |
+| SWATdoctR | 0.1.32 |
 | SWATfarmR | 4.0.5 |
 | SWATprepR | 1.0.16 |
 | SWATmeasR | 0.9.4 |
